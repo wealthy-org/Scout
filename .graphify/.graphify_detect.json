@@ -1,0 +1,56 @@
+{
+  "files": {
+    "code": [
+      "app/layout.tsx",
+      "app/page.tsx",
+      "eslint.config.mjs",
+      "next.config.ts",
+      "postcss.config.mjs"
+    ],
+    "document": [
+      "AGENTS.md",
+      "CLAUDE.md",
+      "README.md"
+    ],
+    "paper": [],
+    "image": [
+      "public/file.svg",
+      "public/globe.svg",
+      "public/next.svg",
+      "public/vercel.svg",
+      "public/window.svg"
+    ],
+    "video": []
+  },
+  "total_files": 13,
+  "total_words": 1082,
+  "needs_graph": false,
+  "warning": "Corpus is ~1,082 words - fits in a single context window. You may not need a graph.",
+  "skipped_sensitive": [],
+  "graphifyignore_patterns": 22,
+  "git": {
+    "source_owner": "git",
+    "source_hash": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+    "branches": [
+      "main"
+    ],
+    "max_commits": 200,
+    "active_within_days": 30
+  },
+  "scope": {
+    "requested_mode": "auto",
+    "resolved_mode": "committed",
+    "source": "default-auto",
+    "root": ".",
+    "git_root": ".",
+    "head": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+    "candidate_count": 19,
+    "included_count": 13,
+    "excluded_untracked_count": 66,
+    "excluded_ignored_count": 43379,
+    "excluded_sensitive_count": 0,
+    "missing_committed_count": 0,
+    "warnings": [],
+    "recommendation": "Use --scope all or graphify.yaml inputs.corpus for a knowledge-base folder."
+  }
+}

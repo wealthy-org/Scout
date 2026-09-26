@@ -1,0 +1,54 @@
+{
+  "app/layout.tsx": {
+    "mtime": 1790344461740.4426,
+    "hash": "78c069a8a273b3f61d3953e5964b94d2"
+  },
+  "app/page.tsx": {
+    "mtime": 1790338582322.1267,
+    "hash": "7960d56e7fc48ecd789e2fd32155fa90"
+  },
+  "eslint.config.mjs": {
+    "mtime": 1790338582321.047,
+    "hash": "dfa1f5f6a7037bf39dc510f30b180002"
+  },
+  "next.config.ts": {
+    "mtime": 1790338582322.0996,
+    "hash": "9b77af189a21a7a64e4bd7a426f64176"
+  },
+  "postcss.config.mjs": {
+    "mtime": 1790338582321.6711,
+    "hash": "239f3ebf717465dc636818a1a619398d"
+  },
+  "AGENTS.md": {
+    "mtime": 1790338607653.0825,
+    "hash": "01e8142356e15c3404e0d84c48187cd0"
+  },
+  "CLAUDE.md": {
+    "mtime": 1790338607653.1628,
+    "hash": "5c27369b226fcf2be8a6cfe52224e767"
+  },
+  "README.md": {
+    "mtime": 1790338582321.047,
+    "hash": "f15aaa42d5d299d091b1171097ea56ad"
+  },
+  "public/file.svg": {
+    "mtime": 1790338582322.4773,
+    "hash": "d09f95206c3fa0bb9bd9fefabfd0ea71"
+  },
+  "public/globe.svg": {
+    "mtime": 1790338582322.5723,
+    "hash": "2aaafa6a49b6563925fe440891e32717"
+  },
+  "public/next.svg": {
+    "mtime": 1790338582322.6274,
+    "hash": "8e061864f388b47f33a1c3780831193e"
+  },
+  "public/vercel.svg": {
+    "mtime": 1790338582322.6711,
+    "hash": "c0af2f507b369b085b35ef4bbe3bcf1e"
+  },
+  "public/window.svg": {
+    "mtime": 1790338582322.6633,
+    "hash": "a2760511c65806022ad20adf74370ff3"
+  }
+}

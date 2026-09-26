@@ -1,0 +1,343 @@
+{
+  "directed": false,
+  "multigraph": false,
+  "graph": {
+    "provenance": {
+      "source_owner": "git",
+      "source_id": "repo:local/scout@fc6ffc4c",
+      "observed_at": "2026-09-26T00:31:31.913Z",
+      "source_hash": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "adapter_version": "graphify-git/1"
+    },
+    "community_labels": {
+      "0": "Community 0",
+      "1": "Community 1",
+      "2": "Community 2",
+      "3": "Community 3",
+      "4": "Community 4"
+    },
+    "built_from_commit": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe"
+  },
+  "topology_signature": "n=15;e=14;app_layout,app_layout_geistmono,app_layout_geistsans,app_layout_metadata,app_layout_rootlayout,app_page,app_page_home,branch:repo:local/scout@fc6ffc4c#main,commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe,eslint_config,eslint_config_eslintconfig,next_config,next_config_nextconfig,postcss_config,postcss_config_config|app_layout\tapp_layout_geistmono\tcontains;app_layout\tapp_layout_geistsans\tcontains;app_layout\tapp_layout_metadata\tcontains;app_layout\tapp_layout_rootlayout\tcontains;app_layout\tcommit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe\tMODIFIES;app_page\tapp_page_home\tcontains;app_page\tcommit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe\tMODIFIES;branch:repo:local/scout@fc6ffc4c#main\tcommit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe\tON_BRANCH;commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe\teslint_config\tMODIFIES;commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe\tnext_config\tMODIFIES;commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe\tpostcss_config\tMODIFIES;eslint_config\teslint_config_eslintconfig\tcontains;next_config\tnext_config_nextconfig\tcontains;postcss_config\tpostcss_config_config\tcontains",
+  "nodes": [
+    {
+      "id": "app_layout",
+      "label": "layout.tsx",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L1",
+      "community": 0,
+      "community_name": "Community 0"
+    },
+    {
+      "id": "app_layout_geistsans",
+      "label": "geistSans",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L5",
+      "community": 0,
+      "community_name": "Community 0"
+    },
+    {
+      "id": "app_layout_geistmono",
+      "label": "geistMono",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L10",
+      "community": 0,
+      "community_name": "Community 0"
+    },
+    {
+      "id": "app_layout_metadata",
+      "label": "metadata",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L15",
+      "community": 0,
+      "community_name": "Community 0"
+    },
+    {
+      "id": "app_layout_rootlayout",
+      "label": "RootLayout()",
+      "file_type": "code",
+      "source_file": "app/layout.tsx",
+      "source_location": "L20",
+      "community": 0,
+      "community_name": "Community 0"
+    },
+    {
+      "id": "app_page",
+      "label": "page.tsx",
+      "file_type": "code",
+      "source_file": "app/page.tsx",
+      "source_location": "L1",
+      "community": 1,
+      "community_name": "Community 1"
+    },
+    {
+      "id": "app_page_home",
+      "label": "Home()",
+      "file_type": "code",
+      "source_file": "app/page.tsx",
+      "source_location": "L3",
+      "community": 1,
+      "community_name": "Community 1"
+    },
+    {
+      "id": "eslint_config",
+      "label": "eslint.config.mjs",
+      "file_type": "code",
+      "source_file": "eslint.config.mjs",
+      "source_location": "L1",
+      "community": 2,
+      "community_name": "Community 2"
+    },
+    {
+      "id": "eslint_config_eslintconfig",
+      "label": "eslintConfig",
+      "file_type": "code",
+      "source_file": "eslint.config.mjs",
+      "source_location": "L5",
+      "community": 2,
+      "community_name": "Community 2"
+    },
+    {
+      "id": "next_config",
+      "label": "next.config.ts",
+      "file_type": "code",
+      "source_file": "next.config.ts",
+      "source_location": "L1",
+      "community": 3,
+      "community_name": "Community 3"
+    },
+    {
+      "id": "next_config_nextconfig",
+      "label": "nextConfig",
+      "file_type": "code",
+      "source_file": "next.config.ts",
+      "source_location": "L3",
+      "community": 3,
+      "community_name": "Community 3"
+    },
+    {
+      "id": "postcss_config",
+      "label": "postcss.config.mjs",
+      "file_type": "code",
+      "source_file": "postcss.config.mjs",
+      "source_location": "L1",
+      "community": 4,
+      "community_name": "Community 4"
+    },
+    {
+      "id": "postcss_config_config",
+      "label": "config",
+      "file_type": "code",
+      "source_file": "postcss.config.mjs",
+      "source_location": "L1",
+      "community": 4,
+      "community_name": "Community 4"
+    },
+    {
+      "id": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "label": "ccae023 Initial commit from Create Next App",
+      "file_type": "concept",
+      "source_file": "git",
+      "node_type": "Commit",
+      "repo": "repo:local/scout@fc6ffc4c",
+      "sha": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "author": "rakafebriansy <rakafebrian19@gmail.com>",
+      "authoredAt": "2026-09-25T19:16:47+07:00",
+      "message_summary": "Initial commit from Create Next App",
+      "message_length": 35,
+      "parents": [],
+      "community": 1,
+      "community_name": "Community 1"
+    },
+    {
+      "id": "branch:repo:local/scout@fc6ffc4c#main",
+      "label": "main",
+      "file_type": "concept",
+      "source_file": "git",
+      "node_type": "Branch",
+      "repo": "repo:local/scout@fc6ffc4c",
+      "branch_name": "main",
+      "head_sha": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "community": 1,
+      "community_name": "Community 1"
+    }
+  ],
+  "links": [
+    {
+      "source": "app_layout",
+      "target": "app_layout_geistmono",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L10",
+      "weight": 1,
+      "_src": "app_layout",
+      "_tgt": "app_layout_geistmono",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_layout",
+      "target": "app_layout_geistsans",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L5",
+      "weight": 1,
+      "_src": "app_layout",
+      "_tgt": "app_layout_geistsans",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_layout",
+      "target": "app_layout_metadata",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L15",
+      "weight": 1,
+      "_src": "app_layout",
+      "_tgt": "app_layout_metadata",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_layout",
+      "target": "app_layout_rootlayout",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "source_location": "L20",
+      "weight": 1,
+      "_src": "app_layout",
+      "_tgt": "app_layout_rootlayout",
+      "confidence_score": 1
+    },
+    {
+      "source": "app_page",
+      "target": "app_page_home",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
+      "source_location": "L3",
+      "weight": 1,
+      "_src": "app_page",
+      "_tgt": "app_page_home",
+      "confidence_score": 1
+    },
+    {
+      "source": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "target": "app_layout",
+      "relation": "MODIFIES",
+      "confidence": "EXTRACTED",
+      "source_file": "app/layout.tsx",
+      "added": 29,
+      "deleted": 0,
+      "file_path": "app/layout.tsx",
+      "_src": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "_tgt": "app_layout",
+      "confidence_score": 1
+    },
+    {
+      "source": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "target": "app_page",
+      "relation": "MODIFIES",
+      "confidence": "EXTRACTED",
+      "source_file": "app/page.tsx",
+      "added": 69,
+      "deleted": 0,
+      "file_path": "app/page.tsx",
+      "_src": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "_tgt": "app_page",
+      "confidence_score": 1
+    },
+    {
+      "source": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "target": "branch:repo:local/scout@fc6ffc4c#main",
+      "relation": "ON_BRANCH",
+      "confidence": "EXTRACTED",
+      "source_file": "git",
+      "_src": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "_tgt": "branch:repo:local/scout@fc6ffc4c#main",
+      "confidence_score": 1
+    },
+    {
+      "source": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "target": "eslint_config",
+      "relation": "MODIFIES",
+      "confidence": "EXTRACTED",
+      "source_file": "eslint.config.mjs",
+      "added": 18,
+      "deleted": 0,
+      "file_path": "eslint.config.mjs",
+      "_src": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "_tgt": "eslint_config",
+      "confidence_score": 1
+    },
+    {
+      "source": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "target": "next_config",
+      "relation": "MODIFIES",
+      "confidence": "EXTRACTED",
+      "source_file": "next.config.ts",
+      "added": 7,
+      "deleted": 0,
+      "file_path": "next.config.ts",
+      "_src": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "_tgt": "next_config",
+      "confidence_score": 1
+    },
+    {
+      "source": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "target": "postcss_config",
+      "relation": "MODIFIES",
+      "confidence": "EXTRACTED",
+      "source_file": "postcss.config.mjs",
+      "added": 7,
+      "deleted": 0,
+      "file_path": "postcss.config.mjs",
+      "_src": "commit:repo:local/scout@fc6ffc4c@ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+      "_tgt": "postcss_config",
+      "confidence_score": 1
+    },
+    {
+      "source": "eslint_config",
+      "target": "eslint_config_eslintconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "eslint.config.mjs",
+      "source_location": "L5",
+      "weight": 1,
+      "_src": "eslint_config",
+      "_tgt": "eslint_config_eslintconfig",
+      "confidence_score": 1
+    },
+    {
+      "source": "next_config",
+      "target": "next_config_nextconfig",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "next.config.ts",
+      "source_location": "L3",
+      "weight": 1,
+      "_src": "next_config",
+      "_tgt": "next_config_nextconfig",
+      "confidence_score": 1
+    },
+    {
+      "source": "postcss_config",
+      "target": "postcss_config_config",
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "postcss.config.mjs",
+      "source_location": "L1",
+      "weight": 1,
+      "_src": "postcss_config",
+      "_tgt": "postcss_config_config",
+      "confidence_score": 1
+    }
+  ],
+  "hyperedges": []
+}

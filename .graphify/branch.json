@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "branchName": "main",
+  "worktreePath": "/Users/raka/Developer/repositories/projects/wealthy-people-org/scout-dir/scout",
+  "upstream": null,
+  "mergeBase": null,
+  "firstSeenHead": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+  "lastSeenHead": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+  "lastAnalyzedHead": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
+  "stale": false,
+  "staleReason": null,
+  "staleSince": null,
+  "lifecycleEvent": null,
+  "createdAt": "2026-09-25T13:44:37.728Z",
+  "updatedAt": "2026-09-26T00:31:31.996Z"
+}
