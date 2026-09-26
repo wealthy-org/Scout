@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scout — Realtime Launch Feed & Intelligence Dossier (Dossier.OS)</title>
+  <style>
+    :root {
+      --bg: #0b0e14;
+      --surface: #11161d;
+      --surface-elevated: #161c24;
+      --border: #232c37;
+      --ink: #f0f6fc;
+      --ink-muted: #8b949e;
+      --cyan: #38bdf8;
+      --cyan-muted: rgba(56, 189, 248, 0.15);
+      --emerald: #34d399;
+      --emerald-muted: rgba(52, 211, 153, 0.15);
+      --amber: #fbbf24;
+      --amber-muted: rgba(251, 191, 36, 0.15);
+      --red: #f87171;
+      --red-muted: rgba(248, 113, 113, 0.15);
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      line-height: 1.5;
+    }
+
+    .font-mono { font-family: var(--font-mono); }
+    .border { border: 1px solid var(--border); }
+    .rounded { border-radius: 8px; }
+    .rounded-lg { border-radius: 12px; }
+
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 800;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-badge {
+      background: var(--cyan);
+      color: #000;
+      font-size: 10px;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 900;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      color: var(--ink-muted);
+      text-decoration: none;
+      transition: color 0.15s;
+    }
+
+    .nav-links a.active, .nav-links a:hover {
+      color: var(--cyan);
+    }
+
+    .ticker-tape {
+      background: #090c10;
+      border-bottom: 1px solid var(--border);
+      padding: 8px 24px;
+      overflow: hidden;
+      white-space: nowrap;
+      display: flex;
+      gap: 32px;
+      font-size: 12px;
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .main-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 24px;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .main-container { grid-template-columns: 1fr; }
+    }
+
+    .metric-tiles {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .tile {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .tile-title {
+      font-size: 11px;
+      text-transform: uppercase;
+      color: var(--ink-muted);
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .tile-value {
+      font-size: 20px;
+      font-weight: 800;
+      color: #fff;
+    }
+
+    .feed-container {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .feed-tabs {
+      display: flex;
+      border-bottom: 1px solid var(--border);
+      background: #0d1117;
+      padding: 0 16px;
+    }
+
+    .tab-btn {
+      padding: 14px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--ink-muted);
+      background: none;
+      border: none;
+      border-bottom: 2px solid transparent;
+      cursor: pointer;
+    }
+
+    .tab-btn.active {
+      color: var(--cyan);
+      border-bottom-color: var(--cyan);
+    }
+
+    .feed-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    .feed-table th {
+      text-align: left;
+      padding: 12px 16px;
+      font-size: 11px;
+      color: var(--ink-muted);
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feed-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .feed-table tr:hover {
+      background: var(--surface-elevated);
+    }
+
+    .side-tapes {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tape-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .tape-card {
+      background: var(--surface-elevated);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+
+    .badge-green { background: var(--emerald-muted); color: var(--emerald); border: 1px solid rgba(52, 211, 153, 0.3); }
+    .badge-yellow { background: var(--amber-muted); color: var(--amber); border: 1px solid rgba(251, 191, 36, 0.3); }
+    .badge-red { background: var(--red-muted); color: var(--red); border: 1px solid rgba(248, 113, 113, 0.3); }
+
+    .trade-inspector-preview {
+      margin-top: 16px;
+      padding: 14px;
+      background: #0d1117;
+      border: 1px dashed var(--border);
+      border-radius: 8px;
+      font-size: 11px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">
+      <span>SCOUT</span>
+      <span class="logo-badge">Dossier.OS</span>
+    </div>
+    <nav class="nav-links font-mono">
+      <a href="/" class="active">Launch Feed</a>
+      <a href="/library">Library</a>
+      <a href="/watchlist">Watchlist</a>
+      <a href="/census">Census</a>
+      <a href="/docs">Docs</a>
+    </nav>
+    <div>
+      <button class="font-mono badge badge-green" style="padding: 6px 12px; cursor: pointer; background: var(--cyan); color: #000; border: none; font-weight: 800;">
+        Connect Wallet
+      </button>
+    </div>
+  </header>
+
+  <section class="ticker-tape font-mono">
+    <div class="ticker-item">
+      <span style="color: var(--ink-muted);">ETH/USD</span>
+      <strong>$2,642.50</strong>
+      <span style="color: var(--emerald);">+3.4%</span>
+    </div>
+    <div class="ticker-item">
+      <span style="color: var(--ink-muted);">cbBTC/USD</span>
+      <strong>$64,820.00</strong>
+      <span style="color: var(--emerald);">+1.8%</span>
+    </div>
+    <div class="ticker-item">
+      <span style="color: var(--ink-muted);">USDG Peg</span>
+      <strong>$1.0002</strong>
+      <span style="color: var(--cyan);">STABLE</span>
+    </div>
+    <div class="ticker-item">
+      <span style="color: var(--ink-muted);">24h Launches</span>
+      <strong>142</strong>
+    </div>
+    <div class="ticker-item">
+      <span style="color: var(--ink-muted);">Graduation Rate</span>
+      <strong>21.4%</strong>
+    </div>
+  </section>
+
+  <div class="main-container">
+    <main>
+      <div class="metric-tiles font-mono">
+        <div class="tile">
+          <div class="tile-title">Active Curves</div>
+          <div class="tile-value" style="color: var(--cyan);">184</div>
+        </div>
+        <div class="tile">
+          <div class="tile-title">24h Volume</div>
+          <div class="tile-value">$1,842,500</div>
+        </div>
+        <div class="tile">
+          <div class="tile-title">Repeat Deployers</div>
+          <div class="tile-value" style="color: var(--amber);">46.8%</div>
+        </div>
+        <div class="tile">
+          <div class="tile-title">Recent Graduations</div>
+          <div class="tile-value" style="color: var(--emerald);">12</div>
+        </div>
+      </div>
+
+      <div class="feed-container">
+        <div class="feed-tabs font-mono">
+          <button class="tab-btn active">All Launches (184)</button>
+          <button class="tab-btn">Active Bonding (142)</button>
+          <button class="tab-btn">Graduated (42)</button>
+          <button class="tab-btn">Watched / Saved (8)</button>
+        </div>
+
+        <table class="feed-table font-mono">
+          <thead>
+            <tr>
+              <th>Token</th>
+              <th>Deployer &amp; Score</th>
+              <th>Bonding Progress</th>
+              <th>Market Cap</th>
+              <th>24h Volume</th>
+              <th>Phase</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <div style="font-weight: 800; color: #fff;">$ALPHA</div>
+                <div style="font-size: 11px; color: var(--ink-muted);">Alpha Intelligence</div>
+              </td>
+              <td>
+                <div style="font-size: 11px;">0x7a2...f481</div>
+                <span class="badge badge-green">Score 82 (Fresh)</span>
+              </td>
+              <td>
+                <div style="width: 100px; height: 6px; background: #232c37; border-radius: 3px; overflow: hidden; margin-bottom: 4px;">
+                  <div style="width: 68%; height: 100%; background: var(--cyan);"></div>
+                </div>
+                <div style="font-size: 10px; color: var(--ink-muted);">68.5% filled</div>
+              </td>
+              <td>$142,500</td>
+              <td>$38,400</td>
+              <td><span class="badge badge-yellow">Curve</span></td>
+              <td>
+                <a href="/d/0x1111111111111111111111111111111111111111" style="color: var(--cyan); text-decoration: none; font-weight: 700;">Open Dossier &rarr;</a>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                <div style="font-weight: 800; color: #fff;">$OMEGA</div>
+                <div style="font-size: 11px; color: var(--ink-muted);">Omega Protocol</div>
+              </td>
+              <td>
+                <div style="font-size: 11px;">0x9b4...291a</div>
+                <span class="badge badge-red">Score 18 (Serial)</span>
+              </td>
+              <td>
+                <div style="width: 100px; height: 6px; background: #232c37; border-radius: 3px; overflow: hidden; margin-bottom: 4px;">
+                  <div style="width: 100%; height: 100%; background: var(--emerald);"></div>
+                </div>
+                <div style="font-size: 10px; color: var(--emerald);">100% Completed</div>
+              </td>
+              <td>$480,000</td>
+              <td>$192,000</td>
+              <td><span class="badge badge-green">Graduated</span></td>
+              <td>
+                <a href="/d/0x2222222222222222222222222222222222222222" style="color: var(--cyan); text-decoration: none; font-weight: 700;">Open Dossier &rarr;</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </main>
+
+    <aside class="side-tapes font-mono">
+      <div class="panel">
+        <div class="panel-header">
+          <span>Trade Tape</span>
+          <span style="color: var(--emerald);">Live</span>
+        </div>
+        <div class="tape-list">
+          <div class="tape-card">
+            <div style="display: flex; justify-content: space-between; font-weight: 700;">
+              <span style="color: var(--emerald);">BUY $ALPHA</span>
+              <span>+$1,250</span>
+            </div>
+            <div style="font-size: 10px; color: var(--ink-muted); margin-top: 2px;">
+              Wallet: 0x3d1...8a92 &bull; 2s ago
+            </div>
+          </div>
+          <div class="tape-card">
+            <div style="display: flex; justify-content: space-between; font-weight: 700;">
+              <span style="color: var(--red);">SELL $MEME</span>
+              <span>-$450</span>
+            </div>
+            <div style="font-size: 10px; color: var(--ink-muted); margin-top: 2px;">
+              Wallet: 0x8f2...14b0 &bull; 8s ago
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <span>Graduation Tape</span>
+          <span style="color: var(--cyan);">Pons V2</span>
+        </div>
+        <div class="tape-list">
+          <div class="tape-card">
+            <div style="display: flex; justify-content: space-between; font-weight: 700;">
+              <span style="color: var(--emerald);">$OMEGA Graduated</span>
+              <span>100%</span>
+            </div>
+            <div style="font-size: 10px; color: var(--ink-muted); margin-top: 2px;">
+              Pool seeded at block #19,482,012
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel trade-inspector">
+        <div class="panel-header">
+          <span>Trade Inspector</span>
+        </div>
+        <div class="trade-inspector-preview">
+          Click any trade in the Trade Tape to inspect wallet holding share, prior deployer connection, and transaction traces in real-time.
+        </div>
+      </div>
+    </aside>
+  </div>
+</body>
+</html>
