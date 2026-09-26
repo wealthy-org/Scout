@@ -516,8 +516,8 @@
     "hash": "0a04094757bc8850b1e588862403650c"
   },
   "components/landing/LandingClient.tsx": {
-    "mtime": 1790438414435.2024,
-    "hash": "61a5e6617ec1376ebe57b56784c17371"
+    "mtime": 1790440944910.1587,
+    "hash": "f5ad7688389bab9878d7f142a9bf86c7"
   },
   "components/layout/GlobalHeader.tsx": {
     "mtime": 1790403655298.3662,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790432837830.9534,
-    "hash": "b2adae49fa4f80e419c66170cef23071"
+    "mtime": 1790440371290.852,
+    "hash": "c51887fbef700660dbe48d7d4976f8d7"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,

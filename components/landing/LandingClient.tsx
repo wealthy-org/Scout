@@ -222,109 +222,366 @@ export function LandingClient({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            <div className="chroma-card-interactive rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6 group">
-              <div className="space-y-4">
-                <div className="w-full h-44 rounded-2xl bg-gradient-to-br from-emerald-950/60 via-slate-900 to-slate-950 border border-emerald-500/20 p-4 flex items-center justify-center relative overflow-hidden group-hover:border-emerald-500/50 transition-all duration-300">
-                  <div className="absolute inset-0 bg-radial from-emerald-500/15 to-transparent blur-xl" />
-                  <svg className="w-28 h-28 text-emerald-400 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 100 100" fill="none">
-                    <circle cx="50" cy="50" r="40" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" className="animate-spin [animation-duration:20s]" />
-                    <circle cx="50" cy="50" r="28" fill="rgba(0, 229, 153, 0.15)" stroke="currentColor" strokeWidth="3" />
-                    <path d="M50 25 V50 H75" stroke="#00F0FF" strokeWidth="3" strokeLinecap="round" />
-                    <circle cx="50" cy="50" r="4" fill="#FFFFFF" />
-                  </svg>
-                  <span className="absolute bottom-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-500/20 border border-emerald-400/40 text-emerald-300">
-                    Laplace Score 98
-                  </span>
-                </div>
+            <Link
+              href="/census"
+              className="relative rounded-[36px] bg-gradient-to-b from-[#24359d] via-[#1a236d] to-[#121446] border border-white/10 shadow-[0_20px_50px_rgba(18,20,70,0.5)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(36,53,157,0.45)] transition-all duration-300 group"
+            >
+              <div className="absolute inset-x-0 top-0 h-[360px] flex items-center justify-center pointer-events-none select-none">
+                <svg
+                  viewBox="0 0 400 420"
+                  className="w-full h-full transform group-hover:scale-105 transition-transform duration-500 overflow-visible"
+                  fill="none"
+                >
+                  <defs>
+                    <radialGradient id="stackGlow1" cx="50%" cy="40%" r="55%">
+                      <stop offset="0%" stopColor="#818CF8" stopOpacity="0.35" />
+                      <stop offset="60%" stopColor="#4F46E5" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="#121446" stopOpacity="0" />
+                    </radialGradient>
+                    <filter id="softRim1" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="6" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
 
-                <div className="space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight group-hover:text-emerald-300 transition-colors">
-                    Reputation Scoring Engine
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                    Evaluates graduation velocity, DOA penalty, and repeat launch frequencies to calculate 0–100 risk bands.
-                  </p>
-                </div>
+                  <circle cx="200" cy="190" r="160" fill="url(#stackGlow1)" />
+
+                  <g opacity="0.35" transform="translate(0, 180)">
+                    <ellipse cx="200" cy="130" rx="92" ry="38" fill="#14174a" stroke="rgba(167, 139, 250, 0.35)" strokeWidth="1.5" />
+                    <ellipse cx="200" cy="130" rx="60" ry="24" fill="none" stroke="rgba(167, 139, 250, 0.2)" strokeWidth="1" strokeDasharray="4 4" />
+                  </g>
+
+                  <g opacity="0.55" transform="translate(0, 125)">
+                    <ellipse cx="200" cy="115" rx="98" ry="42" fill="#24155b" stroke="rgba(192, 132, 252, 0.45)" strokeWidth="1.5" />
+                    <path d="M 102 115 A 98 42 0 0 0 298 115 L 298 123 A 98 42 0 0 1 102 123 Z" fill="#1b0f44" opacity="0.8" />
+                    <line x1="200" y1="115" x2="270" y2="100" stroke="rgba(192, 132, 252, 0.35)" strokeWidth="1.5" />
+                    <line x1="200" y1="115" x2="140" y2="135" stroke="rgba(192, 132, 252, 0.35)" strokeWidth="1.5" />
+                    <line x1="200" y1="115" x2="200" y2="157" stroke="rgba(192, 132, 252, 0.35)" strokeWidth="1.5" />
+                  </g>
+
+                  <g opacity="0.8" transform="translate(0, 70)">
+                    <ellipse cx="200" cy="100" rx="104" ry="45" fill="#35145b" stroke="rgba(232, 121, 249, 0.55)" strokeWidth="1.5" />
+                    <path d="M 96 100 A 104 45 0 0 0 304 100 L 304 110 A 104 45 0 0 1 96 110 Z" fill="#250d42" />
+                    <ellipse cx="200" cy="100" rx="72" ry="31" fill="#4c0519" opacity="0.6" stroke="rgba(251, 113, 133, 0.45)" strokeWidth="1" />
+                  </g>
+
+                  <g transform="translate(0, 15)">
+                    <ellipse cx="200" cy="85" rx="110" ry="48" fill="#9a3412" stroke="#fdba74" strokeWidth="1.5" opacity="0.9" />
+                    <path d="M 90 85 A 110 48 0 0 0 310 85 L 310 98 A 110 48 0 0 1 90 98 Z" fill="#7c2d12" />
+                  </g>
+
+                  <g transform="translate(200, 52) rotate(-18)">
+                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#1e1b4b" stroke="#C4B5FD" strokeWidth="8" filter="url(#softRim1)" />
+                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#1e1b4b" stroke="#EDE9FE" strokeWidth="4" />
+                    
+                    <path d="M 0 0 L 0 -86 A 100 86 0 0 1 50 -74 Z" fill="#818CF8" />
+                    <path d="M 0 0 L 50 -74 A 100 86 0 0 1 86 -43 Z" fill="#6366F1" />
+                    <path d="M 0 0 L 86 -43 A 100 86 0 0 1 100 0 Z" fill="#38BDF8" />
+                    <path d="M 0 0 L 100 0 A 100 86 0 0 1 86 43 Z" fill="#06B6D4" />
+                    <path d="M 0 0 L 86 43 A 100 86 0 0 1 50 74 Z" fill="#2DD4BF" />
+                    <path d="M 0 0 L 50 74 A 100 86 0 0 1 0 86 Z" fill="#F43F5E" />
+                    <path d="M 0 0 L 0 86 A 100 86 0 0 1 -50 74 Z" fill="#FB7185" />
+                    <path d="M 0 0 L -50 74 A 100 86 0 0 1 -86 43 Z" fill="#FBBF24" />
+                    <path d="M 0 0 L -86 43 A 100 86 0 0 1 -100 0 Z" fill="#FB923C" />
+                    <path d="M 0 0 L -100 0 A 100 86 0 0 1 -86 -43 Z" fill="#C084FC" />
+                    <path d="M 0 0 L -86 -43 A 100 86 0 0 1 -50 -74 Z" fill="#A855F7" />
+                    <path d="M 0 0 L -50 -74 A 100 86 0 0 1 0 -86 Z" fill="#9333EA" />
+
+                    <circle cx="0" cy="0" r="16" fill="#EDE9FE" opacity="0.95" />
+                    <circle cx="0" cy="0" r="8" fill="#4338CA" />
+                  </g>
+                </svg>
               </div>
 
-              <Link
-                href="/census"
-                className="w-full py-3 rounded-2xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-300 font-bold text-xs uppercase tracking-wider text-center transition-all duration-200"
-              >
-                Inspect Score Census →
-              </Link>
+              <div className="relative z-10 space-y-3 pt-44 sm:pt-48">
+                <h3 className="text-2xl sm:text-[28px] font-bold text-white tracking-tight leading-tight group-hover:text-emerald-300 transition-colors">
+                  What Deployer Scoring Unlocks
+                </h3>
+                <p className="text-sm sm:text-[15px] text-[#b0c0e8] leading-relaxed font-normal">
+                  Learn what deployer reputation scoring unlocks on Scout: Laplace graduation rates, automated DOA penalties, and real-time risk classification.
+                </p>
+                <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#8a9cc4] font-medium">
+                  <span>Getting Started</span>
+                  <span className="text-slate-500">•</span>
+                  <span>September 26, 2026</span>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              href="/feed"
+              className="relative rounded-[36px] bg-gradient-to-b from-[#1b2b8e] via-[#141b60] to-[#0d1038] border border-white/10 shadow-[0_20px_50px_rgba(13,16,56,0.5)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(27,43,142,0.45)] transition-all duration-300 group"
+            >
+              <div className="absolute inset-x-0 top-0 h-[360px] flex items-center justify-center pointer-events-none select-none">
+                <svg
+                  viewBox="0 0 400 420"
+                  className="w-full h-full transform group-hover:scale-105 transition-transform duration-500 overflow-visible"
+                  fill="none"
+                >
+                  <defs>
+                    <radialGradient id="stackGlow2" cx="50%" cy="40%" r="55%">
+                      <stop offset="0%" stopColor="#00F0FF" stopOpacity="0.3" />
+                      <stop offset="60%" stopColor="#00E599" stopOpacity="0.12" />
+                      <stop offset="100%" stopColor="#0d1038" stopOpacity="0" />
+                    </radialGradient>
+                    <filter id="softRim2" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="6" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  <circle cx="200" cy="190" r="160" fill="url(#stackGlow2)" />
+
+                  <g opacity="0.35" transform="translate(0, 180)">
+                    <ellipse cx="200" cy="130" rx="92" ry="38" fill="#082f49" stroke="rgba(0, 240, 255, 0.35)" strokeWidth="1.5" />
+                    <ellipse cx="200" cy="130" rx="60" ry="24" fill="none" stroke="rgba(0, 240, 255, 0.2)" strokeWidth="1" strokeDasharray="4 4" />
+                  </g>
+
+                  <g opacity="0.55" transform="translate(0, 125)">
+                    <ellipse cx="200" cy="115" rx="98" ry="42" fill="#064e3b" stroke="rgba(0, 229, 153, 0.45)" strokeWidth="1.5" />
+                    <path d="M 102 115 A 98 42 0 0 0 298 115 L 298 123 A 98 42 0 0 1 102 123 Z" fill="#022c22" opacity="0.8" />
+                    <line x1="200" y1="115" x2="270" y2="100" stroke="rgba(0, 229, 153, 0.35)" strokeWidth="1.5" />
+                    <line x1="200" y1="115" x2="140" y2="135" stroke="rgba(0, 229, 153, 0.35)" strokeWidth="1.5" />
+                    <line x1="200" y1="115" x2="200" y2="157" stroke="rgba(0, 229, 153, 0.35)" strokeWidth="1.5" />
+                  </g>
+
+                  <g opacity="0.8" transform="translate(0, 70)">
+                    <ellipse cx="200" cy="100" rx="104" ry="45" fill="#0369a1" stroke="rgba(56, 189, 248, 0.55)" strokeWidth="1.5" />
+                    <path d="M 96 100 A 104 45 0 0 0 304 100 L 304 110 A 104 45 0 0 1 96 110 Z" fill="#0c4a6e" />
+                    <ellipse cx="200" cy="100" rx="72" ry="31" fill="#0e7490" opacity="0.6" stroke="rgba(6, 182, 212, 0.45)" strokeWidth="1" />
+                  </g>
+
+                  <g transform="translate(0, 15)">
+                    <ellipse cx="200" cy="85" rx="110" ry="48" fill="#065f46" stroke="#6ee7b7" strokeWidth="1.5" opacity="0.9" />
+                    <path d="M 90 85 A 110 48 0 0 0 310 85 L 310 98 A 110 48 0 0 1 90 98 Z" fill="#044e3b" />
+                  </g>
+
+                  <g transform="translate(200, 52) rotate(-18)">
+                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#082f49" stroke="#67E8F9" strokeWidth="8" filter="url(#softRim2)" />
+                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#082f49" stroke="#CFFAFE" strokeWidth="4" />
+                    
+                    <path d="M 0 0 L 0 -86 A 100 86 0 0 1 50 -74 Z" fill="#00E599" />
+                    <path d="M 0 0 L 50 -74 A 100 86 0 0 1 86 -43 Z" fill="#00F0FF" />
+                    <path d="M 0 0 L 86 -43 A 100 86 0 0 1 100 0 Z" fill="#38BDF8" />
+                    <path d="M 0 0 L 100 0 A 100 86 0 0 1 86 43 Z" fill="#818CF8" />
+                    <path d="M 0 0 L 86 43 A 100 86 0 0 1 50 74 Z" fill="#A78BFA" />
+                    <path d="M 0 0 L 50 74 A 100 86 0 0 1 0 86 Z" fill="#C084FC" />
+                    <path d="M 0 0 L 0 86 A 100 86 0 0 1 -50 74 Z" fill="#E879F9" />
+                    <path d="M 0 0 L -50 74 A 100 86 0 0 1 -86 43 Z" fill="#F472B6" />
+                    <path d="M 0 0 L -86 43 A 100 86 0 0 1 -100 0 Z" fill="#FB7185" />
+                    <path d="M 0 0 L -100 0 A 100 86 0 0 1 -86 -43 Z" fill="#FBBF24" />
+                    <path d="M 0 0 L -86 -43 A 100 86 0 0 1 -50 -74 Z" fill="#34D399" />
+                    <path d="M 0 0 L -50 -74 A 100 86 0 0 1 0 -86 Z" fill="#10B981" />
+
+                    <circle cx="0" cy="0" r="16" fill="#CFFAFE" opacity="0.95" />
+                    <circle cx="0" cy="0" r="8" fill="#0e7490" />
+                  </g>
+                </svg>
+              </div>
+
+              <div className="relative z-10 space-y-3 pt-44 sm:pt-48">
+                <h3 className="text-2xl sm:text-[28px] font-bold text-white tracking-tight leading-tight group-hover:text-cyan-300 transition-colors">
+                  Sub-Second Surveillance Stream
+                </h3>
+                <p className="text-sm sm:text-[15px] text-[#b0c0e8] leading-relaxed font-normal">
+                  Inspect real-time bonding curve trade velocity, high-frequency buy surges, Robinhood factory genesis events, and instant graduation alerts.
+                </p>
+                <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#8a9cc4] font-medium">
+                  <span>Real-Time Feeds</span>
+                  <span className="text-slate-500">•</span>
+                  <span>September 26, 2026</span>
+                </div>
+              </div>
+            </Link>
+
+            <Link
+              href="/map"
+              className="relative rounded-[36px] bg-gradient-to-b from-[#252285] via-[#1a165a] to-[#0f0e34] border border-white/10 shadow-[0_20px_50px_rgba(15,14,52,0.5)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(37,34,133,0.45)] transition-all duration-300 group"
+            >
+              <div className="absolute inset-x-0 top-0 h-[360px] flex items-center justify-center pointer-events-none select-none">
+                <svg
+                  viewBox="0 0 400 420"
+                  className="w-full h-full transform group-hover:scale-105 transition-transform duration-500 overflow-visible"
+                  fill="none"
+                >
+                  <defs>
+                    <radialGradient id="stackGlow3" cx="50%" cy="40%" r="55%">
+                      <stop offset="0%" stopColor="#D946EF" stopOpacity="0.35" />
+                      <stop offset="60%" stopColor="#818CF8" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="#0f0e34" stopOpacity="0" />
+                    </radialGradient>
+                    <filter id="softRim3" x="-20%" y="-20%" width="140%" height="140%">
+                      <feGaussianBlur stdDeviation="6" result="blur" />
+                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                    </filter>
+                  </defs>
+
+                  <circle cx="200" cy="190" r="160" fill="url(#stackGlow3)" />
+
+                  <g opacity="0.35" transform="translate(0, 180)">
+                    <ellipse cx="200" cy="130" rx="92" ry="38" fill="#180b33" stroke="rgba(217, 70, 239, 0.35)" strokeWidth="1.5" />
+                    <ellipse cx="200" cy="130" rx="60" ry="24" fill="none" stroke="rgba(217, 70, 239, 0.2)" strokeWidth="1" strokeDasharray="4 4" />
+                  </g>
+
+                  <g opacity="0.55" transform="translate(0, 125)">
+                    <ellipse cx="200" cy="115" rx="98" ry="42" fill="#3b0764" stroke="rgba(244, 114, 182, 0.45)" strokeWidth="1.5" />
+                    <path d="M 102 115 A 98 42 0 0 0 298 115 L 298 123 A 98 42 0 0 1 102 123 Z" fill="#240442" opacity="0.8" />
+                    <line x1="200" y1="115" x2="270" y2="100" stroke="rgba(244, 114, 182, 0.35)" strokeWidth="1.5" />
+                    <line x1="200" y1="115" x2="140" y2="135" stroke="rgba(244, 114, 182, 0.35)" strokeWidth="1.5" />
+                    <line x1="200" y1="115" x2="200" y2="157" stroke="rgba(244, 114, 182, 0.35)" strokeWidth="1.5" />
+                  </g>
+
+                  <g opacity="0.8" transform="translate(0, 70)">
+                    <ellipse cx="200" cy="100" rx="104" ry="45" fill="#581c87" stroke="rgba(192, 132, 252, 0.55)" strokeWidth="1.5" />
+                    <path d="M 96 100 A 104 45 0 0 0 304 100 L 304 110 A 104 45 0 0 1 96 110 Z" fill="#3b0764" />
+                    <ellipse cx="200" cy="100" rx="72" ry="31" fill="#701a75" opacity="0.6" stroke="rgba(232, 121, 249, 0.45)" strokeWidth="1" />
+                  </g>
+
+                  <g transform="translate(0, 15)">
+                    <ellipse cx="200" cy="85" rx="110" ry="48" fill="#831843" stroke="#f472b6" strokeWidth="1.5" opacity="0.9" />
+                    <path d="M 90 85 A 110 48 0 0 0 310 85 L 310 98 A 110 48 0 0 1 90 98 Z" fill="#500724" />
+                  </g>
+
+                  <g transform="translate(200, 52) rotate(-18)">
+                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#2e1065" stroke="#F0ABFC" strokeWidth="8" filter="url(#softRim3)" />
+                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#2e1065" stroke="#FDF4FF" strokeWidth="4" />
+                    
+                    <path d="M 0 0 L 0 -86 A 100 86 0 0 1 50 -74 Z" fill="#D946EF" />
+                    <path d="M 0 0 L 50 -74 A 100 86 0 0 1 86 -43 Z" fill="#C084FC" />
+                    <path d="M 0 0 L 86 -43 A 100 86 0 0 1 100 0 Z" fill="#818CF8" />
+                    <path d="M 0 0 L 100 0 A 100 86 0 0 1 86 43 Z" fill="#00F0FF" />
+                    <path d="M 0 0 L 86 43 A 100 86 0 0 1 50 74 Z" fill="#00E599" />
+                    <path d="M 0 0 L 50 74 A 100 86 0 0 1 0 86 Z" fill="#FBBF24" />
+                    <path d="M 0 0 L 0 86 A 100 86 0 0 1 -50 74 Z" fill="#FB923C" />
+                    <path d="M 0 0 L -50 74 A 100 86 0 0 1 -86 43 Z" fill="#F43F5E" />
+                    <path d="M 0 0 L -86 43 A 100 86 0 0 1 -100 0 Z" fill="#E11D48" />
+                    <path d="M 0 0 L -100 0 A 100 86 0 0 1 -86 -43 Z" fill="#A21CAF" />
+                    <path d="M 0 0 L -86 -43 A 100 86 0 0 1 -50 -74 Z" fill="#7E22CE" />
+                    <path d="M 0 0 L -50 -74 A 100 86 0 0 1 0 -86 Z" fill="#4C1D95" />
+
+                    <circle cx="0" cy="0" r="16" fill="#FDF4FF" opacity="0.95" />
+                    <circle cx="0" cy="0" r="8" fill="#701a75" />
+                  </g>
+                </svg>
+              </div>
+
+              <div className="relative z-10 space-y-3 pt-44 sm:pt-48">
+                <h3 className="text-2xl sm:text-[28px] font-bold text-white tracking-tight leading-tight group-hover:text-fuchsia-300 transition-colors">
+                  Constellation Network Topology
+                </h3>
+                <p className="text-sm sm:text-[15px] text-[#b0c0e8] leading-relaxed font-normal">
+                  Trace multi-wallet funding origins, serial deployer co-launch patterns, and circular liquidity relationships across all token pools.
+                </p>
+                <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#8a9cc4] font-medium">
+                  <span>Neural Mapping</span>
+                  <span className="text-slate-500">•</span>
+                  <span>September 26, 2026</span>
+                </div>
+              </div>
+            </Link>
+          </div>
+        </section>
+
+        <section className="relative rounded-[36px] sm:rounded-[44px] bg-gradient-to-r from-[#4f3df5] via-[#432dd8] to-[#341eb5] border border-white/15 p-8 sm:p-12 lg:p-14 shadow-[0_25px_70px_rgba(79,61,245,0.4)] overflow-hidden">
+          <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-pink-500/20 via-purple-500/15 to-transparent blur-[120px] pointer-events-none -z-0" />
+          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#00F0FF]/15 to-transparent blur-[140px] pointer-events-none -z-0" />
+
+          <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
+            <div className="space-y-6 max-w-xl text-left">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                SCOUT: Inspect, Score, Track
+              </h2>
+
+              <div className="space-y-4 text-sm sm:text-base text-indigo-100/90 leading-relaxed font-normal">
+                <p>
+                  SCOUT is how you participate in autonomous on-chain intelligence on Robinhood Chain. It is the surveillance protocol where deployer reputations and risk metrics accrue programmatically.
+                </p>
+                <p>
+                  Through Scout Dossier.OS, you can access real-time bonding curve telemetry, audit creator histories to detect serial ruggers, and publish forensic case files for collaborative research.
+                </p>
+              </div>
+
+              <div className="pt-2">
+                <Link
+                  href="/feed"
+                  className="inline-flex items-center gap-3.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#FF7243] via-[#FFA133] to-[#FFC433] text-slate-950 font-bold text-sm shadow-[0_10px_30px_rgba(255,114,67,0.4)] hover:shadow-[0_15px_40px_rgba(255,114,67,0.6)] hover:scale-105 active:scale-95 transition-all duration-300"
+                >
+                  <span>Access and explore SCOUT</span>
+                  <span className="w-6 h-6 rounded-full bg-slate-950 text-white flex items-center justify-center font-bold text-xs">
+                    →
+                  </span>
+                </Link>
+              </div>
             </div>
 
-            <div className="chroma-card-interactive rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6 group">
-              <div className="space-y-4">
-                <div className="w-full h-44 rounded-2xl bg-gradient-to-br from-cyan-950/60 via-slate-900 to-slate-950 border border-cyan-500/20 p-4 flex items-center justify-center relative overflow-hidden group-hover:border-cyan-500/50 transition-all duration-300">
-                  <div className="absolute inset-0 bg-radial from-cyan-500/15 to-transparent blur-xl" />
-                  <svg className="w-28 h-28 text-cyan-400 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 100 100" fill="none">
-                    <rect x="20" y="30" width="12" height="45" rx="3" fill="currentColor" opacity="0.7" />
-                    <rect x="38" y="15" width="12" height="60" rx="3" fill="#00E599" />
-                    <rect x="56" y="45" width="12" height="30" rx="3" fill="#FF2E4D" />
-                    <rect x="74" y="25" width="12" height="50" rx="3" fill="currentColor" opacity="0.9" />
-                    <path d="M15 75 Q 45 30, 85 20" stroke="#00F0FF" strokeWidth="2.5" strokeDasharray="3 3" />
-                  </svg>
-                  <span className="absolute bottom-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-cyan-500/20 border border-cyan-400/40 text-cyan-300">
-                    Live Stream 50ms
-                  </span>
-                </div>
-
-                <div className="space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight group-hover:text-cyan-300 transition-colors">
-                    Live Surveillance Tape
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                    Sub-second trade streaming, high volume spikes, graduation alerts, and interactive transaction inspector drawer.
-                  </p>
-                </div>
-              </div>
-
-              <Link
-                href="/feed"
-                className="w-full py-3 rounded-2xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-300 font-bold text-xs uppercase tracking-wider text-center transition-all duration-200"
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[380px] lg:h-[380px] shrink-0 flex items-center justify-center">
+              <svg
+                viewBox="0 0 340 340"
+                className="w-full h-full animate-float-slow select-none pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-visible"
+                fill="none"
               >
-                Open Live Trade Tape →
-              </Link>
+                <defs>
+                  <filter id="bannerGlow" x="-30%" y="-30%" width="160%" height="160%">
+                    <feGaussianBlur stdDeviation="8" result="blur" />
+                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                  </filter>
+                  <linearGradient id="sunbeam" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stopColor="#FDA4AF" stopOpacity="0.4" />
+                    <stop offset="100%" stopColor="#818CF8" stopOpacity="0" />
+                  </linearGradient>
+                </defs>
+
+                <path d="M 170 170 L -40 -40 L 40 -100 Z" fill="url(#sunbeam)" opacity="0.6" />
+                <path d="M 170 170 L 380 380 L 320 420 Z" fill="url(#sunbeam)" opacity="0.4" />
+
+                <g transform="translate(170, 170) rotate(-22)">
+                  <ellipse cx="0" cy="0" rx="120" ry="104" fill="#311084" stroke="#F43F5E" strokeWidth="12" opacity="0.8" filter="url(#bannerGlow)" />
+                  <ellipse cx="0" cy="0" rx="120" ry="104" fill="#311084" stroke="#FFFFFF" strokeWidth="10" />
+                  <ellipse cx="0" cy="0" rx="116" ry="100" fill="#230a63" stroke="#FCE7F3" strokeWidth="3" />
+
+                  <path d="M 0 0 L 0 -100 A 116 100 0 0 1 58 -86 Z" fill="#F43F5E" />
+                  <path d="M 0 0 L 58 -86 A 116 100 0 0 1 100 -50 Z" fill="#00F0FF" />
+                  <path d="M 0 0 L 100 -50 A 116 100 0 0 1 116 0 Z" fill="#818CF8" />
+                  <path d="M 0 0 L 116 0 A 116 100 0 0 1 100 50 Z" fill="#C084FC" />
+                  <path d="M 0 0 L 100 50 A 116 100 0 0 1 58 86 Z" fill="#FBBF24" />
+                  <path d="M 0 0 L 58 86 A 116 100 0 0 1 0 100 Z" fill="#38BDF8" />
+                  <path d="M 0 0 L 0 100 A 116 100 0 0 1 -58 86 Z" fill="#FB7185" />
+                  <path d="M 0 0 L -58 86 A 116 100 0 0 1 -100 50 Z" fill="#F472B6" />
+                  <path d="M 0 0 L -100 50 A 116 100 0 0 1 -116 0 Z" fill="#A855F7" />
+                  <path d="M 0 0 L -116 0 A 116 100 0 0 1 -100 -50 Z" fill="#38BDF8" />
+                  <path d="M 0 0 L -100 -50 A 116 100 0 0 1 -58 -86 Z" fill="#00E599" />
+                  <path d="M 0 0 L -58 -86 A 116 100 0 0 1 0 -100 Z" fill="#FB923C" />
+
+                  <circle cx="0" cy="0" r="18" fill="#FFFFFF" />
+                  <circle cx="0" cy="0" r="10" fill="#4338CA" />
+                </g>
+              </svg>
+            </div>
+          </div>
+
+          <div className="relative z-10 grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 mt-10 border-t border-white/20">
+            <div className="space-y-1">
+              <div className="text-xs text-indigo-200/90 font-medium">Scout Indexed Launches</div>
+              <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                {stats.total_launches.toLocaleString()}
+              </div>
             </div>
 
-            <div className="chroma-card-interactive rounded-3xl p-6 sm:p-8 flex flex-col justify-between space-y-6 group">
-              <div className="space-y-4">
-                <div className="w-full h-44 rounded-2xl bg-gradient-to-br from-fuchsia-950/60 via-slate-900 to-slate-950 border border-fuchsia-500/20 p-4 flex items-center justify-center relative overflow-hidden group-hover:border-fuchsia-500/50 transition-all duration-300">
-                  <div className="absolute inset-0 bg-radial from-fuchsia-500/15 to-transparent blur-xl" />
-                  <svg className="w-28 h-28 text-fuchsia-400 transform group-hover:scale-110 transition-transform duration-500" viewBox="0 0 100 100" fill="none">
-                    <circle cx="50" cy="50" r="10" fill="#D946EF" className="animate-pulse" />
-                    <circle cx="25" cy="30" r="6" fill="#00F0FF" />
-                    <circle cx="75" cy="35" r="7" fill="#00E599" />
-                    <circle cx="30" cy="75" r="5" fill="#FFB800" />
-                    <circle cx="75" cy="70" r="6" fill="#FF2E4D" />
-                    <line x1="50" y1="50" x2="25" y2="30" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
-                    <line x1="50" y1="50" x2="75" y2="35" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
-                    <line x1="50" y1="50" x2="30" y2="75" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
-                    <line x1="50" y1="50" x2="75" y2="70" stroke="rgba(255,255,255,0.3)" strokeWidth="1.5" />
-                  </svg>
-                  <span className="absolute bottom-3 right-3 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-fuchsia-500/20 border border-fuchsia-400/40 text-fuchsia-300">
-                    Cluster Graph V2
-                  </span>
-                </div>
-
-                <div className="space-y-2">
-                  <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight group-hover:text-fuchsia-300 transition-colors">
-                    Constellation Visualizer
-                  </h3>
-                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed">
-                    Interactive network topology tracing funding origins, deployer clusters, and token circulation relationships.
-                  </p>
-                </div>
+            <div className="space-y-1">
+              <div className="text-xs text-indigo-200/90 font-medium">Tracked Creators</div>
+              <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                {stats.unique_deployers.toLocaleString()} Wallets
               </div>
+            </div>
 
-              <Link
-                href="/map"
-                className="w-full py-3 rounded-2xl bg-fuchsia-500/10 hover:bg-fuchsia-500/20 border border-fuchsia-500/30 text-fuchsia-300 font-bold text-xs uppercase tracking-wider text-center transition-all duration-200"
-              >
-                Explore Neural Map →
-              </Link>
+            <div className="space-y-1">
+              <div className="text-xs text-indigo-200/90 font-medium flex items-center gap-1.5">
+                <span>Repeat Share Rate</span>
+                <span className="text-[10px] text-indigo-300 opacity-80" title="Proportion of deployers with multiple launches">ⓘ</span>
+              </div>
+              <div className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                {`${stats.repeat_share}%`} <span className="text-sm font-bold text-indigo-200/80">RATIO</span>
+              </div>
             </div>
           </div>
         </section>

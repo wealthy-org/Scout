@@ -58,12 +58,12 @@ one-sentence description — no prose, no markdown fences.
 - "config_chain": "chain.ts" | kind=code-symbol | source=config/chain.ts:L1 | neighbors=[client.ts, events.ts, multicall.ts, b84d454 feat(scout): setup chain config…, CHAIN_ID, CURVE_BUY_ABI]
 - "connected_route": "route.ts" | kind=code-symbol | source=app/api/deployer/[address]/connected/route.ts:L1 | neighbors=[127516d feat(scout): implement api depl…, session.ts, getSession(), addressSchema, GET(), handleGetDeployerConnected()]
 - "connections_route": "route.ts" | kind=code-symbol | source=app/api/connections/route.ts:L1 | neighbors=[127516d feat(scout): implement api depl…, route.ts, session.ts, getSession(), engine.ts, ConnectionLink]
+- "layout_header": "Header.tsx" | kind=code-symbol | source=components/layout/Header.tsx:L1 | neighbors=[loading.tsx, loading.tsx, loading.tsx, 17dcf97 feat(navigation): add top progr…, 6aec8fe feat(ui): overhaul ui with chro…, 7deffdf feat(scout): implement global h…]
 - "library_route": "route.ts" | kind=code-symbol | source=app/api/library/route.ts:L1 | neighbors=[9d2b0cc feat(scout): implement api get …, session.ts, getSession(), index.ts, Database, db]
 - "scripts_seed": "seed.ts" | kind=code-symbol | source=scripts/seed.ts:L1 | neighbors=[0cd7581 feat(scout): create seed dummy …, index.ts, db, schema.ts, censusStats, deployerLaunches]
 - "address_page": "page.tsx" | kind=code-symbol | source=app/deployer/[address]/page.tsx:L1 | neighbors=[DeployerPage(), generateMetadata(), PageProps, session.ts, getSession(), index.ts]
 - "census_compute": "compute.ts" | kind=code-symbol | source=lib/census/compute.ts:L1 | neighbors=[page.tsx, CensusView.tsx, CensusPayload, computeCensusStats(), RepeatLauncherInfo, saveCensusSnapshot()]
 - "config_diff": "diff.ts" | kind=code-symbol | source=config/diff.ts:L1 | neighbors=[16a3b8b feat(scout): setup diff thresho…, DIFF_BOOLEAN_TRIGGERS, DIFF_CURVE_GRADUATED, DIFF_FEE_RECIPIENT_CHANGED, DIFF_FIELD_KEYS, DIFF_MARKET_APPEARED]
-- "layout_header": "Header.tsx" | kind=code-symbol | source=components/layout/Header.tsx:L1 | neighbors=[loading.tsx, loading.tsx, loading.tsx, 17dcf97 feat(navigation): add top progr…, 6aec8fe feat(ui): overhaul ui with chro…, 7deffdf feat(scout): implement global h…]
 
 ## Instructions
 
