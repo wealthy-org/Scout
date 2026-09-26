@@ -1,12 +1,12 @@
 {
-  "id": "bbfed63f-335c-451f-af2f-660c0166e526",
+  "id": "2a12dfdf-52a7-426d-a36b-c02801b64b0a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.census_stats": {
+    "scout.census_stats": {
       "name": "census_stats",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "id": {
           "name": "id",
@@ -63,9 +63,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.deployer_launches": {
+    "scout.deployer_launches": {
       "name": "deployer_launches",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "deployer_address": {
           "name": "deployer_address",
@@ -139,9 +139,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.deployer_scores": {
+    "scout.deployer_scores": {
       "name": "deployer_scores",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "deployer_address": {
           "name": "deployer_address",
@@ -252,9 +252,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.deployer_watchlist": {
+    "scout.deployer_watchlist": {
       "name": "deployer_watchlist",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "id": {
           "name": "id",
@@ -327,6 +327,7 @@
           "name": "deployer_watchlist_wallet_address_users_wallet_address_fk",
           "tableFrom": "deployer_watchlist",
           "tableTo": "users",
+          "schemaTo": "scout",
           "columnsFrom": [
             "wallet_address"
           ],
@@ -352,9 +353,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.dossier_items": {
+    "scout.dossier_items": {
       "name": "dossier_items",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "id": {
           "name": "id",
@@ -411,6 +412,7 @@
           "name": "dossier_items_dossier_id_dossiers_id_fk",
           "tableFrom": "dossier_items",
           "tableTo": "dossiers",
+          "schemaTo": "scout",
           "columnsFrom": [
             "dossier_id"
           ],
@@ -427,9 +429,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.dossier_log": {
+    "scout.dossier_log": {
       "name": "dossier_log",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "id": {
           "name": "id",
@@ -480,6 +482,7 @@
           "name": "dossier_log_dossier_id_dossiers_id_fk",
           "tableFrom": "dossier_log",
           "tableTo": "dossiers",
+          "schemaTo": "scout",
           "columnsFrom": [
             "dossier_id"
           ],
@@ -496,9 +499,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.dossier_questions": {
+    "scout.dossier_questions": {
       "name": "dossier_questions",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "id": {
           "name": "id",
@@ -556,6 +559,7 @@
           "name": "dossier_questions_dossier_id_dossiers_id_fk",
           "tableFrom": "dossier_questions",
           "tableTo": "dossiers",
+          "schemaTo": "scout",
           "columnsFrom": [
             "dossier_id"
           ],
@@ -572,9 +576,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.dossiers": {
+    "scout.dossiers": {
       "name": "dossiers",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "id": {
           "name": "id",
@@ -707,6 +711,7 @@
           "name": "dossiers_wallet_address_users_wallet_address_fk",
           "tableFrom": "dossiers",
           "tableTo": "users",
+          "schemaTo": "scout",
           "columnsFrom": [
             "wallet_address"
           ],
@@ -733,9 +738,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.published_dossiers": {
+    "scout.published_dossiers": {
       "name": "published_dossiers",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "slug": {
           "name": "slug",
@@ -805,6 +810,7 @@
           "name": "published_dossiers_dossier_id_dossiers_id_fk",
           "tableFrom": "published_dossiers",
           "tableTo": "dossiers",
+          "schemaTo": "scout",
           "columnsFrom": [
             "dossier_id"
           ],
@@ -821,9 +827,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.snapshots": {
+    "scout.snapshots": {
       "name": "snapshots",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "id": {
           "name": "id",
@@ -904,6 +910,7 @@
           "name": "snapshots_dossier_id_dossiers_id_fk",
           "tableFrom": "snapshots",
           "tableTo": "dossiers",
+          "schemaTo": "scout",
           "columnsFrom": [
             "dossier_id"
           ],
@@ -920,9 +927,9 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.users": {
+    "scout.users": {
       "name": "users",
-      "schema": "",
+      "schema": "scout",
       "columns": {
         "wallet_address": {
           "name": "wallet_address",
@@ -954,7 +961,9 @@
     }
   },
   "enums": {},
-  "schemas": {},
+  "schemas": {
+    "scout": "scout"
+  },
   "sequences": {},
   "roles": {},
   "policies": {},

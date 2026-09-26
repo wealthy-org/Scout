@@ -17,7 +17,7 @@ test("TICKET-M05: Vercel Cron Job configuration and census trigger verification"
   const cronRoutePath = path.resolve(process.cwd(), "app/api/cron/census/route.ts");
   assert.ok(fs.existsSync(cronRoutePath), "app/api/cron/census/route.ts endpoint must exist");
 
-  const envExamplePath = path.resolve(process.cwd(), ".env.production.example");
+  const envExamplePath = path.resolve(process.cwd(), ".env.example");
   const envContent = fs.readFileSync(envExamplePath, "utf-8");
-  assert.ok(envContent.includes("CRON_SECRET"), ".env.production.example must declare CRON_SECRET");
+  assert.ok(envContent.includes("CRON_SECRET"), ".env.example must declare CRON_SECRET");
 });

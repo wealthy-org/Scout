@@ -1,5 +1,5 @@
 import {
-  pgTable,
+  pgSchema,
   text,
   integer,
   bigint,
@@ -14,19 +14,21 @@ import {
 } from 'drizzle-orm/pg-core';
 import { relations, type InferSelectModel, type InferInsertModel } from 'drizzle-orm';
 
+export const scoutSchema = pgSchema('scout');
+
 export const DOSSIER_STATUSES = ['Watching', 'Researching', 'In position', 'Passed'] as const;
 export type DossierStatus = (typeof DOSSIER_STATUSES)[number];
 
 export const DOSSIER_ITEM_KINDS = ['pro', 'con', 'checked', 'source'] as const;
 export type DossierItemKind = (typeof DOSSIER_ITEM_KINDS)[number];
 
-export const users = pgTable('users', {
+export const users = scoutSchema.table('users', {
   walletAddress: text('wallet_address').primaryKey(),
   handle: text('handle'),
   createdAt: timestamp('created_at', { withTimezone: true, mode: 'date' }).defaultNow().notNull()
 });
 
-export const dossiers = pgTable(
+export const dossiers = scoutSchema.table(
   'dossiers',
   {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -58,7 +60,7 @@ export const dossiers = pgTable(
   ]
 );
 
-export const dossierItems = pgTable(
+export const dossierItems = scoutSchema.table(
   'dossier_items',
   {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -72,7 +74,7 @@ export const dossierItems = pgTable(
   (table) => [index('dossier_items_dossier_id_idx').on(table.dossierId)]
 );
 
-export const dossierQuestions = pgTable(
+export const dossierQuestions = scoutSchema.table(
   'dossier_questions',
   {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -86,7 +88,7 @@ export const dossierQuestions = pgTable(
   (table) => [index('dossier_questions_dossier_id_idx').on(table.dossierId)]
 );
 
-export const dossierLog = pgTable(
+export const dossierLog = scoutSchema.table(
   'dossier_log',
   {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -99,7 +101,7 @@ export const dossierLog = pgTable(
   (table) => [index('dossier_log_dossier_id_idx').on(table.dossierId)]
 );
 
-export const snapshots = pgTable(
+export const snapshots = scoutSchema.table(
   'snapshots',
   {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -117,7 +119,7 @@ export const snapshots = pgTable(
   (table) => [index('snapshots_dossier_id_idx').on(table.dossierId)]
 );
 
-export const publishedDossiers = pgTable(
+export const publishedDossiers = scoutSchema.table(
   'published_dossiers',
   {
     slug: text('slug').primaryKey(),
@@ -132,7 +134,7 @@ export const publishedDossiers = pgTable(
   ]
 );
 
-export const deployerWatchlist = pgTable(
+export const deployerWatchlist = scoutSchema.table(
   'deployer_watchlist',
   {
     id: uuid('id').defaultRandom().primaryKey(),
@@ -153,7 +155,7 @@ export const deployerWatchlist = pgTable(
   ]
 );
 
-export const deployerScores = pgTable(
+export const deployerScores = scoutSchema.table(
   'deployer_scores',
   {
     deployerAddress: text('deployer_address').primaryKey(),
@@ -173,7 +175,7 @@ export const deployerScores = pgTable(
   ]
 );
 
-export const deployerLaunches = pgTable(
+export const deployerLaunches = scoutSchema.table(
   'deployer_launches',
   {
     deployerAddress: text('deployer_address').notNull(),
@@ -188,7 +190,7 @@ export const deployerLaunches = pgTable(
   ]
 );
 
-export const censusStats = pgTable('census_stats', {
+export const censusStats = scoutSchema.table('census_stats', {
   id: uuid('id').defaultRandom().primaryKey(),
   computedAt: timestamp('computed_at', { withTimezone: true, mode: 'date' }).defaultNow().notNull(),
   headBlock: bigint('head_block', { mode: 'number' }),

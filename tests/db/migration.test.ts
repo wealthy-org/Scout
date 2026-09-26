@@ -41,7 +41,7 @@ describe('Initial Database Migration Verification (TICKET-08)', () => {
     ];
 
     for (const table of requiredTables) {
-      const regex = new RegExp(`CREATE TABLE (IF NOT EXISTS )?("${table}"|${table})\\s*\\(`, 'i');
+      const regex = new RegExp(`CREATE TABLE (IF NOT EXISTS )?("?scout"?\\.)?("${table}"|${table})\\s*\\(`, 'i');
       assert.ok(
         regex.test(allSql),
         `Migration SQL must contain CREATE TABLE statement for "${table}"`
