@@ -120,16 +120,16 @@ export function FeedTable({
   };
 
   return (
-    <div className="bg-[#11161d] border border-gray-800 rounded-xl overflow-hidden shadow-xl font-mono text-xs">
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-gray-800 bg-[#0e131a] px-4 py-2 gap-3">
-        <div className="flex flex-wrap items-center gap-1">
+    <div className="bg-slate-900/90 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-2xl font-sans text-xs">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-slate-800/80 bg-slate-950/60 p-3 sm:p-4 gap-3">
+        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
           <button
             type="button"
             onClick={() => setActiveTab("most_traded")}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "most_traded"
-                ? "bg-cyan-950 text-cyan-300 border border-cyan-800"
-                : "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
+                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
             }`}
           >
             Most Traded
@@ -137,10 +137,10 @@ export function FeedTable({
           <button
             type="button"
             onClick={() => setActiveTab("new_launches")}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "new_launches"
-                ? "bg-cyan-950 text-cyan-300 border border-cyan-800"
-                : "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
+                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
             }`}
           >
             New Launches
@@ -148,10 +148,10 @@ export function FeedTable({
           <button
             type="button"
             onClick={() => setActiveTab("near_graduation")}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "near_graduation"
-                ? "bg-cyan-950 text-cyan-300 border border-cyan-800"
-                : "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
+                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
             }`}
           >
             Near Graduation
@@ -159,10 +159,10 @@ export function FeedTable({
           <button
             type="button"
             onClick={() => setActiveTab("repeat_deployers")}
-            className={`px-3 py-2 rounded-lg text-xs font-bold transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "repeat_deployers"
-                ? "bg-cyan-950 text-cyan-300 border border-cyan-800"
-                : "text-gray-400 hover:text-gray-200 hover:bg-gray-800/50"
+                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
+                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
             }`}
           >
             Repeat Deployers
@@ -176,7 +176,7 @@ export function FeedTable({
             placeholder="Search by symbol, name, or CA..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-64 bg-[#161c24] border border-gray-700 rounded-lg px-3 py-1.5 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+            className="w-full md:w-64 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-500/60 transition-colors"
           />
         </div>
       </div>
@@ -184,20 +184,20 @@ export function FeedTable({
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="border-b border-gray-800 bg-[#0d1117]/80 text-[11px] font-bold text-gray-400 uppercase tracking-wider">
-              <th className="px-4 py-3">Token</th>
-              <th className="px-4 py-3">Deployer Score</th>
-              <th className="px-4 py-3">Bonding Curve</th>
-              <th className="px-4 py-3">Market Cap</th>
-              <th className="px-4 py-3">24h Volume</th>
-              <th className="px-4 py-3">Age</th>
-              <th className="px-4 py-3 text-right">Dossier</th>
+            <tr className="border-b border-slate-800/80 bg-slate-950/40 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <th className="px-4 py-3.5">Token</th>
+              <th className="px-4 py-3.5">Deployer Score</th>
+              <th className="px-4 py-3.5">Bonding Curve</th>
+              <th className="px-4 py-3.5">Market Cap</th>
+              <th className="px-4 py-3.5">24h Volume</th>
+              <th className="px-4 py-3.5">Age</th>
+              <th className="px-4 py-3.5 text-right">Dossier</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-800/60">
+          <tbody className="divide-y divide-slate-800/50">
             {filteredItems.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-gray-500">
+                <td colSpan={7} className="px-4 py-10 text-center text-slate-500 text-xs">
                   No launch items match the active filter or search criteria.
                 </td>
               </tr>
@@ -206,90 +206,92 @@ export function FeedTable({
                 const isGrad =
                   row.phase === "graduated" || (row.progressPct ?? 0) >= 100;
                 const progress = Math.min(row.progressPct ?? 0, 100);
-
                 const isWatched = watchedSet.has(row.deployerAddress.toLowerCase());
+
+                const bandColor =
+                  row.band === "green"
+                    ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                    : row.band === "red"
+                    ? "bg-rose-500/10 border-rose-500/40 text-rose-400"
+                    : "bg-amber-500/10 border-amber-500/40 text-amber-400";
 
                 return (
                   <tr
                     key={row.contractAddress}
                     onClick={() => onRowClick?.(row)}
-                    className="hover:bg-[#161c24]/70 transition-colors group cursor-pointer"
+                    className="hover:bg-slate-800/40 transition-colors group cursor-pointer"
                   >
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3.5">
                       <Link
                         href={`/d/${row.contractAddress}`}
-                        className="block group-hover:text-cyan-300 transition-colors"
+                        className="block group-hover:text-cyan-400 transition-colors"
                       >
-                        <div className="flex items-center gap-1.5 font-bold text-white text-sm">
+                        <div className="flex items-center gap-2 font-bold text-white text-sm">
                           <span>{`$${row.symbol}`}</span>
                           {isWatched && (
-                            <span className="px-1.5 py-0.2 text-[9px] bg-purple-950 text-purple-300 border border-purple-800 rounded font-bold uppercase">
+                            <span className="px-2 py-0.5 text-[10px] bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/30 rounded-full font-bold uppercase">
                               Watched
                             </span>
                           )}
                         </div>
                         {row.name && (
-                          <div className="text-[11px] text-gray-400 font-normal">
+                          <div className="text-[11px] text-slate-400 font-normal">
                             {row.name}
                           </div>
                         )}
                       </Link>
                     </td>
 
-                    <td className="px-4 py-3">
+                    <td className="px-4 py-3.5">
                       <Link
                         href={`/deployer/${row.deployerAddress}`}
                         className="inline-flex items-center gap-1.5 hover:underline"
                       >
                         <span
-                          className={`text-[11px] px-2 py-0.5 rounded font-bold uppercase ${
-                            row.band === "green"
-                              ? "bg-emerald-950 text-emerald-400 border border-emerald-800"
-                              : row.band === "red"
-                              ? "bg-red-950 text-red-400 border border-red-800"
-                              : "bg-amber-950 text-amber-400 border border-amber-800"
-                          }`}
+                          className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase border ${bandColor}`}
                         >
                           {row.score ?? 50} ({row.label ? row.label.charAt(0).toUpperCase() + row.label.slice(1) : "Fresh"})
                         </span>
                       </Link>
                     </td>
 
-                    <td className="px-4 py-3">
-                      <div className="w-28 space-y-1">
-                        <div className="w-full h-1.5 bg-gray-800 rounded-full overflow-hidden">
+                    <td className="px-4 py-3.5">
+                      <div className="w-28 space-y-1.5">
+                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
                           <div
-                            className={`h-full ${
-                              isGrad ? "bg-emerald-400" : "bg-cyan-400"
+                            className={`h-full rounded-full ${
+                              isGrad
+                                ? "bg-gradient-to-r from-emerald-400 to-teal-300 shadow-[0_0_8px_rgba(0,229,153,0.5)]"
+                                : "bg-gradient-to-r from-cyan-400 to-blue-500"
                             }`}
                             style={{ width: `${progress}%` }}
                           />
                         </div>
-                        <div className="text-[10px] text-gray-400">
+                        <div className="text-[10px] text-slate-400 font-medium">
                           {isGrad ? "100% Graduated" : `${progress.toFixed(1)}%`}
                         </div>
                       </div>
                     </td>
 
-                    <td className="px-4 py-3 font-semibold text-gray-200">
+                    <td className="px-4 py-3.5 font-semibold text-slate-200">
                       {formatCurrency(row.marketCapUsd)}
                     </td>
 
-                    <td className="px-4 py-3 font-semibold text-gray-300">
+                    <td className="px-4 py-3.5 font-semibold text-slate-300">
                       {formatCurrency(row.volume24hUsd)}
                     </td>
 
-                    <td className="px-4 py-3 text-gray-400 text-[11px]">
+                    <td className="px-4 py-3.5 text-slate-400 text-[11px]">
                       {formatTimeAgo(row.timestamp)}
                     </td>
 
-                    <td className="px-4 py-3 text-right">
+                    <td className="px-4 py-3.5 text-right">
                       <Link
                         href={`/d/${row.contractAddress}`}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 bg-cyan-950/60 hover:bg-cyan-900 border border-cyan-800 text-cyan-300 hover:text-white rounded text-[11px] font-bold transition-colors"
+                        className="inline-flex items-center gap-1 px-3 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-400 hover:text-white rounded-xl text-[11px] font-bold transition-all"
                       >
                         <span>Open</span>
-                        <span>&rarr;</span>
+                        <span>→</span>
                       </Link>
                     </td>
                   </tr>

@@ -91,43 +91,44 @@ export function WatchlistClient({
         );
       }
     } catch {
-      // Network error handling
     } finally {
       setDeletingId(null);
     }
   };
 
   return (
-    <div className="min-h-screen bg-canvas text-ink-primary font-mono pb-24">
+    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans relative overflow-hidden pb-16 sm:pb-24">
+      <div className="absolute top-0 right-1/3 w-[600px] h-[400px] bg-gradient-to-b from-[#FFB800]/10 via-[#00F0FF]/10 to-transparent blur-[130px] pointer-events-none -z-10" />
+
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <main className="max-w-7xl mx-auto px-6 pt-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-border-primary pb-6 mb-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 relative z-10 space-y-6 sm:space-y-8">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-black uppercase tracking-tight">Deployer Watchlist</h1>
-              <span className="text-xs px-2 py-0.5 bg-bg-secondary border border-border-primary text-ink-secondary">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Deployer Watchlist</h1>
+              <span className="text-[11px] px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-semibold tracking-wide">
                 {`${entries.length} / 30 TRACKED`}
               </span>
             </div>
-            <p className="text-xs text-ink-secondary mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1.5 font-normal">
               Monitor repeat launchers, track token genesis events, and receive activity alerts.
             </p>
           </div>
 
           {isAuthenticated && (
-            <form onSubmit={handleAddDeployer} className="flex items-center gap-2">
+            <form onSubmit={handleAddDeployer} className="flex flex-col sm:flex-row items-center gap-2.5 w-full sm:w-auto">
               <input
                 type="text"
                 placeholder="0x... deployer address"
                 value={newAddress}
                 onChange={(e) => setNewAddress(e.target.value)}
-                className="bg-bg-primary border-2 border-border-primary px-3 py-2 text-xs font-mono text-ink-primary placeholder:text-ink-tertiary focus:outline-hidden focus:border-accent w-72"
+                className="w-full sm:w-72 bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-100 placeholder:text-slate-500 focus:outline-hidden focus:border-amber-500/60 transition-colors"
               />
               <button
                 type="submit"
                 disabled={adding || !newAddress.trim()}
-                className="px-4 py-2 bg-accent text-accent-fg font-bold text-xs border-2 border-border-primary shadow-neo-sm hover:translate-x-0.5 hover:-translate-y-0.5 transition-all disabled:opacity-50"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
               >
                 {adding ? "Adding..." : "+ Watch Deployer"}
               </button>
@@ -136,33 +137,35 @@ export function WatchlistClient({
         </div>
 
         {addError && (
-          <div className="mb-6 p-3 bg-status-danger/10 border-2 border-status-danger text-status-danger text-xs">
+          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-medium">
             {addError}
           </div>
         )}
 
         {!isAuthenticated ? (
-          <div className="border-2 border-border-primary bg-bg-primary p-12 text-center shadow-neo-md max-w-xl mx-auto my-12">
-            <h2 className="text-base font-bold uppercase mb-2">Authentication Required</h2>
-            <p className="text-xs text-ink-secondary mb-6 leading-relaxed">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 sm:p-14 text-center space-y-4 shadow-2xl backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
+            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">Authentication Required</h2>
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
               Connect your Ethereum wallet via SIWE to save custom deployers to your watchlist, monitor launcher behavior, and track new tokens.
             </p>
-            <Link
-              href="/"
-              className="inline-block px-6 py-2.5 bg-accent text-accent-fg font-bold text-xs border-2 border-border-primary shadow-neo-sm hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform"
-            >
-              Connect Wallet
-            </Link>
+            <div className="pt-3">
+              <Link
+                href="/"
+                className="inline-block px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition-all"
+              >
+                Connect Wallet
+              </Link>
+            </div>
           </div>
         ) : entries.length === 0 ? (
-          <div className="border-2 border-border-primary bg-bg-primary p-12 text-center shadow-neo-md">
-            <h2 className="text-sm font-bold uppercase mb-1">Your Watchlist is Empty</h2>
-            <p className="text-xs text-ink-secondary max-w-md mx-auto">
+          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-10 sm:p-14 text-center space-y-2 backdrop-blur-xl">
+            <h2 className="text-sm font-bold uppercase text-slate-300">Your Watchlist is Empty</h2>
+            <p className="text-xs text-slate-500 max-w-md mx-auto font-normal">
               Add deployer addresses from token dossiers or use the search bar above to start monitoring serial creators.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {entries.map((item) => {
               const score = item.score?.score ?? 0;
               const band = item.score?.band ?? "yellow";
@@ -171,62 +174,63 @@ export function WatchlistClient({
               const graduatedCount = item.score?.graduatedCount ?? 0;
               const newLaunches = item.newLaunchesCount ?? 0;
 
+              const bandColor =
+                band === "green"
+                  ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-[0_0_10px_rgba(0,229,153,0.15)]"
+                  : band === "red"
+                  ? "bg-rose-500/10 border-rose-500/40 text-rose-400 shadow-[0_0_10px_rgba(255,46,77,0.15)]"
+                  : "bg-amber-500/10 border-amber-500/40 text-amber-400 shadow-[0_0_10px_rgba(255,184,0,0.15)]";
+
               return (
                 <div
                   key={item.id}
-                  className="border-2 border-border-primary bg-bg-primary p-5 shadow-neo-sm flex flex-col justify-between"
+                  className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-5 shadow-lg hover:border-slate-700 backdrop-blur-xl flex flex-col justify-between space-y-4 transition-all duration-200"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-3 border-b border-border-secondary pb-3">
+                    <div className="flex items-center justify-between mb-3 border-b border-slate-800/80 pb-3">
                       <span
-                        className={`text-[10px] font-extrabold uppercase px-2 py-0.5 border ${
-                          band === "green"
-                            ? "bg-status-success/10 border-status-success text-status-success"
-                            : band === "red"
-                            ? "bg-status-danger/10 border-status-danger text-status-danger"
-                            : "bg-status-warning/10 border-status-warning text-status-warning"
-                        }`}
+                        className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border ${bandColor}`}
                       >
                         {label} • {band.toUpperCase()}
                       </span>
 
-                      <span className="text-sm font-black">{`SCORE: ${score}`}</span>
+                      <span className="text-sm font-extrabold text-white tracking-wide">{`SCORE: ${score}`}</span>
                     </div>
 
                     <div className="mb-4">
-                      <div className="text-[11px] text-ink-tertiary uppercase tracking-wider mb-0.5">
+                      <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">
                         Deployer Address
                       </div>
                       <Link
                         href={`/deployer/${item.deployerAddress}`}
-                        className="text-xs font-bold font-mono text-ink-primary hover:text-accent hover:underline break-all"
+                        className="text-xs font-semibold font-mono text-cyan-400 hover:text-cyan-300 break-all transition-colors"
                       >
                         {item.deployerAddress}
                       </Link>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 p-2.5 bg-canvas border border-border-secondary text-xs mb-4">
+                    <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs mb-3">
                       <div>
-                        <div className="text-[10px] text-ink-tertiary uppercase">Total Launches</div>
-                        <div className="font-bold text-sm">{totalLaunches}</div>
+                        <div className="text-[10px] text-slate-500 uppercase">Total Launches</div>
+                        <div className="font-extrabold text-sm text-white">{totalLaunches}</div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-ink-tertiary uppercase">Graduated</div>
-                        <div className="font-bold text-sm text-status-success">{graduatedCount}</div>
+                        <div className="text-[10px] text-slate-500 uppercase">Graduated</div>
+                        <div className="font-extrabold text-sm text-emerald-400">{graduatedCount}</div>
                       </div>
                     </div>
 
                     {newLaunches > 0 && (
-                      <div className="mb-4 p-2 bg-status-success/10 border border-status-success text-status-success text-[11px] font-bold">
+                      <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
                         {`+${newLaunches} new launches since last check`}
                       </div>
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-border-secondary text-xs">
+                  <div className="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs">
                     <Link
                       href={`/deployer/${item.deployerAddress}`}
-                      className="font-bold text-accent hover:underline flex items-center gap-1"
+                      className="font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition-colors"
                     >
                       <span>View Profile</span>
                       <span>→</span>
@@ -236,7 +240,7 @@ export function WatchlistClient({
                       type="button"
                       onClick={() => handleRemoveDeployer(item.deployerAddress)}
                       disabled={deletingId === item.deployerAddress}
-                      className="text-status-danger hover:underline text-[11px] font-bold disabled:opacity-50"
+                      className="text-rose-400 hover:text-rose-300 text-xs font-semibold disabled:opacity-50 transition-colors"
                     >
                       {deletingId === item.deployerAddress ? "Removing..." : "Remove"}
                     </button>

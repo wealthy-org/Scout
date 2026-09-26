@@ -4,8 +4,8 @@
     "hash": "8e026b1cf5aa5aa0b5a802cb50b744e8"
   },
   "app/page.tsx": {
-    "mtime": 1790405488035.614,
-    "hash": "cb0e20568445359659e27a68f998020b"
+    "mtime": 1790426204369.0398,
+    "hash": "7de5ce3a081dff6c6e84a4c555958a61"
   },
   "eslint.config.mjs": {
     "mtime": 1790338582321.047,
@@ -244,8 +244,8 @@
     "hash": "82497d8fe08d1a228d1d54cce8dd2d58"
   },
   "app/d/[ca]/page.tsx": {
-    "mtime": 1790402688250.5793,
-    "hash": "b72927b63684eb16ae40de1e100929ee"
+    "mtime": 1790426670867.2974,
+    "hash": "346e50820463ca28bfca7664e1c0567c"
   },
   "app/demo/[slug]/__tests__/page.test.tsx": {
     "mtime": 1790406583074.1711,
@@ -268,8 +268,8 @@
     "hash": "1b65b16ee440b1c84954c8ba42e226df"
   },
   "app/docs/page.tsx": {
-    "mtime": 1790406534386.1233,
-    "hash": "486439f7e1ddf1f0781693196d670e08"
+    "mtime": 1790426967655.3506,
+    "hash": "765fe7e5d6915ae34f4427d94fb2bd21"
   },
   "app/dossier/[ca]/__tests__/page.test.tsx": {
     "mtime": 1790396747100.5972,
@@ -288,24 +288,24 @@
     "hash": "e245f3af788ef8d1dd38fbacf2a084fe"
   },
   "app/feed/page.tsx": {
-    "mtime": 1790403676576.2468,
-    "hash": "03fb1db3487fb6879eebf510f340f9e3"
+    "mtime": 1790426402751.6062,
+    "hash": "34bc0818eb52ece854a58ec360157b30"
   },
   "app/how/__tests__/page.test.tsx": {
     "mtime": 1790406497418.4348,
     "hash": "6ac1ef27b34bf927c041facc97bf2853"
   },
   "app/how/page.tsx": {
-    "mtime": 1790406447224.6511,
-    "hash": "49fda51ead03977e2c6f2cada3dc71d8"
+    "mtime": 1790426955162.027,
+    "hash": "6032e8edcddc734cea361db7bc881640"
   },
   "app/map/__tests__/page.test.tsx": {
     "mtime": 1790404019510.1047,
     "hash": "99efe435d7923f5eef6840d6ff91b135"
   },
   "app/map/page.tsx": {
-    "mtime": 1790404027822.6023,
-    "hash": "4cdd254f387f39c1407a2aed7940f50e"
+    "mtime": 1790426660483.781,
+    "hash": "a46c59cb1e0a1bb6f75d6e3cdb1fe9a9"
   },
   "app/me/__tests__/page.test.tsx": {
     "mtime": 1790406348852.526,
@@ -336,20 +336,20 @@
     "hash": "63b7a7cbfa367353a4a5ad6a5004b2f3"
   },
   "app/watchlist/page.tsx": {
-    "mtime": 1790404839856.1536,
-    "hash": "8899bbde6060b3f0fb771719e6b30c75"
+    "mtime": 1790426275904.3904,
+    "hash": "f7db55068ed5eade2197ab5435a8ad08"
   },
   "components/account/AccountClient.tsx": {
-    "mtime": 1790406360768.8638,
-    "hash": "b56481ceb61f25e7af479d6d2b5e8b4f"
+    "mtime": 1790426941610.5076,
+    "hash": "c08f8a662fcf71b735590179c3752347"
   },
   "components/census/CensusView.tsx": {
-    "mtime": 1790417001307.9055,
-    "hash": "9d241abae10c3801a3b1966a69c229bb"
+    "mtime": 1790426915951.9827,
+    "hash": "d5f539a6d5345dd6ba6803c7dfc8847c"
   },
   "components/deployer/DeployerProfileView.tsx": {
-    "mtime": 1790406297117.6355,
-    "hash": "39049cfc72198ab5f308ddecb14f293a"
+    "mtime": 1790426929361.5022,
+    "hash": "60986cd30d478930f35a66a9438c5b7b"
   },
   "components/dialogs/__tests__/PublishDialog.test.tsx": {
     "mtime": 1790404323790.8406,
@@ -360,20 +360,20 @@
     "hash": "052655a42c6c3dade32afcbeb1ab9191"
   },
   "components/dossier/ConstellationGraph.tsx": {
-    "mtime": 1790396355053.272,
-    "hash": "79148c3cc66b8113942964e82db6972c"
+    "mtime": 1790426625370.4888,
+    "hash": "3f319cdfa55ab2ee1dd14388d9c2c310"
   },
   "components/dossier/DeployerHistory.tsx": {
     "mtime": 1790396783689.5696,
     "hash": "2a697f4400d4777a46a50a29ace8ff80"
   },
   "components/dossier/DossierHeader.tsx": {
-    "mtime": 1790395976997.9597,
-    "hash": "6cd705b75f223998b40b08f00f688623"
+    "mtime": 1790426574712.2317,
+    "hash": "80f63109d2f11f440aa4c0d17f0ddc12"
   },
   "components/dossier/MarketFlowBlock.tsx": {
-    "mtime": 1790396023512.7717,
-    "hash": "f68a264c3b3b55d4becd1c43aed58282"
+    "mtime": 1790426583226.8376,
+    "hash": "0aa8ec871c9bdc30dd2d12ae9ef4f24a"
   },
   "components/dossier/PublicDossierClient.tsx": {
     "mtime": 1790404503729.0686,
@@ -384,8 +384,8 @@
     "hash": "10d362b7b84634fd670c141c707409ca"
   },
   "components/dossier/ResearchPanel.tsx": {
-    "mtime": 1790396434928.7168,
-    "hash": "6fd6d5de5f04d0544624e927d51cb6ec"
+    "mtime": 1790426639492.6582,
+    "hash": "0011016fb8b3a5e86fa795771267eef7"
   },
   "components/dossier/ScoutRemembers.tsx": {
     "mtime": 1790396577777.0554,
@@ -400,16 +400,16 @@
     "hash": "37e78c425c27c7f5aa0a934283209716"
   },
   "components/dossier/TradeFlowChart.tsx": {
-    "mtime": 1790396064139.6653,
-    "hash": "c9a4ca53ad4ceedb85b4db79cec9edb6"
+    "mtime": 1790426592119.4597,
+    "hash": "f90d1eec28b37ef774ae7bf1bb0d7e65"
   },
   "components/dossier/TradeFlowPanel.tsx": {
-    "mtime": 1790396124258.6606,
-    "hash": "12c59a662503694c20149fc98b49f7e5"
+    "mtime": 1790426599390.8872,
+    "hash": "6b7c916dc512a47819380fd63ce1f8ba"
   },
   "components/dossier/WalletMap.tsx": {
-    "mtime": 1790396212718.765,
-    "hash": "a14a2c9fe482d3597827ae39a2123ae8"
+    "mtime": 1790427116315.458,
+    "hash": "fced80ea76c4d80431966f89dff1ffa6"
   },
   "components/dossier/__tests__/ConnectionsTimeline.test.tsx": {
     "mtime": 1790396678939.7585,
@@ -468,28 +468,28 @@
     "hash": "3bd0e1078f6d90ed47d286aff5755b04"
   },
   "components/feed/FeedTable.tsx": {
-    "mtime": 1790403614646.5647,
-    "hash": "559685dad53280bec09bb9b6213fea67"
+    "mtime": 1790426366456.1501,
+    "hash": "ed81bd271b1098ebe894c5088d7f524a"
   },
   "components/feed/FeedTiles.tsx": {
-    "mtime": 1790403185877.8088,
-    "hash": "2720abe8e2e2d304bc480482473e44d8"
+    "mtime": 1790426354654.6553,
+    "hash": "cef8aafea52ce92050c1050ca54aef16"
   },
   "components/feed/GraduationTape.tsx": {
-    "mtime": 1790403435933.6814,
-    "hash": "8eee4b607521ae5b91793cc75bfcd972"
+    "mtime": 1790426391292.45,
+    "hash": "e4c9196e76b4c375e0e4186dadd510a0"
   },
   "components/feed/TickerTape.tsx": {
     "mtime": 1790403072277.722,
     "hash": "e061feb75507db7d4312c711cde64f0f"
   },
   "components/feed/TradeInspector.tsx": {
-    "mtime": 1790403382327.1543,
-    "hash": "fa3c9c3f5efd7c21af92dc2190e8d77c"
+    "mtime": 1790426376973.3635,
+    "hash": "3f33a02e767e0e9678cd13f0133cffa8"
   },
   "components/feed/TradeTape.tsx": {
-    "mtime": 1790403428229.2131,
-    "hash": "6f3182e3be76c2a4bb6a46795c390ece"
+    "mtime": 1790426384154.489,
+    "hash": "0664f3329dc5652d48e7cfdea2273954"
   },
   "components/feed/__tests__/FeedPoller.test.tsx": {
     "mtime": 1790403108364.9736,
@@ -516,16 +516,16 @@
     "hash": "0a04094757bc8850b1e588862403650c"
   },
   "components/landing/LandingClient.tsx": {
-    "mtime": 1790416744173.422,
-    "hash": "60b0b498e39097381a6881b5ca14d9e4"
+    "mtime": 1790426197462.3787,
+    "hash": "956117243f8caac37bfc259955acfcaa"
   },
   "components/layout/GlobalHeader.tsx": {
     "mtime": 1790403655298.3662,
     "hash": "8e6776f9de7d77440f50d60a41ed2080"
   },
   "components/layout/Header.tsx": {
-    "mtime": 1790416730596.4866,
-    "hash": "be391b0277fea64d85ee2d704a482e9c"
+    "mtime": 1790426073500.5422,
+    "hash": "e049831757f30bac006c8dba6639512e"
   },
   "components/layout/TickerTape.tsx": {
     "mtime": 1790403053472.7988,
@@ -544,20 +544,20 @@
     "hash": "ccab5c1f22453f26b85ae04c3df051fe"
   },
   "components/library/LibraryClient.tsx": {
-    "mtime": 1790416932514.7754,
-    "hash": "6cc3bfdb1e15ee719ed1b6778f3ee813"
+    "mtime": 1790426251980.287,
+    "hash": "2aafb8d6175018e88c3c63040e653d7c"
   },
   "components/map/ConnectionMap.tsx": {
-    "mtime": 1790403976429.34,
-    "hash": "0ff68cb83fd38fa28b7bf67002bb70f1"
+    "mtime": 1790426652268.3528,
+    "hash": "43b0754c335cadf84b24a281b3f70ee4"
   },
   "components/map/__tests__/ConnectionMap.test.tsx": {
     "mtime": 1790403963764.0117,
     "hash": "b4afef1fa9a0b9ead4f62f7fca1c97ba"
   },
   "components/watchlist/WatchlistClient.tsx": {
-    "mtime": 1790404924999.5708,
-    "hash": "b5e5d3edfa224014f4ac8109acbd183e"
+    "mtime": 1790426263267.6008,
+    "hash": "f8ffc2488eaf768354a92ae9be98f4d5"
   },
   "config/__tests__/chain.test.ts": {
     "mtime": 1790378781617.2007,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790382691945.0906,
-    "hash": "311db11436bad9bb912de804c5b75426"
+    "mtime": 1790427953628.6038,
+    "hash": "1e27681f49e6f0726d8981809ae60f31"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -918,5 +918,65 @@
   "prototypes/landing.html": {
     "mtime": 1790402903868.9387,
     "hash": "210370c55ca7e04f554fc293480d5a6b"
+  },
+  "app/__tests__/loading-skeletons.test.tsx": {
+    "mtime": 1790416546311.9878,
+    "hash": "a8ecbfc917180c9aa8acd064d0debb26"
+  },
+  "app/census/loading.tsx": {
+    "mtime": 1790416589835.094,
+    "hash": "5a8c27a4d173dff050cb1203c9a6bbc3"
+  },
+  "app/d/[ca]/loading.tsx": {
+    "mtime": 1790416596022.1667,
+    "hash": "e76196c8ac67ff2274f40591d7edde73"
+  },
+  "app/docs/loading.tsx": {
+    "mtime": 1790416617800.9863,
+    "hash": "63dea9026861915b17fb9b291a4ad68f"
+  },
+  "app/feed/loading.tsx": {
+    "mtime": 1790416602125.4163,
+    "hash": "9bd02508583bea7d22d797b248fd1f5d"
+  },
+  "app/library/__tests__/page.test.tsx": {
+    "mtime": 1790416665208.058,
+    "hash": "f95da3d7f314d2dafcbc3e16034d90f7"
+  },
+  "app/library/loading.tsx": {
+    "mtime": 1790416576305.0012,
+    "hash": "a5b5a77cf1765f8e183174bfc5bd0165"
+  },
+  "app/library/page.tsx": {
+    "mtime": 1790416670940.6982,
+    "hash": "4ef75f967e4e66278305f0e29ffad211"
+  },
+  "app/loading.tsx": {
+    "mtime": 1790416569259.676,
+    "hash": "83918e7a1ce2ccbce6e6bb24d8955685"
+  },
+  "app/map/loading.tsx": {
+    "mtime": 1790416608581.4805,
+    "hash": "fc7a849312ce9341bf40c66c5bea6b63"
+  },
+  "app/watchlist/loading.tsx": {
+    "mtime": 1790416582875.9507,
+    "hash": "8d47010d55981281b81194f1b672a8ad"
+  },
+  "components/layout/TopProgressBar.tsx": {
+    "mtime": 1790417143610.56,
+    "hash": "6fc3241f3352131086a79c14458e2d3f"
+  },
+  "components/layout/__tests__/MobileNav.test.tsx": {
+    "mtime": 1790416709461.735,
+    "hash": "456b87592de4aba090dcdd3c456e73e1"
+  },
+  "components/layout/__tests__/TopProgressBar.test.tsx": {
+    "mtime": 1790416541085.7112,
+    "hash": "80ff6263ff01c0d6e9186cbe67001013"
+  },
+  "components/responsive/__tests__/responsive-layout.test.tsx": {
+    "mtime": 1790417008442.7634,
+    "hash": "738a4193c0e4b0065b603666a15bd98f"
   }
 }

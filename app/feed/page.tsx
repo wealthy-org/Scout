@@ -142,20 +142,22 @@ export default function FeedPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#080b0f] text-gray-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-[#07090E] text-slate-100 flex flex-col font-sans relative overflow-hidden pb-16">
+      <div className="absolute top-0 right-10 w-[700px] h-[400px] bg-gradient-to-b from-[#00E599]/10 via-[#00F0FF]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+
       <GlobalHeader />
       <TickerTape />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 py-6 space-y-6">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-xl md:text-2xl font-black tracking-tight text-white uppercase">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
                 Live Launches
               </h1>
               <FeedPoller isLive={true} pollingIntervalMs={2000} />
             </div>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1 font-normal">
               Real-time bonding curve tracker, deployer reputation scoring, and high-frequency trade monitor.
             </p>
           </div>

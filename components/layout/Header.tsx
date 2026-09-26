@@ -64,34 +64,36 @@ export function Header({
   ];
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b border-gray-800 bg-[#0b0e14]/95 backdrop-blur-md px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 transition-colors">
+    <header className="sticky top-0 z-40 w-full border-b border-white/10 bg-[#07090e]/90 backdrop-blur-xl px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 transition-all duration-300">
       <div className="max-w-7xl mx-auto flex items-center justify-between gap-2 sm:gap-4">
         <div className="flex items-center gap-3 sm:gap-6">
-          <Link href="/" className="flex items-center gap-2 group">
-            <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center font-mono font-black text-black text-xs sm:text-sm shadow-md shadow-cyan-500/20 group-hover:scale-105 transition-transform">
-              S
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <div className="relative w-8 h-8 rounded-xl bg-gradient-to-tr from-[#4D65FF] via-[#00F0FF] to-[#00E599] p-[1.5px] shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform duration-300">
+              <div className="w-full h-full bg-[#0E131F] rounded-[10px] flex items-center justify-center font-mono font-black text-xs text-white group-hover:text-cyan-300 transition-colors">
+                S
+              </div>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="font-mono text-base sm:text-lg font-black tracking-tight text-white group-hover:text-cyan-400 transition-colors">
+              <span className="font-mono text-base sm:text-lg font-black tracking-tight text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-white group-hover:via-cyan-300 group-hover:to-emerald-400 transition-all">
                 SCOUT
               </span>
-              <span className="text-[9px] sm:text-[10px] font-mono font-bold bg-cyan-950 text-cyan-400 border border-cyan-800 px-1.5 py-0.5 rounded">
+              <span className="text-[9px] sm:text-[10px] font-mono font-bold bg-gradient-to-r from-cyan-950/80 to-blue-950/80 text-cyan-300 border border-cyan-500/30 px-2 py-0.5 rounded-full shadow-inner">
                 Dossier.OS
               </span>
             </div>
           </Link>
 
-          <nav className="hidden md:flex items-center gap-1 font-mono text-xs">
+          <nav className="hidden md:flex items-center gap-1 bg-[#101624]/70 border border-white/10 rounded-full px-2 py-1 shadow-inner">
             {navLinks.map((item) => {
               const active = pathname === item.href;
               return (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-2.5 py-1.5 rounded-md transition-colors font-medium ${
+                  className={`px-3 py-1.5 rounded-full text-xs font-mono font-medium transition-all duration-200 ${
                     active
-                      ? "text-cyan-400 bg-cyan-950/40 border border-cyan-800/60"
-                      : "text-gray-400 hover:text-white hover:bg-gray-800/60"
+                      ? "text-black bg-gradient-to-r from-[#00E599] to-[#00F0FF] font-bold shadow-md shadow-cyan-500/20"
+                      : "text-gray-400 hover:text-white hover:bg-white/5"
                   }`}
                 >
                   {item.label}
@@ -112,31 +114,32 @@ export function Header({
               placeholder="Search CA (0x...)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-40 md:w-52 lg:w-64 bg-[#11161d] border border-gray-700 rounded-lg pl-3 pr-8 py-1.5 text-xs text-white font-mono placeholder-gray-500 focus:outline-none focus:border-cyan-500 transition-all focus:w-72"
+              className="w-40 md:w-52 lg:w-64 bg-[#101624]/80 border border-white/10 rounded-full pl-4 pr-9 py-1.5 text-xs text-white font-mono placeholder-gray-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/40 transition-all duration-300 focus:w-72"
             />
             <button
               type="submit"
-              className="absolute right-2 text-gray-400 hover:text-cyan-400 text-xs"
+              className="absolute right-3 text-gray-400 hover:text-cyan-400 text-xs font-bold transition-colors"
             >
               &crarr;
             </button>
           </form>
 
-          <div className="hidden xl:flex items-center gap-2 px-2.5 py-1 bg-[#11161d] border border-gray-800 rounded-lg font-mono text-[11px] text-gray-400">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span>Block #{blockHeight.toLocaleString()}</span>
+          <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-[#101624]/70 border border-white/10 rounded-full font-mono text-[11px] text-gray-300">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-glow" />
+            <span className="text-gray-400">Block</span>
+            <span className="font-bold text-white">#{blockHeight.toLocaleString()}</span>
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
             {isAuthenticated ? (
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="font-mono text-[11px] sm:text-xs px-2 sm:px-2.5 py-1 bg-[#161c24] border border-cyan-800/60 text-cyan-300 rounded-lg font-semibold truncate max-w-[110px] sm:max-w-none">
+                <span className="font-mono text-[11px] sm:text-xs px-3 py-1.5 bg-[#101624] border border-cyan-500/30 text-cyan-300 rounded-full font-semibold truncate max-w-[110px] sm:max-w-none shadow-sm">
                   {truncatedAddress}
                 </span>
                 <button
                   type="button"
                   onClick={onDisconnect}
-                  className="font-mono text-[11px] sm:text-xs px-2 sm:px-2.5 py-1 bg-gray-800 hover:bg-gray-700 text-gray-300 hover:text-white rounded-lg transition-colors border border-gray-700"
+                  className="font-mono text-[11px] sm:text-xs px-3 py-1.5 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded-full transition-colors border border-white/10"
                 >
                   Logout
                 </button>
@@ -145,9 +148,10 @@ export function Header({
               <button
                 type="button"
                 onClick={onConnectWallet}
-                className="font-mono text-xs px-3 py-1.5 bg-cyan-400 hover:bg-cyan-300 text-black font-bold rounded-lg transition-colors shadow-sm shadow-cyan-400/20 whitespace-nowrap"
+                className="group relative flex items-center gap-1.5 font-mono text-xs px-4 py-1.5 bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-black font-extrabold rounded-full shadow-lg shadow-cyan-500/25 hover:shadow-cyan-500/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-200 whitespace-nowrap"
               >
-                Connect Wallet
+                <span>Connect Wallet</span>
+                <span className="group-hover:translate-x-0.5 transition-transform duration-200">&rarr;</span>
               </button>
             )}
 
@@ -155,10 +159,10 @@ export function Header({
               type="button"
               aria-label="Toggle Mobile Menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-1.5 text-gray-400 hover:text-white hover:bg-gray-800 rounded-lg border border-gray-800 transition-colors focus:outline-none"
+              className="md:hidden p-2 text-gray-300 hover:text-white bg-[#101624] hover:bg-white/10 rounded-full border border-white/10 transition-colors focus:outline-none"
             >
               <svg
-                className="w-5 h-5"
+                className="w-4 h-4"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -185,24 +189,24 @@ export function Header({
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-gray-800 mt-2.5 pt-3 pb-2 space-y-3 font-mono animate-in slide-in-from-top-2 duration-150">
+        <div className="md:hidden border-t border-white/10 mt-3 pt-3 pb-2 space-y-3 font-mono animate-in slide-in-from-top-2 duration-200">
           <form onSubmit={handleSearch} className="flex sm:hidden items-center px-1">
             <input
               type="text"
               placeholder="Search Token CA (0x...)"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-[#11161d] border border-gray-700 rounded-lg px-3 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+              className="w-full bg-[#101624] border border-white/10 rounded-full px-4 py-2 text-xs text-white placeholder-gray-500 focus:outline-none focus:border-cyan-400"
             />
             <button
               type="submit"
-              className="ml-2 px-3 py-2 bg-cyan-500 text-black text-xs font-bold rounded-lg shrink-0"
+              className="ml-2 px-4 py-2 bg-gradient-to-r from-[#00E599] to-[#00F0FF] text-black text-xs font-black rounded-full shrink-0"
             >
               Go
             </button>
           </form>
 
-          <nav className="grid grid-cols-2 gap-1.5 px-1 text-xs">
+          <nav className="grid grid-cols-2 gap-2 px-1 text-xs">
             {navLinks.map((item) => {
               const active = pathname === item.href;
               return (
@@ -210,10 +214,10 @@ export function Header({
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`px-3 py-2 rounded-lg text-center font-medium border transition-colors ${
+                  className={`px-3 py-2.5 rounded-full text-center font-medium border transition-all ${
                     active
-                      ? "text-cyan-300 bg-cyan-950/60 border-cyan-800"
-                      : "text-gray-300 bg-[#11161d] border-gray-800 hover:border-gray-700 hover:text-white"
+                      ? "text-black bg-gradient-to-r from-[#00E599] to-[#00F0FF] border-transparent font-bold shadow-md shadow-cyan-500/20"
+                      : "text-gray-300 bg-[#101624] border-white/5 hover:border-white/20 hover:text-white"
                   }`}
                 >
                   {item.label}

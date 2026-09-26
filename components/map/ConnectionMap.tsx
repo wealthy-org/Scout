@@ -62,11 +62,11 @@ export function computeMapLayout(
       }
     }
 
-    let color = "#10b981";
+    let color = "#00E599";
     const st = (node.status || "active").toLowerCase();
     if (st === "passed") color = "#64748b";
-    else if (st === "rugged") color = "#ef4444";
-    else if (st === "hold") color = "#f59e0b";
+    else if (st === "rugged") color = "#FF2E4D";
+    else if (st === "hold") color = "#FFB800";
 
     return {
       ...node,
@@ -155,15 +155,15 @@ export function ConnectionMap({
 
   if (nodes.length === 0) {
     return (
-      <div className="w-full h-[600px] flex items-center justify-center bg-[#0d1117] border border-gray-800 rounded-xl p-8 text-center">
+      <div className="w-full h-[600px] flex items-center justify-center bg-slate-900/80 border border-slate-800 rounded-3xl p-8 text-center backdrop-blur-xl">
         <div>
-          <div className="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-800 flex items-center justify-center mx-auto mb-3 text-cyan-400">
+          <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mx-auto mb-3 text-cyan-400">
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
           <h3 className="text-base font-bold text-white mb-1">No dossier connections found</h3>
-          <p className="text-xs text-gray-400 max-w-sm">
+          <p className="text-xs text-slate-400 max-w-sm">
             Add dossiers with shared deployers, fee recipients, or notes mentions to visualize relationships.
           </p>
         </div>
@@ -178,14 +178,14 @@ export function ConnectionMap({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
-      className="relative w-full h-[700px] bg-[#080b0f] border border-gray-800 rounded-xl overflow-hidden cursor-grab active:cursor-grabbing select-none shadow-2xl"
+      className="relative w-full h-[700px] bg-slate-950 border border-slate-800 rounded-3xl overflow-hidden cursor-grab active:cursor-grabbing select-none shadow-2xl font-sans"
     >
-      <div className="absolute top-4 right-4 z-20 flex flex-col gap-1.5 bg-[#0d1117]/90 backdrop-blur-md p-1.5 rounded-lg border border-gray-800 shadow-lg">
+      <div className="absolute top-4 right-4 z-20 flex flex-col gap-1.5 bg-slate-900/90 backdrop-blur-md p-1.5 rounded-2xl border border-slate-800 shadow-lg">
         <button
           type="button"
           data-testid="zoom-in-btn"
           onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))}
-          className="w-8 h-8 rounded bg-[#161c24] hover:bg-gray-800 text-white font-bold text-base flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-base flex items-center justify-center transition-colors"
           aria-label="Zoom In"
         >
           +
@@ -194,7 +194,7 @@ export function ConnectionMap({
           type="button"
           data-testid="zoom-out-btn"
           onClick={() => setZoom((z) => Math.max(0.4, z - 0.2))}
-          className="w-8 h-8 rounded bg-[#161c24] hover:bg-gray-800 text-white font-bold text-base flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-base flex items-center justify-center transition-colors"
           aria-label="Zoom Out"
         >
           -
@@ -206,50 +206,50 @@ export function ConnectionMap({
             setZoom(1);
             setPan({ x: 0, y: 0 });
           }}
-          className="w-8 h-8 rounded bg-[#161c24] hover:bg-gray-800 text-cyan-400 font-bold text-xs flex items-center justify-center transition-colors"
+          className="w-8 h-8 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-400 font-bold text-xs flex items-center justify-center transition-colors"
           aria-label="Reset View"
         >
           1x
         </button>
       </div>
 
-      <div className="absolute bottom-4 left-4 z-20 bg-[#0d1117]/90 backdrop-blur-md p-3.5 rounded-xl border border-gray-800 shadow-xl space-y-3 text-xs">
+      <div className="absolute bottom-4 left-4 z-20 bg-slate-900/90 backdrop-blur-md p-4 rounded-2xl border border-slate-800 shadow-xl space-y-3 text-xs">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">
             Status Legend
           </div>
           <div className="grid grid-cols-2 gap-2 text-[11px]">
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-400" />
-              <span className="text-gray-300">Active</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#00E599]" />
+              <span className="text-slate-300">Active</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-400" />
-              <span className="text-gray-300">Hold</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FFB800]" />
+              <span className="text-slate-300">Hold</span>
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-red-400" />
-              <span className="text-gray-300">Rugged</span>
+              <span className="w-2.5 h-2.5 rounded-full bg-[#FF2E4D]" />
+              <span className="text-slate-300">Rugged</span>
             </div>
             <div className="flex items-center gap-1.5">
               <span className="w-2.5 h-2.5 rounded-full bg-slate-400" />
-              <span className="text-gray-300">Passed</span>
+              <span className="text-slate-300">Passed</span>
             </div>
           </div>
         </div>
 
-        <div className="pt-2 border-t border-gray-800">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-gray-400 mb-2">
+        <div className="pt-2.5 border-t border-slate-800">
+          <div className="text-[10px] font-bold uppercase tracking-wider text-slate-400 mb-2">
             Connection Links
           </div>
           <div className="space-y-1.5 text-[11px]">
             <div className="flex items-center gap-2">
-              <div className="w-5 h-0.5 bg-cyan-400" />
+              <div className="w-5 h-0.5 bg-[#00F0FF]" />
               <span className="text-cyan-300 font-medium">Confirmed (On-Chain / Repo)</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-5 h-0.5 border-b-2 border-dashed border-purple-400" />
-              <span className="text-purple-300 font-medium">Hypothesis (Note Mentions)</span>
+              <div className="w-5 h-0.5 border-b-2 border-dashed border-[#D946EF]" />
+              <span className="text-fuchsia-300 font-medium">Hypothesis (Note Mentions)</span>
             </div>
           </div>
         </div>
@@ -276,7 +276,7 @@ export function ConnectionMap({
                 y1={src.cy}
                 x2={tgt.cx}
                 y2={tgt.cy}
-                stroke={isConfirmed ? "#06b6d4" : "#a855f7"}
+                stroke={isConfirmed ? "#00F0FF" : "#D946EF"}
                 strokeWidth={isConfirmed ? "2" : "1.5"}
                 strokeDasharray={isConfirmed ? "none" : "5 4"}
                 opacity={0.8}
@@ -298,14 +298,14 @@ export function ConnectionMap({
               className="cursor-pointer"
             >
               <circle
-                r={node.r + 4}
+                r={node.r + 5}
                 fill={node.color}
-                opacity={0.2}
+                opacity={0.25}
                 className="animate-pulse"
               />
               <circle
                 r={node.r}
-                fill="#0d1117"
+                fill="#07090E"
                 stroke={node.color}
                 strokeWidth="2.5"
               />
@@ -315,7 +315,7 @@ export function ConnectionMap({
                 fill="#ffffff"
                 fontSize="10"
                 fontWeight="bold"
-                className="pointer-events-none select-none"
+                className="pointer-events-none select-none font-sans"
               >
                 {node.symbol.slice(0, 5)}
               </text>
@@ -329,7 +329,7 @@ export function ConnectionMap({
               >
                 <Link
                   href={`/d/${node.contractAddress}`}
-                  className="block text-center text-[10px] font-bold text-cyan-400 hover:underline truncate"
+                  className="block text-center text-[10px] font-bold text-cyan-400 hover:underline truncate font-sans"
                 >
                   {`$${node.symbol}`}
                 </Link>
@@ -346,11 +346,11 @@ export function ConnectionMap({
             left: hoveredNode.cx * zoom + pan.x + 20,
             top: hoveredNode.cy * zoom + pan.y - 20,
           }}
-          className="z-30 pointer-events-none bg-[#161c24] border border-gray-700 px-3 py-2 rounded-lg shadow-xl text-xs text-white"
+          className="z-30 pointer-events-none bg-slate-900/95 border border-slate-700 px-3.5 py-2.5 rounded-2xl shadow-2xl text-xs text-white backdrop-blur-md font-sans"
         >
           <div className="font-bold text-cyan-400">{`$${hoveredNode.symbol}`}</div>
-          {hoveredNode.name && <div className="text-gray-400 text-[10px]">{hoveredNode.name}</div>}
-          <div className="text-[10px] uppercase font-bold text-gray-400 mt-1">
+          {hoveredNode.name && <div className="text-slate-400 text-[10px]">{hoveredNode.name}</div>}
+          <div className="text-[10px] uppercase font-bold text-slate-400 mt-1">
             {`Status: ${hoveredNode.status || "active"}`}
           </div>
         </div>

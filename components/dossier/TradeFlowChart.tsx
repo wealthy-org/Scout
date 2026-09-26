@@ -32,7 +32,7 @@ export function TradeFlowChart({
 
   if (!candles || candles.length === 0) {
     return (
-      <div className="flex h-64 w-full items-center justify-center border border-border bg-surface p-4 font-mono text-xs text-ink-muted">
+      <div className="flex h-64 w-full items-center justify-center rounded-2xl border border-slate-800 bg-slate-950/60 p-4 font-mono text-xs text-slate-500">
         No trade flow data available
       </div>
     );
@@ -67,18 +67,18 @@ export function TradeFlowChart({
   const volBottom = padding.top + priceHeight + gap + volumeHeight;
 
   return (
-    <div className="relative w-full border border-border bg-surface p-4 shadow-sm">
-      <div className="mb-2 flex items-center justify-between">
-        <div className="flex items-center gap-2">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">
+    <div className="relative w-full rounded-2xl border border-slate-800 bg-slate-950/60 p-4 sm:p-5 shadow-xl font-sans">
+      <div className="mb-3 flex items-center justify-between">
+        <div className="flex items-center gap-2.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
             Trade Flow (Market Cap per Trade)
           </span>
-          <span className="font-mono text-[10px] text-ink-muted">
+          <span className="text-[11px] text-slate-500 font-mono">
             {candles.length} trades recorded
           </span>
         </div>
         {hoveredCandle && (
-          <div className="font-mono text-xs text-ink">
+          <div className="font-mono text-xs text-cyan-400">
             Trade #{hoveredCandle.index} | Close: ${hoveredCandle.close.toLocaleString()} | Vol: ${hoveredCandle.volume.toLocaleString()}
           </div>
         )}
@@ -94,7 +94,7 @@ export function TradeFlowChart({
             y1={padding.top}
             x2={width - padding.right}
             y2={padding.top}
-            stroke="#e5e5e5"
+            stroke="#1e293b"
             strokeDasharray="2 2"
           />
           <line
@@ -102,7 +102,7 @@ export function TradeFlowChart({
             y1={padding.top + priceHeight / 2}
             x2={width - padding.right}
             y2={padding.top + priceHeight / 2}
-            stroke="#e5e5e5"
+            stroke="#1e293b"
             strokeDasharray="2 2"
           />
           <line
@@ -110,7 +110,7 @@ export function TradeFlowChart({
             y1={padding.top + priceHeight}
             x2={width - padding.right}
             y2={padding.top + priceHeight}
-            stroke="#e5e5e5"
+            stroke="#1e293b"
             strokeDasharray="2 2"
           />
           <line
@@ -118,27 +118,27 @@ export function TradeFlowChart({
             y1={volBottom}
             x2={width - padding.right}
             y2={volBottom}
-            stroke="#e5e5e5"
+            stroke="#1e293b"
           />
 
           <text
             x={width - padding.right + 8}
             y={padding.top + 4}
-            className="fill-neutral-400 font-mono text-[10px]"
+            className="fill-slate-500 font-mono text-[10px]"
           >
             ${Math.round(maxPrice).toLocaleString()}
           </text>
           <text
             x={width - padding.right + 8}
             y={padding.top + priceHeight / 2 + 4}
-            className="fill-neutral-400 font-mono text-[10px]"
+            className="fill-slate-500 font-mono text-[10px]"
           >
             ${Math.round((maxPrice + minPrice) / 2).toLocaleString()}
           </text>
           <text
             x={width - padding.right + 8}
             y={padding.top + priceHeight + 4}
-            className="fill-neutral-400 font-mono text-[10px]"
+            className="fill-slate-500 font-mono text-[10px]"
           >
             ${Math.round(minPrice).toLocaleString()}
           </text>
@@ -151,7 +151,7 @@ export function TradeFlowChart({
             const yClose = getYForPrice(candle.close);
             const bodyTop = Math.min(yOpen, yClose);
             const bodyHeight = Math.max(Math.abs(yClose - yOpen), 2);
-            const color = candle.isBuy ? "#10b981" : "#ef4444";
+            const color = candle.isBuy ? "#00E599" : "#FF2E4D";
 
             const yVol = getYForVolume(candle.volume);
             const vHeight = Math.max(volBottom - yVol, 1);
@@ -182,6 +182,7 @@ export function TradeFlowChart({
                   width={candleWidth}
                   height={bodyHeight}
                   fill={color}
+                  rx="1"
                 />
 
                 <rect
@@ -190,7 +191,8 @@ export function TradeFlowChart({
                   width={candleWidth}
                   height={vHeight}
                   fill={color}
-                  opacity="0.5"
+                  opacity="0.4"
+                  rx="1"
                 />
 
                 {isGrad && (
@@ -200,24 +202,24 @@ export function TradeFlowChart({
                       y1={padding.top - 10}
                       x2={cx}
                       y2={volBottom}
-                      stroke="#10b981"
+                      stroke="#00E599"
                       strokeWidth="1.5"
                       strokeDasharray="4 4"
                     />
                     <rect
-                      x={cx - 36}
+                      x={cx - 38}
                       y={padding.top - 20}
-                      width={72}
-                      height={16}
-                      fill="#10b981"
-                      rx="2"
+                      width={76}
+                      height={18}
+                      fill="#00E599"
+                      rx="9"
                     />
                     <text
                       x={cx}
-                      y={padding.top - 8}
+                      y={padding.top - 7}
                       textAnchor="middle"
-                      fill="#ffffff"
-                      className="font-mono text-[9px] font-bold"
+                      fill="#07090E"
+                      className="font-sans text-[9px] font-extrabold tracking-wider"
                     >
                       GRADUATED
                     </text>

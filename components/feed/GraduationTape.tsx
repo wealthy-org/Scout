@@ -57,20 +57,23 @@ export function GraduationTape({
 
   return (
     <div
-      className="bg-[#0d1117] border border-gray-800 rounded-xl p-4 flex flex-col h-[480px] shadow-sm"
+      className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 flex flex-col h-[480px] shadow-xl backdrop-blur-xl font-sans"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-800">
+      <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-800">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-gray-200">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500" />
+          </span>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
             Graduation Stream
           </h3>
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-gray-500">
+        <div className="flex items-center gap-2 text-[11px] text-slate-500">
           {isPaused && (
-            <span className="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-400 border border-amber-800/60 font-semibold">
+            <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-semibold text-[10px]">
               PAUSED
             </span>
           )}
@@ -78,61 +81,64 @@ export function GraduationTape({
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-gray-800">
+      <div className="flex-1 overflow-y-auto space-y-2 pr-1">
         {items.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-xs text-gray-500">
+          <div className="h-full flex items-center justify-center text-xs text-slate-500">
             No recent graduations available.
           </div>
         ) : (
-          items.map((g) => (
-            <div
-              key={g.id}
-              onClick={() => onSelectGraduation?.(g)}
-              className="p-2.5 bg-[#161c24] hover:bg-[#1f2834] rounded-lg border border-gray-800/60 transition-colors flex items-center justify-between cursor-pointer group"
-            >
-              <div className="space-y-1">
-                <div className="flex items-center gap-2">
-                  <Link
-                    href={`/d/${g.contractAddress}`}
-                    className="font-bold text-white group-hover:text-cyan-400 text-xs transition-colors"
-                  >
-                    {`$${g.symbol}`}
-                  </Link>
-                  {g.deployerBand && (
-                    <span
-                      className={`text-[9px] px-1.5 py-0.2 rounded font-bold uppercase ${
-                        g.deployerBand === "green"
-                          ? "bg-emerald-950 text-emerald-400 border border-emerald-800/60"
-                          : g.deployerBand === "red"
-                          ? "bg-red-950 text-red-400 border border-red-800/60"
-                          : "bg-amber-950 text-amber-400 border border-amber-800/60"
-                      }`}
-                    >
-                      {`${g.deployerScore ?? 50} Score`}
-                    </span>
-                  )}
-                </div>
-                <div className="text-[10px] text-gray-400 flex items-center gap-1.5 font-mono">
-                  <span>by</span>
-                  <Link
-                    href={`/deployer/${g.deployerAddress}`}
-                    className="hover:text-cyan-400 hover:underline"
-                  >
-                    {truncateAddress(g.deployerAddress)}
-                  </Link>
-                </div>
-              </div>
+          items.map((g) => {
+            const bandColor =
+              g.deployerBand === "green"
+                ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                : g.deployerBand === "red"
+                ? "bg-rose-500/10 border-rose-500/40 text-rose-400"
+                : "bg-amber-500/10 border-amber-500/40 text-amber-400";
 
-              <div className="text-right">
-                <div className="text-xs font-bold text-cyan-400">
-                  {formatCurrency(g.marketCapUsd)}
+            return (
+              <div
+                key={g.id}
+                onClick={() => onSelectGraduation?.(g)}
+                className="p-3 bg-slate-950/60 hover:bg-slate-800/60 rounded-2xl border border-slate-800/80 transition-colors flex items-center justify-between cursor-pointer group"
+              >
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <Link
+                      href={`/d/${g.contractAddress}`}
+                      className="font-bold text-white group-hover:text-cyan-400 text-xs transition-colors"
+                    >
+                      {`$${g.symbol}`}
+                    </Link>
+                    {g.deployerBand && (
+                      <span
+                        className={`text-[9px] px-2 py-0.5 rounded-full font-bold uppercase border ${bandColor}`}
+                      >
+                        {`${g.deployerScore ?? 50} Score`}
+                      </span>
+                    )}
+                  </div>
+                  <div className="text-[10px] text-slate-400 flex items-center gap-1.5 font-mono">
+                    <span>by</span>
+                    <Link
+                      href={`/deployer/${g.deployerAddress}`}
+                      className="hover:text-cyan-400 hover:underline"
+                    >
+                      {truncateAddress(g.deployerAddress)}
+                    </Link>
+                  </div>
                 </div>
-                <div className="text-[10px] text-gray-500">
-                  {formatTimeAgo(g.graduatedAt)}
+
+                <div className="text-right">
+                  <div className="text-xs font-bold text-cyan-400">
+                    {formatCurrency(g.marketCapUsd)}
+                  </div>
+                  <div className="text-[10px] text-slate-500">
+                    {formatTimeAgo(g.graduatedAt)}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))
+            );
+          })
         )}
       </div>
     </div>

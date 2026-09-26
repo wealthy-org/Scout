@@ -50,20 +50,23 @@ export function TradeTape({
 
   return (
     <div
-      className="bg-[#0d1117] border border-gray-800 rounded-xl p-4 flex flex-col h-[480px] shadow-sm"
+      className="bg-slate-900/90 border border-slate-800 rounded-3xl p-4 sm:p-5 flex flex-col h-[480px] shadow-xl backdrop-blur-xl font-sans"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="flex items-center justify-between pb-3 mb-3 border-b border-gray-800">
+      <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-slate-800">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <h3 className="text-xs font-bold uppercase tracking-wider text-gray-200">
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <h3 className="text-xs font-bold uppercase tracking-wider text-slate-200">
             Live Trade Tape
           </h3>
         </div>
-        <div className="flex items-center gap-2 text-[10px] text-gray-500">
+        <div className="flex items-center gap-2 text-[11px] text-slate-500">
           {isPaused && (
-            <span className="px-1.5 py-0.5 rounded bg-amber-950/80 text-amber-400 border border-amber-800/60 font-semibold">
+            <span className="px-2 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-semibold text-[10px]">
               PAUSED
             </span>
           )}
@@ -71,9 +74,9 @@ export function TradeTape({
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-2 pr-1 scrollbar-thin scrollbar-thumb-gray-800">
+      <div className="flex-1 overflow-y-auto space-y-2 pr-1">
         {items.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-xs text-gray-500">
+          <div className="h-full flex items-center justify-center text-xs text-slate-500">
             No recent trades available.
           </div>
         ) : (
@@ -83,14 +86,14 @@ export function TradeTape({
               <div
                 key={t.id}
                 onClick={() => onSelectTrade?.(t)}
-                className="p-2.5 bg-[#161c24] hover:bg-[#1f2834] rounded-lg border border-gray-800/60 transition-colors flex items-center justify-between cursor-pointer group"
+                className="p-3 bg-slate-950/60 hover:bg-slate-800/60 rounded-2xl border border-slate-800/80 transition-colors flex items-center justify-between cursor-pointer group"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2.5">
                   <span
-                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase tracking-wider ${
+                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider ${
                       isBuy
-                        ? "bg-emerald-950 text-emerald-400 border border-emerald-800/60"
-                        : "bg-red-950 text-red-400 border border-red-800/60"
+                        ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                        : "bg-rose-500/10 text-rose-400 border border-rose-500/30"
                     }`}
                   >
                     {t.type}
@@ -101,7 +104,7 @@ export function TradeTape({
                   >
                     {`$${t.symbol}`}
                   </Link>
-                  <span className="text-[11px] font-mono text-gray-400 hidden sm:inline">
+                  <span className="text-[11px] font-mono text-slate-400 hidden sm:inline">
                     {truncateAddress(t.trader)}
                   </span>
                 </div>
@@ -109,12 +112,12 @@ export function TradeTape({
                 <div className="text-right">
                   <div
                     className={`text-xs font-bold ${
-                      isBuy ? "text-emerald-400" : "text-red-400"
+                      isBuy ? "text-emerald-400" : "text-rose-400"
                     }`}
                   >
                     {`${t.amountEth.toFixed(4)} ETH`}
                   </div>
-                  <div className="text-[10px] text-gray-500">
+                  <div className="text-[10px] text-slate-500">
                     {formatTimeAgo(t.timestamp)}
                   </div>
                 </div>

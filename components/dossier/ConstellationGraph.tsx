@@ -75,10 +75,10 @@ export function computeConstellationLayout(
     const cx = custom?.x ?? defaultCx;
     const cy = custom?.y ?? defaultCy;
 
-    let color = "#06b6d4";
-    if (node.status === "passed") color = "#10b981";
-    else if (node.status === "rugged") color = "#ef4444";
-    else if (node.status === "hold") color = "#f59e0b";
+    let color = "#00F0FF";
+    if (node.status === "passed") color = "#00E599";
+    else if (node.status === "rugged") color = "#FF2E4D";
+    else if (node.status === "hold") color = "#FFB800";
 
     return {
       ...node,
@@ -176,42 +176,42 @@ export function ConstellationGraph({
 
   if (!nodes || nodes.length === 0) {
     return (
-      <div className="flex h-64 w-full items-center justify-center border border-border bg-surface p-4 font-mono text-xs text-ink-muted">
+      <div className="flex h-64 w-full items-center justify-center rounded-2xl border border-slate-800 bg-slate-950/60 p-4 font-mono text-xs text-slate-500">
         No constellation connections detected
       </div>
     );
   }
 
   return (
-    <div className="relative border border-border bg-surface p-4 shadow-sm">
-      <div className="mb-2 flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2">
-        <div className="flex items-center gap-2 font-mono text-xs font-bold uppercase tracking-wider text-ink">
+    <div className="relative rounded-2xl border border-slate-800 bg-slate-950/60 p-4 sm:p-5 shadow-xl font-sans">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-2 border-b border-slate-800 pb-3">
+        <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-slate-200">
           <span>Constellation Graph</span>
-          <span className="text-[10px] text-ink-muted">
+          <span className="text-[11px] text-slate-500 font-mono">
             ({layoutNodes.length} connected dossiers)
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3 font-mono text-[10px]">
+        <div className="flex flex-wrap items-center gap-3 text-[11px]">
           <div className="flex items-center gap-1.5">
-            <span className="h-0.5 w-4 bg-neutral-400" />
-            <span className="text-ink-muted">Confirmed</span>
+            <span className="h-0.5 w-4 bg-cyan-400" />
+            <span className="text-slate-400">Confirmed</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-0.5 w-4 border-t-2 border-dashed border-neutral-400" />
-            <span className="text-ink-muted">Hypothesis</span>
+            <span className="h-0.5 w-4 border-t-2 border-dashed border-fuchsia-400" />
+            <span className="text-slate-400">Hypothesis</span>
           </div>
           <div className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-[#06b6d4]" />
-            <span className="text-ink-muted">Active</span>
+            <span className="h-2 w-2 rounded-full bg-[#00F0FF]" />
+            <span className="text-slate-400">Active</span>
           </div>
           <div className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-[#10b981]" />
-            <span className="text-ink-muted">Passed</span>
+            <span className="h-2 w-2 rounded-full bg-[#00E599]" />
+            <span className="text-slate-400">Passed</span>
           </div>
           <div className="flex items-center gap-1">
-            <span className="h-2 w-2 rounded-full bg-[#ef4444]" />
-            <span className="text-ink-muted">Rugged</span>
+            <span className="h-2 w-2 rounded-full bg-[#FF2E4D]" />
+            <span className="text-slate-400">Rugged</span>
           </div>
         </div>
       </div>
@@ -243,10 +243,11 @@ export function ConstellationGraph({
                   y1={src.cy}
                   x2={tgt.cx}
                   y2={tgt.cy}
-                  stroke="#a3a3a3"
+                  stroke={isConfirmed ? "#00F0FF" : "#D946EF"}
                   strokeWidth={isConfirmed ? 2 : 1.5}
                   strokeDasharray={isConfirmed ? undefined : "4 4"}
-                  className="transition-colors hover:stroke-cyan-500"
+                  className="transition-colors hover:stroke-white"
+                  opacity={0.7}
                 />
               </g>
             );
@@ -268,7 +269,7 @@ export function ConstellationGraph({
                   fill="none"
                   stroke="#ffffff"
                   strokeWidth="2.5"
-                  className="dark:stroke-white"
+                  className="animate-pulse"
                 />
               )}
 
@@ -277,7 +278,7 @@ export function ConstellationGraph({
                 cy={n.cy}
                 r={n.r}
                 fill={n.color}
-                stroke="#ffffff"
+                stroke="#07090E"
                 strokeWidth="2"
                 className="transition-transform duration-75 hover:scale-110"
               />
@@ -286,7 +287,7 @@ export function ConstellationGraph({
                 x={n.cx}
                 y={n.cy + 3.5}
                 textAnchor="middle"
-                fill="#ffffff"
+                fill="#07090E"
                 className="pointer-events-none font-mono text-[10px] font-bold"
               >
                 ${n.symbol.slice(0, 5)}
@@ -296,7 +297,7 @@ export function ConstellationGraph({
                 x={n.cx}
                 y={n.cy + n.r + 12}
                 textAnchor="middle"
-                className="pointer-events-none fill-ink font-mono text-[9px] font-semibold"
+                className="pointer-events-none fill-slate-300 font-sans text-[10px] font-semibold"
               >
                 ${n.symbol}
               </text>
@@ -305,11 +306,11 @@ export function ConstellationGraph({
         </svg>
 
         {hoveredNode && (
-          <div className="pointer-events-none absolute bottom-3 left-3 border border-border bg-surface p-2 font-mono text-xs shadow-md">
-            <div className="flex items-center gap-1.5 font-bold text-ink">
+          <div className="pointer-events-none absolute bottom-3 left-3 rounded-xl border border-slate-700 bg-slate-900/95 p-3 font-sans text-xs shadow-2xl backdrop-blur-md">
+            <div className="flex items-center gap-2 font-bold text-white">
               <span>${hoveredNode.symbol}</span>
               <span
-                className="px-1 text-[9px] uppercase"
+                className="px-2 py-0.5 rounded-full text-[9px] uppercase font-bold"
                 style={{
                   backgroundColor: `${hoveredNode.color}20`,
                   color: hoveredNode.color,
@@ -318,32 +319,32 @@ export function ConstellationGraph({
                 {hoveredNode.status || "active"}
               </span>
               {hoveredNode.isCurrent && (
-                <span className="rounded bg-neutral-200 px-1 text-[9px] text-ink-muted dark:bg-neutral-800">
+                <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[9px] text-slate-300 font-bold">
                   CURRENT
                 </span>
               )}
             </div>
-            <div className="mt-1 text-[10px] text-ink-muted">
+            <div className="mt-1 text-[10px] text-slate-400 font-mono">
               {hoveredNode.contractAddress}
             </div>
-            <div className="mt-1 flex gap-2">
+            <div className="mt-1.5 flex gap-2">
               <Link
                 href={`/d/${hoveredNode.contractAddress}`}
-                className="text-[10px] font-bold text-cyan-600 underline"
+                className="text-[11px] font-bold text-cyan-400 underline"
               >
-                Open Dossier &rarr;
+                Open Dossier →
               </Link>
             </div>
           </div>
         )}
 
         {hoveredEdge && (
-          <div className="pointer-events-none absolute top-3 right-3 rounded border border-border bg-surface px-2.5 py-1.5 font-mono text-xs shadow-md">
-            <span className="font-bold uppercase text-ink">
+          <div className="pointer-events-none absolute top-3 right-3 rounded-xl border border-slate-700 bg-slate-900/95 px-3 py-2 font-sans text-xs shadow-xl backdrop-blur-md">
+            <span className="font-bold uppercase text-white">
               {hoveredEdge.type} Connection
             </span>
             {hoveredEdge.reason && (
-              <div className="text-[10px] text-ink-muted">
+              <div className="text-[10px] text-slate-400 mt-0.5">
                 {hoveredEdge.reason}
               </div>
             )}

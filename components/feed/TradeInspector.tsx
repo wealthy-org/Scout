@@ -101,45 +101,46 @@ export function TradeInspector({
   const recentTrades = trades.slice(0, 10);
   const svgPath = renderSparklineSvg(sparkline);
 
+  const bandColor =
+    token.band === "green"
+      ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+      : token.band === "red"
+      ? "bg-rose-500/10 border-rose-500/40 text-rose-400"
+      : "bg-amber-500/10 border-amber-500/40 text-amber-400";
+
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-label="Trade Inspector"
-      className="fixed inset-0 z-50 flex justify-end"
+      className="fixed inset-0 z-50 flex justify-end font-sans"
     >
       <div
         data-testid="trade-inspector-overlay"
         onClick={onClose}
-        className="fixed inset-0 bg-black/60 backdrop-blur-sm transition-opacity"
+        className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
       />
 
       <div
         data-testid="trade-inspector-panel"
-        className="relative w-full max-w-md h-full bg-[#0d1117] border-l border-gray-800 shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-right duration-200"
+        className="relative w-full max-w-md h-full bg-slate-900 border-l border-slate-800 shadow-2xl flex flex-col z-10 overflow-hidden animate-in slide-in-from-right duration-200"
       >
-        <div className="p-4 border-b border-gray-800 flex items-center justify-between bg-[#161c24]/50">
+        <div className="p-5 border-b border-slate-800 flex items-center justify-between bg-slate-950/60">
           <div>
-            <div className="flex items-center gap-2">
-              <h2 className="text-lg font-bold text-white tracking-wide">
+            <div className="flex items-center gap-2.5">
+              <h2 className="text-xl font-extrabold text-white tracking-tight">
                 {`$${token.symbol}`}
               </h2>
               {token.band && (
                 <span
-                  className={`text-[10px] px-2 py-0.5 rounded font-bold uppercase ${
-                    token.band === "green"
-                      ? "bg-emerald-950 text-emerald-400 border border-emerald-800"
-                      : token.band === "red"
-                      ? "bg-red-950 text-red-400 border border-red-800"
-                      : "bg-amber-950 text-amber-400 border border-amber-800"
-                  }`}
+                  className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase border ${bandColor}`}
                 >
                   {`${token.score ?? 50} Score`}
                 </span>
               )}
             </div>
             {token.name && (
-              <p className="text-xs text-gray-400 mt-0.5">{token.name}</p>
+              <p className="text-xs text-slate-400 mt-0.5 font-normal">{token.name}</p>
             )}
           </div>
 
@@ -148,7 +149,7 @@ export function TradeInspector({
             data-testid="close-inspector-btn"
             onClick={onClose}
             aria-label="Close Inspector"
-            className="text-gray-400 hover:text-white p-1.5 rounded-lg hover:bg-gray-800 transition-colors"
+            className="text-slate-400 hover:text-white p-2 rounded-xl hover:bg-slate-800 transition-colors"
           >
             <svg
               className="w-5 h-5"
@@ -166,23 +167,23 @@ export function TradeInspector({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto p-4 space-y-5">
-          <div className="grid grid-cols-2 gap-3 bg-[#161c24] p-3 rounded-lg border border-gray-800/80">
+        <div className="flex-1 overflow-y-auto p-5 space-y-5">
+          <div className="grid grid-cols-2 gap-3 bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
             <div>
-              <div className="text-[11px] text-gray-400">Market Cap</div>
-              <div className="text-sm font-bold text-white">
+              <div className="text-[11px] text-slate-400 font-medium">Market Cap</div>
+              <div className="text-base font-extrabold text-white">
                 {formatCurrency(token.marketCapUsd)}
               </div>
             </div>
             <div>
-              <div className="text-[11px] text-gray-400">Token Price</div>
-              <div className="text-sm font-bold text-cyan-400 font-mono">
+              <div className="text-[11px] text-slate-400 font-medium">Token Price</div>
+              <div className="text-base font-extrabold text-cyan-400 font-mono">
                 {formatPrice(token.priceUsd)}
               </div>
             </div>
             {token.deployerAddress && (
-              <div className="col-span-2 pt-2 border-t border-gray-800/60 flex items-center justify-between text-xs">
-                <span className="text-gray-400">Deployer:</span>
+              <div className="col-span-2 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs">
+                <span className="text-slate-400 font-medium">Deployer:</span>
                 <Link
                   href={`/deployer/${token.deployerAddress}`}
                   className="font-mono text-cyan-400 hover:underline"
@@ -193,12 +194,12 @@ export function TradeInspector({
             )}
           </div>
 
-          <div className="bg-[#161c24] p-3.5 rounded-lg border border-gray-800/80">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-gray-300">
+          <div className="bg-slate-950/60 p-4 rounded-2xl border border-slate-800 space-y-2">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-semibold text-slate-300">
                 Price Sparkline
               </span>
-              <span className="text-[10px] text-cyan-400">Recent Activity</span>
+              <span className="text-[10px] text-cyan-400 font-medium">Recent Activity</span>
             </div>
             <div className="w-full h-16 flex items-center justify-center">
               <svg
@@ -209,7 +210,7 @@ export function TradeInspector({
               >
                 <path
                   d={svgPath}
-                  strokeWidth="2"
+                  strokeWidth="2.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />
@@ -218,39 +219,39 @@ export function TradeInspector({
           </div>
 
           <div>
-            <div className="flex items-center justify-between mb-2.5">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-gray-400">
+            <div className="flex items-center justify-between mb-3">
+              <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
                 Recent Trades (Last 10)
               </h3>
-              <span className="text-[10px] text-gray-500">
+              <span className="text-[10px] text-slate-500 font-medium">
                 {`${recentTrades.length} trades`}
               </span>
             </div>
 
             {recentTrades.length === 0 ? (
-              <div className="p-6 text-center text-xs text-gray-500 bg-[#161c24]/50 rounded-lg border border-gray-800/50">
+              <div className="p-6 text-center text-xs text-slate-500 bg-slate-950/40 rounded-2xl border border-slate-800/60">
                 No recent trades recorded for this launch.
               </div>
             ) : (
-              <div className="space-y-1.5">
+              <div className="space-y-2">
                 {recentTrades.map((trade) => {
                   const isBuy = trade.type === "buy";
                   return (
                     <div
                       key={trade.id}
-                      className="flex items-center justify-between p-2 bg-[#161c24] hover:bg-[#1c232d] rounded border border-gray-800/50 text-xs transition-colors"
+                      className="flex items-center justify-between p-2.5 bg-slate-950/60 hover:bg-slate-800/60 rounded-xl border border-slate-800/80 text-xs transition-colors"
                     >
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2.5">
                         <span
-                          className={`text-[10px] font-bold px-1.5 py-0.5 rounded uppercase ${
+                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase ${
                             isBuy
-                              ? "bg-emerald-950 text-emerald-400 border border-emerald-800/60"
-                              : "bg-red-950 text-red-400 border border-red-800/60"
+                              ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                              : "bg-rose-500/10 text-rose-400 border border-rose-500/30"
                           }`}
                         >
                           {trade.type}
                         </span>
-                        <span className="font-mono text-gray-300">
+                        <span className="font-mono text-slate-300">
                           {truncateAddress(trade.trader)}
                         </span>
                       </div>
@@ -258,12 +259,12 @@ export function TradeInspector({
                       <div className="text-right">
                         <div
                           className={`font-semibold ${
-                            isBuy ? "text-emerald-400" : "text-red-400"
+                            isBuy ? "text-emerald-400" : "text-rose-400"
                           }`}
                         >
                           {`${trade.amountEth.toFixed(4)} ETH`}
                         </div>
-                        <div className="text-[10px] text-gray-500">
+                        <div className="text-[10px] text-slate-500">
                           {`${trade.amountToken.toLocaleString()} $${token.symbol}`}
                         </div>
                       </div>
@@ -275,14 +276,14 @@ export function TradeInspector({
           </div>
         </div>
 
-        <div className="p-4 border-t border-gray-800 bg-[#161c24]/80">
+        <div className="p-4 border-t border-slate-800 bg-slate-950/80">
           <Link
             href={`/d/${token.contractAddress}`}
             data-testid="open-dossier-btn"
-            className="w-full py-2.5 px-4 bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-sm rounded-lg flex items-center justify-center gap-2 shadow-lg shadow-cyan-950/50 transition-colors"
+            className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/20 hover:brightness-110 active:scale-[0.98] transition-all"
           >
             <span>Open Full Dossier</span>
-            <span>&rarr;</span>
+            <span>→</span>
           </Link>
         </div>
       </div>

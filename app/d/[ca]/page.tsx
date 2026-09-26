@@ -23,24 +23,26 @@ export type { DossierPagePropsData };
 export function DossierPageView({ data }: { data: DossierPagePropsData }) {
   if (data.notPonsV2Token) {
     return (
-      <main className="min-h-screen bg-[#0b0e14] text-gray-100 p-6 flex flex-col items-center justify-center">
-        <div className="max-w-lg w-full bg-[#11161d] border border-amber-900/50 rounded-2xl p-8 text-center shadow-2xl">
-          <div className="w-16 h-16 bg-amber-950/50 border border-amber-800 text-amber-400 rounded-full flex items-center justify-center mx-auto mb-4 text-2xl font-bold">
+      <main className="min-h-screen bg-[#07090E] text-slate-100 p-6 flex flex-col items-center justify-center font-sans relative overflow-hidden">
+        <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-to-b from-[#FFB800]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+
+        <div className="max-w-lg w-full bg-slate-900/90 border border-amber-500/30 rounded-3xl p-8 text-center shadow-2xl backdrop-blur-2xl space-y-4">
+          <div className="w-16 h-16 bg-amber-500/10 border border-amber-500/30 text-amber-400 rounded-2xl flex items-center justify-center mx-auto text-2xl font-bold shadow-[0_0_20px_rgba(255,184,0,0.2)]">
             !
           </div>
-          <h1 className="text-xl font-bold text-white mb-2">
+          <h1 className="text-2xl font-black text-white">
             Not a Pons V2 Token
           </h1>
-          <p className="text-sm text-gray-400 font-mono break-all mb-4">
+          <p className="text-xs text-slate-400 font-mono break-all bg-slate-950/60 p-3 rounded-xl border border-slate-800">
             {data.contractAddress}
           </p>
-          <p className="text-sm text-gray-300 mb-6 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-300 leading-relaxed font-normal">
             The provided address is not recognized as a registered Pons V2 token contract. Scout only tracks tokens, bonding curves, and deployers active on Pons V2 protocol infrastructure.
           </p>
-          <div className="flex justify-center space-x-4">
+          <div className="pt-2 flex justify-center">
             <Link
               href="/"
-              className="px-5 py-2.5 bg-cyan-500 hover:bg-cyan-400 text-black font-semibold rounded-lg text-sm transition-colors"
+              className="px-6 py-3 bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold rounded-xl text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition-all"
             >
               Back to Launch Feed
             </Link>
@@ -51,8 +53,10 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
   }
 
   return (
-    <main className="min-h-screen bg-[#0b0e14] text-gray-100 p-4 md:p-6 lg:p-8">
-      <div className="max-w-7xl mx-auto space-y-6">
+    <main className="min-h-screen bg-[#07090E] text-slate-100 p-4 sm:p-6 lg:p-8 font-sans relative overflow-hidden pb-16">
+      <div className="absolute top-0 left-1/4 w-[800px] h-[500px] bg-gradient-to-b from-[#00E599]/10 via-[#00F0FF]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+
+      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8 relative z-10">
         <DossierHeader
           symbol={data.symbol || "UNKNOWN"}
           name={data.name || "Unknown Token"}
@@ -71,8 +75,8 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
               uniqueWallets={data.uniqueWallets}
             />
 
-            <div className="bg-[#11161d] border border-gray-800 rounded-xl p-5 shadow-lg">
-              <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-4">
+            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl backdrop-blur-xl">
+              <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-4">
                 Trade Flow Analytics
               </h2>
               <div className="space-y-4">
@@ -81,8 +85,8 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
               </div>
             </div>
 
-            <div className="bg-[#11161d] border border-gray-800 rounded-xl p-5 shadow-lg space-y-4">
-              <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wider">
+            <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl backdrop-blur-xl space-y-4">
+              <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                 Holder Distribution &amp; Wallet Map
               </h2>
               <WalletMap
@@ -104,8 +108,8 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
                 currentContractAddress={data.contractAddress}
               />
 
-              <div className="bg-[#11161d] border border-gray-800 rounded-xl p-5 shadow-lg">
-                <h2 className="text-sm font-bold text-gray-300 uppercase tracking-wider mb-4">
+              <div className="bg-slate-900/90 border border-slate-800 rounded-3xl p-5 sm:p-6 shadow-xl backdrop-blur-xl">
+                <h2 className="text-xs font-bold text-slate-300 uppercase tracking-wider mb-4">
                   Constellation Relationship Graph
                 </h2>
                 <ConstellationGraph

@@ -15,7 +15,7 @@ export interface TradeFlowPanelProps {
 export function TradeFlowPanel({ data }: TradeFlowPanelProps) {
   if (!data) {
     return (
-      <div className="flex h-32 w-full items-center justify-center border border-border bg-surface p-4 font-mono text-xs text-ink-muted">
+      <div className="flex h-32 w-full items-center justify-center rounded-2xl border border-slate-800 bg-slate-950/60 p-4 font-mono text-xs text-slate-500">
         No trade flow data available
       </div>
     );
@@ -42,39 +42,39 @@ export function TradeFlowPanel({ data }: TradeFlowPanelProps) {
   ).toLocaleString()}`;
 
   return (
-    <div className="grid grid-cols-1 gap-4 border border-border bg-surface p-4 shadow-sm md:grid-cols-2">
+    <div className="grid grid-cols-1 gap-4 rounded-2xl border border-slate-800 bg-slate-950/60 p-5 shadow-xl md:grid-cols-2 font-sans">
       <div>
-        <div className="flex items-center justify-between border-b border-border pb-2">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">
+        <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
             Flow Section
           </span>
-          <span className="font-mono text-[10px] font-semibold text-ink-muted">
+          <span className="text-[11px] font-semibold text-slate-400">
             Quote: {quoteAsset}
           </span>
         </div>
 
-        <div className="mt-3 grid grid-cols-3 gap-2 font-mono">
-          <div className="border border-border bg-background p-2.5">
-            <span className="text-[10px] uppercase text-ink-muted">Total Bought</span>
-            <div className="mt-1 text-xs font-bold text-emerald-600 dark:text-emerald-400">
+        <div className="mt-3.5 grid grid-cols-3 gap-2 font-sans">
+          <div className="rounded-xl border border-emerald-500/20 bg-slate-900/80 p-3">
+            <span className="text-[10px] uppercase font-semibold text-slate-400">Total Bought</span>
+            <div className="mt-1 text-sm font-extrabold text-emerald-400">
               {formattedBuyVol}
             </div>
           </div>
 
-          <div className="border border-border bg-background p-2.5">
-            <span className="text-[10px] uppercase text-ink-muted">Total Sold</span>
-            <div className="mt-1 text-xs font-bold text-red-600 dark:text-red-400">
+          <div className="rounded-xl border border-rose-500/20 bg-slate-900/80 p-3">
+            <span className="text-[10px] uppercase font-semibold text-slate-400">Total Sold</span>
+            <div className="mt-1 text-sm font-extrabold text-rose-400">
               {formattedSellVol}
             </div>
           </div>
 
-          <div className="border border-border bg-background p-2.5">
-            <span className="text-[10px] uppercase text-ink-muted">Net Flow</span>
+          <div className="rounded-xl border border-slate-800 bg-slate-900/80 p-3">
+            <span className="text-[10px] uppercase font-semibold text-slate-400">Net Flow</span>
             <div
-              className={`mt-1 text-xs font-bold ${
+              className={`mt-1 text-sm font-extrabold ${
                 isNetPositive
-                  ? "text-emerald-600 dark:text-emerald-400"
-                  : "text-red-600 dark:text-red-400"
+                  ? "text-emerald-400"
+                  : "text-rose-400"
               }`}
             >
               {formattedNetFlow}
@@ -84,37 +84,37 @@ export function TradeFlowPanel({ data }: TradeFlowPanelProps) {
       </div>
 
       <div>
-        <div className="flex items-center justify-between border-b border-border pb-2">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">
+        <div className="flex items-center justify-between border-b border-slate-800 pb-2.5">
+          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
             Order Pressure
           </span>
-          <span className="font-mono text-[10px] text-ink-muted">
+          <span className="text-[11px] font-semibold text-slate-400">
             {totalTrades.toLocaleString()} Total Orders
           </span>
         </div>
 
-        <div className="mt-3">
-          <div className="flex items-center justify-between font-mono text-xs">
-            <span className="font-bold text-emerald-600 dark:text-emerald-400">
+        <div className="mt-3.5">
+          <div className="flex items-center justify-between text-xs">
+            <span className="font-bold text-emerald-400">
               {`${buyCount.toLocaleString()} Buys (${buyPct.toFixed(1)}%)`}
             </span>
-            <span className="font-bold text-red-600 dark:text-red-400">
+            <span className="font-bold text-rose-400">
               {`${sellCount.toLocaleString()} Sells (${sellPct.toFixed(1)}%)`}
             </span>
           </div>
 
-          <div className="mt-2 flex h-3 w-full overflow-hidden border border-border bg-background">
+          <div className="mt-2.5 flex h-3 w-full overflow-hidden rounded-full bg-slate-850">
             <div
-              className="bg-emerald-500 transition-all duration-300"
+              className="bg-emerald-400 shadow-[0_0_8px_rgba(0,229,153,0.4)] transition-all duration-300"
               style={{ width: `${buyPct}%` }}
             />
             <div
-              className="bg-red-500 transition-all duration-300"
+              className="bg-rose-500 shadow-[0_0_8px_rgba(255,46,77,0.4)] transition-all duration-300"
               style={{ width: `${sellPct}%` }}
             />
           </div>
 
-          <div className="mt-2 flex justify-between font-mono text-[10px] text-ink-muted">
+          <div className="mt-2 flex justify-between text-[11px] text-slate-500">
             <span>Buying Pressure</span>
             <span>Selling Pressure</span>
           </div>

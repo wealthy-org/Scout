@@ -102,47 +102,51 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-canvas text-ink-primary font-mono pb-24">
+    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans relative overflow-hidden pb-16 sm:pb-24">
+      <div className="absolute top-0 right-1/3 w-[600px] h-[400px] bg-gradient-to-b from-[#00E599]/10 via-[#00F0FF]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+
       <GlobalHeader
         isAuthenticated={isAuthenticated}
         walletAddress={user?.walletAddress}
       />
 
-      <main className="max-w-4xl mx-auto px-6 pt-8 space-y-8">
-        <div className="border-b-2 border-border-primary pb-6">
-          <h1 className="text-2xl font-black uppercase tracking-tight">Account Settings</h1>
-          <p className="text-xs text-ink-secondary mt-1">
+      <main className="max-w-4xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-6 sm:space-y-8 relative z-10">
+        <div className="border-b border-slate-800/80 pb-6">
+          <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">Account Settings</h1>
+          <p className="text-xs sm:text-sm text-slate-400 mt-1.5 font-normal">
             Manage your researcher identity, handle alias, and account lifecycle.
           </p>
         </div>
 
         {!isAuthenticated || !user ? (
-          <div className="border-2 border-border-primary bg-bg-primary p-12 text-center shadow-neo-md max-w-xl mx-auto my-12">
-            <h2 className="text-base font-bold uppercase mb-2">Authentication Required</h2>
-            <p className="text-xs text-ink-secondary mb-6 leading-relaxed">
+          <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 sm:p-14 text-center shadow-2xl backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
+            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">Authentication Required</h2>
+            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal my-4">
               Connect your Ethereum wallet to access account settings, configure research handles, and manage your intelligence profile.
             </p>
-            <Link
-              href="/"
-              className="inline-block px-6 py-2.5 bg-accent text-accent-fg font-bold text-xs border-2 border-border-primary shadow-neo-sm hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform"
-            >
-              Connect Wallet
-            </Link>
+            <div className="pt-2">
+              <Link
+                href="/"
+                className="inline-block px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition-all"
+              >
+                Connect Wallet
+              </Link>
+            </div>
           </div>
         ) : (
-          <div className="space-y-8">
-            <section className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-4">
-              <h2 className="text-base font-black uppercase">Researcher Identity</h2>
+          <div className="space-y-6 sm:space-y-8">
+            <section className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-5">
+              <h2 className="text-base sm:text-lg font-bold text-white tracking-tight">Researcher Identity</h2>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-3 bg-canvas border border-border-secondary">
-                  <div className="text-[10px] uppercase font-bold text-ink-tertiary">Connected Wallet</div>
-                  <div className="text-xs font-bold break-all mt-1">{user.walletAddress}</div>
+                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+                  <div className="text-[10px] uppercase font-semibold text-slate-400">Connected Wallet</div>
+                  <div className="text-xs font-bold font-mono text-cyan-400 break-all mt-1">{user.walletAddress}</div>
                 </div>
 
-                <div className="p-3 bg-canvas border border-border-secondary">
-                  <div className="text-[10px] uppercase font-bold text-ink-tertiary">Member Since</div>
-                  <div className="text-xs font-bold mt-1">
+                <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+                  <div className="text-[10px] uppercase font-semibold text-slate-400">Member Since</div>
+                  <div className="text-xs font-bold text-slate-200 mt-1">
                     {new Date(user.createdAt).toLocaleDateString()}
                   </div>
                 </div>
@@ -150,7 +154,7 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
 
               <form onSubmit={handleUpdateHandle} className="space-y-4 pt-2">
                 <div>
-                  <label htmlFor="handle-input" className="block text-xs font-bold uppercase mb-1">
+                  <label htmlFor="handle-input" className="block text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2">
                     Research Handle (Alias)
                   </label>
                   <input
@@ -159,21 +163,21 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                     value={handle}
                     onChange={(e) => setHandle(e.target.value)}
                     placeholder="e.g. onchain_sleuth"
-                    className="w-full bg-canvas border-2 border-border-primary px-3 py-2 text-xs font-mono text-ink-primary focus:outline-hidden focus:border-accent"
+                    className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-2.5 text-xs font-mono text-slate-100 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-500/60 transition-colors"
                   />
-                  <span className="text-[10px] text-ink-tertiary block mt-1">
+                  <span className="text-[11px] text-slate-500 block mt-1.5 font-normal">
                     3–30 characters, alphanumeric and underscore only. Displayed on public published dossiers.
                   </span>
                 </div>
 
                 {handleError && (
-                  <div className="p-3 bg-status-danger/10 border border-status-danger text-status-danger text-xs">
+                  <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-medium">
                     {handleError}
                   </div>
                 )}
 
                 {handleSuccess && (
-                  <div className="p-3 bg-status-success/10 border border-status-success text-status-success text-xs">
+                  <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-medium">
                     {handleSuccess}
                   </div>
                 )}
@@ -181,25 +185,25 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                 <button
                   type="submit"
                   disabled={savingHandle}
-                  className="px-5 py-2.5 bg-accent text-accent-fg font-bold text-xs uppercase tracking-wider border-2 border-border-primary shadow-neo-xs hover:translate-x-0.5 hover:-translate-y-0.5 transition-all disabled:opacity-50"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
                 >
                   {savingHandle ? "Saving..." : "Save Handle"}
                 </button>
               </form>
             </section>
 
-            <section className="border-2 border-status-danger bg-bg-primary p-6 shadow-neo-sm space-y-4">
-              <div className="border-b border-border-secondary pb-3">
-                <h2 className="text-base font-black uppercase text-status-danger">Danger Zone</h2>
-                <p className="text-xs text-ink-secondary mt-0.5">
+            <section className="rounded-3xl border border-rose-500/30 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-5">
+              <div className="border-b border-slate-800/80 pb-4">
+                <h2 className="text-base sm:text-lg font-bold text-rose-400 tracking-tight">Danger Zone</h2>
+                <p className="text-xs text-slate-400 mt-0.5 font-normal">
                   Permanent actions affecting your account and stored intelligence.
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="space-y-1">
-                  <div className="text-xs font-bold uppercase">Delete Scout Account</div>
-                  <p className="text-xs text-ink-secondary max-w-md">
+                  <div className="text-xs font-bold uppercase text-white">Delete Scout Account</div>
+                  <p className="text-xs text-slate-400 max-w-md font-normal leading-relaxed">
                     Cascade delete all your saved case files, private notes, watchlist entries, and research sessions. This action cannot be undone.
                   </p>
                 </div>
@@ -207,7 +211,7 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                 <button
                   type="button"
                   onClick={() => setIsDeleteModalOpen(true)}
-                  className="px-4 py-2 bg-status-danger text-white font-bold text-xs uppercase border-2 border-border-primary shadow-neo-xs hover:opacity-90 transition-opacity shrink-0"
+                  className="px-4 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-[0.98] transition-all shrink-0"
                 >
                   Delete Account
                 </button>
@@ -217,10 +221,10 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
         )}
 
         {isDeleteModalOpen && user && (
-          <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4">
-            <div className="bg-bg-primary border-2 border-status-danger p-6 max-w-md w-full shadow-neo-lg space-y-4">
-              <div className="flex items-center justify-between border-b border-border-secondary pb-3">
-                <h3 className="text-base font-black uppercase text-status-danger">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-slate-900 border border-rose-500/40 rounded-3xl p-6 sm:p-7 max-w-md w-full shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+                <h3 className="text-base font-bold text-rose-400 tracking-tight">
                   Confirm Account Deletion
                 </h3>
                 <button
@@ -230,17 +234,17 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                     setDeleteError(null);
                     setConfirmAddress("");
                   }}
-                  className="text-xs font-bold text-ink-secondary hover:text-ink-primary"
+                  className="text-xs font-semibold text-slate-400 hover:text-white p-1"
                 >
                   ✕
                 </button>
               </div>
 
-              <p className="text-xs text-ink-secondary leading-relaxed">
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 This will immediately purge your account and all associated dossiers from the database. Type your wallet address below to confirm:
               </p>
 
-              <div className="p-2.5 bg-canvas border border-border-secondary text-xs font-bold font-mono break-all">
+              <div className="p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs font-mono text-slate-300 break-all">
                 {user.walletAddress}
               </div>
 
@@ -250,11 +254,11 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                   placeholder="Paste wallet address to confirm"
                   value={confirmAddress}
                   onChange={(e) => setConfirmAddress(e.target.value)}
-                  className="w-full bg-canvas border-2 border-border-primary px-3 py-2 text-xs font-mono text-ink-primary focus:outline-hidden focus:border-status-danger"
+                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-100 focus:outline-hidden focus:border-rose-500"
                 />
 
                 {deleteError && (
-                  <div className="p-2.5 bg-status-danger/10 border border-status-danger text-status-danger text-xs">
+                  <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-medium">
                     {deleteError}
                   </div>
                 )}
@@ -267,7 +271,7 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                       setDeleteError(null);
                       setConfirmAddress("");
                     }}
-                    className="px-4 py-2 bg-bg-secondary border border-border-primary text-xs font-bold hover:bg-canvas"
+                    className="px-4 py-2 rounded-xl border border-slate-700 bg-slate-800 text-slate-300 text-xs font-semibold hover:bg-slate-700"
                   >
                     Cancel
                   </button>
@@ -278,7 +282,7 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                       deletingAccount ||
                       confirmAddress.trim().toLowerCase() !== user.walletAddress.toLowerCase()
                     }
-                    className="px-4 py-2 bg-status-danger text-white text-xs font-bold border-2 border-border-primary shadow-neo-xs hover:opacity-90 disabled:opacity-50"
+                    className="px-4 py-2 rounded-xl bg-rose-600 text-white text-xs font-bold uppercase tracking-wider hover:bg-rose-500 disabled:opacity-50 transition-all"
                   >
                     {deletingAccount ? "Deleting..." : "Permanently Delete"}
                   </button>

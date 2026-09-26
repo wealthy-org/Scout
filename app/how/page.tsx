@@ -19,7 +19,6 @@ export default async function HowPage() {
       isAuthenticated = true;
     }
   } catch {
-    // Session fallback
   }
 
   const glossaryItems = [
@@ -71,152 +70,154 @@ export default async function HowPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-canvas text-ink-primary font-mono pb-24">
+    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans relative overflow-hidden pb-16 sm:pb-24">
+      <div className="absolute top-0 right-1/4 w-[700px] h-[450px] bg-gradient-to-b from-[#00F0FF]/10 via-[#4D65FF]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <main className="max-w-5xl mx-auto px-6 pt-8 space-y-12">
-        <div className="border-b-2 border-border-primary pb-6">
-          <div className="text-[10px] uppercase font-bold text-accent tracking-widest">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-10 sm:space-y-14 relative z-10">
+        <div className="border-b border-slate-800/80 pb-6">
+          <div className="text-[10px] uppercase font-bold text-cyan-400 tracking-widest">
             Intelligence Systems // Protocol Specifications
           </div>
-          <h1 className="text-3xl md:text-4xl font-black uppercase tracking-tight mt-1">
-            Methodology & Architecture
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-white mt-1">
+            Methodology &amp; Architecture
           </h1>
-          <p className="text-xs md:text-sm text-ink-secondary mt-2 leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 mt-2 leading-relaxed font-normal">
             The mathematical models, delta detection triggers, graph formation algorithms, and terminology powering Scout Dossier.OS.
           </p>
         </div>
 
         <section className="space-y-6">
-          <h2 className="text-xl font-black uppercase tracking-tight flex items-center gap-2 border-b-2 border-border-primary pb-2">
-            <span>Section 01 //</span>
+          <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2 border-b border-slate-800 pb-3">
+            <span className="text-cyan-400">Section 01 //</span>
             <span>The 4-Step Intelligence Workflow</span>
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-2">
-              <div className="text-2xl font-black text-accent">01. Investigate</div>
-              <h3 className="text-sm font-bold uppercase">MultiCall3 Bytecode & On-Chain Audit</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 shadow-xl backdrop-blur-xl space-y-2">
+              <div className="text-2xl font-black text-emerald-400">01. Investigate</div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-tight">MultiCall3 Bytecode &amp; On-Chain Audit</h3>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 When a contract address is inspected, Scout concurrently batches factory state, token metadata, liquidity balances, and DexScreener pricing pairs into a single roundtrip payload.
               </p>
             </div>
 
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-2">
-              <div className="text-2xl font-black text-accent">02. Score</div>
-              <h3 className="text-sm font-bold uppercase">Bayesian Deployer Reputation</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
+            <div className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 shadow-xl backdrop-blur-xl space-y-2">
+              <div className="text-2xl font-black text-cyan-400">02. Score</div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-tight">Bayesian Deployer Reputation</h3>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 Deployer origin wallets are scored between 0–100 using Laplace-smoothed graduation rate, DOA penalties, burst rate dampeners, and hard serial penalty clamps.
               </p>
             </div>
 
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-2">
-              <div className="text-2xl font-black text-accent">03. Track</div>
-              <h3 className="text-sm font-bold uppercase">Since Last Check Delta Engine</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
+            <div className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 shadow-xl backdrop-blur-xl space-y-2">
+              <div className="text-2xl font-black text-amber-400">03. Track</div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-tight">Since Last Check Delta Engine</h3>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 Every inspection records a snapshot. When revisited, Scout computes granular metric differences (FDV jumps, liquidity shifts, git commits, fee recipient modifications).
               </p>
             </div>
 
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-2">
-              <div className="text-2xl font-black text-accent">04. Publish</div>
-              <h3 className="text-sm font-bold uppercase">Immutable Case File Snapshots</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
+            <div className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 shadow-xl backdrop-blur-xl space-y-2">
+              <div className="text-2xl font-black text-fuchsia-400">04. Publish</div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-tight">Immutable Case File Snapshots</h3>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 Researchers can freeze their thesis and findings into permanent shareable case files with creator attribution, fork capability, and instant revocation controls.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="border-2 border-border-primary bg-bg-primary p-6 md:p-8 shadow-neo-md space-y-6">
-          <h2 className="text-xl font-black uppercase tracking-tight flex items-center gap-2 border-b-2 border-border-primary pb-2">
-            <span>Section 02 //</span>
+        <section className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-6">
+          <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2 border-b border-slate-800/80 pb-3">
+            <span className="text-cyan-400">Section 02 //</span>
             <span>Since Last Check Delta Methodology</span>
           </h2>
 
-          <p className="text-xs text-ink-secondary leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
             Scout maintains up to 30 historical snapshots per token. When you reopen a dossier, the snapshot comparison engine evaluates metric deltas against the following predefined sensitivity thresholds:
           </p>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-4 bg-canvas border border-border-secondary">
-              <div className="text-xs font-bold text-accent uppercase">FDV Fluctuations</div>
-              <div className="text-xl font-black mt-1">±20% Delta</div>
-              <p className="text-[11px] text-ink-secondary mt-1">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+              <div className="text-xs font-bold text-cyan-400 uppercase">FDV Fluctuations</div>
+              <div className="text-xl font-black mt-1 text-white">±20% Delta</div>
+              <p className="text-[11px] text-slate-400 mt-1 font-normal">
                 Triggers when Market Cap shifts up or down by 20% or more since previous visit.
               </p>
             </div>
 
-            <div className="p-4 bg-canvas border border-border-secondary">
-              <div className="text-xs font-bold text-accent uppercase">Liquidity Shifts</div>
-              <div className="text-xl font-black mt-1">±20% Delta</div>
-              <p className="text-[11px] text-ink-secondary mt-1">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+              <div className="text-xs font-bold text-cyan-400 uppercase">Liquidity Shifts</div>
+              <div className="text-xl font-black mt-1 text-white">±20% Delta</div>
+              <p className="text-[11px] text-slate-400 mt-1 font-normal">
                 Monitors pool drainage or sudden liquidity injection on DEX pairs.
               </p>
             </div>
 
-            <div className="p-4 bg-canvas border border-border-secondary">
-              <div className="text-xs font-bold text-accent uppercase">Phase Progression</div>
-              <div className="text-xl font-black mt-1">Curve → Graduated</div>
-              <p className="text-[11px] text-ink-secondary mt-1">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+              <div className="text-xs font-bold text-cyan-400 uppercase">Phase Progression</div>
+              <div className="text-xl font-black mt-1 text-white">Curve → Graduated</div>
+              <p className="text-[11px] text-slate-400 mt-1 font-normal">
                 Triggers instantly upon graduation migration or protocol fee sweep events.
               </p>
             </div>
 
-            <div className="p-4 bg-canvas border border-border-secondary">
-              <div className="text-xs font-bold text-accent uppercase">Fee Recipient Routing</div>
-              <div className="text-xl font-black mt-1">Address Change</div>
-              <p className="text-[11px] text-ink-secondary mt-1">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+              <div className="text-xs font-bold text-cyan-400 uppercase">Fee Recipient Routing</div>
+              <div className="text-xl font-black mt-1 text-white">Address Change</div>
+              <p className="text-[11px] text-slate-400 mt-1 font-normal">
                 Flags any modification in the recipient address receiving creator trading fees.
               </p>
             </div>
 
-            <div className="p-4 bg-canvas border border-border-secondary">
-              <div className="text-xs font-bold text-accent uppercase">GitHub Activity</div>
-              <div className="text-xl font-black mt-1">New Commit SHA</div>
-              <p className="text-[11px] text-ink-secondary mt-1">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+              <div className="text-xs font-bold text-cyan-400 uppercase">GitHub Activity</div>
+              <div className="text-xl font-black mt-1 text-white">New Commit SHA</div>
+              <p className="text-[11px] text-slate-400 mt-1 font-normal">
                 Alerts researcher when fresh code is pushed to associated public repositories.
               </p>
             </div>
 
-            <div className="p-4 bg-canvas border border-border-secondary">
-              <div className="text-xs font-bold text-accent uppercase">Deployer Genesis</div>
-              <div className="text-xl font-black mt-1">New Launch Event</div>
-              <p className="text-[11px] text-ink-secondary mt-1">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800">
+              <div className="text-xs font-bold text-cyan-400 uppercase">Deployer Genesis</div>
+              <div className="text-xl font-black mt-1 text-white">New Launch Event</div>
+              <p className="text-[11px] text-slate-400 mt-1 font-normal">
                 Notifies when creator wallet deploys a subsequent token elsewhere in the factory.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="border-2 border-border-primary bg-bg-primary p-6 md:p-8 shadow-neo-md space-y-6">
-          <h2 className="text-xl font-black uppercase tracking-tight flex items-center gap-2 border-b-2 border-border-primary pb-2">
-            <span>Section 03 //</span>
+        <section className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl space-y-6">
+          <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight flex items-center gap-2 border-b border-slate-800/80 pb-3">
+            <span className="text-cyan-400">Section 03 //</span>
             <span>Constellation Graph Relational Logic</span>
           </h2>
 
-          <p className="text-xs text-ink-secondary leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
             The Constellation Engine maps multi-token clusters by analyzing cryptographic and behavioral links across the blockchain:
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="p-4 bg-canvas border border-border-secondary space-y-2">
-              <div className="text-xs font-bold uppercase text-accent">01. Direct Deployer Link</div>
-              <p className="text-xs text-ink-secondary leading-relaxed">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+              <div className="text-xs font-bold uppercase text-cyan-400">01. Direct Deployer Link</div>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 Edges connect all tokens deployed by the exact same origin Ethereum address, showing the creator&apos;s chronological timeline.
               </p>
             </div>
 
-            <div className="p-4 bg-canvas border border-border-secondary space-y-2">
-              <div className="text-xs font-bold uppercase text-accent">02. Shared Fee Recipient</div>
-              <p className="text-xs text-ink-secondary leading-relaxed">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+              <div className="text-xs font-bold uppercase text-cyan-400">02. Shared Fee Recipient</div>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 Connects distinct deployer wallets that route their creator protocol fees to an identical destination address (Sybil cluster detection).
               </p>
             </div>
 
-            <div className="p-4 bg-canvas border border-border-secondary space-y-2">
-              <div className="text-xs font-bold uppercase text-accent">03. Shared Dev Wallet</div>
-              <p className="text-xs text-ink-secondary leading-relaxed">
+            <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 space-y-2">
+              <div className="text-xs font-bold uppercase text-cyan-400">03. Shared Dev Wallet</div>
+              <p className="text-xs text-slate-400 leading-relaxed font-normal">
                 Uncovers coordinated wallets funded by common upstream CEX or relayer liquidity sources.
               </p>
             </div>
@@ -224,31 +225,31 @@ export default async function HowPage() {
         </section>
 
         <section className="space-y-6">
-          <div className="flex items-center justify-between border-b-2 border-border-primary pb-2">
-            <h2 className="text-xl font-black uppercase tracking-tight">
+          <div className="flex items-center justify-between border-b border-slate-800 pb-3">
+            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
               Section 04 // On-Chain Glossary
             </h2>
-            <span className="text-xs font-bold text-ink-secondary">PRD REFERENCE</span>
+            <span className="text-xs font-semibold text-slate-400">PRD REFERENCE</span>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {glossaryItems.map((item) => (
               <div
                 key={item.term}
-                className="border-2 border-border-primary bg-bg-primary p-5 shadow-neo-sm space-y-2"
+                className="rounded-2xl border border-slate-800 bg-slate-900/80 p-5 shadow-md space-y-2 backdrop-blur-xl"
               >
-                <div className="text-sm font-black uppercase text-accent">{item.term}</div>
-                <p className="text-xs text-ink-secondary leading-relaxed">{item.definition}</p>
+                <div className="text-sm font-bold uppercase text-cyan-400">{item.term}</div>
+                <p className="text-xs text-slate-400 leading-relaxed font-normal">{item.definition}</p>
               </div>
             ))}
           </div>
         </section>
 
-        <div className="border-t-2 border-border-primary pt-8 flex items-center justify-between text-xs">
-          <Link href="/docs" className="font-bold text-accent hover:underline">
+        <div className="border-t border-slate-800 pt-8 flex items-center justify-between text-xs">
+          <Link href="/docs" className="font-bold text-cyan-400 hover:underline">
             ← Read Technical Documentation
           </Link>
-          <Link href="/census" className="font-bold text-accent hover:underline">
+          <Link href="/census" className="font-bold text-cyan-400 hover:underline">
             Explore Ecosystem Census →
           </Link>
         </div>

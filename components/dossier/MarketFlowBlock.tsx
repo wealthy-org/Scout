@@ -35,69 +35,71 @@ export function MarketFlowBlock({
   const isCompleted = (curveProgressPct ?? 0) >= 100;
 
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-6">
-      <div className="border border-border bg-surface p-3">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+    <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:grid-cols-6 font-sans select-none">
+      <div className="rounded-2xl border border-cyan-500/20 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-4 shadow-sm backdrop-blur-xl">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-cyan-400">
           Market Cap
         </span>
-        <div className="mt-1 font-mono text-base font-bold text-ink">
+        <div className="mt-1 text-lg sm:text-xl font-black text-white tracking-tight">
           {formatCurrency(marketCapUsd)}
         </div>
       </div>
 
-      <div className="border border-border bg-surface p-3">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+      <div className="rounded-2xl border border-fuchsia-500/20 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-4 shadow-sm backdrop-blur-xl">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-fuchsia-400">
           All-Time High (ATH)
         </span>
-        <div className="mt-1 font-mono text-base font-bold text-ink">
+        <div className="mt-1 text-lg sm:text-xl font-black text-white tracking-tight">
           {formatCurrency(athUsd)}
         </div>
       </div>
 
-      <div className="border border-border bg-surface p-3">
+      <div className="rounded-2xl border border-emerald-500/20 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-4 shadow-sm backdrop-blur-xl">
         <div className="flex items-center justify-between">
-          <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+          <span className="text-[11px] font-semibold uppercase tracking-wider text-emerald-400">
             Curve Progress
           </span>
-          <span className="font-mono text-xs font-bold text-ink">
+          <span className="text-xs font-black text-emerald-400">
             {curveProgressPct !== null && curveProgressPct !== undefined
               ? `${curveProgressPct.toFixed(1)}%`
               : "N/A"}
           </span>
         </div>
-        <div className="mt-2 h-1.5 w-full bg-neutral-200 dark:bg-neutral-800">
+        <div className="mt-2.5 h-2 w-full rounded-full bg-slate-800 overflow-hidden">
           <div
-            className={`h-full transition-all duration-300 ${
-              isCompleted ? "bg-emerald-500" : "bg-cyan-500"
+            className={`h-full rounded-full transition-all duration-300 ${
+              isCompleted
+                ? "bg-gradient-to-r from-emerald-400 to-teal-300 shadow-[0_0_8px_rgba(0,229,153,0.6)]"
+                : "bg-gradient-to-r from-cyan-400 to-blue-500"
             }`}
             style={{ width: `${progress}%` }}
           />
         </div>
       </div>
 
-      <div className="border border-border bg-surface p-3">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+      <div className="rounded-2xl border border-amber-500/20 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-4 shadow-sm backdrop-blur-xl">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-amber-400">
           24h Volume
         </span>
-        <div className="mt-1 font-mono text-base font-bold text-ink">
+        <div className="mt-1 text-lg sm:text-xl font-black text-white tracking-tight">
           {formatCurrency(volume24hUsd)}
         </div>
       </div>
 
-      <div className="border border-border bg-surface p-3">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+      <div className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-4 shadow-sm backdrop-blur-xl">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
           Total Trades
         </span>
-        <div className="mt-1 font-mono text-base font-bold text-ink">
+        <div className="mt-1 text-lg sm:text-xl font-black text-white tracking-tight">
           {formatNumber(tradeCount)}
         </div>
       </div>
 
-      <div className="border border-border bg-surface p-3">
-        <span className="text-[10px] font-semibold uppercase tracking-wider text-ink-muted">
+      <div className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-4 shadow-sm backdrop-blur-xl">
+        <span className="text-[11px] font-semibold uppercase tracking-wider text-slate-400">
           Unique Wallets
         </span>
-        <div className="mt-1 font-mono text-base font-bold text-ink">
+        <div className="mt-1 text-lg sm:text-xl font-black text-white tracking-tight">
           {formatNumber(uniqueWallets)}
         </div>
       </div>

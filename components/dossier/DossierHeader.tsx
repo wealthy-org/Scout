@@ -44,28 +44,28 @@ export function DossierHeader({
   const isGraduated = phase === "graduated" || phase === "swept";
 
   return (
-    <header className="border-b border-border bg-surface px-6 py-4">
+    <header className="rounded-3xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-5 sm:p-6 shadow-2xl backdrop-blur-2xl font-sans">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-2xl font-bold tracking-tight text-ink">
+          <div className="flex items-center gap-2.5">
+            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
               ${symbol || "UNKNOWN"}
             </span>
-            <span className="text-sm font-medium text-ink-muted">
+            <span className="text-sm font-semibold text-slate-400">
               {name || "Unnamed Token"}
             </span>
           </div>
 
           <span
-            className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 font-mono text-xs font-semibold uppercase tracking-wider border ${
+            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider border ${
               isGraduated
-                ? "border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                : "border-amber-500/30 bg-amber-500/10 text-amber-600 dark:text-amber-400"
+                ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400 shadow-[0_0_12px_rgba(0,229,153,0.2)]"
+                : "border-amber-500/40 bg-amber-500/10 text-amber-400 shadow-[0_0_12px_rgba(255,184,0,0.2)]"
             }`}
           >
             <span
-              className={`h-1.5 w-1.5 rounded-full ${
-                isGraduated ? "bg-emerald-500" : "bg-amber-500"
+              className={`h-2 w-2 rounded-full ${
+                isGraduated ? "bg-emerald-400 animate-pulse" : "bg-amber-400"
               }`}
             />
             {isGraduated ? "Graduated" : "Bonding Curve"}
@@ -75,11 +75,11 @@ export function DossierHeader({
             type="button"
             onClick={handleCopy}
             title="Click to copy contract address"
-            className="group flex items-center gap-1.5 border border-border bg-background px-2 py-1 font-mono text-xs text-ink-muted transition-colors hover:border-ink hover:text-ink"
+            className="group flex items-center gap-2 rounded-xl border border-slate-800 bg-slate-950/80 px-3 py-1.5 font-mono text-xs text-slate-400 hover:border-cyan-500/60 hover:text-cyan-400 transition-all duration-200"
           >
-            <span>{contractAddress}</span>
+            <span className="truncate max-w-[200px] sm:max-w-none">{contractAddress}</span>
             <svg
-              className="h-3.5 w-3.5 transition-transform group-hover:scale-110"
+              className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:scale-110"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -100,16 +100,16 @@ export function DossierHeader({
                 />
               )}
             </svg>
-            {copied && <span className="text-emerald-500 font-bold">Copied</span>}
+            {copied && <span className="text-emerald-400 font-bold">Copied</span>}
           </button>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={onRefresh}
             disabled={isRefreshing}
-            className="flex items-center gap-1.5 border border-border bg-background px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-neutral-100 disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/80 px-3.5 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-700 disabled:opacity-50 transition-all"
           >
             <svg
               className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin" : ""}`}
@@ -131,7 +131,7 @@ export function DossierHeader({
             type="button"
             onClick={onPublish}
             disabled={isPublishing}
-            className="flex items-center gap-1.5 border border-border bg-ink px-3 py-1.5 text-xs font-medium text-background transition-opacity hover:opacity-90 disabled:opacity-50"
+            className="flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 px-4 py-2 text-xs font-bold text-slate-950 uppercase tracking-wider shadow-md hover:brightness-110 active:scale-[0.98] disabled:opacity-50 transition-all"
           >
             <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
@@ -148,7 +148,7 @@ export function DossierHeader({
             <button
               type="button"
               onClick={() => setIsExportOpen(!isExportOpen)}
-              className="flex items-center gap-1.5 border border-border bg-background px-3 py-1.5 text-xs font-medium text-ink transition-colors hover:bg-neutral-100"
+              className="flex items-center gap-1.5 rounded-xl border border-slate-700 bg-slate-800/80 px-3.5 py-2 text-xs font-semibold text-slate-200 hover:bg-slate-700 transition-all"
             >
               <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
@@ -165,23 +165,23 @@ export function DossierHeader({
             </button>
 
             {isExportOpen && (
-              <div className="absolute right-0 z-50 mt-1 w-48 border border-border bg-surface p-1 shadow-lg">
+              <div className="absolute right-0 z-50 mt-2 w-48 rounded-2xl border border-slate-700 bg-slate-900 p-1.5 shadow-2xl space-y-1">
                 <a
                   href={`/api/dossier/${contractAddress}/export.md`}
                   download={`dossier-${symbol.toLowerCase()}.md`}
                   onClick={() => setIsExportOpen(false)}
-                  className="flex w-full items-center gap-2 px-3 py-2 text-xs text-ink transition-colors hover:bg-neutral-100"
+                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 transition-colors"
                 >
-                  <span className="font-mono text-emerald-600 font-bold">.MD</span>
+                  <span className="font-mono text-emerald-400 font-bold">.MD</span>
                   <span>Markdown File</span>
                 </a>
                 <a
                   href="/api/library/export"
                   download="scout-library-export.json"
                   onClick={() => setIsExportOpen(false)}
-                  className="flex w-full items-center gap-2 px-3 py-2 text-xs text-ink transition-colors hover:bg-neutral-100"
+                  className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs text-slate-200 hover:bg-slate-800 transition-colors"
                 >
-                  <span className="font-mono text-cyan-600 font-bold">.JSON</span>
+                  <span className="font-mono text-cyan-400 font-bold">.JSON</span>
                   <span>Full Library JSON</span>
                 </a>
               </div>
@@ -190,7 +190,7 @@ export function DossierHeader({
 
           <div className="relative">
             {showDeleteConfirm ? (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1.5">
                 <button
                   type="button"
                   onClick={async () => {
@@ -198,14 +198,14 @@ export function DossierHeader({
                     if (onDelete) await onDelete();
                   }}
                   disabled={isDeleting}
-                  className="border border-red-600 bg-red-600 px-2 py-1 text-xs font-bold text-white transition-opacity hover:opacity-90 disabled:opacity-50"
+                  className="rounded-xl border border-rose-500 bg-rose-600 px-3 py-1.5 text-xs font-bold text-white hover:bg-rose-500 disabled:opacity-50 transition-all"
                 >
                   {isDeleting ? "Deleting..." : "Confirm Delete"}
                 </button>
                 <button
                   type="button"
                   onClick={() => setShowDeleteConfirm(false)}
-                  className="border border-border bg-background px-2 py-1 text-xs text-ink-muted hover:text-ink"
+                  className="rounded-xl border border-slate-700 bg-slate-800 px-3 py-1.5 text-xs text-slate-300 hover:text-white"
                 >
                   Cancel
                 </button>
@@ -214,7 +214,7 @@ export function DossierHeader({
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(true)}
-                className="flex items-center gap-1.5 border border-border bg-background px-3 py-1.5 text-xs font-medium text-red-600 transition-colors hover:border-red-600 hover:bg-red-50 dark:hover:bg-red-950/20"
+                className="flex items-center gap-1.5 rounded-xl border border-rose-500/30 bg-rose-500/10 px-3 py-2 text-xs font-semibold text-rose-400 hover:bg-rose-500/20 transition-colors"
               >
                 <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path

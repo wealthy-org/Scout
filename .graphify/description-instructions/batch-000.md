@@ -1,4 +1,4 @@
-# Node Description Batch 1 of 19
+# Node Description Batch 1 of 20
 
 Graphify is running in assistant/skill mode (no API key). You are the host
 assistant (Claude Code / Codex / Gemini CLI). Read the prompt below and write
@@ -29,24 +29,26 @@ one-sentence description — no prose, no markdown fences.
 - "tests_route_test": "route.test.ts" | kind=code-symbol | source=app/api/library/import/__tests__/route.test.ts:L1 | neighbors=[006e480 feat(scout): implement siwe log…, 07f29ab chore(scout): finalize scout do…, 09d22b5 feat(scout): implement api get …, 127516d feat(scout): implement api depl…, 2354fd8 feat(scout): implement siwe non…, 261544b feat(scout): implement api get …]
 - "ca_route": "route.ts" | kind=code-symbol | source=app/api/publish/[ca]/route.ts:L1 | neighbors=[session.ts, getSession(), addressSchema, contractAddressSchema, DELETE(), generateSlug()]
 - "db_index": "index.ts" | kind=code-symbol | source=lib/db/index.ts:L1 | neighbors=[page.tsx, route.ts, page.tsx, route.ts, compute.ts, page.tsx]
+- "tests_page_test": "page.test.tsx" | kind=code-symbol | source=app/watchlist/__tests__/page.test.tsx:L1 | neighbors=[17dcf97 feat(navigation): add top progr…, 1ec916f feat(scout): implement syntheti…, 238f483 feat(scout): assemble watchlist…, 2f8f708 feat(scout): assemble technical…, 5b836fa feat(scout): assemble deployer …, 63de350 feat(scout): assemble ecosystem…]
 - "address_route": "route.ts" | kind=code-symbol | source=app/api/watchlist/[address]/route.ts:L1 | neighbors=[addressSchema, DELETE(), DeleteWatchlistResponseBody, GET(), handleDeleteWatchlist(), handleGetDeployer()]
-- "dossier_fetch": "fetch.ts" | kind=code-symbol | source=lib/dossier/fetch.ts:L1 | neighbors=[page.tsx, 72063a3 feat(scout): assemble dossier p…, index.ts, db, schema.ts, deployerLaunches]
-- "tests_page_test": "page.test.tsx" | kind=code-symbol | source=app/watchlist/__tests__/page.test.tsx:L1 | neighbors=[1ec916f feat(scout): implement syntheti…, 238f483 feat(scout): assemble watchlist…, 2f8f708 feat(scout): assemble technical…, 5b836fa feat(scout): assemble deployer …, 63de350 feat(scout): assemble ecosystem…, 72063a3 feat(scout): assemble dossier p…]
 - "auth_session": "session.ts" | kind=code-symbol | source=lib/auth/session.ts:L1 | neighbors=[page.tsx, route.ts, page.tsx, getPassword(), getSession(), sessionOptions]
+- "dossier_fetch": "fetch.ts" | kind=code-symbol | source=lib/dossier/fetch.ts:L1 | neighbors=[page.tsx, 72063a3 feat(scout): assemble dossier p…, index.ts, db, schema.ts, deployerLaunches]
 - "ca_page": "page.tsx" | kind=code-symbol | source=app/d/[ca]/page.tsx:L1 | neighbors=[DossierPage(), DossierPageView(), ConnectionsTimeline.tsx, ConnectionsTimeline(), ConstellationGraph.tsx, ConstellationGraph()]
 - "types_dossier": "dossier.ts" | kind=code-symbol | source=types/dossier.ts:L1 | neighbors=[route.ts, 07f29ab chore(scout): finalize scout do…, fetch.ts, ResearchPanel.tsx, ScoutRemembers.tsx, route.ts]
 - "chain_events": "events.ts" | kind=code-symbol | source=lib/chain/events.ts:L1 | neighbors=[client.ts, publicClient, fetchCurveBuy(), fetchCurveSell(), fetchPoolGraduated(), fetchTokenLaunched()]
-- "types_auth": "auth.ts" | kind=code-symbol | source=types/auth.ts:L1 | neighbors=[route.ts, session.ts, route.ts, 2354fd8 feat(scout): implement siwe non…, route.ts, route.ts]
 - "db_index_db": "db" | kind=code-symbol | source=lib/db/index.ts:L26 | neighbors=[page.tsx, route.ts, page.tsx, route.ts, compute.ts, page.tsx]
+- "types_auth": "auth.ts" | kind=code-symbol | source=types/auth.ts:L1 | neighbors=[route.ts, session.ts, route.ts, 2354fd8 feat(scout): implement siwe non…, route.ts, route.ts]
 - "feed_page": "page.tsx" | kind=code-symbol | source=app/feed/page.tsx:L1 | neighbors=[7ab9268 feat(scout): assemble realtime …, FeedPoller.tsx, FeedPoller(), FeedTable.tsx, FeedTable(), FeedTableRowData]
+- "auth_session_getsession": "getSession()" | kind=code-symbol | source=lib/auth/session.ts:L28 | neighbors=[page.tsx, route.ts, page.tsx, session.ts, route.ts, page.tsx]
 - "config_score": "score.ts" | kind=code-symbol | source=config/score.ts:L1 | neighbors=[795ff3b feat(scout): setup score formul…, BAND_GREEN_MIN, BAND_YELLOW_MIN, GRAD_DENOMINATOR_ADD, GRAD_NUMERATOR_ADD, LABEL_FRESH_MAX]
 - "score_calculate": "calculate.ts" | kind=code-symbol | source=lib/score/calculate.ts:L1 | neighbors=[page.tsx, route.ts, a5ce11b feat(scout): implement deployer…, score.ts, BAND_GREEN_MIN, BAND_YELLOW_MIN]
 - "tests_get_route_test": "get-route.test.ts" | kind=code-symbol | source=app/api/watchlist/__tests__/get-route.test.ts:L1 | neighbors=[078bb6c feat(scout): implement api get …, 4b3f020 feat(scout): implement api get …, c9f59e2 feat(scout): implement api get …, route.ts, GET(), handleGetDossier()]
-- "auth_session_getsession": "getSession()" | kind=code-symbol | source=lib/auth/session.ts:L28 | neighbors=[page.tsx, route.ts, page.tsx, session.ts, route.ts, page.tsx]
+- "commit:repo:github.com/wealthy-org/Scout@17dcf97efb549ee981364cfc9d9218c2cae38c15": "17dcf97 feat(navigation): add top progress bar, route skeletons, library page &…" | kind=Commit | source=git | neighbors=[1252f8e fix(db): isolate scout schema, …, layout.tsx, loading.tsx, main, loading.tsx, CensusView.tsx]
 - "import_route": "route.ts" | kind=code-symbol | source=app/api/library/import/route.ts:L1 | neighbors=[439c457 feat(scout): implement api post…, session.ts, getSession(), index.ts, Database, db]
 - "watchlist_route": "route.ts" | kind=code-symbol | source=app/api/watchlist/route.ts:L1 | neighbors=[4b3f020 feat(scout): implement api get …, get-route.test.ts, post-route.test.ts, session.ts, getSession(), index.ts]
 - "db_index_database": "Database" | kind=code-symbol | source=lib/db/index.ts:L27 | neighbors=[route.ts, route.ts, compute.ts, route.ts, route.ts, route.ts]
 - "export_md_route": "route.ts" | kind=code-symbol | source=app/api/dossier/[ca]/export.md/route.ts:L1 | neighbors=[fc157fe feat(scout): implement api get …, session.ts, getSession(), index.ts, Database, db]
+- "layout_globalheader": "GlobalHeader.tsx" | kind=code-symbol | source=components/layout/GlobalHeader.tsx:L1 | neighbors=[AccountClient.tsx, loading.tsx, loading.tsx, CensusView.tsx, loading.tsx, 7deffdf feat(scout): implement global h…]
 - "dossiers_route": "route.ts" | kind=code-symbol | source=app/api/deployer/[address]/dossiers/route.ts:L1 | neighbors=[3b9584c feat(scout): implement api get …, session.ts, getSession(), index.ts, Database, db]
 - "types_auth_cookiestorelike": "CookieStoreLike" | kind=code-symbol | source=types/auth.ts:L6 | neighbors=[route.ts, session.ts, route.ts, route.ts, route.ts, route.ts]
 - "app_page": "page.tsx" | kind=code-symbol | source=app/page.tsx:L1 | neighbors=[HomePage(), metadata, session.ts, getSession(), compute.ts, CensusPayload]
@@ -62,8 +64,6 @@ one-sentence description — no prose, no markdown fences.
 - "export_route": "route.ts" | kind=code-symbol | source=app/api/library/export/route.ts:L1 | neighbors=[261544b feat(scout): implement api get …, session.ts, getSession(), index.ts, Database, db]
 - "slug_page": "page.tsx" | kind=code-symbol | source=app/p/[slug]/page.tsx:L1 | neighbors=[1ec916f feat(scout): implement syntheti…, e12a92e feat(scout): assemble public do…, demo.ts, DEMO_SLUGS, getDemoDossier(), index.ts]
 - "tests_delete_route_test": "delete-route.test.ts" | kind=code-symbol | source=app/api/watchlist/__tests__/delete-route.test.ts:L1 | neighbors=[07f29ab chore(scout): finalize scout do…, d0dc453 feat(scout): implement api dele…, e96f96c feat(scout): implement api dele…, route.ts, handleDeleteWatchlist(), route.ts]
-- "types_score": "score.ts" | kind=code-symbol | source=types/score.ts:L1 | neighbors=[page.tsx, route.ts, 795ff3b feat(scout): setup score formul…, score.ts, DeployerProfileView.tsx, calculate.ts]
-- "types_chain": "chain.ts" | kind=code-symbol | source=types/chain.ts:L1 | neighbors=[events.ts, multicall.ts, b84d454 feat(scout): setup chain config…, CurveBuyEventData, CurveBuyFilterParams, CurveSellEventData]
 
 ## Instructions
 

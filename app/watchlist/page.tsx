@@ -25,7 +25,6 @@ export default async function WatchlistPage() {
       isAuthenticated = true;
     }
   } catch {
-    // Session fallback
   }
 
   if (isAuthenticated && userAddress && db) {
@@ -73,7 +72,6 @@ export default async function WatchlistPage() {
         .set({ lastSeenAt: new Date() })
         .where(eq(deployerWatchlist.walletAddress, userAddress));
     } catch {
-      // Database query fallback
     }
   }
 
