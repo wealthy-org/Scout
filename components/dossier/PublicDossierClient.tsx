@@ -2,41 +2,41 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-
 export interface PublicDossierPayload {
-  contractAddress?: string;
   symbol?: string;
   name?: string;
+  contractAddress?: string;
   thesis?: string;
   notes?: string;
-  publishedAt?: string;
-  authorWallet?: string;
   authorHandle?: string;
+  authorWallet?: string;
+  publishedAt?: string | number | Date;
 }
 
 export interface PublicDossierClientProps {
-  slug: string;
-  authorHandle?: string | null;
-  revoked?: boolean;
   payload: PublicDossierPayload;
+  revoked?: boolean;
+  authorHandle?: string | null;
+  slug: string;
 }
 
 export function PublicDossierClient({
-  slug,
-  authorHandle,
-  revoked = false,
   payload,
+  revoked = false,
+  authorHandle,
+  slug,
 }: PublicDossierClientProps) {
   const [saving, setSaving] = useState(false);
-  const [saveStatus, setSaveStatus] = useState<"idle" | "saved" | "already_exists" | "error" | "unauthorized">("idle");
+  const [saveStatus, setSaveStatus] = useState<"idle" | "saved" | "already_exists" | "unauthorized" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
   const handleSaveCopy = async () => {
+    if (saving || saveStatus === "saved" || saveStatus === "already_exists") return;
     setSaving(true);
     setErrorMessage(null);
 
     try {
-      const res = await fetch(`/api/p/${slug}/save`, {
+      const res = await fetch(`/api/dossier/public/${slug}/save-copy`, {
         method: "POST",
       });
 
@@ -45,21 +45,18 @@ export function PublicDossierClient({
         return;
       }
 
-      const data = (await res.json()) as {
-        ok: boolean;
-        created?: boolean;
-        already_exists?: boolean;
-        contract_address?: string;
-        error?: string;
-      };
+      const json = await res.json().catch(() => ({}));
 
-      if (res.status === 201 && data.created) {
-        setSaveStatus("saved");
-      } else if (res.status === 200 && data.already_exists) {
+      if (!res.ok) {
+        setSaveStatus("error");
+        setErrorMessage(json?.error || "Failed to save copy");
+        return;
+      }
+
+      if (json?.already_existed) {
         setSaveStatus("already_exists");
       } else {
-        setSaveStatus("error");
-        setErrorMessage(data.error || "Failed to save copy");
+        setSaveStatus("saved");
       }
     } catch {
       setSaveStatus("error");
@@ -75,14 +72,16 @@ export function PublicDossierClient({
   const displayAuthor = authorHandle || payload.authorHandle || (payload.authorWallet ? `${payload.authorWallet.slice(0, 6)}...${payload.authorWallet.slice(-4)}` : "Anonymous");
 
   return (
-    <div className="min-h-screen bg-canvas text-ink-primary font-mono pb-20">
-      <header className="border-b-2 border-border-primary bg-bg-primary px-6 py-3 sticky top-0 z-30 shadow-neo-sm">
+    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans relative overflow-hidden pb-20">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-gradient-to-b from-[#00E599]/15 via-[#00F0FF]/10 to-transparent blur-[120px] pointer-events-none -z-10" />
+
+      <header className="border-b border-white/10 bg-[#080D1A]/85 backdrop-blur-xl px-4 sm:px-6 py-3.5 sticky top-0 z-30 shadow-lg">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <Link href="/" className="font-extrabold text-sm tracking-widest text-ink-primary hover:text-accent uppercase">
+            <Link href="/" className="font-extrabold text-sm tracking-tight text-white hover:text-cyan-300 uppercase transition-colors">
               Scout // Dossier.OS
             </Link>
-            <span className="text-xs px-2 py-0.5 bg-bg-secondary border border-border-primary text-ink-secondary">
+            <span className="text-[11px] px-2.5 py-0.5 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-medium">
               Public Snapshot View
             </span>
           </div>
@@ -93,7 +92,7 @@ export function PublicDossierClient({
                 type="button"
                 onClick={handleSaveCopy}
                 disabled={saving || saveStatus === "saved" || saveStatus === "already_exists"}
-                className="flex items-center gap-1.5 px-4 py-1.5 bg-accent text-accent-fg font-bold text-xs border-2 border-border-primary shadow-neo-sm hover:translate-x-0.5 hover:-translate-y-0.5 transition-all disabled:opacity-50"
+                className="flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 font-bold text-xs shadow-md hover:brightness-110 active:scale-95 transition-all disabled:opacity-50"
               >
                 {saving ? (
                   <span>Saving...</span>
@@ -112,8 +111,8 @@ export function PublicDossierClient({
               </button>
             )}
             <Link
-              href={`/dossier/${ca}`}
-              className="px-3 py-1.5 bg-bg-primary text-ink-primary font-bold text-xs border border-border-primary hover:bg-bg-secondary transition-colors"
+              href={`/d/${ca}`}
+              className="px-3.5 py-1.5 rounded-full bg-slate-900 border border-slate-700 text-slate-200 hover:text-white hover:border-slate-500 font-semibold text-xs transition-colors"
             >
               Open in Scout
             </Link>
@@ -121,54 +120,54 @@ export function PublicDossierClient({
         </div>
       </header>
 
-      <main className="max-w-5xl mx-auto px-6 pt-8">
+      <main className="max-w-5xl mx-auto px-4 sm:px-6 pt-8 relative z-10">
         {revoked && (
-          <div className="mb-6 p-4 bg-status-danger/10 border-2 border-status-danger text-status-danger">
+          <div className="mb-6 p-4 rounded-2xl bg-rose-500/10 border border-rose-500/40 text-rose-300">
             <div className="flex items-center gap-2 font-bold text-sm">
               <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
               </svg>
               <span>This case file has been revoked by its author.</span>
             </div>
-            <p className="text-xs text-ink-secondary mt-1">
+            <p className="text-xs text-slate-400 mt-1">
               The analyst who published this dossier snapshot has marked it inactive. Snapshot data may no longer reflect their current findings.
             </p>
           </div>
         )}
 
         {saveStatus === "unauthorized" && (
-          <div className="mb-6 p-4 bg-status-warning/10 border-2 border-status-warning text-ink-primary flex items-center justify-between text-xs">
+          <div className="mb-6 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/40 text-slate-200 flex items-center justify-between text-xs">
             <span>Please log in with your wallet to save a copy of this dossier to your private library.</span>
-            <Link href="/" className="font-bold underline text-accent">
+            <Link href="/" className="font-bold underline text-cyan-400 hover:text-cyan-300">
               Connect Wallet
             </Link>
           </div>
         )}
 
         {saveStatus === "error" && errorMessage && (
-          <div className="mb-6 p-3 bg-status-danger/10 border border-status-danger text-status-danger text-xs">
+          <div className="mb-6 p-3 rounded-xl bg-rose-500/10 border border-rose-500/40 text-rose-400 text-xs">
             {errorMessage}
           </div>
         )}
 
-        <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-md mb-6">
-          <div className="flex flex-wrap items-start justify-between gap-4 border-b-2 border-border-primary pb-4 mb-4">
+        <div className="rounded-3xl bg-gradient-to-b from-slate-900/90 via-slate-900/70 to-slate-950/90 border border-slate-800 p-6 sm:p-8 shadow-2xl backdrop-blur-2xl mb-6 space-y-6">
+          <div className="flex flex-wrap items-start justify-between gap-4 border-b border-slate-800 pb-5">
             <div>
               <div className="flex items-center gap-3">
-                <h1 className="text-2xl font-black tracking-tight">{`$${symbol}`}</h1>
-                <span className="text-sm font-semibold text-ink-secondary">{name}</span>
+                <h1 className="text-2xl sm:text-3xl font-black text-white">{`$${symbol}`}</h1>
+                <span className="text-sm font-semibold text-slate-400">{name}</span>
               </div>
-              <div className="text-xs text-ink-tertiary mt-1 font-mono break-all">
+              <div className="text-xs text-slate-400 mt-1.5 font-mono break-all bg-slate-950/70 px-3 py-1.5 rounded-lg border border-slate-800">
                 CA: {ca}
               </div>
             </div>
 
             <div className="text-right text-xs">
-              <div className="text-ink-secondary">
-                Published by <span className="font-bold text-ink-primary">@{displayAuthor}</span>
+              <div className="text-slate-400">
+                Published by <span className="font-bold text-white">@{displayAuthor}</span>
               </div>
               {payload.publishedAt && (
-                <div className="text-[11px] text-ink-tertiary mt-0.5">
+                <div className="text-[11px] text-slate-500 mt-0.5">
                   {new Date(payload.publishedAt).toLocaleString()}
                 </div>
               )}
@@ -177,20 +176,20 @@ export function PublicDossierClient({
 
           <div className="space-y-6">
             <div>
-              <h2 className="text-xs font-bold text-ink-secondary uppercase tracking-wider mb-2">
+              <h2 className="text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">
                 Analyst Thesis
               </h2>
-              <div className="p-4 bg-canvas border border-border-primary text-xs leading-relaxed whitespace-pre-wrap">
+              <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800/80 text-xs sm:text-sm text-slate-300 leading-relaxed whitespace-pre-wrap">
                 {payload.thesis || "No thesis provided in this snapshot."}
               </div>
             </div>
 
             {payload.notes && (
               <div>
-                <h2 className="text-xs font-bold text-ink-secondary uppercase tracking-wider mb-2">
+                <h2 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">
                   Included Research Notes
                 </h2>
-                <div className="p-4 bg-canvas border border-border-secondary text-xs leading-relaxed text-ink-secondary whitespace-pre-wrap">
+                <div className="p-4 rounded-2xl bg-slate-950/40 border border-slate-800/60 text-xs sm:text-sm leading-relaxed text-slate-300 whitespace-pre-wrap">
                   {payload.notes}
                 </div>
               </div>

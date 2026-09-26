@@ -1,156 +1,132 @@
 "use client";
 
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 
 export interface PublishDialogProps {
-  isOpen: boolean;
-  onClose: () => void;
   contractAddress: string;
   symbol?: string;
   name?: string;
   thesis?: string;
   hasNotes?: boolean;
-  initialPublishedUrl?: string;
-  onPublish?: (
-    handle?: string,
-    includeNotes?: boolean
-  ) => Promise<{ ok: boolean; slug?: string; url?: string; error?: string }>;
+  isOpen: boolean;
+  onClose: () => void;
+  onPublished?: (data: { publicUrl: string; snapshotId: string }) => void;
+  initialPublishedUrl?: string | null;
 }
 
 export function PublishDialog({
-  isOpen,
-  onClose,
   contractAddress,
   symbol,
   name,
   thesis,
   hasNotes = false,
+  isOpen,
+  onClose,
+  onPublished,
   initialPublishedUrl,
-  onPublish,
 }: PublishDialogProps) {
   const [handle, setHandle] = useState("");
   const [includeNotes, setIncludeNotes] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [publishedUrl, setPublishedUrl] = useState<string | null>(null);
+  const [activeUrl, setActiveUrl] = useState<string | null>(initialPublishedUrl || null);
   const [copied, setCopied] = useState(false);
 
-  const activeUrl = publishedUrl || initialPublishedUrl || null;
-
-  const handleKeyDown = useCallback(
-    (e: KeyboardEvent) => {
-      if (e.key === "Escape" && isOpen) {
-        onClose();
-      }
-    },
-    [isOpen, onClose]
-  );
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [handleKeyDown]);
-
-  if (!isOpen) {
-    return null;
-  }
+  if (!isOpen) return null;
 
   const handlePublishClick = async () => {
     setLoading(true);
     setError(null);
 
     try {
-      if (onPublish) {
-        const res = await onPublish(handle || undefined, includeNotes);
-        if (res.ok && res.url) {
-          setPublishedUrl(res.url);
-        } else {
-          setError(res.error || "Failed to publish dossier");
-        }
-      } else {
-        const res = await fetch(`/api/publish/${contractAddress}`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            handle: handle.trim() || undefined,
-            include_notes: includeNotes,
-          }),
-        });
-        const data = (await res.json()) as {
-          ok: boolean;
-          slug?: string;
-          url?: string;
-          error?: string;
-        };
-        if (data.ok && data.url) {
-          setPublishedUrl(data.url);
-        } else {
-          setError(data.error || "Failed to publish dossier");
-        }
+      const res = await fetch(`/api/dossier/${contractAddress}/publish`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          authorHandle: handle.trim() || undefined,
+          includeNotes,
+        }),
+      });
+
+      const json = await res.json().catch(() => ({}));
+
+      if (!res.ok) {
+        setError(json?.error || "Failed to publish dossier snapshot");
+        return;
+      }
+
+      const url = json?.publicUrl || `/p/${json?.snapshotId}`;
+      setActiveUrl(url);
+      if (onPublished) {
+        onPublished({ publicUrl: url, snapshotId: json?.snapshotId });
       }
     } catch {
-      setError("Network or server error while publishing");
+      setError("Network error while publishing snapshot");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleCopyLink = async () => {
+  const handleCopyLink = () => {
     if (!activeUrl) return;
-    try {
-      const fullUrl =
-        typeof window !== "undefined"
-          ? `${window.location.origin}${activeUrl}`
-          : activeUrl;
-      await navigator.clipboard.writeText(fullUrl);
+    const fullUrl = typeof window !== "undefined"
+      ? `${window.location.origin}${activeUrl}`
+      : activeUrl;
+
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(fullUrl);
       setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      setCopied(false);
+      setTimeout(() => setCopied(false), 2500);
     }
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4 animate-in fade-in duration-200"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Publish Dossier Snapshot"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4 animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
         }
       }}
     >
-      <div className="relative w-full max-w-lg rounded-none border-2 border-border-primary bg-bg-primary p-6 shadow-neo-lg text-ink-primary font-mono">
+      <div className="relative w-full max-w-lg rounded-3xl border border-slate-800 bg-[#0E131F]/95 p-6 sm:p-7 shadow-2xl text-slate-100 font-sans backdrop-blur-2xl">
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1 text-ink-tertiary hover:text-ink-primary hover:bg-canvas transition-colors border border-border-secondary"
+          className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
           aria-label="Close dialog"
         >
-          <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
 
-        <div className="flex items-center gap-2 mb-4 border-b border-border-secondary pb-3">
-          <svg className="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" />
-          </svg>
-          <h2 className="text-base font-bold tracking-tight uppercase">
-            Publish Dossier Snapshot
-          </h2>
+        <div className="flex items-center gap-2.5 mb-5 border-b border-slate-800 pb-4">
+          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#00E599] to-[#00F0FF] flex items-center justify-center text-slate-950 font-bold text-sm shadow-md">
+            🚀
+          </div>
+          <div>
+            <h2 className="text-base sm:text-lg font-bold tracking-tight text-white">
+              Publish Dossier Snapshot
+            </h2>
+            <p className="text-xs text-slate-400">Create a permanent public case file link</p>
+          </div>
         </div>
 
         {activeUrl ? (
-          <div className="space-y-4">
-            <div className="p-4 bg-status-success/10 border-2 border-status-success text-status-success text-xs">
+          <div className="space-y-5">
+            <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs leading-relaxed">
               <p className="font-bold mb-1">Dossier successfully published!</p>
-              <p className="text-ink-secondary">
+              <p className="text-slate-300">
                 Your snapshot is now publicly accessible via the permanent link below.
               </p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-bold text-ink-secondary uppercase">
+              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
                 Public Shareable Link
               </label>
               <div className="flex items-center gap-2">
@@ -162,12 +138,12 @@ export function PublishDialog({
                       ? `${window.location.origin}${activeUrl}`
                       : activeUrl
                   }
-                  className="flex-1 bg-canvas border border-border-primary px-3 py-2 text-xs font-mono text-ink-primary select-all"
+                  className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-200 select-all focus:outline-hidden"
                 />
                 <button
                   type="button"
                   onClick={handleCopyLink}
-                  className="flex items-center gap-1.5 px-3 py-2 bg-accent text-accent-fg font-bold text-xs border-2 border-border-primary hover:translate-x-0.5 hover:-translate-y-0.5 shadow-neo-sm transition-transform"
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 font-bold text-xs shadow-md hover:brightness-110 active:scale-95 transition-all"
                 >
                   {copied ? (
                     <>
@@ -192,7 +168,7 @@ export function PublishDialog({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 bg-bg-secondary text-ink-primary font-bold text-xs border border-border-primary hover:bg-canvas transition-colors"
+                className="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors"
               >
                 Close
               </button>
@@ -200,23 +176,23 @@ export function PublishDialog({
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="p-3 bg-canvas border border-border-secondary text-xs space-y-1">
+            <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs space-y-1">
               <div className="flex items-center justify-between font-bold">
-                <span>{symbol ? `$${symbol}` : "TOKEN"}</span>
-                <span className="text-ink-secondary font-normal text-[11px] truncate max-w-[200px]">
+                <span className="text-white">{symbol ? `$${symbol}` : "TOKEN"}</span>
+                <span className="text-slate-400 font-normal text-[11px] truncate max-w-[200px]">
                   {contractAddress}
                 </span>
               </div>
-              {name && <div className="text-ink-secondary">{name}</div>}
+              {name && <div className="text-slate-400">{name}</div>}
               {thesis && (
-                <div className="text-ink-primary text-[11px] mt-1 border-t border-border-secondary pt-1 line-clamp-2">
-                  <span className="font-semibold text-accent">Thesis:</span> {thesis}
+                <div className="text-slate-300 text-[11px] mt-1 border-t border-slate-800 pt-1 line-clamp-2">
+                  <span className="font-semibold text-cyan-400">Thesis:</span> {thesis}
                 </div>
               )}
             </div>
 
-            <div className="space-y-2">
-              <label className="block text-xs font-bold text-ink-secondary uppercase">
+            <div className="space-y-1.5">
+              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
                 Analyst Handle (Optional)
               </label>
               <input
@@ -225,28 +201,28 @@ export function PublishDialog({
                 value={handle}
                 onChange={(e) => setHandle(e.target.value)}
                 maxLength={30}
-                className="w-full bg-canvas border border-border-primary px-3 py-2 text-xs font-mono text-ink-primary placeholder:text-ink-tertiary focus:outline-hidden focus:border-accent"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-200 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-500"
               />
-              <p className="text-[10px] text-ink-tertiary">
+              <p className="text-[10px] text-slate-500">
                 Alphanumeric attribution shown publicly with this snapshot.
               </p>
             </div>
 
             {hasNotes && (
-              <div className="flex items-start gap-2 p-3 bg-canvas border border-border-secondary">
+              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
                 <input
                   type="checkbox"
                   id="include-notes-checkbox"
                   checked={includeNotes}
                   onChange={(e) => setIncludeNotes(e.target.checked)}
-                  className="mt-0.5 rounded-none border-border-primary text-accent focus:ring-0"
+                  className="mt-0.5 rounded border-slate-700 bg-slate-900 text-cyan-400 focus:ring-0"
                 />
                 <label
                   htmlFor="include-notes-checkbox"
-                  className="text-xs text-ink-primary cursor-pointer select-none"
+                  className="text-xs text-slate-300 cursor-pointer select-none"
                 >
-                  <span className="font-bold">Include private research notes</span>
-                  <span className="block text-[11px] text-ink-secondary">
+                  <span className="font-bold text-white">Include private research notes</span>
+                  <span className="block text-[11px] text-slate-400">
                     By default, raw personal notes are excluded from public snapshots.
                   </span>
                 </label>
@@ -254,13 +230,13 @@ export function PublishDialog({
             )}
 
             {error && (
-              <div className="p-2 bg-status-danger/10 border border-status-danger text-status-danger text-xs">
+              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
                 {error}
               </div>
             )}
 
-            <div className="p-3 bg-canvas/60 border border-border-secondary flex items-start gap-2 text-[11px] text-ink-secondary">
-              <svg className="h-4 w-4 text-ink-tertiary shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="p-3 rounded-xl bg-slate-950/40 border border-slate-800/60 flex items-start gap-2 text-[11px] text-slate-400">
+              <svg className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <span>
@@ -268,11 +244,11 @@ export function PublishDialog({
               </span>
             </div>
 
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-border-secondary">
+            <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-800">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 bg-bg-secondary text-ink-primary font-bold text-xs border border-border-primary hover:bg-canvas transition-colors"
+                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition-colors"
               >
                 Cancel
               </button>
@@ -280,7 +256,7 @@ export function PublishDialog({
                 type="button"
                 onClick={handlePublishClick}
                 disabled={loading}
-                className="flex items-center gap-1.5 px-4 py-2 bg-accent text-accent-fg font-bold text-xs border-2 border-border-primary hover:translate-x-0.5 hover:-translate-y-0.5 shadow-neo-sm transition-all disabled:opacity-50"
+                className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 font-bold text-xs shadow-md hover:brightness-110 active:scale-95 transition-all disabled:opacity-50"
               >
                 <span>{loading ? "Publishing..." : "Publish Snapshot"}</span>
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

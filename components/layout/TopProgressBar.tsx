@@ -81,7 +81,7 @@ export function TopProgressBar() {
       aria-hidden="true"
     >
       <div
-        className="h-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.9)] transition-all ease-out duration-200"
+        className="h-full bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#D946EF] shadow-[0_0_12px_rgba(0,240,255,0.9)] transition-all ease-out duration-200"
         style={{ width: `${progress}%` }}
       />
     </div>
