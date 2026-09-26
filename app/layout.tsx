@@ -1,6 +1,8 @@
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteMetadata } from "@/config/metadata";
+import { TopProgressBar } from "@/components/layout/TopProgressBar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -25,7 +27,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-canvas text-ink-primary font-mono">{children}</body>
+      <body className="min-h-full flex flex-col bg-canvas text-ink-primary font-mono">
+        <Suspense fallback={null}>
+          <TopProgressBar />
+        </Suspense>
+        {children}
+      </body>
     </html>
   );
 }

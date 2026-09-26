@@ -60,25 +60,25 @@ export function LandingClient({
   };
 
   return (
-    <div className="min-h-screen bg-canvas text-ink-primary font-mono pb-20">
+    <div className="min-h-screen bg-canvas text-ink-primary font-mono pb-16 sm:pb-20">
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <main className="max-w-7xl mx-auto px-6 pt-12 space-y-16">
-        <section className="text-center max-w-4xl mx-auto space-y-6 pt-6">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-bg-primary border-2 border-border-primary shadow-neo-xs text-xs font-bold uppercase tracking-wider">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-8 sm:space-y-12 md:space-y-16">
+        <section className="text-center max-w-4xl mx-auto space-y-4 sm:space-y-6 pt-2 sm:pt-4">
+          <div className="inline-flex items-center gap-2 px-2.5 sm:px-3 py-1 bg-bg-primary border-2 border-border-primary shadow-neo-xs text-[11px] sm:text-xs font-bold uppercase tracking-wider">
             <span className="h-2 w-2 rounded-full bg-status-success animate-pulse" />
             <span>Surveillance Engine Active // Robinhood Chain</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tight leading-tight px-2">
             On-Chain Intelligence & Case Files for Robinhood Chain
           </h1>
 
-          <p className="text-sm md:text-base text-ink-secondary max-w-2xl mx-auto leading-relaxed">
+          <p className="text-xs sm:text-sm md:text-base text-ink-secondary max-w-2xl mx-auto leading-relaxed px-2">
             Forensic analysis, algorithmic deployer reputation scoring, bonding curve market flow, and collaborative research case files.
           </p>
 
-          <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto pt-4">
+          <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto pt-2 sm:pt-4 px-2">
             <div className="flex flex-col sm:flex-row items-center gap-2">
               <input
                 type="text"
@@ -88,11 +88,11 @@ export function LandingClient({
                   setCaInput(e.target.value);
                   if (inputError) setInputError(null);
                 }}
-                className="w-full bg-bg-primary border-2 border-border-primary px-4 py-3 text-xs font-mono text-ink-primary placeholder:text-ink-tertiary focus:outline-hidden focus:border-accent shadow-neo-sm"
+                className="w-full bg-bg-primary border-2 border-border-primary px-3 sm:px-4 py-2.5 sm:py-3 text-xs font-mono text-ink-primary placeholder:text-ink-tertiary focus:outline-hidden focus:border-accent shadow-neo-sm"
               />
               <button
                 type="submit"
-                className="w-full sm:w-auto shrink-0 px-6 py-3 bg-accent text-accent-fg font-black text-xs uppercase tracking-wider border-2 border-border-primary shadow-neo-sm hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform"
+                className="w-full sm:w-auto shrink-0 px-5 sm:px-6 py-2.5 sm:py-3 bg-accent text-accent-fg font-black text-xs uppercase tracking-wider border-2 border-border-primary shadow-neo-sm hover:translate-x-0.5 hover:-translate-y-0.5 transition-transform"
               >
                 Open Case File →
               </button>
@@ -103,88 +103,88 @@ export function LandingClient({
           </form>
         </section>
 
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm">
-            <div className="text-xs font-bold uppercase tracking-wider text-ink-secondary mb-1">
-              Total Factory Launches
+        <section className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-6">
+          <div className="border-2 border-border-primary bg-bg-primary p-3.5 sm:p-5 shadow-neo-sm">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-ink-secondary mb-1">
+              Factory Launches
             </div>
-            <div className="text-3xl font-black">{stats.total_launches.toLocaleString()}</div>
-            <p className="text-[11px] text-ink-tertiary mt-2">
-              Indexed on-chain genesis events from Pons V2 factory.
+            <div className="text-xl sm:text-2xl md:text-3xl font-black">{stats.total_launches.toLocaleString()}</div>
+            <p className="text-[10px] sm:text-[11px] text-ink-tertiary mt-1 sm:mt-2 line-clamp-2">
+              Indexed on-chain genesis events from factory.
             </p>
           </div>
 
-          <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm">
-            <div className="text-xs font-bold uppercase tracking-wider text-ink-secondary mb-1">
+          <div className="border-2 border-border-primary bg-bg-primary p-3.5 sm:p-5 shadow-neo-sm">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-ink-secondary mb-1">
               Unique Creators
             </div>
-            <div className="text-3xl font-black text-accent">{stats.unique_deployers.toLocaleString()}</div>
-            <p className="text-[11px] text-ink-tertiary mt-2">
-              Distinct origin wallets tracked by reputation formula.
+            <div className="text-xl sm:text-2xl md:text-3xl font-black text-accent">{stats.unique_deployers.toLocaleString()}</div>
+            <p className="text-[10px] sm:text-[11px] text-ink-tertiary mt-1 sm:mt-2 line-clamp-2">
+              Distinct origin wallets tracked by algorithm.
             </p>
           </div>
 
-          <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm">
-            <div className="text-xs font-bold uppercase tracking-wider text-ink-secondary mb-1">
+          <div className="border-2 border-border-primary bg-bg-primary p-3.5 sm:p-5 shadow-neo-sm col-span-2 md:col-span-1">
+            <div className="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-ink-secondary mb-1">
               Repeat Share
             </div>
-            <div className="text-3xl font-black text-status-warning">{`${stats.repeat_share}%`}</div>
-            <p className="text-[11px] text-ink-tertiary mt-2">
-              Percentage of creators with multiple token deployments.
+            <div className="text-xl sm:text-2xl md:text-3xl font-black text-status-warning">{`${stats.repeat_share}%`}</div>
+            <p className="text-[10px] sm:text-[11px] text-ink-tertiary mt-1 sm:mt-2">
+              Percentage of creators with multiple token launches.
             </p>
           </div>
         </section>
 
-        <section className="border-2 border-border-primary bg-bg-primary p-6 md:p-8 shadow-neo-md space-y-6">
-          <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-border-primary pb-4">
+        <section className="border-2 border-border-primary bg-bg-primary p-4 sm:p-6 md:p-8 shadow-neo-md space-y-4 sm:space-y-6">
+          <div className="flex flex-wrap items-center justify-between gap-2 sm:gap-4 border-b-2 border-border-primary pb-3 sm:pb-4">
             <div>
-              <span className="text-[10px] font-bold text-accent uppercase tracking-widest">
+              <span className="text-[9px] sm:text-[10px] font-bold text-accent uppercase tracking-widest">
                 Surveillance Spotlight
               </span>
-              <h2 className="text-xl font-black uppercase tracking-tight">Live Case File Preview</h2>
+              <h2 className="text-base sm:text-xl font-black uppercase tracking-tight">Live Case File Preview</h2>
             </div>
 
             <Link
               href={`/d/${defaultFeatured.contractAddress}`}
-              className="px-4 py-2 bg-bg-secondary border border-border-primary font-bold text-xs hover:bg-canvas transition-colors"
+              className="px-3 sm:px-4 py-1.5 sm:py-2 bg-bg-secondary border border-border-primary font-bold text-[11px] sm:text-xs hover:bg-canvas transition-colors"
             >
               Open Full Dossier →
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 space-y-4">
-              <div className="flex items-center gap-3">
-                <span className="text-2xl font-black">{`$${defaultFeatured.symbol}`}</span>
-                <span className="text-sm font-bold text-ink-secondary">{defaultFeatured.name}</span>
-                <span className="text-xs px-2 py-0.5 bg-bg-secondary border border-border-primary text-ink-secondary">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+            <div className="lg:col-span-2 space-y-3 sm:space-y-4">
+              <div className="flex flex-wrap items-center gap-2 sm:gap-3">
+                <span className="text-xl sm:text-2xl font-black">{`$${defaultFeatured.symbol}`}</span>
+                <span className="text-xs sm:text-sm font-bold text-ink-secondary">{defaultFeatured.name}</span>
+                <span className="text-[10px] sm:text-xs px-2 py-0.5 bg-bg-secondary border border-border-primary text-ink-secondary font-bold">
                   {defaultFeatured.status}
                 </span>
               </div>
 
-              <div className="text-xs text-ink-tertiary font-mono break-all">
+              <div className="text-[11px] sm:text-xs text-ink-tertiary font-mono break-all">
                 CA: {defaultFeatured.contractAddress}
               </div>
 
-              <div className="p-4 bg-canvas border border-border-primary text-xs leading-relaxed">
+              <div className="p-3 sm:p-4 bg-canvas border border-border-primary text-xs leading-relaxed">
                 <span className="font-bold text-accent">Active Thesis:</span> {defaultFeatured.thesis}
               </div>
             </div>
 
-            <div className="border-2 border-border-secondary bg-canvas p-4 flex flex-col justify-between space-y-4">
+            <div className="border-2 border-border-secondary bg-canvas p-3.5 sm:p-4 flex flex-col justify-between gap-3">
               <div>
-                <div className="text-[10px] uppercase font-bold text-ink-secondary mb-1">
+                <div className="text-[9px] sm:text-[10px] uppercase font-bold text-ink-secondary mb-1">
                   Deployer Reputation Score
                 </div>
                 <div className="flex items-baseline gap-2">
-                  <span className="text-4xl font-black">{defaultFeatured.deployerScore}</span>
+                  <span className="text-3xl sm:text-4xl font-black">{defaultFeatured.deployerScore}</span>
                   <span className="text-xs font-bold text-ink-tertiary">/ 100</span>
                 </div>
               </div>
 
               <div>
                 <span
-                  className={`text-xs font-extrabold uppercase px-2.5 py-1 border ${
+                  className={`text-[10px] sm:text-xs font-extrabold uppercase px-2 py-0.5 sm:px-2.5 sm:py-1 border inline-block ${
                     defaultFeatured.deployerBand === "green"
                       ? "bg-status-success/10 border-status-success text-status-success"
                       : defaultFeatured.deployerBand === "red"
@@ -196,69 +196,69 @@ export function LandingClient({
                 </span>
               </div>
 
-              <p className="text-[11px] text-ink-tertiary">
-                Algorithmic score evaluated from graduation velocity, DOA frequency, and fee recipient reuse.
+              <p className="text-[10px] sm:text-[11px] text-ink-tertiary">
+                Algorithmic score evaluated from graduation velocity and DOA penalty.
               </p>
             </div>
           </div>
         </section>
 
-        <section className="space-y-6">
-          <div className="text-center space-y-2">
-            <h2 className="text-2xl font-black uppercase tracking-tight">The 4-Step Intelligence Workflow</h2>
+        <section className="space-y-4 sm:space-y-6">
+          <div className="text-center space-y-1.5 sm:space-y-2 px-2">
+            <h2 className="text-xl sm:text-2xl font-black uppercase tracking-tight">The 4-Step Intelligence Workflow</h2>
             <p className="text-xs text-ink-secondary max-w-lg mx-auto">
               How researchers and on-chain traders leverage Scout Dossier.OS to outsmart serial ruggers.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-3">
-              <div className="text-3xl font-black text-accent">01</div>
-              <h3 className="text-base font-bold uppercase tracking-tight">Investigate</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
-                Scan bytecode facts, verify token mint parameters, inspect trading flow pressure, and audit DexScreener pricing pairs in real-time.
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+            <div className="border-2 border-border-primary bg-bg-primary p-3.5 sm:p-5 shadow-neo-sm space-y-2 sm:space-y-3">
+              <div className="text-2xl sm:text-3xl font-black text-accent">01</div>
+              <h3 className="text-xs sm:text-base font-bold uppercase tracking-tight">Investigate</h3>
+              <p className="text-[11px] sm:text-xs text-ink-secondary leading-relaxed">
+                Scan bytecode facts, verify token mint parameters, inspect trading flow pressure, and audit DexScreener pricing pairs.
               </p>
             </div>
 
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-3">
-              <div className="text-3xl font-black text-accent">02</div>
-              <h3 className="text-base font-bold uppercase tracking-tight">Score</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
-                Calculate mathematical deployer scores (0–100) using Laplace-smoothed graduation rates, DOA penalties, and serial launcher caps.
+            <div className="border-2 border-border-primary bg-bg-primary p-3.5 sm:p-5 shadow-neo-sm space-y-2 sm:space-y-3">
+              <div className="text-2xl sm:text-3xl font-black text-accent">02</div>
+              <h3 className="text-xs sm:text-base font-bold uppercase tracking-tight">Score</h3>
+              <p className="text-[11px] sm:text-xs text-ink-secondary leading-relaxed">
+                Calculate mathematical deployer scores (0–100) using Laplace-smoothed graduation rates and DOA penalties.
               </p>
             </div>
 
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-3">
-              <div className="text-3xl font-black text-accent">03</div>
-              <h3 className="text-base font-bold uppercase tracking-tight">Track</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
-                Snapshot case file metrics, monitor delta thresholds on FDV/Liquidity via Since Last Check, and maintain custom deployer watchlists.
+            <div className="border-2 border-border-primary bg-bg-primary p-3.5 sm:p-5 shadow-neo-sm space-y-2 sm:space-y-3">
+              <div className="text-2xl sm:text-3xl font-black text-accent">03</div>
+              <h3 className="text-xs sm:text-base font-bold uppercase tracking-tight">Track</h3>
+              <p className="text-[11px] sm:text-xs text-ink-secondary leading-relaxed">
+                Snapshot case file metrics, monitor delta thresholds on FDV/Liquidity, and maintain custom deployer watchlists.
               </p>
             </div>
 
-            <div className="border-2 border-border-primary bg-bg-primary p-6 shadow-neo-sm space-y-3">
-              <div className="text-3xl font-black text-accent">04</div>
-              <h3 className="text-base font-bold uppercase tracking-tight">Publish</h3>
-              <p className="text-xs text-ink-secondary leading-relaxed">
-                Generate permanent, shareable case file snapshots with author attribution, one-click fork capability, and instant link revocation.
+            <div className="border-2 border-border-primary bg-bg-primary p-3.5 sm:p-5 shadow-neo-sm space-y-2 sm:space-y-3">
+              <div className="text-2xl sm:text-3xl font-black text-accent">04</div>
+              <h3 className="text-xs sm:text-base font-bold uppercase tracking-tight">Publish</h3>
+              <p className="text-[11px] sm:text-xs text-ink-secondary leading-relaxed">
+                Generate permanent, shareable case file snapshots with author attribution and instant link revocation.
               </p>
             </div>
           </div>
         </section>
 
-        <footer className="border-t-2 border-border-primary pt-10 pb-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-ink-secondary">
-          <div className="space-y-1">
+        <footer className="border-t-2 border-border-primary pt-6 sm:pt-8 pb-6 flex flex-col md:flex-row items-center justify-between gap-4 sm:gap-6 text-xs text-ink-secondary">
+          <div className="space-y-1 text-center md:text-left">
             <div className="font-extrabold uppercase text-ink-primary">
               Scout // Dossier.OS
             </div>
             <div>Decentralized On-Chain Intelligence Architecture for Robinhood Chain.</div>
           </div>
 
-          <div className="flex flex-wrap items-center gap-6 font-bold uppercase">
+          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 font-bold uppercase text-[11px] sm:text-xs">
             <Link href="/feed" className="hover:text-ink-primary hover:underline">
               Feed
             </Link>
-            <Link href="/dossiers" className="hover:text-ink-primary hover:underline">
+            <Link href="/library" className="hover:text-ink-primary hover:underline">
               Library
             </Link>
             <Link href="/map" className="hover:text-ink-primary hover:underline">
