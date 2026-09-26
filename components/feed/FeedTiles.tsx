@@ -35,9 +35,8 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       id: "tile-launches",
       title: "Launches (10m)",
       value: totalLaunches10m.toLocaleString(),
-      accentColor: "text-cyan-400",
-      borderColor: "border-cyan-500/20 hover:border-cyan-500/40",
-      glowColor: "shadow-[0_4px_20px_rgba(0,240,255,0.06)]",
+      accentColor: "text-cyan-300",
+      icon: "⚡",
       dotColor: "bg-cyan-400",
     },
     {
@@ -45,8 +44,7 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       title: "Total Volume",
       value: formatVolume(totalVolumeUsd),
       accentColor: "text-white",
-      borderColor: "border-slate-800 hover:border-slate-700",
-      glowColor: "shadow-[0_4px_20px_rgba(255,255,255,0.04)]",
+      icon: "💎",
       dotColor: "bg-slate-300",
     },
     {
@@ -54,8 +52,7 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       title: "Unique Wallets",
       value: uniqueWallets.toLocaleString(),
       accentColor: "text-fuchsia-400",
-      borderColor: "border-fuchsia-500/20 hover:border-fuchsia-500/40",
-      glowColor: "shadow-[0_4px_20px_rgba(217,70,239,0.06)]",
+      icon: "👥",
       dotColor: "bg-fuchsia-400",
     },
     {
@@ -63,8 +60,7 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       title: "Graduated (24h)",
       value: graduatedCount.toLocaleString(),
       accentColor: "text-emerald-400",
-      borderColor: "border-emerald-500/20 hover:border-emerald-500/40",
-      glowColor: "shadow-[0_4px_20px_rgba(0,229,153,0.06)]",
+      icon: "🎓",
       dotColor: "bg-emerald-400",
     },
     {
@@ -77,13 +73,7 @@ export function FeedTiles({ stats }: FeedTilesProps) {
           : repeatDeployerPct > 25
           ? "text-amber-400"
           : "text-emerald-400",
-      borderColor:
-        repeatDeployerPct > 50
-          ? "border-rose-500/20 hover:border-rose-500/40"
-          : repeatDeployerPct > 25
-          ? "border-amber-500/20 hover:border-amber-500/40"
-          : "border-emerald-500/20 hover:border-emerald-500/40",
-      glowColor: "shadow-[0_4px_20px_rgba(255,184,0,0.06)]",
+      icon: "🔄",
       dotColor:
         repeatDeployerPct > 50
           ? "bg-rose-400"
@@ -98,14 +88,17 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       {tiles.map((tile) => (
         <div
           key={tile.id}
-          className={`bg-gradient-to-b from-slate-900/90 to-slate-950/90 border ${tile.borderColor} rounded-2xl p-4 sm:p-5 flex flex-col justify-between ${tile.glowColor} backdrop-blur-xl transition-all duration-200`}
+          className="chroma-card-interactive rounded-3xl p-4 sm:p-5 flex flex-col justify-between shadow-lg"
         >
-          <div className="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
             <span>{tile.title}</span>
-            <span className={`w-1.5 h-1.5 rounded-full ${tile.dotColor}`} />
+            <div className="flex items-center gap-1.5">
+              <span className={`w-2 h-2 rounded-full ${tile.dotColor} animate-pulse`} />
+              <span className="text-xs">{tile.icon}</span>
+            </div>
           </div>
           <div
-            className={`text-2xl sm:text-3xl font-black tracking-tight ${tile.accentColor} font-sans`}
+            className={`text-2xl sm:text-3xl font-black tracking-tight ${tile.accentColor}`}
           >
             {tile.value}
           </div>

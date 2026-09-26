@@ -184,12 +184,12 @@ export function WatchlistClient({
               return (
                 <div
                   key={item.id}
-                  className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-5 shadow-lg hover:border-slate-700 backdrop-blur-xl flex flex-col justify-between space-y-4 transition-all duration-200"
+                  className="chroma-card-interactive rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between space-y-4"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-3 border-b border-slate-800/80 pb-3">
+                    <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-3">
                       <span
-                        className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border ${bandColor}`}
+                        className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full border ${bandColor}`}
                       >
                         {label} • {band.toUpperCase()}
                       </span>
@@ -203,34 +203,35 @@ export function WatchlistClient({
                       </div>
                       <Link
                         href={`/deployer/${item.deployerAddress}`}
-                        className="text-xs font-semibold font-mono text-cyan-400 hover:text-cyan-300 break-all transition-colors"
+                        className="text-xs font-semibold font-mono text-cyan-300 hover:text-white break-all transition-colors bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800/80 block"
                       >
                         {item.deployerAddress}
                       </Link>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 p-3 rounded-xl bg-slate-950/60 border border-slate-800 text-xs mb-3">
+                    <div className="grid grid-cols-2 gap-2 p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 text-xs mb-3">
                       <div>
                         <div className="text-[10px] text-slate-500 uppercase">Total Launches</div>
-                        <div className="font-extrabold text-sm text-white">{totalLaunches}</div>
+                        <div className="font-extrabold text-base text-white mt-0.5">{totalLaunches}</div>
                       </div>
                       <div>
                         <div className="text-[10px] text-slate-500 uppercase">Graduated</div>
-                        <div className="font-extrabold text-sm text-emerald-400">{graduatedCount}</div>
+                        <div className="font-extrabold text-base text-emerald-400 mt-0.5">{graduatedCount}</div>
                       </div>
                     </div>
 
                     {newLaunches > 0 && (
-                      <div className="p-2 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold">
-                        {`+${newLaunches} new launches since last check`}
+                      <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                        <span>{`+${newLaunches} new launches since last check`}</span>
                       </div>
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs">
+                  <div className="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
                     <Link
                       href={`/deployer/${item.deployerAddress}`}
-                      className="font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 transition-colors"
+                      className="font-bold text-cyan-300 hover:text-white flex items-center gap-1.5 transition-colors"
                     >
                       <span>View Profile</span>
                       <span>→</span>
@@ -240,7 +241,7 @@ export function WatchlistClient({
                       type="button"
                       onClick={() => handleRemoveDeployer(item.deployerAddress)}
                       disabled={deletingId === item.deployerAddress}
-                      className="text-rose-400 hover:text-rose-300 text-xs font-semibold disabled:opacity-50 transition-colors"
+                      className="text-rose-400 hover:text-rose-300 text-xs font-semibold disabled:opacity-50 transition-colors px-3 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20"
                     >
                       {deletingId === item.deployerAddress ? "Removing..." : "Remove"}
                     </button>

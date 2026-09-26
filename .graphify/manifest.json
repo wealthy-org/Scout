@@ -468,12 +468,12 @@
     "hash": "3bd0e1078f6d90ed47d286aff5755b04"
   },
   "components/feed/FeedTable.tsx": {
-    "mtime": 1790426366456.1501,
-    "hash": "ed81bd271b1098ebe894c5088d7f524a"
+    "mtime": 1790438453442.838,
+    "hash": "d4b40cce63b0e61cea104fae0d369818"
   },
   "components/feed/FeedTiles.tsx": {
-    "mtime": 1790426354654.6553,
-    "hash": "cef8aafea52ce92050c1050ca54aef16"
+    "mtime": 1790438428359.5522,
+    "hash": "5c5ba89942c404ef7842d9a14026b0de"
   },
   "components/feed/GraduationTape.tsx": {
     "mtime": 1790426391292.45,
@@ -516,16 +516,16 @@
     "hash": "0a04094757bc8850b1e588862403650c"
   },
   "components/landing/LandingClient.tsx": {
-    "mtime": 1790426197462.3787,
-    "hash": "956117243f8caac37bfc259955acfcaa"
+    "mtime": 1790438414435.2024,
+    "hash": "61a5e6617ec1376ebe57b56784c17371"
   },
   "components/layout/GlobalHeader.tsx": {
     "mtime": 1790403655298.3662,
     "hash": "8e6776f9de7d77440f50d60a41ed2080"
   },
   "components/layout/Header.tsx": {
-    "mtime": 1790426073500.5422,
-    "hash": "e049831757f30bac006c8dba6639512e"
+    "mtime": 1790438379730.8535,
+    "hash": "288730f2d6685d68005fefbf931b3ecc"
   },
   "components/layout/TickerTape.tsx": {
     "mtime": 1790403053472.7988,
@@ -544,8 +544,8 @@
     "hash": "ccab5c1f22453f26b85ae04c3df051fe"
   },
   "components/library/LibraryClient.tsx": {
-    "mtime": 1790426251980.287,
-    "hash": "2aafb8d6175018e88c3c63040e653d7c"
+    "mtime": 1790438480521.698,
+    "hash": "89c0f585051ca1c17f4f4d85aedcf8dc"
   },
   "components/map/ConnectionMap.tsx": {
     "mtime": 1790426652268.3528,
@@ -556,8 +556,8 @@
     "hash": "b4afef1fa9a0b9ead4f62f7fca1c97ba"
   },
   "components/watchlist/WatchlistClient.tsx": {
-    "mtime": 1790426263267.6008,
-    "hash": "f8ffc2488eaf768354a92ae9be98f4d5"
+    "mtime": 1790438493028.8467,
+    "hash": "e0285a8b3efbbb3068b251121872c83f"
   },
   "config/__tests__/chain.test.ts": {
     "mtime": 1790378781617.2007,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790428866437.9456,
-    "hash": "ff3fb3cc2b1db85611e3c5bfe7089124"
+    "mtime": 1790432837830.9534,
+    "hash": "b2adae49fa4f80e419c66170cef23071"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,

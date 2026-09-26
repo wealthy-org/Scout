@@ -120,16 +120,16 @@ export function FeedTable({
   };
 
   return (
-    <div className="bg-slate-900/90 border border-slate-800 rounded-3xl overflow-hidden shadow-2xl backdrop-blur-2xl font-sans text-xs">
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-slate-800/80 bg-slate-950/60 p-3 sm:p-4 gap-3">
-        <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
+    <div className="bg-[#0D1322]/90 border border-white/10 rounded-3xl overflow-hidden shadow-[0_15px_45px_rgba(0,0,0,0.6)] backdrop-blur-2xl font-sans text-xs">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-white/10 bg-slate-950/60 p-3.5 sm:p-5 gap-3.5">
+        <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
             onClick={() => setActiveTab("most_traded")}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "most_traded"
-                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
-                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
+                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
+                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
             }`}
           >
             Most Traded
@@ -137,10 +137,10 @@ export function FeedTable({
           <button
             type="button"
             onClick={() => setActiveTab("new_launches")}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "new_launches"
-                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
-                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
+                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
+                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
             }`}
           >
             New Launches
@@ -148,10 +148,10 @@ export function FeedTable({
           <button
             type="button"
             onClick={() => setActiveTab("near_graduation")}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "near_graduation"
-                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
-                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
+                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
+                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
             }`}
           >
             Near Graduation
@@ -159,10 +159,10 @@ export function FeedTable({
           <button
             type="button"
             onClick={() => setActiveTab("repeat_deployers")}
-            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "repeat_deployers"
-                ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold shadow-[0_0_12px_rgba(0,240,255,0.3)]"
-                : "text-slate-400 hover:text-white bg-slate-850 hover:bg-slate-800"
+                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
+                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
             }`}
           >
             Repeat Deployers
@@ -176,7 +176,7 @@ export function FeedTable({
             placeholder="Search by symbol, name, or CA..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-64 bg-slate-900 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-500/60 transition-colors"
+            className="w-full md:w-64 bg-slate-950/80 border border-white/10 rounded-full px-4 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-400/80 focus:shadow-[0_0_15px_rgba(0,240,255,0.2)] transition-all"
           />
         </div>
       </div>
@@ -184,20 +184,20 @@ export function FeedTable({
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="border-b border-slate-800/80 bg-slate-950/40 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
-              <th className="px-4 py-3.5">Token</th>
-              <th className="px-4 py-3.5">Deployer Score</th>
-              <th className="px-4 py-3.5">Bonding Curve</th>
-              <th className="px-4 py-3.5">Market Cap</th>
-              <th className="px-4 py-3.5">24h Volume</th>
-              <th className="px-4 py-3.5">Age</th>
-              <th className="px-4 py-3.5 text-right">Dossier</th>
+            <tr className="border-b border-white/10 bg-slate-950/40 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+              <th className="px-5 py-4">Token</th>
+              <th className="px-5 py-4">Deployer Score</th>
+              <th className="px-5 py-4">Bonding Curve</th>
+              <th className="px-5 py-4">Market Cap</th>
+              <th className="px-5 py-4">24h Volume</th>
+              <th className="px-5 py-4">Age</th>
+              <th className="px-5 py-4 text-right">Dossier</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-slate-800/50">
+          <tbody className="divide-y divide-white/5">
             {filteredItems.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-4 py-10 text-center text-slate-500 text-xs">
+                <td colSpan={7} className="px-5 py-12 text-center text-slate-500 text-xs">
                   No launch items match the active filter or search criteria.
                 </td>
               </tr>
@@ -210,58 +210,58 @@ export function FeedTable({
 
                 const bandColor =
                   row.band === "green"
-                    ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                    ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-[0_0_10px_rgba(0,229,153,0.15)]"
                     : row.band === "red"
-                    ? "bg-rose-500/10 border-rose-500/40 text-rose-400"
-                    : "bg-amber-500/10 border-amber-500/40 text-amber-400";
+                    ? "bg-rose-500/10 border-rose-500/40 text-rose-400 shadow-[0_0_10px_rgba(255,46,77,0.15)]"
+                    : "bg-amber-500/10 border-amber-500/40 text-amber-400 shadow-[0_0_10px_rgba(255,184,0,0.15)]";
 
                 return (
                   <tr
                     key={row.contractAddress}
                     onClick={() => onRowClick?.(row)}
-                    className="hover:bg-slate-800/40 transition-colors group cursor-pointer"
+                    className="hover:bg-white/[0.04] transition-colors group cursor-pointer"
                   >
-                    <td className="px-4 py-3.5">
+                    <td className="px-5 py-4">
                       <Link
                         href={`/d/${row.contractAddress}`}
-                        className="block group-hover:text-cyan-400 transition-colors"
+                        className="block group-hover:text-cyan-300 transition-colors"
                       >
                         <div className="flex items-center gap-2 font-bold text-white text-sm">
-                          <span>{`$${row.symbol}`}</span>
+                          <span className="group-hover:text-cyan-300 transition-colors">{`$${row.symbol}`}</span>
                           {isWatched && (
-                            <span className="px-2 py-0.5 text-[10px] bg-fuchsia-500/10 text-fuchsia-400 border border-fuchsia-500/30 rounded-full font-bold uppercase">
+                            <span className="px-2.5 py-0.5 text-[10px] bg-fuchsia-500/15 text-fuchsia-300 border border-fuchsia-500/40 rounded-full font-bold uppercase shadow-[0_0_8px_rgba(217,70,239,0.3)]">
                               Watched
                             </span>
                           )}
                         </div>
                         {row.name && (
-                          <div className="text-[11px] text-slate-400 font-normal">
+                          <div className="text-xs text-slate-400 font-normal">
                             {row.name}
                           </div>
                         )}
                       </Link>
                     </td>
 
-                    <td className="px-4 py-3.5">
+                    <td className="px-5 py-4">
                       <Link
                         href={`/deployer/${row.deployerAddress}`}
                         className="inline-flex items-center gap-1.5 hover:underline"
                       >
                         <span
-                          className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase border ${bandColor}`}
+                          className={`text-[10px] px-3 py-1 rounded-full font-bold uppercase border ${bandColor}`}
                         >
                           {row.score ?? 50} ({row.label ? row.label.charAt(0).toUpperCase() + row.label.slice(1) : "Fresh"})
                         </span>
                       </Link>
                     </td>
 
-                    <td className="px-4 py-3.5">
-                      <div className="w-28 space-y-1.5">
-                        <div className="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+                    <td className="px-5 py-4">
+                      <div className="w-32 space-y-1.5">
+                        <div className="w-full h-2 bg-slate-800/80 rounded-full overflow-hidden p-[1px]">
                           <div
                             className={`h-full rounded-full ${
                               isGrad
-                                ? "bg-gradient-to-r from-emerald-400 to-teal-300 shadow-[0_0_8px_rgba(0,229,153,0.5)]"
+                                ? "bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 shadow-[0_0_10px_rgba(0,229,153,0.6)]"
                                 : "bg-gradient-to-r from-cyan-400 to-blue-500"
                             }`}
                             style={{ width: `${progress}%` }}
@@ -273,22 +273,22 @@ export function FeedTable({
                       </div>
                     </td>
 
-                    <td className="px-4 py-3.5 font-semibold text-slate-200">
+                    <td className="px-5 py-4 font-bold text-slate-200">
                       {formatCurrency(row.marketCapUsd)}
                     </td>
 
-                    <td className="px-4 py-3.5 font-semibold text-slate-300">
+                    <td className="px-5 py-4 font-bold text-slate-300">
                       {formatCurrency(row.volume24hUsd)}
                     </td>
 
-                    <td className="px-4 py-3.5 text-slate-400 text-[11px]">
+                    <td className="px-5 py-4 text-slate-400 text-xs font-mono">
                       {formatTimeAgo(row.timestamp)}
                     </td>
 
-                    <td className="px-4 py-3.5 text-right">
+                    <td className="px-5 py-4 text-right">
                       <Link
                         href={`/d/${row.contractAddress}`}
-                        className="inline-flex items-center gap-1 px-3 py-1 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-cyan-400 hover:text-white rounded-xl text-[11px] font-bold transition-all"
+                        className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-slate-800/90 hover:bg-cyan-500/20 border border-slate-700 hover:border-cyan-400/50 text-cyan-300 hover:text-white rounded-full text-xs font-bold transition-all shadow-sm"
                       >
                         <span>Open</span>
                         <span>→</span>

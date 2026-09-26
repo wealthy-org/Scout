@@ -286,29 +286,32 @@ export function LibraryClient({
 
                   const statusColor =
                     item.status === "In position"
-                      ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400"
+                      ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-[0_0_10px_rgba(0,229,153,0.2)]"
                       : item.status === "Passed"
-                      ? "bg-rose-500/10 border-rose-500/40 text-rose-400"
+                      ? "bg-rose-500/10 border-rose-500/40 text-rose-400 shadow-[0_0_10px_rgba(255,46,77,0.2)]"
                       : item.status === "Researching"
-                      ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-400"
-                      : "bg-amber-500/10 border-amber-500/40 text-amber-400";
+                      ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.2)]"
+                      : "bg-amber-500/10 border-amber-500/40 text-amber-400 shadow-[0_0_10px_rgba(255,184,0,0.2)]";
 
                   return (
                     <div
                       key={item.id}
-                      className="rounded-2xl border border-slate-800 bg-gradient-to-b from-slate-900/90 to-slate-950/90 p-4 sm:p-5 shadow-lg hover:border-slate-700 backdrop-blur-xl flex flex-col justify-between space-y-4 transition-all duration-200"
+                      className="chroma-card-interactive rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between space-y-4"
                     >
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between border-b border-slate-800/80 pb-3">
-                          <div className="flex items-center gap-2 truncate">
+                        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                          <div className="flex items-center gap-2.5 truncate">
+                            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#00E599] to-[#00F0FF] flex items-center justify-center text-slate-950 font-black text-xs shrink-0 shadow-md">
+                              {(item.symbol || "T")[0]}
+                            </div>
                             <span className="text-base font-extrabold text-white">{`$${item.symbol || "UNKNOWN"}`}</span>
-                            <span className="text-xs font-semibold text-slate-400 truncate max-w-[120px]">
+                            <span className="text-xs font-semibold text-slate-400 truncate max-w-[100px]">
                               {item.name || "Token"}
                             </span>
                           </div>
 
                           <span
-                            className={`text-[10px] font-bold uppercase px-2.5 py-0.5 rounded-full border shrink-0 ${statusColor}`}
+                            className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full border shrink-0 ${statusColor}`}
                           >
                             {item.status || "Draft"}
                           </span>
@@ -316,27 +319,27 @@ export function LibraryClient({
 
                         <div>
                           <div className="text-[10px] text-slate-500 uppercase tracking-wider">Contract Address</div>
-                          <div className="text-xs font-mono font-medium text-slate-300 truncate">
+                          <div className="text-xs font-mono font-medium text-slate-300 truncate bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800/80 mt-1">
                             {item.contractAddress}
                           </div>
                         </div>
 
                         {item.thesis && (
-                          <div className="p-3 rounded-xl bg-slate-950/60 border border-slate-800/80 text-xs text-slate-300 line-clamp-2 leading-relaxed font-normal">
+                          <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 text-xs text-slate-300 line-clamp-2 leading-relaxed font-normal">
                             <span className="font-bold text-cyan-400">Thesis: </span>
                             {item.thesis}
                           </div>
                         )}
 
-                        <div className="text-[10px] text-slate-500">
+                        <div className="text-[10px] text-slate-500 font-mono">
                           Last Updated: {updatedStr}
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between pt-3 border-t border-slate-800/80 text-xs">
+                      <div className="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
                         <Link
                           href={`/d/${item.contractAddress}`}
-                          className="font-bold text-cyan-400 hover:text-cyan-300 flex items-center gap-1.5 text-xs transition-colors"
+                          className="font-bold text-cyan-300 hover:text-white flex items-center gap-1.5 text-xs transition-colors"
                         >
                           <span>Open Dossier</span>
                           <span>→</span>
@@ -345,7 +348,7 @@ export function LibraryClient({
                         <a
                           href={`/api/dossier/${item.contractAddress}/export`}
                           download
-                          className="text-[11px] font-semibold text-slate-400 hover:text-slate-200 transition-colors"
+                          className="text-[11px] font-semibold text-slate-400 hover:text-slate-200 transition-colors px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10"
                         >
                           Export MD
                         </a>

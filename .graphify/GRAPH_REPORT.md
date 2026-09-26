@@ -1,32 +1,32 @@
 # Graph Report - .  (2026-09-26)
 
 ## Corpus Check
-- 250 files · ~84,434 words
+- 250 files · ~85,737 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 774 nodes · 1944 edges · 31 communities detected
+- 775 nodes · 1961 edges · 28 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
-- Edge kinds: imports: 567 · contains: 474 · imports_from: 364 · MODIFIES: 275 · ON_BRANCH: 98 · PARENT_OF: 96 · calls: 48 · inherits: 8 · references: 7 · method: 6 · re_exports: 1
+- Edge kinds: imports: 568 · contains: 474 · imports_from: 365 · MODIFIES: 288 · ON_BRANCH: 99 · PARENT_OF: 97 · calls: 48 · inherits: 8 · references: 7 · method: 6 · re_exports: 1
 
 
 ## Input Scope
 - Requested: auto
 - Resolved: committed (source: default-auto)
 - Included files: 250 · Candidates: 344
-- Excluded: 0 untracked · 43877 ignored · 1 sensitive · 0 missing committed
+- Excluded: 0 untracked · 43897 ignored · 1 sensitive · 0 missing committed
 - Recommendation: Use --scope all or graphify.yaml inputs.corpus for a knowledge-base folder.
 
 ## Graph Freshness
-- Built from Git commit: `6aec8fe`
+- Built from Git commit: `90f490e`
 - Compare this hash to `git rev-parse HEAD` before trusting freshness-sensitive graph output.
 ## God Nodes (most connected - your core abstractions)
 1. `db` - 28 edges
 2. `getSession()` - 25 edges
 3. `Database` - 22 edges
 4. `CookieStoreLike` - 21 edges
-5. `Header()` - 14 edges
+5. `Header()` - 15 edges
 6. `dossiers` - 14 edges
 7. `Dossier` - 10 edges
 8. `TradeInspector()` - 8 edges
@@ -40,128 +40,116 @@
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.06
-Nodes (45): 31392cc feat(scout): implement trade inspector drawer component (TICKET-52), 3b8f413 feat(scout): implement launch feed polling engine (TICKET-49), 4df7cfa feat(scout): implement feed summary metric tiles component (TICKET-50), 7ab9268 feat(scout): assemble realtime launch feed page (TICKET-54), b3e9616 feat(scout): implement live trade tape and graduation tape components (TICKET-53), b4b770e feat(scout): implement 4-tab filter feed table component (TICKET-51), f8e990e feat(scout): implement ticker tape marquee component (TICKET-48), FeedPoller() (+37 more)
+Cohesion: 0.05
+Nodes (40): AccountClient(), AccountClientProps, UserProfileData, CensusView(), CensusViewProps, metadata, 17dcf97 feat(navigation): add top progress bar, route skeletons, library page & mobile responsive optimization (TICKET-86, TICKET-87, TICKET-88), 1ec916f feat(scout): implement synthetic demo dossier fixtures and routes (TICKET-80) (+32 more)
 
 ### Community 1 - "Community 1"
 Cohesion: 0.06
-Nodes (40): AccountClient(), AccountClientProps, UserProfileData, PageProps, metadata, 1ec916f feat(scout): implement synthetic demo dossier fixtures and routes (TICKET-80), 2f8f708 feat(scout): assemble technical documentation and api reference page (TICKET-79), 5b836fa feat(scout): assemble deployer reputation profile page (TICKET-76) (+32 more)
+Nodes (50): DossierPageView(), 24fabc4 feat(scout): implement interactive wallet map svg component (TICKET-35), 36616f6 feat(scout): implement market and flow block component (TICKET-32), 3fbdf94 feat(scout): implement trade flow chart svg component (TICKET-33), 4a058d9 feat(scout): implement research panel component with debounced autosave (TICKET-39), 71bcf5c feat(scout): implement trade flow panel component (TICKET-34), 72063a3 feat(scout): assemble dossier page server component (TICKET-43), 87705e2 feat(scout): implement constellation graph svg component (TICKET-38) (+42 more)
 
 ### Community 2 - "Community 2"
-Cohesion: 0.07
-Nodes (42): metadata, CensusView(), CensusViewProps, CensusPayload, computeCensusStats(), RepeatLauncherInfo, saveCensusSnapshot(), CronCensusResponseBody (+34 more)
+Cohesion: 0.06
+Nodes (45): 31392cc feat(scout): implement trade inspector drawer component (TICKET-52), 3b8f413 feat(scout): implement launch feed polling engine (TICKET-49), 4df7cfa feat(scout): implement feed summary metric tiles component (TICKET-50), 7ab9268 feat(scout): assemble realtime launch feed page (TICKET-54), b3e9616 feat(scout): implement live trade tape and graduation tape components (TICKET-53), b4b770e feat(scout): implement 4-tab filter feed table component (TICKET-51), f8e990e feat(scout): implement ticker tape marquee component (TICKET-48), FeedPoller() (+37 more)
 
 ### Community 3 - "Community 3"
-Cohesion: 0.06
-Nodes (18): geistMono, geistSans, metadata, main, 162f5fb feat(scout): setup dynamic sitemap, robots crawler rules, and seo metadata (TICKET-84), 17dcf97 feat(navigation): add top progress bar, route skeletons, library page & mobile responsive optimization (TICKET-86, TICKET-87, TICKET-88), 2d6e90d docs(scout): document third-party open source licenses and attributions (TICKET-83), 407b913 feat(scout): setup tailwind v4 tokens and theme configuration (TICKET-01) (+10 more)
-
-### Community 4 - "Community 4"
 Cohesion: 0.08
 Nodes (43): createTransport(), getPublicClient(), publicClient, robinhoodChain, fetchCurveBuy(), fetchCurveSell(), fetchPoolGraduated(), fetchTokenLaunched() (+35 more)
 
+### Community 4 - "Community 4"
+Cohesion: 0.06
+Nodes (32): main, 078bb6c feat(scout): implement api get dossier endpoint (TICKET-21), 07f29ab chore(scout): finalize scout dossiers ecosystem infrastructure and docs, 0cd7581 feat(scout): create seed dummy data script and fixtures (TICKET-09), 1252f8e fix(db): isolate scout schema, add rollback script, update vercel cron and env example, 12c695d feat(scout): verify production database migration dry-run (TICKET-M02), 238f483 feat(scout): assemble watchlist monitor page (TICKET-69), 32f2dc6 feat(scout): implement api post publish dossier endpoint (TICKET-59) (+24 more)
+
 ### Community 5 - "Community 5"
-Cohesion: 0.08
-Nodes (25): main, 078bb6c feat(scout): implement api get dossier endpoint (TICKET-21), 0cd7581 feat(scout): create seed dummy data script and fixtures (TICKET-09), 1252f8e fix(db): isolate scout schema, add rollback script, update vercel cron and env example, 12c695d feat(scout): verify production database migration dry-run (TICKET-M02), 238f483 feat(scout): assemble watchlist monitor page (TICKET-69), 32f2dc6 feat(scout): implement api post publish dossier endpoint (TICKET-59), 3cdeeea feat(scout): conduct wcag aa accessibility audit and keyboard focus styling (TICKET-85) (+17 more)
-
-### Community 6 - "Community 6"
-Cohesion: 0.13
-Nodes (25): sessionOptions, 006e480 feat(scout): implement siwe logout endpoint (TICKET-14), 09d22b5 feat(scout): implement api get deployer profile endpoint (TICKET-24), 2354fd8 feat(scout): implement siwe nonce endpoint (TICKET-12), 3b9584c feat(scout): implement api get deployer dossiers endpoint (TICKET-25), 73c8e8a feat(scout): implement siwe verify endpoint (TICKET-13), addressSchema, GET() (+17 more)
-
-### Community 7 - "Community 7"
 Cohesion: 0.09
 Nodes (26): addressSchema, DELETE(), DeleteWatchlistResponseBody, GET(), handleDeleteWatchlist(), handleGetDeployer(), 05d0de3 feat(scout): implement public api rate limiting middleware (TICKET-82), e9169fe feat(scout): implement centralized input sanitization and zod schema (TICKET-65) (+18 more)
 
-### Community 8 - "Community 8"
-Cohesion: 0.13
-Nodes (23): 16a3b8b feat(scout): setup diff thresholds configuration and triggers (TICKET-04), 919d12f feat(scout): implement since last check diff component (TICKET-40), 92cedc3 test(scout): add unit tests for diff comparison (TICKET-20), 9f360e4 feat(scout): implement snapshot diff comparison logic (TICKET-19), DIFF_BOOLEAN_TRIGGERS, DIFF_CURVE_GRADUATED, DIFF_FEE_RECIPIENT_CHANGED, DIFF_FIELD_KEYS (+15 more)
-
-### Community 9 - "Community 9"
+### Community 6 - "Community 6"
 Cohesion: 0.13
 Nodes (25): 795ff3b feat(scout): setup score formula parameters and types (TICKET-03), e9816df test(scout): add unit tests for deployer score formula (TICKET-18), BAND_GREEN_MIN, BAND_YELLOW_MIN, GRAD_DENOMINATOR_ADD, GRAD_NUMERATOR_ADD, LABEL_FRESH_MAX, LABEL_REPEAT_MAX (+17 more)
 
-### Community 10 - "Community 10"
+### Community 7 - "Community 7"
 Cohesion: 0.10
-Nodes (20): 49106f2 feat(scout): implement publish dialog modal component (TICKET-63), a1128f0 feat(scout): define real archetype deployer example constants (TICKET-81), e12a92e feat(scout): assemble public dossier view page (TICKET-64), DEMO_DOSSIERS, DEMO_SLUGS, DemoDossier, DemoItem, DemoSnapshot (+12 more)
+Nodes (14): geistMono, geistSans, metadata, main, 162f5fb feat(scout): setup dynamic sitemap, robots crawler rules, and seo metadata (TICKET-84), 2d6e90d docs(scout): document third-party open source licenses and attributions (TICKET-83), 407b913 feat(scout): setup tailwind v4 tokens and theme configuration (TICKET-01), ccae023 Initial commit from Create Next App (+6 more)
 
-### Community 11 - "Community 11"
+### Community 8 - "Community 8"
+Cohesion: 0.14
+Nodes (18): metadata, CensusPayload, computeCensusStats(), RepeatLauncherInfo, saveCensusSnapshot(), CronCensusResponseBody, GET(), GetCensusResponseBody (+10 more)
+
+### Community 9 - "Community 9"
+Cohesion: 0.17
+Nodes (20): 16a3b8b feat(scout): setup diff thresholds configuration and triggers (TICKET-04), 919d12f feat(scout): implement since last check diff component (TICKET-40), 92cedc3 test(scout): add unit tests for diff comparison (TICKET-20), 9f360e4 feat(scout): implement snapshot diff comparison logic (TICKET-19), DIFF_BOOLEAN_TRIGGERS, DIFF_CURVE_GRADUATED, DIFF_FEE_RECIPIENT_CHANGED, DIFF_FIELD_KEYS (+12 more)
+
+### Community 10 - "Community 10"
 Cohesion: 0.12
 Nodes (19): 247006d feat(scout): create landing page and feed static prototypes (TICKET-46), 7b6f3f4 feat(scout): implement dexscreener price quote fetcher (TICKET-44), fbcf2dd feat(scout): implement snapshot system helper and pruning (TICKET-45), snapshots, isSnapshotIdentical(), pruneSnapshots(), saveSnapshot(), SaveSnapshotResult (+11 more)
 
-### Community 12 - "Community 12"
+### Community 11 - "Community 11"
 Cohesion: 0.12
 Nodes (17): addressSchema, contractAddressSchema, DELETE(), generateSlug(), handleDeleteDossier(), handlePublishDossier(), handlePutDossier(), handleRevokePublish() (+9 more)
 
-### Community 13 - "Community 13"
+### Community 12 - "Community 12"
 Cohesion: 0.16
 Nodes (19): 127516d feat(scout): implement api deployer connected dossiers graph (TICKET-56), 7588cce feat(scout): implement connection detection engine (TICKET-55), addressSchema, GET(), handleGetDeployerConnected(), ConnectionLink, ConnectionReason, ConnectionType (+11 more)
 
-### Community 14 - "Community 14"
+### Community 13 - "Community 13"
 Cohesion: 0.09
 Nodes (22): deployerWatchlistRelations, dossierItemsRelations, dossierLogRelations, dossierQuestionsRelations, dossiersRelations, NewCensusStats, NewDeployerLaunch, NewDeployerScore (+14 more)
 
+### Community 14 - "Community 14"
+Cohesion: 0.12
+Nodes (14): PageProps, deployerLaunches, deployerScores, deployerWatchlist, metadata, GET(), GetWatchlistResponseBody, handleGetWatchlist() (+6 more)
+
 ### Community 15 - "Community 15"
-Cohesion: 0.14
-Nodes (15): f7850db feat(scout): implement scout remembers connected dossiers component (TICKET-41), DossierItemKind, ScoutRemembers(), ScoutRemembersProps, ConnectedDossierSummary, DossierData, DossierItemData, DossierLogData (+7 more)
+Cohesion: 0.18
+Nodes (14): 006e480 feat(scout): implement siwe logout endpoint (TICKET-14), 09d22b5 feat(scout): implement api get deployer profile endpoint (TICKET-24), 261544b feat(scout): implement api get library export endpoint (TICKET-28), 3b9584c feat(scout): implement api get deployer dossiers endpoint (TICKET-25), 439c457 feat(scout): implement api post library import endpoint (TICKET-27), 73c8e8a feat(scout): implement siwe verify endpoint (TICKET-13), 9d2b0cc feat(scout): implement api get library endpoint (TICKET-26), fc157fe feat(scout): implement api get dossier markdown export (TICKET-29) (+6 more)
 
 ### Community 16 - "Community 16"
-Cohesion: 0.16
-Nodes (7): GET(), handleGetDossier(), 07f29ab chore(scout): finalize scout dossiers ecosystem infrastructure and docs, dossierLog, Snapshot, mockData, FieldCondition
+Cohesion: 0.21
+Nodes (12): sessionOptions, 2354fd8 feat(scout): implement siwe nonce endpoint (TICKET-12), handleNonce(), POST(), CookieStoreLike, NonceResponseBody, SessionData, VerifyRequestBody (+4 more)
 
 ### Community 17 - "Community 17"
-Cohesion: 0.20
-Nodes (12): getSession(), 439c457 feat(scout): implement api post library import endpoint (TICKET-27), 9d2b0cc feat(scout): implement api get library endpoint (TICKET-26), Dossier, DOSSIER_STATUSES, handlePostLibraryImport(), importPayloadSchema, POST() (+4 more)
+Cohesion: 0.18
+Nodes (13): getSession(), Dossier, DOSSIER_STATUSES, dossiers, handlePostLibraryImport(), importPayloadSchema, POST(), singleImportItemSchema (+5 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.27
-Nodes (9): DossierPageView(), 72063a3 feat(scout): assemble dossier page server component (TICKET-43), f05e3e2 feat(scout): implement connections and timeline component (TICKET-42), ConnectionItem, ConnectionsTimeline(), ConnectionsTimelineProps, TimelineLogItem, DossierPagePropsData (+1 more)
+Cohesion: 0.22
+Nodes (10): 6cc1ac5 feat(scout): implement full-page connection map svg component (TICKET-57), 8f33207 feat(scout): assemble connection map page (TICKET-58), CalculatedNode, ConnectionMap(), ConnectionMapProps, ConnectionType, MapEdge, MapNode (+2 more)
 
 ### Community 19 - "Community 19"
+Cohesion: 0.20
+Nodes (11): a1128f0 feat(scout): define real archetype deployer example constants (TICKET-81), DEMO_DOSSIERS, DEMO_SLUGS, DemoDossier, DemoItem, DemoSnapshot, getDemoDossier(), EXAMPLE_DEPLOYERS (+3 more)
+
+### Community 20 - "Community 20"
+Cohesion: 0.23
+Nodes (11): c9f59e2 feat(scout): implement api get public dossier endpoint (TICKET-61), dc8d660 feat(scout): implement api post save copy dossier endpoint (TICKET-62), Database, globalForDb, publishedDossiers, handleSavePublicDossier(), POST(), SaveDossierResponseBody (+3 more)
+
+### Community 21 - "Community 21"
+Cohesion: 0.18
+Nodes (12): f7850db feat(scout): implement scout remembers connected dossiers component (TICKET-41), DossierItemKind, ScoutRemembers(), ScoutRemembersProps, ConnectedDossierSummary, DossierData, DossierItemData, DossierLogData (+4 more)
+
+### Community 22 - "Community 22"
 Cohesion: 0.21
 Nodes (6): QueueItem, QueueOptions, RequestPriority, RequestQueue, rpcQueue, 6d8ab15 feat(scout): setup 2-lane request queue (TICKET-11)
 
-### Community 20 - "Community 20"
-Cohesion: 0.29
-Nodes (8): 36616f6 feat(scout): implement market and flow block component (TICKET-32), a5a987e feat(scout): implement dossier header component (TICKET-31), DossierHeader(), DossierHeaderProps, formatCurrency(), formatNumber(), MarketFlowBlock(), MarketStatsProps
-
-### Community 21 - "Community 21"
-Cohesion: 0.26
-Nodes (10): 261544b feat(scout): implement api get library export endpoint (TICKET-28), fc157fe feat(scout): implement api get dossier markdown export (TICKET-29), DossierItem, dossierItems, DossierQuestion, dossierQuestions, dossiers, contractAddressSchema (+2 more)
-
-### Community 22 - "Community 22"
+### Community 23 - "Community 23"
 Cohesion: 0.27
 Nodes (11): scout.census_stats, scout.deployer_launches, scout.deployer_scores, scout.deployer_watchlist, scout.dossier_items, scout.dossier_log, scout.dossier_questions, scout.dossiers (+3 more)
 
-### Community 23 - "Community 23"
-Cohesion: 0.31
-Nodes (7): 87705e2 feat(scout): implement constellation graph svg component (TICKET-38), ConnectionType, ConstellationEdge, ConstellationGraph(), ConstellationGraphProps, ConstellationNode, InternalConstellationNode
-
 ### Community 24 - "Community 24"
-Cohesion: 0.39
-Nodes (5): 24fabc4 feat(scout): implement interactive wallet map svg component (TICKET-35), InternalBubble, WalletBubbleItem, WalletMap(), WalletMapProps
+Cohesion: 0.27
+Nodes (5): GET(), handleGetDossier(), dossierLog, mockData, FieldCondition
 
 ### Community 25 - "Community 25"
-Cohesion: 0.38
-Nodes (5): 4a058d9 feat(scout): implement research panel component with debounced autosave (TICKET-39), ResearchPanel(), ResearchPanelProps, PutDossierItemInput, PutDossierQuestionInput
+Cohesion: 0.31
+Nodes (7): DossierItem, dossierItems, dossierQuestions, Snapshot, contractAddressSchema, GET(), handleGetLibraryExport()
 
 ### Community 26 - "Community 26"
 Cohesion: 0.29
 Nodes (3): users, deleteAccountSchema, updateHandleSchema
 
 ### Community 27 - "Community 27"
-Cohesion: 0.53
-Nodes (4): 3fbdf94 feat(scout): implement trade flow chart svg component (TICKET-33), TradeCandleData, TradeFlowChart(), TradeFlowChartProps
-
-### Community 28 - "Community 28"
-Cohesion: 0.53
-Nodes (4): 71bcf5c feat(scout): implement trade flow panel component (TICKET-34), TradeFlowData, TradeFlowPanel(), TradeFlowPanelProps
-
-### Community 29 - "Community 29"
-Cohesion: 0.53
-Nodes (4): ddea6df feat(scout): implement top wallets table component (TICKET-36), TopWalletRow, TopWalletsTable(), TopWalletsTableProps
-
-### Community 30 - "Community 30"
-Cohesion: 0.53
-Nodes (4): fa969bc feat(scout): implement deployer history timeline component (TICKET-37), DeployerHistory(), DeployerHistoryProps, DeployerLaunchItem
+Cohesion: 0.40
+Nodes (5): DossierQuestion, addressSchema, GET(), handleGetDeployerDossiers(), GetDeployerDossiersResponseBody
 
 ## Knowledge Gaps
 - **143 isolated node(s):** `verifySchema`, `GetCensusResponseBody`, `CronCensusResponseBody`, `addressSchema`, `addressSchema` (+138 more)
@@ -170,17 +158,17 @@ Nodes (4): fa969bc feat(scout): implement deployer history timeline component (T
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `db` connect `Community 2` to `Community 1`, `Community 7`, `Community 12`, `Community 13`, `Community 11`, `Community 18`, `Community 6`, `Community 21`, `Community 17`, `Community 26`, `Community 16`, `Community 10`?**
+- **Why does `db` connect `Community 8` to `Community 14`, `Community 5`, `Community 11`, `Community 12`, `Community 20`, `Community 10`, `Community 1`, `Community 27`, `Community 25`, `Community 17`, `Community 0`, `Community 26`, `Community 24`, `Community 16`?**
   _High betweenness centrality (0.027) - this node is a cross-community bridge._
-- **Why does `getSession()` connect `Community 17` to `Community 1`, `Community 7`, `Community 2`, `Community 6`, `Community 12`, `Community 13`, `Community 21`, `Community 26`?**
+- **Why does `getSession()` connect `Community 17` to `Community 14`, `Community 5`, `Community 8`, `Community 16`, `Community 11`, `Community 12`, `Community 0`, `Community 27`, `Community 25`, `Community 15`, `Community 26`, `Community 20`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **What connects `verifySchema`, `GetCensusResponseBody`, `CronCensusResponseBody` to the rest of the system?**
   _143 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.05583972719522592 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.054136874361593465 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
-  _Cohesion score 0.06153846153846154 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05578947368421053 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.06663141195134849 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.05583972719522592 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
-  _Cohesion score 0.06110102843315184 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.07756813417190776 - nodes in this community are weakly interconnected._

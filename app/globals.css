@@ -153,6 +153,94 @@ body {
   content: "";
 }
 
+@keyframes float-slow {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-10px) scale(1.02);
+  }
+}
+
+@keyframes float-reverse {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(8px) scale(0.98);
+  }
+}
+
+@keyframes aura-drift {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -20px) scale(1.08);
+  }
+  100% {
+    transform: translate(-20px, 15px) scale(0.95);
+  }
+}
+
+.animate-float-slow {
+  animation: float-slow 6s ease-in-out infinite;
+}
+
+.animate-float-reverse {
+  animation: float-reverse 7s ease-in-out infinite;
+}
+
+.animate-aura-drift {
+  animation: aura-drift 14s ease-in-out infinite alternate;
+}
+
+.chroma-card-interactive {
+  background: rgba(14, 19, 31, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.chroma-card-interactive::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(800px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.06), transparent 40%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.chroma-card-interactive:hover::before {
+  opacity: 1;
+}
+
+.chroma-card-interactive:hover {
+  transform: translateY(-4px) scale(1.01);
+  border-color: rgba(0, 240, 255, 0.35);
+  box-shadow: 0 20px 40px -15px rgba(0, 240, 255, 0.15), 0 0 0 1px rgba(0, 240, 255, 0.15);
+}
+
+.chroma-glow-mint {
+  box-shadow: 0 0 30px -5px rgba(0, 229, 153, 0.35);
+}
+
+.chroma-glow-cyan {
+  box-shadow: 0 0 30px -5px rgba(0, 240, 255, 0.35);
+}
+
+.chroma-glow-orchid {
+  box-shadow: 0 0 30px -5px rgba(217, 70, 239, 0.35);
+}
+
+.chroma-glow-amber {
+  box-shadow: 0 0 30px -5px rgba(255, 184, 0, 0.35);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -163,4 +251,5 @@ body {
     scroll-behavior: auto !important;
   }
 }
+
 
