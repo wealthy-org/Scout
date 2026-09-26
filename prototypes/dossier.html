@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SCOUT // SCOUT Dossier — Dossier.OS</title>
+  <style>
+    :root {
+      --bg-canvas: #F6F7F9;
+      --bg-surface: #FFFFFF;
+      --bg-subtle: #ECEFF3;
+      --border-hard: #0D1117;
+      --text-primary: #0D1117;
+      --text-muted: #57606A;
+      --cobalt-electric: #0047FF;
+      --mint-signal: #00E599;
+      --amber-hazard: #FFB800;
+      --coral-alert: #FF2E4D;
+      --cyan-telemetry: #00F0FF;
+      --shadow-hard: 3px 3px 0px #0D1117;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-canvas);
+      color: var(--text-primary);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      padding: 24px;
+    }
+
+    .font-mono {
+      font-family: "SF Mono", Monaco, Inconsolata, "Fira Code", monospace;
+    }
+
+    .container {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-hard);
+      box-shadow: var(--shadow-hard);
+      padding: 16px;
+    }
+
+    .header-box {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border: 1.5px solid var(--border-hard);
+      font-weight: 700;
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .badge-mint { background: var(--mint-signal); }
+    .badge-amber { background: var(--amber-hazard); }
+    .badge-coral { background: var(--coral-alert); color: #fff; }
+    .badge-cyan { background: var(--cyan-telemetry); }
+    .badge-cobalt { background: var(--cobalt-electric); color: #fff; }
+
+    .btn {
+      background: var(--bg-surface);
+      border: 2px solid var(--border-hard);
+      box-shadow: var(--shadow-hard);
+      padding: 6px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 12px;
+      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .btn-primary {
+      background: var(--cobalt-electric);
+      color: #fff;
+    }
+
+    .btn-danger {
+      background: var(--coral-alert);
+      color: #fff;
+    }
+
+    .grid-cols-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+
+    .grid-2-col {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 20px;
+    }
+
+    .metric-value {
+      font-size: 24px;
+      font-weight: 800;
+      margin-top: 4px;
+    }
+
+    .metric-label {
+      font-size: 11px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-muted);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid var(--border-hard);
+      text-align: left;
+    }
+
+    th {
+      background: var(--bg-subtle);
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+
+    .tag {
+      padding: 2px 6px;
+      border: 1px solid var(--border-hard);
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    
+    <!-- 1. DOSSIER HEADER -->
+    <header id="dossier-header" class="card header-box">
+      <div>
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <h1 style="font-size: 28px; font-weight: 900; letter-spacing: -0.5px;">SCOUT // Scout Terminal</h1>
+          <span class="badge badge-mint">GRADUATED (100%)</span>
+          <span class="badge badge-cobalt">IN POSITION</span>
+        </div>
+        <div class="font-mono" style="margin-top: 6px; color: var(--text-muted); font-size: 12px; display: flex; align-items: center; gap: 8px;">
+          <span>CA: 0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e</span>
+          <button class="btn" style="padding: 2px 8px; font-size: 10px;">[COPY]</button>
+          <span>CHAIN: ROBINHOOD (4663)</span>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn">[REFRESH]</button>
+        <button class="btn btn-primary">[PUBLISH]</button>
+        <button class="btn">[EXPORT ▾]</button>
+        <button class="btn btn-danger">[DELETE]</button>
+      </div>
+    </header>
+
+    <!-- 2. MARKET & FLOW BLOCK -->
+    <section id="market-flow-block" class="grid-cols-4">
+      <div class="card">
+        <div class="metric-label">Market Cap</div>
+        <div class="metric-value font-mono">$1,480,250</div>
+        <div style="font-size: 11px; color: var(--mint-signal); font-weight: 700;">+24.5% vs Entry</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">ATH Market Cap</div>
+        <div class="metric-value font-mono">$1,890,000</div>
+        <div style="font-size: 11px; color: var(--text-muted);">-21.6% from ATH</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">24h Volume / Trades</div>
+        <div class="metric-value font-mono">$384,120</div>
+        <div style="font-size: 11px; color: var(--text-muted);">1,842 trades (920 unique)</div>
+      </div>
+      <div class="card">
+        <div class="metric-label">Bonding Curve Progress</div>
+        <div class="metric-value font-mono">100.0%</div>
+        <div style="font-size: 11px; color: var(--mint-signal);">Swept to DEX Pool</div>
+      </div>
+    </section>
+
+    <!-- MAIN 2-COLUMN GRID -->
+    <div class="grid-2-col">
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- 3. TRADE FLOW CHART -->
+        <section id="trade-flow-chart" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Market Cap Per Trade & Volume Flow</div>
+          <svg viewBox="0 0 700 240" style="width: 100%; height: 240px; background: var(--bg-subtle); border: 1.5px solid var(--border-hard);">
+            <line x1="500" y1="0" x2="500" y2="240" stroke="#00E599" stroke-width="2" stroke-dasharray="4 4" />
+            <text x="505" y="20" font-size="10" font-weight="bold" fill="#00E599">GRADUATION POINT (100%)</text>
+            <polyline fill="none" stroke="#0D1117" stroke-width="2.5" points="20,200 80,180 140,190 200,150 280,160 360,110 440,90 500,60 580,70 660,40" />
+            <rect x="75" y="210" width="10" height="20" fill="#00E599" />
+            <rect x="135" y="215" width="10" height="15" fill="#FF2E4D" />
+            <rect x="195" y="190" width="10" height="40" fill="#00E599" />
+            <rect x="355" y="170" width="10" height="60" fill="#00E599" />
+            <rect x="495" y="150" width="10" height="80" fill="#00E599" />
+            <rect x="655" y="160" width="10" height="70" fill="#00E599" />
+          </svg>
+        </section>
+
+        <!-- 4. TRADE FLOW PANEL -->
+        <section id="trade-flow-panel" class="card grid-cols-4" style="grid-template-columns: 1fr 1fr 1fr 1fr;">
+          <div>
+            <div class="metric-label">Bought Vol</div>
+            <div class="font-mono" style="font-weight: 800; color: var(--mint-signal);">$240,500</div>
+          </div>
+          <div>
+            <div class="metric-label">Sold Vol</div>
+            <div class="font-mono" style="font-weight: 800; color: var(--coral-alert);">$143,620</div>
+          </div>
+          <div>
+            <div class="metric-label">Net Inflow</div>
+            <div class="font-mono" style="font-weight: 800;">+$96,880</div>
+          </div>
+          <div>
+            <div class="metric-label">Buy / Sell Pressure</div>
+            <div class="font-mono" style="font-weight: 800; color: var(--cobalt-electric);">62.6% BUY</div>
+          </div>
+        </section>
+
+        <!-- 5. WALLET MAP -->
+        <section id="wallet-map" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Top 24 Wallet Concentration Map</div>
+          <svg viewBox="0 0 700 200" style="width: 100%; height: 200px; background: var(--bg-subtle); border: 1.5px solid var(--border-hard);">
+            <circle cx="120" cy="100" r="45" fill="#00E599" stroke="#0D1117" stroke-width="3" />
+            <circle cx="120" cy="100" r="52" fill="none" stroke="#0047FF" stroke-width="2" stroke-dasharray="3 3" />
+            <text x="95" y="105" font-size="10" font-weight="bold">DEPLOYER</text>
+            <circle cx="230" cy="80" r="32" fill="#00E599" stroke="#0D1117" stroke-width="2" />
+            <circle cx="310" cy="130" r="28" fill="#FF2E4D" stroke="#0D1117" stroke-width="2" />
+            <circle cx="400" cy="70" r="35" fill="#00E599" stroke="#0D1117" stroke-width="2" />
+            <circle cx="480" cy="120" r="22" fill="#00E599" stroke="#0D1117" stroke-width="2" />
+            <circle cx="560" cy="90" r="30" fill="#FF2E4D" stroke="#0D1117" stroke-width="2" />
+            <circle cx="630" cy="140" r="18" fill="#00E599" stroke="#0D1117" stroke-width="2" />
+          </svg>
+        </section>
+
+        <!-- 6. TOP WALLETS TABLE -->
+        <section id="top-wallets-table" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Top 12 Wallets & Inflow Tags</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Wallet Address</th>
+                <th>Net Flow</th>
+                <th>Share %</th>
+                <th>Tags</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="font-mono">0xd111111111111111111111111111111111111111</td>
+                <td class="font-mono" style="color: var(--mint-signal);">+$45,200</td>
+                <td class="font-mono">12.5%</td>
+                <td><span class="tag" style="background: var(--cobalt-electric); color: #fff;">DEPLOYER</span> <span class="tag">FEE RECIPIENT</span></td>
+              </tr>
+              <tr>
+                <td class="font-mono">0x2222222222222222222222222222222222222222</td>
+                <td class="font-mono" style="color: var(--mint-signal);">+$28,400</td>
+                <td class="font-mono">7.8%</td>
+                <td><span class="tag" style="background: var(--mint-signal);">EARLY BUYER</span></td>
+              </tr>
+              <tr>
+                <td class="font-mono">0x3333333333333333333333333333333333333333</td>
+                <td class="font-mono" style="color: var(--coral-alert);">-$12,100</td>
+                <td class="font-mono">3.4%</td>
+                <td><span class="tag">TAKER</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 7. DEPLOYER HISTORY -->
+        <section id="deployer-history" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Deployer History (5 Total Launches — Score: 85/100 PRIME)</div>
+          <table>
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Token Contract</th>
+                <th>Status</th>
+                <th>Launch Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background: #EBF8FF;">
+                <td style="font-weight: 800;">SCOUT</td>
+                <td class="font-mono">0x7eD598BcEf8bd9Edd8C97A195C6d13f40801EC7e</td>
+                <td><span class="badge badge-mint">GRADUATED</span></td>
+                <td>2026-09-20</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 800;">ALPHA</td>
+                <td class="font-mono">0x1234567890abcdef1234567890abcdef12345678</td>
+                <td><span class="badge badge-mint">GRADUATED</span></td>
+                <td>2026-09-12</td>
+              </tr>
+              <tr>
+                <td style="font-weight: 800;">PEPEB</td>
+                <td class="font-mono">0xabcdef1234567890abcdef1234567890abcdef12</td>
+                <td><span class="badge badge-coral">DOA</span></td>
+                <td>2026-08-28</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 8. CONSTELLATION GRAPH -->
+        <section id="constellation-graph" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Constellation: Connected Dossier Cluster</div>
+          <svg viewBox="0 0 700 180" style="width: 100%; height: 180px; background: var(--bg-subtle); border: 1.5px solid var(--border-hard);">
+            <line x1="200" y1="90" x2="350" y2="90" stroke="#0D1117" stroke-width="2" />
+            <line x1="350" y1="90" x2="500" y2="90" stroke="#0D1117" stroke-width="2" stroke-dasharray="4 4" />
+            <circle cx="200" cy="90" r="22" fill="#00E599" stroke="#0D1117" stroke-width="2" />
+            <text x="180" y="94" font-size="10" font-weight="bold">SCOUT</text>
+            <circle cx="350" cy="90" r="22" fill="#00E599" stroke="#0D1117" stroke-width="2" />
+            <text x="330" y="94" font-size="10" font-weight="bold">ALPHA</text>
+            <circle cx="500" cy="90" r="22" fill="#FFB800" stroke="#0D1117" stroke-width="2" />
+            <text x="480" y="94" font-size="10" font-weight="bold">ROBIN</text>
+          </svg>
+        </section>
+
+      </div>
+
+      <!-- RIGHT SIDEBAR -->
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        
+        <!-- 9. RESEARCH PANEL -->
+        <section id="research-panel" class="card">
+          <div class="metric-label" style="margin-bottom: 12px; border-bottom: 2px solid var(--border-hard); padding-bottom: 4px;">Research Dossier & Thesis</div>
+          <div style="margin-bottom: 12px;">
+            <label class="metric-label">Thesis</label>
+            <div style="background: var(--bg-subtle); padding: 8px; border: 1px solid var(--border-hard); font-size: 12px; margin-top: 4px;">
+              Strong organic liquidity growth on Robinhood chain. Active daily commits on verified GitHub repo.
+            </div>
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label class="metric-label">Decision & Reason</label>
+            <div style="display: flex; gap: 8px; margin-top: 4px;">
+              <span class="badge badge-mint">IN POSITION</span>
+              <span style="font-size: 12px; font-weight: bold;">25% curve entry</span>
+            </div>
+          </div>
+          <div style="margin-bottom: 12px;">
+            <label class="metric-label">For & Against</label>
+            <ul style="padding-left: 18px; font-size: 12px; margin-top: 4px;">
+              <li style="color: var(--mint-signal);">+ High organic trade volume velocity</li>
+              <li style="color: var(--coral-alert);">- Top 5 wallets hold 28% total supply</li>
+            </ul>
+          </div>
+          <div>
+            <label class="metric-label">Open Questions</label>
+            <div style="font-size: 12px; margin-top: 4px;">
+              <div>☑ Bytecode checked for mint vulnerabilities</div>
+              <div>☐ Will fee recipient address remain static?</div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 10. SINCE LAST CHECK -->
+        <section id="since-last-check" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Since Last Check Diff</div>
+          <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12px;">
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-hard); padding-bottom: 4px;">
+              <span>FDV Delta</span>
+              <span class="badge badge-mint">+15.2% (EXCEEDED)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-hard); padding-bottom: 4px;">
+              <span>Liquidity</span>
+              <span class="badge badge-mint">+22.4% (EXCEEDED)</span>
+            </div>
+            <div style="display: flex; justify-content: space-between;">
+              <span>Curve Phase</span>
+              <span class="badge badge-cyan">GRADUATED</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- 11. SCOUT REMEMBERS -->
+        <section id="scout-remembers" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Scout Remembers (Connected Deployer Tokens)</div>
+          <div style="border: 1px solid var(--border-hard); padding: 8px; background: var(--bg-subtle); font-size: 12px;">
+            <div style="font-weight: 800;">ALPHA // Terminal V1</div>
+            <div style="font-size: 11px; color: var(--text-muted); margin-top: 2px;">Decision: PASSED (ATH $2.4M)</div>
+            <div style="font-size: 11px; margin-top: 4px;">Q: "Is fee recipient reused?" — Yes.</div>
+          </div>
+        </section>
+
+        <!-- 12. CONNECTIONS + TIMELINE -->
+        <section id="connections-timeline" class="card">
+          <div class="metric-label" style="margin-bottom: 8px;">Audit & Investigation Timeline</div>
+          <div style="display: flex; flex-direction: column; gap: 8px; font-size: 11px;">
+            <div>
+              <span class="font-mono" style="color: var(--text-muted);">10:45 UTC</span> — Auto-save updated research thesis
+            </div>
+            <div>
+              <span class="font-mono" style="color: var(--text-muted);">09:12 UTC</span> — Snapshot diff exceeded FDV threshold (+15%)
+            </div>
+            <div>
+              <span class="font-mono" style="color: var(--text-muted);">08:00 UTC</span> — Token graduated from bonding curve to DEX pool
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <!-- 13. FOOTER & METADATA -->
+    <footer id="dossier-footer" class="card" style="text-align: center; font-size: 11px; color: var(--text-muted);">
+      <div>Scout mengorganisir riset; keputusan trading ada padamu.</div>
+      <div style="margin-top: 4px;">Scout Terminal // Dossier.OS — Powered by Robinhood Chain (ID: 4663) — MIT License (RABIQ Adapted)</div>
+    </footer>
+
+  </div>
+</body>
+</html>
