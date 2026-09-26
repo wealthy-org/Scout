@@ -1,26 +1,64 @@
 @import "tailwindcss";
 
+@theme {
+  /* Base & Neutrals (Chalk & Ink) */
+  --color-canvas: #F6F7F9;
+  --color-surface: #FFFFFF;
+  --color-subtle: #ECEFF3;
+  --color-ink: #0D1117;
+  --color-ink-muted: #57606A;
+
+  /* Semantic Chromatic Accents */
+  --color-signal-blue: #0047FF;
+  --color-signal-mint: #00E599;
+  --color-signal-amber: #FFB800;
+  --color-signal-coral: #FF2E4D;
+  --color-signal-orchid: #D946EF;
+  --color-signal-cyan: #00F0FF;
+
+  /* Box Shadows (Neo-Brutalist 2D Hard-Offset) */
+  --shadow-neo-sm: 2px 2px 0px #0D1117;
+  --shadow-neo: 3px 3px 0px #0D1117;
+  --shadow-neo-lg: 5px 5px 0px #0D1117;
+  --shadow-neo-hover: 4px 4px 0px #0D1117;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Border widths */
+  --border-neo: 1.5px;
+  --border-neo-thick: 2.5px;
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --bg-canvas: #F6F7F9;
+  --bg-surface: #FFFFFF;
+  --bg-subtle: #ECEFF3;
+  --border-hard: #0D1117;
+  --text-primary: #0D1117;
+  --text-muted: #57606A;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--color-canvas);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
