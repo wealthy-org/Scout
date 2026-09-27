@@ -32,7 +32,7 @@ export function TradeFlowChart({
 
   if (!candles || candles.length === 0) {
     return (
-      <div className="flex h-64 w-full items-center justify-center rounded-2xl border border-slate-800 bg-slate-950/60 p-4 font-mono text-xs text-slate-500">
+      <div className="flex h-64 w-full items-center justify-center rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-4 font-mono text-xs text-[#A7F3D0]">
         No trade flow data available
       </div>
     );
@@ -67,18 +67,18 @@ export function TradeFlowChart({
   const volBottom = padding.top + priceHeight + gap + volumeHeight;
 
   return (
-    <div className="relative w-full rounded-2xl border border-slate-800 bg-slate-950/60 p-4 sm:p-5 shadow-xl font-sans">
+    <div className="relative w-full rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] p-4 sm:p-5 shadow-xl font-sans">
       <div className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2.5">
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-200">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
             Trade Flow (Market Cap per Trade)
           </span>
-          <span className="text-[11px] text-slate-500 font-mono">
+          <span className="text-[11px] text-[#A7F3D0] font-mono">
             {candles.length} trades recorded
           </span>
         </div>
         {hoveredCandle && (
-          <div className="font-mono text-xs text-cyan-400">
+          <div className="font-mono text-xs text-[#99F6E4]">
             Trade #{hoveredCandle.index} | Close: ${hoveredCandle.close.toLocaleString()} | Vol: ${hoveredCandle.volume.toLocaleString()}
           </div>
         )}
@@ -94,7 +94,7 @@ export function TradeFlowChart({
             y1={padding.top}
             x2={width - padding.right}
             y2={padding.top}
-            stroke="#1e293b"
+            stroke="rgba(153,246,228,0.2)"
             strokeDasharray="2 2"
           />
           <line
@@ -102,7 +102,7 @@ export function TradeFlowChart({
             y1={padding.top + priceHeight / 2}
             x2={width - padding.right}
             y2={padding.top + priceHeight / 2}
-            stroke="#1e293b"
+            stroke="rgba(153,246,228,0.2)"
             strokeDasharray="2 2"
           />
           <line
@@ -110,7 +110,7 @@ export function TradeFlowChart({
             y1={padding.top + priceHeight}
             x2={width - padding.right}
             y2={padding.top + priceHeight}
-            stroke="#1e293b"
+            stroke="rgba(153,246,228,0.2)"
             strokeDasharray="2 2"
           />
           <line
@@ -118,27 +118,27 @@ export function TradeFlowChart({
             y1={volBottom}
             x2={width - padding.right}
             y2={volBottom}
-            stroke="#1e293b"
+            stroke="rgba(153,246,228,0.2)"
           />
 
           <text
             x={width - padding.right + 8}
             y={padding.top + 4}
-            className="fill-slate-500 font-mono text-[10px]"
+            className="fill-[#A7F3D0] font-mono text-[10px]"
           >
             ${Math.round(maxPrice).toLocaleString()}
           </text>
           <text
             x={width - padding.right + 8}
             y={padding.top + priceHeight / 2 + 4}
-            className="fill-slate-500 font-mono text-[10px]"
+            className="fill-[#A7F3D0] font-mono text-[10px]"
           >
             ${Math.round((maxPrice + minPrice) / 2).toLocaleString()}
           </text>
           <text
             x={width - padding.right + 8}
             y={padding.top + priceHeight + 4}
-            className="fill-slate-500 font-mono text-[10px]"
+            className="fill-[#A7F3D0] font-mono text-[10px]"
           >
             ${Math.round(minPrice).toLocaleString()}
           </text>
@@ -151,7 +151,7 @@ export function TradeFlowChart({
             const yClose = getYForPrice(candle.close);
             const bodyTop = Math.min(yOpen, yClose);
             const bodyHeight = Math.max(Math.abs(yClose - yOpen), 2);
-            const color = candle.isBuy ? "#00E599" : "#FF2E4D";
+            const color = candle.isBuy ? "#99F6E4" : "#FF6B6B";
 
             const yVol = getYForVolume(candle.volume);
             const vHeight = Math.max(volBottom - yVol, 1);
@@ -202,7 +202,7 @@ export function TradeFlowChart({
                       y1={padding.top - 10}
                       x2={cx}
                       y2={volBottom}
-                      stroke="#00E599"
+                      stroke="#FFD166"
                       strokeWidth="1.5"
                       strokeDasharray="4 4"
                     />
@@ -211,14 +211,14 @@ export function TradeFlowChart({
                       y={padding.top - 20}
                       width={76}
                       height={18}
-                      fill="#00E599"
+                      fill="#FFD166"
                       rx="9"
                     />
                     <text
                       x={cx}
                       y={padding.top - 7}
                       textAnchor="middle"
-                      fill="#07090E"
+                      fill="#042F2E"
                       className="font-sans text-[9px] font-extrabold tracking-wider"
                     >
                       GRADUATED

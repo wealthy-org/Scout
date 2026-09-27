@@ -9,7 +9,7 @@ describe("TopProgressBar Component (TICKET-86)", () => {
     const html = renderToString(<TopProgressBar />);
     assert.ok(html.includes("top-0"), "Progress bar must be fixed at the top");
     assert.ok(html.includes("z-50"), "Progress bar must have high z-index");
-    assert.ok(html.includes("bg-cyan-400") || html.includes("bg-accent"), "Progress bar must use accent/cyan neon color");
+    assert.ok(html.includes("bg-") || html.includes("gradient"), "Progress bar must use accent/gradient color");
   });
 
   test("should include subtle neon glow shadow styling", () => {

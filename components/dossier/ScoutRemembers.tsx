@@ -40,19 +40,19 @@ export function ScoutRemembers({
   };
 
   return (
-    <div className="border border-border bg-surface p-4 shadow-sm font-mono text-xs">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2.5">
+    <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] font-mono text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[rgba(153,246,228,0.2)] pb-3">
         <div className="flex items-center gap-2">
-          <span className="font-bold uppercase tracking-wider text-ink">
+          <span className="font-sans font-bold uppercase tracking-wider text-[#FFFDF7]">
             Scout Remembers
           </span>
-          <span className="text-[10px] text-ink-muted">
+          <span className="text-[10px] text-[#A7F3D0]">
             ({filteredDossiers.length} prior case file
             {filteredDossiers.length === 1 ? "" : "s"})
           </span>
         </div>
         {deployerAddress && (
-          <span className="text-[10px] text-ink-muted">
+          <span className="text-[10px] text-[#A7F3D0]">
             Deployer: {deployerAddress.slice(0, 6)}...
             {deployerAddress.slice(-4)}
           </span>
@@ -61,11 +61,11 @@ export function ScoutRemembers({
 
       <div className="mt-3">
         {isLoading ? (
-          <div className="py-6 text-center text-xs text-ink-muted">
+          <div className="py-6 text-center text-xs text-[#A7F3D0]/70">
             Loading prior case memories...
           </div>
         ) : filteredDossiers.length === 0 ? (
-          <div className="py-6 text-center text-xs text-ink-muted">
+          <div className="py-6 text-center text-xs text-[#A7F3D0]/70 font-sans">
             Scout has no prior case files on this deployer. You are
             investigating this deployer for the first time.
           </div>
@@ -80,47 +80,45 @@ export function ScoutRemembers({
                   ? `${thesis.slice(0, 100)}...`
                   : thesis;
 
-              let statusColor = "text-cyan-600 border-cyan-500/30 bg-cyan-500/10";
+              let statusBadge = "bg-[#FFD166] text-[#042F2E]";
               if (dossier.status === "Passed") {
-                statusColor =
-                  "text-emerald-600 border-emerald-500/30 bg-emerald-500/10";
+                statusBadge = "bg-[#99F6E4] text-[#042F2E]";
               } else if (dossier.status === "In position") {
-                statusColor =
-                  "text-purple-600 border-purple-500/30 bg-purple-500/10";
+                statusBadge = "bg-[#C084FC] text-[#042F2E]";
               }
 
               return (
                 <div
                   key={dossier.id}
-                  className="border border-border bg-background p-3 transition-colors hover:border-ink"
+                  className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] p-4 transition-colors hover:border-[#99F6E4]"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-1.5">
                       <Link
                         href={`/d/${dossier.contractAddress}`}
-                        className="font-bold text-ink hover:underline"
+                        className="font-bold text-[#FFFDF7] hover:text-[#99F6E4] hover:underline"
                       >
                         ${dossier.symbol || "UNKNOWN"}
                       </Link>
-                      <span className="text-[10px] text-ink-muted">
+                      <span className="text-[10px] text-[#A7F3D0]">
                         {dossier.name}
                       </span>
                     </div>
 
                     <span
-                      className={`border px-1.5 py-0.5 text-[9px] font-bold uppercase ${statusColor}`}
+                      className={`border-[1.5px] border-[#042F2E] px-2 py-0.5 text-[9px] font-bold uppercase rounded-md shadow-[2px_2px_0px_#042F2E] ${statusBadge}`}
                     >
                       {dossier.status || "Watching"}
                     </span>
                   </div>
 
-                  <div className="mt-2 text-[11px] leading-relaxed text-ink">
+                  <div className="mt-2 text-[11px] leading-relaxed text-[#FFFDF7] font-sans">
                     {displayThesis}
                     {shouldTruncate && (
                       <button
                         type="button"
                         onClick={() => toggleExpand(dossier.id)}
-                        className="ml-1 font-bold text-cyan-600 hover:underline"
+                        className="ml-1 font-bold text-[#99F6E4] hover:underline"
                       >
                         {isExpanded ? "Show less" : "Read more"}
                       </button>
@@ -128,17 +126,17 @@ export function ScoutRemembers({
                   </div>
 
                   {dossier.firstQuestion && (
-                    <div className="mt-2 border-t border-border/50 pt-2 text-[10px] text-ink-muted">
-                      <span className="font-bold text-ink">Q1: </span>
+                    <div className="mt-2 border-t border-[rgba(153,246,228,0.15)] pt-2 text-[10px] text-[#A7F3D0]">
+                      <span className="font-bold text-[#FFFDF7]">Q1: </span>
                       {dossier.firstQuestion}
                     </div>
                   )}
 
-                  <div className="mt-2.5 flex items-center justify-between border-t border-border pt-2 text-[10px] text-ink-muted">
+                  <div className="mt-2.5 flex items-center justify-between border-t border-[rgba(153,246,228,0.2)] pt-2 text-[10px] text-[#A7F3D0]">
                     <span>{formatDate(dossier.createdAt)}</span>
                     <Link
                       href={`/d/${dossier.contractAddress}`}
-                      className="font-bold text-cyan-600 hover:underline"
+                      className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline"
                     >
                       Open Case File &rarr;
                     </Link>

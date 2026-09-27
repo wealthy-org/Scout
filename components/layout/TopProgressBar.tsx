@@ -69,7 +69,7 @@ export function TopProgressBar() {
         className="fixed top-0 left-0 right-0 h-[2.5px] z-50 pointer-events-none opacity-0 transition-opacity duration-200"
         aria-hidden="true"
       >
-        <div className="h-full w-0 bg-cyan-400 shadow-[0_0_8px_rgba(34,211,238,0.8)]" />
+        <div className="h-full w-0 bg-[#FFD166] shadow-[0_0_8px_rgba(255,209,102,0.8)]" />
       </div>
     );
   }
@@ -81,7 +81,7 @@ export function TopProgressBar() {
       aria-hidden="true"
     >
       <div
-        className="h-full bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#D946EF] shadow-[0_0_12px_rgba(0,240,255,0.9)] transition-all ease-out duration-200"
+        className="h-full bg-gradient-to-r from-[#99F6E4] via-[#FFD166] to-[#FF6B6B] shadow-[0_0_12px_rgba(255,209,102,0.9)] transition-all ease-out duration-200"
         style={{ width: `${progress}%` }}
       />
     </div>

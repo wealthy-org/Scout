@@ -46,7 +46,6 @@ export default async function DeployerPage({ params }: PageProps) {
       isAuthenticated = true;
     }
   } catch {
-    // Session fallback
   }
 
   let score = 50;
@@ -121,7 +120,6 @@ export default async function DeployerPage({ params }: PageProps) {
         signals = calculated.signals;
       }
     } catch {
-      // Database fallback
     }
   }
 

@@ -40,29 +40,29 @@ export function DeployerHistory({
   };
 
   return (
-    <div className="border border-border bg-surface shadow-sm">
-      <div className="flex items-center justify-between border-b border-border px-4 py-3">
+    <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)]">
+      <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-4">
         <div className="flex items-center gap-2">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">
+          <span className="font-sans text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
             Deployer History
           </span>
-          <span className="font-mono text-[10px] text-ink-muted">
+          <span className="font-mono text-[10px] text-[#A7F3D0]">
             ({items.length} of {displayTotal} launches)
           </span>
         </div>
         {deployerAddress && (
           <Link
             href={`/deployer/${deployerAddress}`}
-            className="font-mono text-[11px] font-semibold text-cyan-600 underline underline-offset-2 hover:text-cyan-700 dark:text-cyan-400"
+            className="font-mono text-[11px] font-semibold text-[#99F6E4] underline underline-offset-2 hover:text-[#FFFDF7]"
           >
             View Full Profile &rarr;
           </Link>
         )}
       </div>
 
-      <div className="max-h-80 divide-y divide-border overflow-y-auto font-mono text-xs">
+      <div className="mt-3 max-h-80 divide-y divide-[rgba(153,246,228,0.15)] overflow-y-auto font-mono text-xs">
         {items.length === 0 ? (
-          <div className="py-8 text-center text-xs text-ink-muted">
+          <div className="py-8 text-center text-xs text-[#A7F3D0]/70">
             No launch history recorded
           </div>
         ) : (
@@ -77,14 +77,14 @@ export function DeployerHistory({
             return (
               <div
                 key={launch.contractAddress || idx}
-                className={`flex items-center justify-between px-4 py-2.5 transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-900/30 ${
+                className={`flex items-center justify-between px-4 py-2.5 transition-colors hover:bg-[#042F2E]/50 ${
                   launch.hasDossier
-                    ? "border-l-2 border-cyan-500 bg-cyan-500/5"
+                    ? "border-l-2 border-[#99F6E4] bg-[#042F2E]/30"
                     : ""
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="text-ink-muted text-[10px] w-5">
+                  <span className="text-[#A7F3D0] text-[10px] w-5">
                     {idx + 1}
                   </span>
 
@@ -92,25 +92,25 @@ export function DeployerHistory({
                     <div className="flex items-center gap-2">
                       <Link
                         href={`/d/${launch.contractAddress}`}
-                        className="font-bold text-ink hover:underline"
+                        className="font-bold text-[#FFFDF7] hover:text-[#99F6E4] hover:underline"
                       >
                         ${launch.symbol || "UNKNOWN"}
                       </Link>
 
                       {isCurrent && (
-                        <span className="rounded bg-neutral-200 px-1 py-0.2 text-[9px] text-ink-muted dark:bg-neutral-800">
+                        <span className="rounded bg-[#042F2E] px-1 py-0.2 text-[9px] text-[#A7F3D0] border border-[rgba(153,246,228,0.2)]">
                           Current
                         </span>
                       )}
 
                       {launch.hasDossier && (
                         <span
-                          className={`rounded px-1.5 py-0.2 text-[9px] font-bold uppercase ${
+                          className={`rounded px-1.5 py-0.2 text-[9px] font-bold uppercase border-[1.5px] border-[#042F2E] ${
                             launch.dossierStatus === "active"
-                              ? "bg-emerald-500/20 text-emerald-600 dark:text-emerald-400"
+                              ? "bg-[#99F6E4] text-[#042F2E]"
                               : launch.dossierStatus === "rugged"
-                              ? "bg-red-500/20 text-red-600 dark:text-red-400"
-                              : "bg-neutral-200 text-ink-muted dark:bg-neutral-800"
+                              ? "bg-[#FF6B6B] text-[#042F2E]"
+                              : "bg-[#FFD166] text-[#042F2E]"
                           }`}
                         >
                           Dossier ({launch.dossierStatus || "saved"})
@@ -118,7 +118,7 @@ export function DeployerHistory({
                       )}
                     </div>
 
-                    <div className="text-[10px] text-ink-muted">
+                    <div className="text-[10px] text-[#A7F3D0]">
                       {launch.name || (launch.contractAddress ? launch.contractAddress.slice(0, 10) : "")}
                     </div>
                   </div>
@@ -126,16 +126,16 @@ export function DeployerHistory({
 
                 <div className="flex items-center gap-3">
                   <span
-                    className={`px-1.5 py-0.5 text-[9px] font-semibold uppercase ${
+                    className={`px-1.5 py-0.5 text-[9px] font-semibold uppercase rounded-md ${
                       isGraduated
-                        ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                        : "border border-neutral-300 bg-neutral-100 text-ink-muted dark:border-neutral-700 dark:bg-neutral-800"
+                        ? "border-[1.5px] border-[#042F2E] bg-[#99F6E4] text-[#042F2E]"
+                        : "border border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-[#A7F3D0]"
                     }`}
                   >
                     {launch.status || "curve"}
                   </span>
 
-                  <span className="text-[10px] text-ink-muted">
+                  <span className="text-[10px] text-[#A7F3D0]">
                     {formatDate(launch.launchedAt)}
                   </span>
                 </div>

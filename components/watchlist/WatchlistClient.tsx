@@ -97,21 +97,21 @@ export function WatchlistClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans relative overflow-hidden pb-16 sm:pb-24">
-      <div className="absolute top-0 right-1/3 w-[600px] h-[400px] bg-gradient-to-b from-[#FFB800]/10 via-[#00F0FF]/10 to-transparent blur-[130px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 sm:pb-24">
+      <div className="absolute top-0 right-1/3 w-[600px] h-[400px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[130px] pointer-events-none -z-10" />
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 relative z-10 space-y-6 sm:space-y-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.2)] pb-6">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Deployer Watchlist</h1>
-              <span className="text-[11px] px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 font-semibold tracking-wide">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#FFFDF7] tracking-tight">Deployer Watchlist</h1>
+              <span className="text-[11px] px-3 py-1 rounded-full bg-[#FFD166] border-[1.5px] border-[#042F2E] text-[#042F2E] font-bold tracking-wide shadow-[2px_2px_0px_#042F2E]">
                 {`${entries.length} / 30 TRACKED`}
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1.5 font-normal">
+            <p className="text-xs sm:text-sm text-[#A7F3D0] mt-1.5 font-normal">
               Monitor repeat launchers, track token genesis events, and receive activity alerts.
             </p>
           </div>
@@ -123,12 +123,12 @@ export function WatchlistClient({
                 placeholder="0x... deployer address"
                 value={newAddress}
                 onChange={(e) => setNewAddress(e.target.value)}
-                className="w-full sm:w-72 bg-slate-900/90 border border-slate-800 rounded-xl px-3.5 py-2 text-xs font-mono text-slate-100 placeholder:text-slate-500 focus:outline-hidden focus:border-amber-500/60 transition-colors"
+                className="w-full sm:w-72 bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3.5 py-2 text-xs font-mono text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:outline-hidden focus:border-[#FFD166] transition-colors"
               />
               <button
                 type="submit"
                 disabled={adding || !newAddress.trim()}
-                className="w-full sm:w-auto px-4 py-2 rounded-xl bg-gradient-to-r from-amber-400 to-orange-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-[0.98] transition-all disabled:opacity-50"
+                className="w-full sm:w-auto px-4 py-2 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider transition-all disabled:opacity-50"
               >
                 {adding ? "Adding..." : "+ Watch Deployer"}
               </button>
@@ -137,30 +137,30 @@ export function WatchlistClient({
         </div>
 
         {addError && (
-          <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-medium">
+          <div className="p-3 rounded-xl bg-[#FF6B6B]/15 border border-[#FF6B6B]/40 text-[#FF6B6B] text-xs font-medium">
             {addError}
           </div>
         )}
 
         {!isAuthenticated ? (
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 sm:p-14 text-center space-y-4 shadow-2xl backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
-            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">Authentication Required</h2>
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
+          <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-8 sm:p-14 text-center space-y-4 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
+            <h2 className="text-lg sm:text-xl font-bold text-[#FFFDF7] tracking-tight">Authentication Required</h2>
+            <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
               Connect your Ethereum wallet via SIWE to save custom deployers to your watchlist, monitor launcher behavior, and track new tokens.
             </p>
             <div className="pt-3">
               <Link
                 href="/"
-                className="inline-block px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 transition-all"
+                className="inline-block px-5 py-2.5 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider transition-all"
               >
                 Connect Wallet
               </Link>
             </div>
           </div>
         ) : entries.length === 0 ? (
-          <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-10 sm:p-14 text-center space-y-2 backdrop-blur-xl">
-            <h2 className="text-sm font-bold uppercase text-slate-300">Your Watchlist is Empty</h2>
-            <p className="text-xs text-slate-500 max-w-md mx-auto font-normal">
+          <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-10 sm:p-14 text-center space-y-2 backdrop-blur-xl shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)]">
+            <h2 className="text-sm font-bold uppercase text-[#FFFDF7]">Your Watchlist is Empty</h2>
+            <p className="text-xs text-[#A7F3D0] max-w-md mx-auto font-normal">
               Add deployer addresses from token dossiers or use the search bar above to start monitoring serial creators.
             </p>
           </div>
@@ -174,64 +174,64 @@ export function WatchlistClient({
               const graduatedCount = item.score?.graduatedCount ?? 0;
               const newLaunches = item.newLaunchesCount ?? 0;
 
-              const bandColor =
+              const bandBadge =
                 band === "green"
-                  ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-[0_0_10px_rgba(0,229,153,0.15)]"
+                  ? "bg-[#99F6E4] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                   : band === "red"
-                  ? "bg-rose-500/10 border-rose-500/40 text-rose-400 shadow-[0_0_10px_rgba(255,46,77,0.15)]"
-                  : "bg-amber-500/10 border-amber-500/40 text-amber-400 shadow-[0_0_10px_rgba(255,184,0,0.15)]";
+                  ? "bg-[#FF6B6B] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
+                  : "bg-[#FFD166] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]";
 
               return (
                 <div
                   key={item.id}
-                  className="chroma-card-interactive rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between space-y-4"
+                  className="rounded-3xl p-5 sm:p-6 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] flex flex-col justify-between space-y-4 hover:translate-y-[-2px] transition-all duration-300"
                 >
                   <div>
-                    <div className="flex items-center justify-between mb-3 border-b border-white/10 pb-3">
+                    <div className="flex items-center justify-between mb-3 border-b border-[rgba(153,246,228,0.2)] pb-3">
                       <span
-                        className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full border ${bandColor}`}
+                        className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full ${bandBadge}`}
                       >
                         {label} • {band.toUpperCase()}
                       </span>
 
-                      <span className="text-sm font-extrabold text-white tracking-wide">{`SCORE: ${score}`}</span>
+                      <span className="text-sm font-extrabold text-[#FFFDF7] tracking-wide">{`SCORE: ${score}`}</span>
                     </div>
 
                     <div className="mb-4">
-                      <div className="text-[10px] text-slate-500 uppercase tracking-wider mb-1">
+                      <div className="text-[10px] text-[#A7F3D0] uppercase tracking-wider mb-1">
                         Deployer Address
                       </div>
                       <Link
                         href={`/deployer/${item.deployerAddress}`}
-                        className="text-xs font-semibold font-mono text-cyan-300 hover:text-white break-all transition-colors bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800/80 block"
+                        className="text-xs font-semibold font-mono text-[#99F6E4] hover:text-[#FFFDF7] break-all transition-colors bg-[#042F2E] px-2.5 py-1 rounded-lg border border-[rgba(153,246,228,0.2)] block"
                       >
                         {item.deployerAddress}
                       </Link>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-2 p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 text-xs mb-3">
+                    <div className="grid grid-cols-2 gap-2 p-3.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] text-xs mb-3">
                       <div>
-                        <div className="text-[10px] text-slate-500 uppercase">Total Launches</div>
-                        <div className="font-extrabold text-base text-white mt-0.5">{totalLaunches}</div>
+                        <div className="text-[10px] text-[#A7F3D0] uppercase">Total Launches</div>
+                        <div className="font-extrabold text-base text-[#FFFDF7] mt-0.5">{totalLaunches}</div>
                       </div>
                       <div>
-                        <div className="text-[10px] text-slate-500 uppercase">Graduated</div>
-                        <div className="font-extrabold text-base text-emerald-400 mt-0.5">{graduatedCount}</div>
+                        <div className="text-[10px] text-[#A7F3D0] uppercase">Graduated</div>
+                        <div className="font-extrabold text-base text-[#99F6E4] mt-0.5">{graduatedCount}</div>
                       </div>
                     </div>
 
                     {newLaunches > 0 && (
-                      <div className="p-2.5 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs font-semibold flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
+                      <div className="p-2.5 rounded-xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 text-[#99F6E4] text-xs font-semibold flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-ping" />
                         <span>{`+${newLaunches} new launches since last check`}</span>
                       </div>
                     )}
                   </div>
 
-                  <div className="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                  <div className="flex items-center justify-between pt-3 border-t border-[rgba(153,246,228,0.2)] text-xs">
                     <Link
                       href={`/deployer/${item.deployerAddress}`}
-                      className="font-bold text-cyan-300 hover:text-white flex items-center gap-1.5 transition-colors"
+                      className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] flex items-center gap-1.5 transition-colors"
                     >
                       <span>View Profile</span>
                       <span>→</span>
@@ -241,7 +241,7 @@ export function WatchlistClient({
                       type="button"
                       onClick={() => handleRemoveDeployer(item.deployerAddress)}
                       disabled={deletingId === item.deployerAddress}
-                      className="text-rose-400 hover:text-rose-300 text-xs font-semibold disabled:opacity-50 transition-colors px-3 py-1 rounded-lg bg-rose-500/10 border border-rose-500/20 hover:bg-rose-500/20"
+                      className="text-[#FF6B6B] hover:text-[#FA5252] text-xs font-semibold disabled:opacity-50 transition-colors px-3 py-1 rounded-lg bg-[#FF6B6B]/15 border border-[#FF6B6B]/30 hover:bg-[#FF6B6B]/25"
                     >
                       {deletingId === item.deployerAddress ? "Removing..." : "Remove"}
                     </button>

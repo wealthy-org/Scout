@@ -34,7 +34,6 @@ export function FeedPoller({
         try {
           await onFetchNewLaunches();
         } catch {
-          // ignore background polling network errors
         }
       }
     }, pollingIntervalMs);
@@ -48,18 +47,18 @@ export function FeedPoller({
   }, [isLive, onFetchNewLaunches, pollingIntervalMs]);
 
   return (
-    <div className="inline-flex items-center gap-2 px-2.5 py-1 bg-[#11161d] border border-gray-800 rounded-full font-mono text-xs text-gray-300 select-none">
+    <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-full font-mono text-xs text-[#FFFDF7] select-none shadow-[2px_2px_0px_rgba(4,47,46,0.5)]">
       <span
         className={`w-2 h-2 rounded-full ${
           active
-            ? "bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400/50"
-            : "bg-gray-500"
+            ? "bg-[#99F6E4] animate-pulse shadow-[0_0_8px_#99F6E4]"
+            : "bg-[#A7F3D0]/40"
         }`}
       />
-      <span className="font-semibold text-[11px]">
+      <span className={`font-semibold text-[11px] ${active ? "text-[#99F6E4]" : "text-[#A7F3D0]/60"}`}>
         {active ? "Live Polling" : "Paused"}
       </span>
-      <span className="text-gray-500 font-normal">({itemCount} tokens)</span>
+      <span className="text-[#A7F3D0] font-normal">({itemCount} tokens)</span>
     </div>
   );
 }

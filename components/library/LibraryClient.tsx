@@ -98,25 +98,15 @@ export function LibraryClient({
         ok: boolean;
         importedCount?: number;
         skippedCount?: number;
-        error?: string;
       };
 
       if (res.ok && data.ok) {
-        setImportSuccess(
-          `Successfully imported ${data.importedCount ?? 0} case files (${data.skippedCount ?? 0} skipped/existing).`
-        );
-        const refreshed = await fetch("/api/library");
-        if (refreshed.ok) {
-          const refData = (await refreshed.json()) as {
-            ok: boolean;
-            dossiers?: LibraryDossierCard[];
-          };
-          if (refData.dossiers) {
-            setDossiers(refData.dossiers);
-          }
+        setImportSuccess(`Successfully imported ${data.importedCount ?? 0} dossiers.`);
+        if (parsed.dossiers && Array.isArray(parsed.dossiers)) {
+          setDossiers((prev) => [...parsed.dossiers!, ...prev]);
         }
       } else {
-        setImportError(data.error || "Failed to import library file.");
+        setImportError("Import failed. Please verify the JSON schema format.");
       }
     } catch {
       setImportError("Invalid JSON structure or import error.");
@@ -126,22 +116,22 @@ export function LibraryClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans relative overflow-hidden pb-16 sm:pb-24">
-      <div className="absolute top-0 right-1/4 w-[700px] h-[450px] bg-gradient-to-b from-[#00F0FF]/10 via-[#4D65FF]/10 to-transparent blur-[130px] pointer-events-none -z-10" />
-      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-gradient-to-tr from-[#00E599]/10 via-[#D946EF]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 sm:pb-24 selection:bg-[#FFD166] selection:text-[#042F2E]">
+      <div className="absolute top-0 right-1/4 w-[700px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[130px] pointer-events-none -z-10" />
+      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-gradient-to-tr from-[#FFD166]/15 via-[#C084FC]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 relative z-10 space-y-6 sm:space-y-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-slate-800/80 pb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.25)] pb-6">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Case Files Library</h1>
-              <span className="text-[11px] px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-400 font-semibold tracking-wide">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#FFFDF7] tracking-tight">Case Files Library</h1>
+              <span className="text-[11px] px-3 py-1 rounded-full bg-[#99F6E4]/20 border border-[#99F6E4]/40 text-[#99F6E4] font-semibold tracking-wide">
                 {`${filteredDossiers.length} of ${dossiers.length} CASE FILES`}
               </span>
             </div>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1.5 font-normal">
+            <p className="text-xs sm:text-sm text-[#A7F3D0] mt-1.5 font-normal">
               Your personal repository of analyzed token contracts, hypotheses, and on-chain intelligence.
             </p>
           </div>
@@ -151,7 +141,7 @@ export function LibraryClient({
               <button
                 type="button"
                 onClick={() => setIsImportModalOpen(true)}
-                className="px-4 py-2 rounded-xl bg-slate-900/90 text-slate-200 font-semibold text-xs border border-slate-700/80 hover:bg-slate-800 transition-all duration-200"
+                className="px-4 py-2 rounded-xl bg-[#064E4A] text-[#FFFDF7] font-semibold text-xs border border-[rgba(153,246,228,0.25)] hover:bg-[#083835] transition-all duration-200"
               >
                 Import JSON
               </button>
@@ -159,7 +149,7 @@ export function LibraryClient({
               <a
                 href="/api/library/export"
                 download
-                className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-400 to-blue-500 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:shadow-cyan-500/25 hover:brightness-110 active:scale-[0.98] transition-all duration-200"
+                className="px-4 py-2 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] font-bold text-xs uppercase tracking-wider border-[1.5px] border-[#042F2E] shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200"
               >
                 Export All
               </a>
@@ -168,18 +158,18 @@ export function LibraryClient({
         </div>
 
         {!isAuthenticated ? (
-          <div className="rounded-3xl border border-slate-800 bg-slate-900/80 p-8 sm:p-14 text-center space-y-4 shadow-2xl backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
-            <div className="w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mx-auto text-2xl font-bold text-cyan-400 shadow-[0_0_20px_rgba(0,240,255,0.2)]">
+          <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-8 sm:p-14 text-center space-y-4 shadow-[0_20px_50px_rgba(4,47,46,0.5)] backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
+            <div className="w-14 h-14 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center mx-auto text-2xl font-bold text-[#99F6E4] shadow-[0_0_20px_rgba(153,246,228,0.3)]">
               🔒
             </div>
-            <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">Authentication Required</h2>
-            <p className="text-xs sm:text-sm text-slate-400 leading-relaxed font-normal">
+            <h2 className="text-lg sm:text-xl font-bold text-[#FFFDF7] tracking-tight">Authentication Required</h2>
+            <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
               Connect your Ethereum wallet using Sign-In with Ethereum (SIWE) to access, manage, and research private case files in your personal library.
             </p>
             <div className="pt-3">
               <Link
                 href="/feed"
-                className="inline-block px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 font-semibold text-xs uppercase tracking-wider transition-all"
+                className="inline-block px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all"
               >
                 Browse Public Launch Feed →
               </Link>
@@ -188,33 +178,33 @@ export function LibraryClient({
         ) : (
           <div className="space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5">
-              <div className="rounded-2xl p-4 sm:p-5 bg-slate-900/80 border border-amber-500/20 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-amber-400 uppercase tracking-wider mb-1">Watching</div>
-                <div className="text-2xl sm:text-3xl font-black text-amber-400">{statsCount.watching}</div>
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#FFD166]/30 shadow-sm backdrop-blur-xl">
+                <div className="text-[11px] font-semibold text-[#FFD166] uppercase tracking-wider mb-1">Watching</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD166]">{statsCount.watching}</div>
               </div>
-              <div className="rounded-2xl p-4 sm:p-5 bg-slate-900/80 border border-cyan-500/20 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-cyan-400 uppercase tracking-wider mb-1">Researching</div>
-                <div className="text-2xl sm:text-3xl font-black text-cyan-400">{statsCount.researching}</div>
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#38BDF8]/30 shadow-sm backdrop-blur-xl">
+                <div className="text-[11px] font-semibold text-[#38BDF8] uppercase tracking-wider mb-1">Researching</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#99F6E4]">{statsCount.researching}</div>
               </div>
-              <div className="rounded-2xl p-4 sm:p-5 bg-slate-900/80 border border-emerald-500/20 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-emerald-400 uppercase tracking-wider mb-1">In Position</div>
-                <div className="text-2xl sm:text-3xl font-black text-emerald-400">{statsCount.inPosition}</div>
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#4ADE80]/30 shadow-sm backdrop-blur-xl">
+                <div className="text-[11px] font-semibold text-[#4ADE80] uppercase tracking-wider mb-1">In Position</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#4ADE80]">{statsCount.inPosition}</div>
               </div>
-              <div className="rounded-2xl p-4 sm:p-5 bg-slate-900/80 border border-rose-500/20 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-rose-400 uppercase tracking-wider mb-1">Passed</div>
-                <div className="text-2xl sm:text-3xl font-black text-rose-400">{statsCount.passed}</div>
+              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#FB7185]/30 shadow-sm backdrop-blur-xl">
+                <div className="text-[11px] font-semibold text-[#FB7185] uppercase tracking-wider mb-1">Passed</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#FB7185]">{statsCount.passed}</div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-slate-900/90 border border-slate-800 p-3 sm:p-4 rounded-2xl shadow-md backdrop-blur-xl">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] p-3 sm:p-4 rounded-2xl shadow-md backdrop-blur-xl">
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setSelectedStatus("ALL")}
                   className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
                     selectedStatus === "ALL"
-                      ? "bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 shadow-[0_0_12px_rgba(0,240,255,0.3)] font-bold"
-                      : "bg-slate-800/80 text-slate-300 border border-slate-700/60 hover:text-white"
+                      ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
+                      : "bg-[#042F2E]/60 text-[#A7F3D0] border border-[rgba(153,246,228,0.2)] hover:text-[#FFFDF7]"
                   }`}
                 >
                   All ({dossiers.length})
@@ -222,15 +212,6 @@ export function LibraryClient({
 
                 {DOSSIER_STATUSES.map((st) => {
                   const isActive = selectedStatus === st;
-                  const colorClass =
-                    st === "Watching"
-                      ? "text-amber-400 border-amber-500/30"
-                      : st === "Researching"
-                      ? "text-cyan-400 border-cyan-500/30"
-                      : st === "In position"
-                      ? "text-emerald-400 border-emerald-500/30"
-                      : "text-rose-400 border-rose-500/30";
-
                   return (
                     <button
                       key={st}
@@ -238,8 +219,8 @@ export function LibraryClient({
                       onClick={() => setSelectedStatus(st)}
                       className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
                         isActive
-                          ? "bg-slate-700 text-white border border-slate-500 shadow-sm font-bold"
-                          : `bg-slate-800/60 text-slate-400 border border-slate-700/60 hover:text-slate-200 ${colorClass}`
+                          ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
+                          : "bg-[#042F2E]/60 text-[#A7F3D0] border border-[rgba(153,246,228,0.2)] hover:text-[#FFFDF7]"
                       }`}
                     >
                       {st}
@@ -254,15 +235,15 @@ export function LibraryClient({
                   placeholder="Filter symbol, name, CA..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-slate-950/80 border border-slate-800 rounded-xl px-3.5 py-2 text-xs text-slate-200 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-500/60 transition-colors"
+                  className="w-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3.5 py-2 text-xs text-[#FFFDF7] placeholder-[#A7F3D0]/50 focus:outline-hidden focus:border-[#FFD166] transition-colors"
                 />
               </div>
             </div>
 
             {filteredDossiers.length === 0 ? (
-              <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-8 sm:p-12 text-center space-y-3 backdrop-blur-xl">
-                <div className="text-sm font-bold uppercase text-slate-400">No Case Files Found</div>
-                <p className="text-xs text-slate-500 max-w-md mx-auto">
+              <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/80 p-8 sm:p-12 text-center space-y-3 backdrop-blur-xl">
+                <div className="text-sm font-bold uppercase text-[#A7F3D0]">No Case Files Found</div>
+                <p className="text-xs text-[#A7F3D0]/80 max-w-md mx-auto">
                   {searchQuery || selectedStatus !== "ALL"
                     ? "No dossier matches your search filter criteria. Try selecting another status or clearing the search text."
                     : "You haven't opened any research dossiers yet. Search a token contract address above to open your first case file."}
@@ -270,7 +251,7 @@ export function LibraryClient({
                 {dossiers.length === 0 && (
                   <Link
                     href="/feed"
-                    className="inline-block px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-xs shadow-md hover:brightness-110 transition-all"
+                    className="inline-block px-4 py-2 rounded-xl bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold text-xs shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] transition-all"
                   >
                     Browse Launch Feed →
                   </Link>
@@ -286,26 +267,26 @@ export function LibraryClient({
 
                   const statusColor =
                     item.status === "In position"
-                      ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-[0_0_10px_rgba(0,229,153,0.2)]"
+                      ? "bg-[#064E4A] border-[#86EFAC] text-[#4ADE80]"
                       : item.status === "Passed"
-                      ? "bg-rose-500/10 border-rose-500/40 text-rose-400 shadow-[0_0_10px_rgba(255,46,77,0.2)]"
+                      ? "bg-[#881337] border-[#FFE4E6] text-[#FB7185]"
                       : item.status === "Researching"
-                      ? "bg-cyan-500/10 border-cyan-500/40 text-cyan-400 shadow-[0_0_10px_rgba(0,240,255,0.2)]"
-                      : "bg-amber-500/10 border-amber-500/40 text-amber-400 shadow-[0_0_10px_rgba(255,184,0,0.2)]";
+                      ? "bg-[#0C4A6E] border-[#7DD3FC] text-[#38BDF8]"
+                      : "bg-[#78350F] border-[#FCD34D] text-[#FFD166]";
 
                   return (
                     <div
                       key={item.id}
-                      className="chroma-card-interactive rounded-3xl p-5 sm:p-6 shadow-xl flex flex-col justify-between space-y-4"
+                      className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] flex flex-col justify-between space-y-4 hover:-translate-y-1 transition-all duration-300"
                     >
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                        <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-3">
                           <div className="flex items-center gap-2.5 truncate">
-                            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#00E599] to-[#00F0FF] flex items-center justify-center text-slate-950 font-black text-xs shrink-0 shadow-md">
+                            <div className="w-8 h-8 rounded-xl bg-[#FFD166] flex items-center justify-center text-[#042F2E] border border-[#042F2E] font-black text-xs shrink-0 shadow-md">
                               {(item.symbol || "T")[0]}
                             </div>
-                            <span className="text-base font-extrabold text-white">{`$${item.symbol || "UNKNOWN"}`}</span>
-                            <span className="text-xs font-semibold text-slate-400 truncate max-w-[100px]">
+                            <span className="text-base font-extrabold text-[#FFFDF7]">{`$${item.symbol || "UNKNOWN"}`}</span>
+                            <span className="text-xs font-semibold text-[#A7F3D0] truncate max-w-[100px]">
                               {item.name || "Token"}
                             </span>
                           </div>
@@ -318,28 +299,28 @@ export function LibraryClient({
                         </div>
 
                         <div>
-                          <div className="text-[10px] text-slate-500 uppercase tracking-wider">Contract Address</div>
-                          <div className="text-xs font-mono font-medium text-slate-300 truncate bg-slate-950/70 px-2.5 py-1 rounded-lg border border-slate-800/80 mt-1">
+                          <div className="text-[10px] text-[#A7F3D0] uppercase tracking-wider">Contract Address</div>
+                          <div className="text-xs font-mono font-medium text-[#FFFDF7] truncate bg-[#042F2E] px-2.5 py-1 rounded-lg border border-[rgba(153,246,228,0.2)] mt-1">
                             {item.contractAddress}
                           </div>
                         </div>
 
                         {item.thesis && (
-                          <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800 text-xs text-slate-300 line-clamp-2 leading-relaxed font-normal">
-                            <span className="font-bold text-cyan-400">Thesis: </span>
+                          <div className="p-3.5 rounded-2xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)] text-xs text-[#FFFDF7] line-clamp-2 leading-relaxed font-normal">
+                            <span className="font-bold text-[#FFD166]">Thesis: </span>
                             {item.thesis}
                           </div>
                         )}
 
-                        <div className="text-[10px] text-slate-500 font-mono">
+                        <div className="text-[10px] text-[#A7F3D0] font-mono">
                           Last Updated: {updatedStr}
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between pt-3 border-t border-white/10 text-xs">
+                      <div className="flex items-center justify-between pt-3 border-t border-[rgba(153,246,228,0.2)] text-xs">
                         <Link
                           href={`/d/${item.contractAddress}`}
-                          className="font-bold text-cyan-300 hover:text-white flex items-center gap-1.5 text-xs transition-colors"
+                          className="font-bold text-[#FFD166] hover:text-[#FFFDF7] flex items-center gap-1.5 text-xs transition-colors"
                         >
                           <span>Open Dossier</span>
                           <span>→</span>
@@ -348,7 +329,7 @@ export function LibraryClient({
                         <a
                           href={`/api/dossier/${item.contractAddress}/export`}
                           download
-                          className="text-[11px] font-semibold text-slate-400 hover:text-slate-200 transition-colors px-2.5 py-1 rounded-lg bg-white/5 hover:bg-white/10"
+                          className="text-[11px] font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] transition-colors px-2.5 py-1 rounded-lg bg-[#042F2E] border border-[rgba(153,246,228,0.2)]"
                         >
                           Export MD
                         </a>
@@ -362,10 +343,10 @@ export function LibraryClient({
         )}
 
         {isImportModalOpen && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-slate-900 border border-slate-700/80 rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl space-y-4">
-              <div className="flex items-center justify-between border-b border-slate-800 pb-3">
-                <h3 className="text-base font-bold text-white tracking-tight">Import Dossiers Library</h3>
+          <div className="fixed inset-0 z-50 bg-[#042F2E]/80 backdrop-blur-sm flex items-center justify-center p-4">
+            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.3)] rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl space-y-4">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.25)] pb-3">
+                <h3 className="text-base font-bold text-[#FFFDF7] tracking-tight">Import Dossiers Library</h3>
                 <button
                   type="button"
                   onClick={() => {
@@ -373,13 +354,13 @@ export function LibraryClient({
                     setImportError(null);
                     setImportSuccess(null);
                   }}
-                  className="text-xs font-semibold text-slate-400 hover:text-white p-1"
+                  className="text-xs font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] p-1"
                 >
                   ✕
                 </button>
               </div>
 
-              <p className="text-xs text-slate-400 leading-relaxed font-normal">
+              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
                 Upload a Scout intelligence JSON export file to restore or merge saved case files into your personal library.
               </p>
 
@@ -388,18 +369,18 @@ export function LibraryClient({
                   ref={fileInputRef}
                   type="file"
                   accept=".json,application/json"
-                  className="w-full text-xs font-mono file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border file:border-slate-700 file:text-xs file:font-semibold file:bg-slate-800 file:text-slate-200 hover:file:bg-slate-700"
+                  className="w-full text-xs font-mono text-[#FFFDF7] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border file:border-[rgba(153,246,228,0.3)] file:text-xs file:font-semibold file:bg-[#042F2E] file:text-[#FFFDF7] hover:file:bg-[#083835]"
                 />
 
                 {importError && (
-                  <p className="text-xs text-rose-400 font-medium">{importError}</p>
+                  <p className="text-xs text-[#FB7185] font-medium">{importError}</p>
                 )}
 
                 {importSuccess && (
-                  <p className="text-xs text-emerald-400 font-medium">{importSuccess}</p>
+                  <p className="text-xs text-[#4ADE80] font-medium">{importSuccess}</p>
                 )}
 
-                <div className="flex justify-end gap-2.5 pt-3 border-t border-slate-800">
+                <div className="flex justify-end gap-2.5 pt-3 border-t border-[rgba(153,246,228,0.25)]">
                   <button
                     type="button"
                     onClick={() => {
@@ -407,7 +388,7 @@ export function LibraryClient({
                       setImportError(null);
                       setImportSuccess(null);
                     }}
-                    className="px-4 py-2 rounded-xl border border-slate-700 text-slate-300 text-xs font-semibold hover:bg-slate-800 transition-colors"
+                    className="px-4 py-2 rounded-xl border border-[rgba(153,246,228,0.25)] text-[#A7F3D0] text-xs font-semibold hover:bg-[#042F2E] transition-colors"
                   >
                     Cancel
                   </button>
@@ -415,7 +396,7 @@ export function LibraryClient({
                   <button
                     type="submit"
                     disabled={importLoading}
-                    className="px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-400 to-cyan-400 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 disabled:opacity-50 transition-all"
+                    className="px-5 py-2 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[2px_2px_0px_#042F2E] disabled:opacity-50 transition-all"
                   >
                     {importLoading ? "Importing..." : "Run Import"}
                   </button>

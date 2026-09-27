@@ -31,26 +31,26 @@ export function SinceLastCheck({
   };
 
   return (
-    <div className="border border-border bg-surface p-4 shadow-sm font-mono text-xs">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-border pb-2.5">
+    <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] font-mono text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[rgba(153,246,228,0.2)] pb-3">
         <div className="flex items-center gap-2">
-          <span className="font-bold uppercase tracking-wider text-ink">
+          <span className="font-sans font-bold uppercase tracking-wider text-[#FFFDF7]">
             Since Last Check
           </span>
-          <span className="text-[10px] text-ink-muted">
+          <span className="text-[10px] text-[#A7F3D0]">
             ({activeDiffs.length} trigger{activeDiffs.length === 1 ? "" : "s"})
           </span>
         </div>
-        <div className="text-[10px] text-ink-muted">
+        <div className="text-[10px] text-[#A7F3D0]">
           Last snapshot: {formatTimestamp(lastCheckedAt)}
         </div>
       </div>
 
       <div className="mt-3">
         {activeDiffs.length === 0 ? (
-          <div className="flex items-center gap-2 py-3 text-xs text-ink-muted">
+          <div className="flex items-center gap-2 py-3 text-xs text-[#A7F3D0]">
             <svg
-              className="h-4 w-4 text-emerald-500"
+              className="h-4 w-4 text-[#99F6E4]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -88,17 +88,17 @@ export function SinceLastCheck({
               return (
                 <div
                   key={`${diff.field}-${idx}`}
-                  className="border border-border bg-background p-3 transition-colors hover:border-ink"
+                  className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] p-3 transition-colors hover:border-[#99F6E4]"
                 >
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-bold uppercase text-ink-muted">
+                    <span className="text-[10px] font-bold uppercase text-[#A7F3D0]">
                       {diff.label || diff.field}
                     </span>
                     <span
-                      className={`px-1.5 py-0.5 text-[9px] font-bold uppercase ${
+                      className={`px-1.5 py-0.5 text-[9px] font-bold uppercase rounded-md border-[1.5px] border-[#042F2E] ${
                         isGreen
-                          ? "border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"
-                          : "border border-red-500/30 bg-red-500/10 text-red-600 dark:text-red-400"
+                          ? "bg-[#99F6E4] text-[#042F2E]"
+                          : "bg-[#FF6B6B] text-[#042F2E]"
                       }`}
                     >
                       {badgeText}
@@ -106,11 +106,11 @@ export function SinceLastCheck({
                   </div>
 
                   <div className="mt-2 flex items-center gap-1.5 text-xs">
-                    <span className="text-ink-muted truncate max-w-[80px]">
+                    <span className="text-[#A7F3D0] truncate max-w-[80px]">
                       {formatVal(diff.oldVal)}
                     </span>
-                    <span className="text-ink-muted">&rarr;</span>
-                    <span className="font-bold text-ink truncate max-w-[90px]">
+                    <span className="text-[#A7F3D0]">&rarr;</span>
+                    <span className="font-bold text-[#FFFDF7] truncate max-w-[90px]">
                       {formatVal(diff.newVal)}
                     </span>
                   </div>

@@ -120,8 +120,8 @@ export function FeedTable({
   };
 
   return (
-    <div className="bg-[#0D1322]/90 border border-white/10 rounded-3xl overflow-hidden shadow-[0_15px_45px_rgba(0,0,0,0.6)] backdrop-blur-2xl font-sans text-xs">
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-white/10 bg-slate-950/60 p-3.5 sm:p-5 gap-3.5">
+    <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl overflow-hidden shadow-[0_15px_45px_rgba(4,47,46,0.6)] backdrop-blur-2xl font-sans text-xs">
+      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-5 gap-3.5">
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
@@ -184,7 +184,7 @@ export function FeedTable({
       <div className="overflow-x-auto">
         <table className="w-full border-collapse text-left">
           <thead>
-            <tr className="border-b border-white/10 bg-slate-950/40 text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+            <tr className="border-b border-[rgba(153,246,228,0.15)] bg-[#042F2E]/90 text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider">
               <th className="px-5 py-4">Token</th>
               <th className="px-5 py-4">Deployer Score</th>
               <th className="px-5 py-4">Bonding Curve</th>
@@ -194,10 +194,10 @@ export function FeedTable({
               <th className="px-5 py-4 text-right">Dossier</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-white/5">
+          <tbody className="divide-y divide-[rgba(153,246,228,0.08)]">
             {filteredItems.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-5 py-12 text-center text-slate-500 text-xs">
+                <td colSpan={7} className="px-5 py-12 text-center text-[#A7F3D0]/70 text-xs">
                   No launch items match the active filter or search criteria.
                 </td>
               </tr>
@@ -210,32 +210,32 @@ export function FeedTable({
 
                 const bandColor =
                   row.band === "green"
-                    ? "bg-emerald-500/10 border-emerald-500/40 text-emerald-400 shadow-[0_0_10px_rgba(0,229,153,0.15)]"
+                    ? "bg-[#99F6E4]/20 text-[#99F6E4] border-[#99F6E4]/40"
                     : row.band === "red"
-                    ? "bg-rose-500/10 border-rose-500/40 text-rose-400 shadow-[0_0_10px_rgba(255,46,77,0.15)]"
-                    : "bg-amber-500/10 border-amber-500/40 text-amber-400 shadow-[0_0_10px_rgba(255,184,0,0.15)]";
+                    ? "bg-[#FF6B6B]/20 text-[#FF6B6B] border-[#FF6B6B]/40"
+                    : "bg-[#FFD166]/20 text-[#FFD166] border-[#FFD166]/40";
 
                 return (
                   <tr
                     key={row.contractAddress}
                     onClick={() => onRowClick?.(row)}
-                    className="hover:bg-white/[0.04] transition-colors group cursor-pointer"
+                    className="hover:bg-[#99F6E4]/5 transition-colors group cursor-pointer"
                   >
                     <td className="px-5 py-4">
                       <Link
                         href={`/d/${row.contractAddress}`}
-                        className="block group-hover:text-cyan-300 transition-colors"
+                        className="block group-hover:text-[#99F6E4] transition-colors"
                       >
-                        <div className="flex items-center gap-2 font-bold text-white text-sm">
-                          <span className="group-hover:text-cyan-300 transition-colors">{`$${row.symbol}`}</span>
+                        <div className="flex items-center gap-2 font-bold text-[#FFFDF7] text-sm">
+                          <span className="group-hover:text-[#99F6E4] transition-colors">{`$${row.symbol}`}</span>
                           {isWatched && (
-                            <span className="px-2.5 py-0.5 text-[10px] bg-fuchsia-500/15 text-fuchsia-300 border border-fuchsia-500/40 rounded-full font-bold uppercase shadow-[0_0_8px_rgba(217,70,239,0.3)]">
+                            <span className="px-2.5 py-0.5 text-[10px] bg-[#FFD166] text-[#042F2E] border border-[#042F2E] rounded-full font-black uppercase shadow-[1px_1px_0px_#042F2E]">
                               Watched
                             </span>
                           )}
                         </div>
                         {row.name && (
-                          <div className="text-xs text-slate-400 font-normal">
+                          <div className="text-xs text-[#A7F3D0] font-normal">
                             {row.name}
                           </div>
                         )}
@@ -257,38 +257,38 @@ export function FeedTable({
 
                     <td className="px-5 py-4">
                       <div className="w-32 space-y-1.5">
-                        <div className="w-full h-2 bg-slate-800/80 rounded-full overflow-hidden p-[1px]">
+                        <div className="w-full h-2 bg-[#042F2E] border border-[rgba(153,246,228,0.2)] rounded-full overflow-hidden p-[1px]">
                           <div
                             className={`h-full rounded-full ${
                               isGrad
-                                ? "bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400 shadow-[0_0_10px_rgba(0,229,153,0.6)]"
-                                : "bg-gradient-to-r from-cyan-400 to-blue-500"
+                                ? "bg-gradient-to-r from-[#99F6E4] via-[#14B8A6] to-[#FFD166]"
+                                : "bg-gradient-to-r from-[#14B8A6] to-[#99F6E4]"
                             }`}
                             style={{ width: `${progress}%` }}
                           />
                         </div>
-                        <div className="text-[10px] text-slate-400 font-medium">
+                        <div className="text-[10px] text-[#A7F3D0] font-medium">
                           {isGrad ? "100% Graduated" : `${progress.toFixed(1)}%`}
                         </div>
                       </div>
                     </td>
 
-                    <td className="px-5 py-4 font-bold text-slate-200">
+                    <td className="px-5 py-4 font-bold text-[#FFFDF7]">
                       {formatCurrency(row.marketCapUsd)}
                     </td>
 
-                    <td className="px-5 py-4 font-bold text-slate-300">
+                    <td className="px-5 py-4 font-bold text-[#FFFDF7]">
                       {formatCurrency(row.volume24hUsd)}
                     </td>
 
-                    <td className="px-5 py-4 text-slate-400 text-xs font-mono">
+                    <td className="px-5 py-4 text-[#A7F3D0] text-xs font-mono">
                       {formatTimeAgo(row.timestamp)}
                     </td>
 
                     <td className="px-5 py-4 text-right">
                       <Link
                         href={`/d/${row.contractAddress}`}
-                        className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-slate-800/90 hover:bg-cyan-500/20 border border-slate-700 hover:border-cyan-400/50 text-cyan-300 hover:text-white rounded-full text-xs font-bold transition-all shadow-sm"
+                        className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#99F6E4] hover:bg-[#14B8A6] border border-[#042F2E] text-[#042F2E] rounded-full text-xs font-bold shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                       >
                         <span>Open</span>
                         <span>→</span>

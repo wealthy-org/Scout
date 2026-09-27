@@ -16,7 +16,7 @@ import { ConnectionMap } from "../../components/map/ConnectionMap";
 import { AccountClient } from "../../components/account/AccountClient";
 import { DossierPageView } from "../../app/d/[ca]/page";
 
-describe("Chroma UI Overhaul Verification Suite (TICKET-96)", () => {
+describe("Tosca Canvas & Colorful Pop UI Overhaul Suite (TICKET-96 & TICKET-99)", () => {
   const mockCensusStats = {
     total_launches: 1620,
     unique_deployers: 870,
@@ -41,21 +41,20 @@ describe("Chroma UI Overhaul Verification Suite (TICKET-96)", () => {
     computed_at: new Date().toISOString(),
   };
 
-  test("globals.css defines Chroma colorful palette and ambient mesh tokens", () => {
+  test("globals.css defines Tosca Canvas and Pop tokens", () => {
     const cssPath = path.join(process.cwd(), "app/globals.css");
     const css = fs.readFileSync(cssPath, "utf-8");
-    assert.ok(css.includes("--color-chroma-mint"));
-    assert.ok(css.includes("--color-chroma-cyan"));
-    assert.ok(css.includes("--color-chroma-blue"));
-    assert.ok(css.includes("--color-chroma-amber"));
-    assert.ok(css.includes("--color-chroma-coral"));
-    assert.ok(css.includes("--color-chroma-orchid"));
+    assert.ok(css.includes("--color-canvas-main"));
+    assert.ok(css.includes("--color-surface-deep"));
+    assert.ok(css.includes("--color-pop-yellow"));
+    assert.ok(css.includes("--color-pop-coral"));
+    assert.ok(css.includes("--color-ink-light"));
     assert.ok(css.includes("prefers-reduced-motion"));
   });
 
-  test("all core navigation routes render cleanly with high-chroma aesthetics", () => {
+  test("all core navigation routes render cleanly with Tosca Canvas system and no legacy black backgrounds", () => {
     const headerHtml = renderToString(<GlobalHeader isAuthenticated={true} walletAddress="0x1111111111111111111111111111111111111111" />);
-    assert.ok(headerHtml.includes("SCOUT") || headerHtml.includes("Scout"));
+    assert.ok(headerHtml.includes("SCOUT"));
     assert.ok(headerHtml.includes("Feed") || headerHtml.includes("Launch Feed"));
     assert.ok(headerHtml.includes("Library"));
 
@@ -71,12 +70,18 @@ describe("Chroma UI Overhaul Verification Suite (TICKET-96)", () => {
 
     const libraryHtml = renderToString(<LibraryClient initialDossiers={[]} isAuthenticated={true} />);
     assert.ok(libraryHtml.includes("Case Files Library"));
+    assert.ok(!libraryHtml.includes("bg-[#07090E]"));
+    assert.ok(libraryHtml.includes("bg-[#0D746E]") || libraryHtml.includes("bg-[#064E4A]"));
 
     const watchlistHtml = renderToString(<WatchlistClient initialEntries={[]} isAuthenticated={true} />);
     assert.ok(watchlistHtml.includes("Deployer Watchlist"));
+    assert.ok(!watchlistHtml.includes("bg-[#07090E]"));
+    assert.ok(watchlistHtml.includes("bg-[#0D746E]") || watchlistHtml.includes("bg-[#064E4A]"));
 
     const censusHtml = renderToString(<CensusView stats={mockCensusStats} />);
     assert.ok(censusHtml.includes("Launch Census"));
+    assert.ok(!censusHtml.includes("bg-[#07090E]"));
+    assert.ok(censusHtml.includes("bg-[#0D746E]") || censusHtml.includes("bg-[#064E4A]"));
 
     const deployerHtml = renderToString(
       <DeployerProfileView
@@ -90,6 +95,8 @@ describe("Chroma UI Overhaul Verification Suite (TICKET-96)", () => {
       />
     );
     assert.ok(deployerHtml.includes("Deployer Dossier"));
+    assert.ok(!deployerHtml.includes("bg-[#07090E]"));
+    assert.ok(deployerHtml.includes("bg-[#0D746E]") || deployerHtml.includes("bg-[#064E4A]"));
 
     const mapHtml = renderToString(<ConnectionMap nodes={[]} edges={[]} />);
     assert.ok(mapHtml.includes("No dossier connections found"));
@@ -101,9 +108,10 @@ describe("Chroma UI Overhaul Verification Suite (TICKET-96)", () => {
       />
     );
     assert.ok(accountHtml.includes("Account Settings"));
+    assert.ok(!accountHtml.includes("bg-[#07090E]"));
   });
 
-  test("renders full DossierPageView with all 13 sections intact", () => {
+  test("renders full DossierPageView with all 13 sections intact and Tosca theme", () => {
     const dossierHtml = renderToString(
       <DossierPageView
         data={{
@@ -134,5 +142,6 @@ describe("Chroma UI Overhaul Verification Suite (TICKET-96)", () => {
     assert.ok(dossierHtml.includes("Trade Flow Analytics"));
     assert.ok(dossierHtml.includes("Holder Distribution"));
     assert.ok(dossierHtml.includes("Constellation Relationship Graph"));
+    assert.ok(!dossierHtml.includes("bg-[#07090E]"));
   });
 });

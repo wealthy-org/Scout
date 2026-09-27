@@ -35,33 +35,33 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       id: "tile-launches",
       title: "Launches (10m)",
       value: totalLaunches10m.toLocaleString(),
-      accentColor: "text-cyan-300",
+      accentColor: "text-[#99F6E4]",
       icon: "⚡",
-      dotColor: "bg-cyan-400",
+      dotColor: "bg-[#99F6E4]",
     },
     {
       id: "tile-volume",
       title: "Total Volume",
       value: formatVolume(totalVolumeUsd),
-      accentColor: "text-white",
+      accentColor: "text-[#FFD166]",
       icon: "💎",
-      dotColor: "bg-slate-300",
+      dotColor: "bg-[#FFD166]",
     },
     {
       id: "tile-wallets",
       title: "Unique Wallets",
       value: uniqueWallets.toLocaleString(),
-      accentColor: "text-fuchsia-400",
+      accentColor: "text-[#C084FC]",
       icon: "👥",
-      dotColor: "bg-fuchsia-400",
+      dotColor: "bg-[#C084FC]",
     },
     {
       id: "tile-graduated",
       title: "Graduated (24h)",
       value: graduatedCount.toLocaleString(),
-      accentColor: "text-emerald-400",
+      accentColor: "text-[#99F6E4]",
       icon: "🎓",
-      dotColor: "bg-emerald-400",
+      dotColor: "bg-[#99F6E4]",
     },
     {
       id: "tile-repeat",
@@ -69,17 +69,17 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       value: `${repeatDeployerPct.toFixed(1)}%`,
       accentColor:
         repeatDeployerPct > 50
-          ? "text-rose-400"
+          ? "text-[#FF6B6B]"
           : repeatDeployerPct > 25
-          ? "text-amber-400"
-          : "text-emerald-400",
+          ? "text-[#FFD166]"
+          : "text-[#99F6E4]",
       icon: "🔄",
       dotColor:
         repeatDeployerPct > 50
-          ? "bg-rose-400"
+          ? "bg-[#FF6B6B]"
           : repeatDeployerPct > 25
-          ? "bg-amber-400"
-          : "bg-emerald-400",
+          ? "bg-[#FFD166]"
+          : "bg-[#99F6E4]",
     },
   ];
 
@@ -88,9 +88,9 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       {tiles.map((tile) => (
         <div
           key={tile.id}
-          className="chroma-card-interactive rounded-3xl p-4 sm:p-5 flex flex-col justify-between shadow-lg"
+          className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-4 sm:p-5 flex flex-col justify-between shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] hover:-translate-y-1 transition-all"
         >
-          <div className="flex items-center justify-between text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+          <div className="flex items-center justify-between text-xs font-semibold text-[#A7F3D0] uppercase tracking-wider mb-2">
             <span>{tile.title}</span>
             <div className="flex items-center gap-1.5">
               <span className={`w-2 h-2 rounded-full ${tile.dotColor} animate-pulse`} />

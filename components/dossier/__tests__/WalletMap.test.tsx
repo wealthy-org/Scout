@@ -37,13 +37,13 @@ describe("WalletMap Component (TICKET-35)", () => {
   test("renders circle elements for each wallet bubble with appropriate colors", () => {
     const html = renderToString(<WalletMap wallets={mockWallets} />);
     assert.ok(html.includes("<circle"));
-    assert.ok(html.includes("#10b981") || html.includes("10b981"));
-    assert.ok(html.includes("#ef4444") || html.includes("ef4444"));
+    assert.ok(html.includes("#99F6E4") || html.includes("#10b981") || html.includes("10b981") || html.includes("99F6E4"));
+    assert.ok(html.includes("#FF6B6B") || html.includes("#ef4444") || html.includes("ef4444") || html.includes("FF6B6B"));
   });
 
   test("renders special ring styling for deployer wallet", () => {
     const html = renderToString(<WalletMap wallets={mockWallets} />);
-    assert.ok(html.includes("#eab308") || html.includes("stroke-amber") || html.includes("stroke-yellow") || html.includes("eab308"));
+    assert.ok(html.includes("#FFD166") || html.includes("#eab308") || html.includes("stroke-amber") || html.includes("stroke-yellow") || html.includes("FFD166"));
   });
 
   test("handles empty wallets list gracefully", () => {

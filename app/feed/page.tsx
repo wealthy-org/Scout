@@ -142,8 +142,8 @@ export default function FeedPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 flex flex-col font-sans relative overflow-hidden pb-16">
-      <div className="absolute top-0 right-10 w-[700px] h-[400px] bg-gradient-to-b from-[#00E599]/10 via-[#00F0FF]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] flex flex-col font-sans relative overflow-hidden pb-16 selection:bg-[#FFD166] selection:text-[#042F2E]">
+      <div className="absolute top-0 right-10 w-[700px] h-[400px] bg-gradient-to-b from-[#14B8A6]/25 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
 
       <GlobalHeader />
       <TickerTape />
@@ -152,12 +152,12 @@ export default function FeedPage() {
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#FFFDF7]">
                 Live Launches
               </h1>
               <FeedPoller isLive={true} pollingIntervalMs={2000} />
             </div>
-            <p className="text-xs sm:text-sm text-slate-400 mt-1 font-normal">
+            <p className="text-xs sm:text-sm text-[#A7F3D0] mt-1 font-normal">
               Real-time bonding curve tracker, deployer reputation scoring, and high-frequency trade monitor.
             </p>
           </div>

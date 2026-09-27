@@ -27,7 +27,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#07090E] text-slate-100 font-sans selection:bg-cyan-500/30 selection:text-cyan-200">
+      <body className="min-h-full flex flex-col bg-[#0D746E] text-[#FFFDF7] font-sans selection:bg-[#FFD166] selection:text-[#042F2E]">
         <Suspense fallback={null}>
           <TopProgressBar />
         </Suspense>

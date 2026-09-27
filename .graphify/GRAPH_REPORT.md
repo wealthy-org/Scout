@@ -1,25 +1,25 @@
 # Graph Report - .  (2026-09-27)
 
 ## Corpus Check
-- 258 files · ~202,533 words
+- 258 files · ~202,463 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 778 nodes · 1976 edges · 30 communities detected
+- 779 nodes · 1982 edges · 31 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
-- Edge kinds: imports: 568 · contains: 474 · imports_from: 365 · MODIFIES: 297 · ON_BRANCH: 102 · PARENT_OF: 100 · calls: 48 · inherits: 8 · references: 7 · method: 6 · re_exports: 1
+- Edge kinds: imports: 568 · contains: 474 · imports_from: 365 · MODIFIES: 301 · ON_BRANCH: 103 · PARENT_OF: 101 · calls: 48 · inherits: 8 · references: 7 · method: 6 · re_exports: 1
 
 
 ## Input Scope
 - Requested: auto
 - Resolved: committed (source: default-auto)
 - Included files: 258 · Candidates: 352
-- Excluded: 0 untracked · 44081 ignored · 1 sensitive · 0 missing committed
+- Excluded: 0 untracked · 44101 ignored · 1 sensitive · 0 missing committed
 - Recommendation: Use --scope all or graphify.yaml inputs.corpus for a knowledge-base folder.
 
 ## Graph Freshness
-- Built from Git commit: `f224565`
+- Built from Git commit: `588280e`
 - Compare this hash to `git rev-parse HEAD` before trusting freshness-sensitive graph output.
 ## God Nodes (most connected - your core abstractions)
 1. `db` - 28 edges
@@ -112,50 +112,54 @@ Cohesion: 0.17
 Nodes (14): getSession(), Dossier, DOSSIER_STATUSES, dossiers, handlePostLibraryImport(), importPayloadSchema, POST(), singleImportItemSchema (+6 more)
 
 ### Community 18 - "Community 18"
-Cohesion: 0.20
-Nodes (10): 0ec1fbb feat: implement pure vector 3D stacked discs and skymoney protocol showcase banner, c82b046 feat(ui): add 3d illustrated showcase cards, floating ambient animations, and interactive hover styles, f224565 feat(landing): implement PRD thematic 3D cards and skymoney protocol showcase banner, FeaturedDossier, LandingClient(), LandingClientProps, LibraryClient(), LibraryClientProps (+2 more)
-
-### Community 19 - "Community 19"
 Cohesion: 0.22
 Nodes (10): 6cc1ac5 feat(scout): implement full-page connection map svg component (TICKET-57), 8f33207 feat(scout): assemble connection map page (TICKET-58), CalculatedNode, ConnectionMap(), ConnectionMapProps, ConnectionType, MapEdge, MapNode (+2 more)
 
-### Community 20 - "Community 20"
+### Community 19 - "Community 19"
 Cohesion: 0.23
 Nodes (11): c9f59e2 feat(scout): implement api get public dossier endpoint (TICKET-61), dc8d660 feat(scout): implement api post save copy dossier endpoint (TICKET-62), Database, globalForDb, publishedDossiers, handleSavePublicDossier(), POST(), SaveDossierResponseBody (+3 more)
 
-### Community 21 - "Community 21"
+### Community 20 - "Community 20"
 Cohesion: 0.21
 Nodes (6): QueueItem, QueueOptions, RequestPriority, RequestQueue, rpcQueue, 6d8ab15 feat(scout): setup 2-lane request queue (TICKET-11)
 
-### Community 22 - "Community 22"
+### Community 21 - "Community 21"
 Cohesion: 0.20
 Nodes (8): 49106f2 feat(scout): implement publish dialog modal component (TICKET-63), e12a92e feat(scout): assemble public dossier view page (TICKET-64), PublicDossierClient(), PublicDossierClientProps, PublicDossierPayload, PublishDialog(), PublishDialogProps, PageProps
 
-### Community 23 - "Community 23"
+### Community 22 - "Community 22"
 Cohesion: 0.21
 Nodes (12): e9169fe feat(scout): implement centralized input sanitization and zod schema (TICKET-65), dossierItemsArraySchema, dossierItemStrictSchema, dossierPutStrictSchema, dossierQuestionsArraySchema, dossierQuestionStrictSchema, ethAddressSchema, importLibraryItemStrictSchema (+4 more)
 
-### Community 24 - "Community 24"
+### Community 23 - "Community 23"
 Cohesion: 0.16
 Nodes (11): deployerScores, metadata, GET(), GetWatchlistResponseBody, handleGetWatchlist(), handlePostWatchlist(), POST(), PostWatchlistResponseBody (+3 more)
 
-### Community 25 - "Community 25"
+### Community 24 - "Community 24"
 Cohesion: 0.35
 Nodes (6): CensusView(), CensusViewProps, 6aec8fe feat(ui): overhaul ui with chroma high-chroma colorful design system and fluid animations, DeployerProfileView(), WatchlistClient(), WatchlistClientProps
 
-### Community 26 - "Community 26"
+### Community 25 - "Community 25"
 Cohesion: 0.27
 Nodes (11): scout.census_stats, scout.deployer_launches, scout.deployer_scores, scout.deployer_watchlist, scout.dossier_items, scout.dossier_log, scout.dossier_questions, scout.dossiers (+3 more)
 
-### Community 27 - "Community 27"
+### Community 26 - "Community 26"
 Cohesion: 0.27
 Nodes (5): GET(), handleGetDossier(), dossierLog, mockData, FieldCondition
 
-### Community 28 - "Community 28"
+### Community 27 - "Community 27"
 Cohesion: 0.25
 Nodes (4): 07f29ab chore(scout): finalize scout dossiers ecosystem infrastructure and docs, ApiErrorResponse, ApiResponse, ApiSuccessResponse
 
+### Community 28 - "Community 28"
+Cohesion: 0.39
+Nodes (7): 0ec1fbb feat: implement pure vector 3D stacked discs and skymoney protocol showcase banner, 588280e feat(design-system): overhaul to tosca canvas system and colorful pop accents, c82b046 feat(ui): add 3d illustrated showcase cards, floating ambient animations, and interactive hover styles, f224565 feat(landing): implement PRD thematic 3D cards and skymoney protocol showcase banner, FeaturedDossier, LandingClient(), LandingClientProps
+
 ### Community 29 - "Community 29"
+Cohesion: 0.36
+Nodes (4): LibraryClient(), LibraryClientProps, LibraryDossierCard, metadata
+
+### Community 30 - "Community 30"
 Cohesion: 0.29
 Nodes (3): users, deleteAccountSchema, updateHandleSchema
 
@@ -166,9 +170,9 @@ Nodes (3): users, deleteAccountSchema, updateHandleSchema
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `db` connect `Community 6` to `Community 4`, `Community 12`, `Community 13`, `Community 20`, `Community 10`, `Community 0`, `Community 15`, `Community 8`, `Community 17`, `Community 18`, `Community 11`, `Community 29`, `Community 27`, `Community 22`, `Community 16`, `Community 24`?**
+- **Why does `db` connect `Community 6` to `Community 4`, `Community 12`, `Community 13`, `Community 19`, `Community 10`, `Community 0`, `Community 15`, `Community 8`, `Community 17`, `Community 29`, `Community 11`, `Community 30`, `Community 26`, `Community 21`, `Community 16`, `Community 23`?**
   _High betweenness centrality (0.026) - this node is a cross-community bridge._
-- **Why does `getSession()` connect `Community 17` to `Community 4`, `Community 6`, `Community 16`, `Community 12`, `Community 13`, `Community 11`, `Community 15`, `Community 8`, `Community 18`, `Community 29`, `Community 20`, `Community 24`?**
+- **Why does `getSession()` connect `Community 17` to `Community 4`, `Community 6`, `Community 16`, `Community 12`, `Community 13`, `Community 11`, `Community 15`, `Community 8`, `Community 29`, `Community 30`, `Community 19`, `Community 23`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **What connects `verifySchema`, `GetCensusResponseBody`, `CronCensusResponseBody` to the rest of the system?**
   _143 weakly-connected nodes found - possible documentation gaps or missing edges._

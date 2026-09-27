@@ -65,7 +65,6 @@ export function TickerTape({
             setPolledItems(res.slice(0, 10));
           }
         } catch {
-          // ignore background polling error
         }
       }
     }, refreshIntervalMs);
@@ -103,7 +102,7 @@ export function TickerTape({
 
   return (
     <div
-      className="w-full bg-[#080b0f] border-b border-gray-800/80 overflow-hidden font-mono text-xs py-2 select-none relative"
+      className="w-full bg-[#064E4A] border-b border-[rgba(153,246,228,0.2)] overflow-hidden font-mono text-xs py-2 select-none relative"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => {
         if (isVisibleRef.current) setIsPaused(false);
@@ -127,21 +126,21 @@ export function TickerTape({
             <Link
               key={`${item.contractAddress}-${idx}`}
               href={`/d/${item.contractAddress}`}
-              className="inline-flex items-center gap-2 px-3 py-1 bg-[#11161d] hover:bg-[#161c24] border border-gray-800 hover:border-cyan-700/60 rounded-lg transition-colors group"
+              className="inline-flex items-center gap-2 px-3 py-1 bg-[#042F2E] hover:bg-[#064E4A] border border-[rgba(153,246,228,0.25)] hover:border-[#99F6E4] rounded-lg transition-colors group"
             >
-              <span className="font-bold text-white group-hover:text-cyan-300">
+              <span className="font-bold text-[#FFFDF7] group-hover:text-[#99F6E4]">
                 ${item.symbol}
               </span>
-              <span className="text-gray-400 text-[11px]">
+              <span className="text-[#A7F3D0] text-[11px]">
                 {formatMC(item.marketCapUsd)}
               </span>
               <span
                 className={`text-[11px] font-semibold px-1 py-0.5 rounded ${
                   isPos
-                    ? "bg-emerald-950/60 text-emerald-400"
+                    ? "bg-[#99F6E4]/20 text-[#99F6E4] border border-[#99F6E4]/30"
                     : isNeg
-                    ? "bg-red-950/60 text-red-400"
-                    : "bg-gray-800 text-gray-400"
+                    ? "bg-[#FF6B6B]/20 text-[#FF6B6B] border border-[#FF6B6B]/30"
+                    : "bg-[#0D746E] text-[#A7F3D0]"
                 }`}
               >
                 {formatDelta(item.deltaPct)}

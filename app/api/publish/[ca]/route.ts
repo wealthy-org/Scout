@@ -66,7 +66,6 @@ export async function handlePublishDossier(
       }
       bodyData = bodyParse.data;
     } catch {
-      // Empty body is acceptable
     }
 
     let wallet = authenticatedWallet;

@@ -37,7 +37,6 @@ export async function generateMetadata({
       }
     }
   } catch {
-    // DB fallback
   }
 
   return {
@@ -73,7 +72,6 @@ export default async function PublicDossierPage({ params }: PageProps) {
       }
     }
   } catch {
-    // Database query fallback for test environments
   }
 
   return (

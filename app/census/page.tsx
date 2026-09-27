@@ -23,7 +23,6 @@ export default async function CensusPage() {
       isAuthenticated = true;
     }
   } catch {
-    // Session fallback
   }
 
   let stats: CensusPayload | null = null;
@@ -41,7 +40,6 @@ export default async function CensusPage() {
       }
     }
   } catch {
-    // DB query fallback
   }
 
   if (!stats) {

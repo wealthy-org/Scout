@@ -85,18 +85,18 @@ export function PublishDialog({
       role="dialog"
       aria-modal="true"
       aria-label="Publish Dossier Snapshot"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 backdrop-blur-md p-4 animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-[#042F2E]/80 backdrop-blur-md p-4 animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           onClose();
         }
       }}
     >
-      <div className="relative w-full max-w-lg rounded-3xl border border-slate-800 bg-[#0E131F]/95 p-6 sm:p-7 shadow-2xl text-slate-100 font-sans backdrop-blur-2xl">
+      <div className="relative w-full max-w-lg rounded-3xl border border-[rgba(153,246,228,0.3)] bg-[#064E4A] p-6 sm:p-7 shadow-2xl text-[#FFFDF7] font-sans backdrop-blur-2xl">
         <button
           type="button"
           onClick={onClose}
-          className="absolute top-4 right-4 p-1.5 rounded-full text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+          className="absolute top-4 right-4 p-1.5 rounded-full text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20 transition-colors"
           aria-label="Close dialog"
         >
           <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -104,29 +104,29 @@ export function PublishDialog({
           </svg>
         </button>
 
-        <div className="flex items-center gap-2.5 mb-5 border-b border-slate-800 pb-4">
-          <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#00E599] to-[#00F0FF] flex items-center justify-center text-slate-950 font-bold text-sm shadow-md">
+        <div className="flex items-center gap-2.5 mb-5 border-b border-[rgba(153,246,228,0.2)] pb-4">
+          <div className="w-8 h-8 rounded-xl bg-[#FFD166] text-[#042F2E] border-[1.5px] border-[#042F2E] flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#042F2E]">
             🚀
           </div>
           <div>
-            <h2 className="text-base sm:text-lg font-bold tracking-tight text-white">
+            <h2 className="text-base sm:text-lg font-bold tracking-tight text-[#FFFDF7]">
               Publish Dossier Snapshot
             </h2>
-            <p className="text-xs text-slate-400">Create a permanent public case file link</p>
+            <p className="text-xs text-[#A7F3D0]">Create a permanent public case file link</p>
           </div>
         </div>
 
         {activeUrl ? (
           <div className="space-y-5">
-            <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-xs leading-relaxed">
+            <div className="p-4 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 text-[#99F6E4] text-xs leading-relaxed">
               <p className="font-bold mb-1">Dossier successfully published!</p>
-              <p className="text-slate-300">
+              <p className="text-[#FFFDF7]">
                 Your snapshot is now publicly accessible via the permanent link below.
               </p>
             </div>
 
             <div className="space-y-2">
-              <label className="text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              <label className="text-xs font-semibold text-[#A7F3D0] uppercase tracking-wider">
                 Public Shareable Link
               </label>
               <div className="flex items-center gap-2">
@@ -138,12 +138,12 @@ export function PublishDialog({
                       ? `${window.location.origin}${activeUrl}`
                       : activeUrl
                   }
-                  className="flex-1 bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-200 select-all focus:outline-hidden"
+                  className="flex-1 bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#FFFDF7] select-all focus:outline-hidden"
                 />
                 <button
                   type="button"
                   onClick={handleCopyLink}
-                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 font-bold text-xs shadow-md hover:brightness-110 active:scale-95 transition-all"
+                  className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl pop-btn-yellow font-bold text-xs transition-all"
                 >
                   {copied ? (
                     <>
@@ -168,7 +168,7 @@ export function PublishDialog({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold text-xs transition-colors"
+                className="px-5 py-2 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] hover:bg-[#14B8A6]/30 text-[#FFFDF7] font-semibold text-xs transition-colors"
               >
                 Close
               </button>
@@ -176,23 +176,23 @@ export function PublishDialog({
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="p-3.5 rounded-2xl bg-slate-950/80 border border-slate-800 text-xs space-y-1">
+            <div className="p-3.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] text-xs space-y-1">
               <div className="flex items-center justify-between font-bold">
-                <span className="text-white">{symbol ? `$${symbol}` : "TOKEN"}</span>
-                <span className="text-slate-400 font-normal text-[11px] truncate max-w-[200px]">
+                <span className="text-[#FFFDF7]">{symbol ? `$${symbol}` : "TOKEN"}</span>
+                <span className="text-[#A7F3D0] font-normal text-[11px] truncate max-w-[200px]">
                   {contractAddress}
                 </span>
               </div>
-              {name && <div className="text-slate-400">{name}</div>}
+              {name && <div className="text-[#A7F3D0]">{name}</div>}
               {thesis && (
-                <div className="text-slate-300 text-[11px] mt-1 border-t border-slate-800 pt-1 line-clamp-2">
-                  <span className="font-semibold text-cyan-400">Thesis:</span> {thesis}
+                <div className="text-[#FFFDF7] text-[11px] mt-1 border-t border-[rgba(153,246,228,0.15)] pt-1 line-clamp-2">
+                  <span className="font-semibold text-[#99F6E4]">Thesis:</span> {thesis}
                 </div>
               )}
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-xs font-semibold text-slate-300 uppercase tracking-wider">
+              <label className="block text-xs font-semibold text-[#A7F3D0] uppercase tracking-wider">
                 Analyst Handle (Optional)
               </label>
               <input
@@ -201,28 +201,28 @@ export function PublishDialog({
                 value={handle}
                 onChange={(e) => setHandle(e.target.value)}
                 maxLength={30}
-                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3.5 py-2.5 text-xs font-mono text-slate-200 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-500"
+                className="w-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3.5 py-2.5 text-xs font-mono text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:outline-hidden focus:border-[#FFD166]"
               />
-              <p className="text-[10px] text-slate-500">
+              <p className="text-[10px] text-[#A7F3D0]/80">
                 Alphanumeric attribution shown publicly with this snapshot.
               </p>
             </div>
 
             {hasNotes && (
-              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-950/60 border border-slate-800/80">
+              <div className="flex items-start gap-2.5 p-3 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)]">
                 <input
                   type="checkbox"
                   id="include-notes-checkbox"
                   checked={includeNotes}
                   onChange={(e) => setIncludeNotes(e.target.checked)}
-                  className="mt-0.5 rounded border-slate-700 bg-slate-900 text-cyan-400 focus:ring-0"
+                  className="mt-0.5 rounded border-[#A7F3D0] bg-[#042F2E] text-[#FFD166] focus:ring-0"
                 />
                 <label
                   htmlFor="include-notes-checkbox"
-                  className="text-xs text-slate-300 cursor-pointer select-none"
+                  className="text-xs text-[#A7F3D0] cursor-pointer select-none"
                 >
-                  <span className="font-bold text-white">Include private research notes</span>
-                  <span className="block text-[11px] text-slate-400">
+                  <span className="font-bold text-[#FFFDF7]">Include private research notes</span>
+                  <span className="block text-[11px] text-[#A7F3D0]/80">
                     By default, raw personal notes are excluded from public snapshots.
                   </span>
                 </label>
@@ -230,13 +230,13 @@ export function PublishDialog({
             )}
 
             {error && (
-              <div className="p-3 rounded-xl bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs">
+              <div className="p-3 rounded-xl bg-[#FF6B6B]/15 border border-[#FF6B6B]/30 text-[#FF6B6B] text-xs">
                 {error}
               </div>
             )}
 
-            <div className="p-3 rounded-xl bg-slate-950/40 border border-slate-800/60 flex items-start gap-2 text-[11px] text-slate-400">
-              <svg className="h-4 w-4 text-slate-500 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="p-3 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] flex items-start gap-2 text-[11px] text-[#A7F3D0]">
+              <svg className="h-4 w-4 text-[#A7F3D0] shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
               </svg>
               <span>
@@ -244,11 +244,11 @@ export function PublishDialog({
               </span>
             </div>
 
-            <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-slate-800">
+            <div className="flex items-center justify-end gap-2.5 pt-3 border-t border-[rgba(153,246,228,0.2)]">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-semibold text-xs transition-colors"
+                className="px-4 py-2 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/30 text-[#A7F3D0] font-semibold text-xs transition-colors"
               >
                 Cancel
               </button>
@@ -256,7 +256,7 @@ export function PublishDialog({
                 type="button"
                 onClick={handlePublishClick}
                 disabled={loading}
-                className="flex items-center gap-1.5 px-5 py-2 rounded-xl bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 text-slate-950 font-bold text-xs shadow-md hover:brightness-110 active:scale-95 transition-all disabled:opacity-50"
+                className="flex items-center gap-1.5 px-5 py-2 rounded-xl pop-btn-yellow font-bold text-xs transition-all disabled:opacity-50"
               >
                 <span>{loading ? "Publishing..." : "Publish Snapshot"}</span>
                 <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

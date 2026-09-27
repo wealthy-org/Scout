@@ -52,7 +52,6 @@ export default async function AccountPage() {
       }
     }
   } catch {
-    // Session fallback
   }
 
   return <AccountClient isAuthenticated={isAuthenticated} user={userData} />;

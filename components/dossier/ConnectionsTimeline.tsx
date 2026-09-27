@@ -87,8 +87,8 @@ export function ConnectionsTimeline({
   };
 
   return (
-    <div className="bg-[#11161d] border border-gray-800 rounded-xl overflow-hidden shadow-lg">
-      <div className="flex items-center justify-between border-b border-gray-800 px-5 pt-3">
+    <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] overflow-hidden shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] font-sans">
+      <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] px-5 pt-3">
         <div className="flex space-x-2">
           <button
             id="tab-connections-btn"
@@ -96,12 +96,12 @@ export function ConnectionsTimeline({
             onClick={() => setCurrentTab("connections")}
             className={`pb-3 px-3 text-sm font-semibold transition-colors border-b-2 flex items-center space-x-2 ${
               currentTab === "connections"
-                ? "border-cyan-400 text-cyan-400"
-                : "border-transparent text-gray-400 hover:text-gray-200"
+                ? "border-[#99F6E4] text-[#99F6E4]"
+                : "border-transparent text-[#A7F3D0] hover:text-[#FFFDF7]"
             }`}
           >
             <span>Connections</span>
-            <span className="px-1.5 py-0.5 text-xs bg-gray-800 text-gray-300 rounded-full font-mono">
+            <span className="px-1.5 py-0.5 text-xs bg-[#042F2E] text-[#99F6E4] rounded-full font-mono">
               {connections.length}
             </span>
           </button>
@@ -111,12 +111,12 @@ export function ConnectionsTimeline({
             onClick={() => setCurrentTab("timeline")}
             className={`pb-3 px-3 text-sm font-semibold transition-colors border-b-2 flex items-center space-x-2 ${
               currentTab === "timeline"
-                ? "border-cyan-400 text-cyan-400"
-                : "border-transparent text-gray-400 hover:text-gray-200"
+                ? "border-[#99F6E4] text-[#99F6E4]"
+                : "border-transparent text-[#A7F3D0] hover:text-[#FFFDF7]"
             }`}
           >
             <span>Timeline</span>
-            <span className="px-1.5 py-0.5 text-xs bg-gray-800 text-gray-300 rounded-full font-mono">
+            <span className="px-1.5 py-0.5 text-xs bg-[#042F2E] text-[#99F6E4] rounded-full font-mono">
               {timelineLogs.length}
             </span>
           </button>
@@ -127,7 +127,7 @@ export function ConnectionsTimeline({
             id="add-connection-btn"
             type="button"
             onClick={() => setIsModalOpen(true)}
-            className="mb-2 px-3 py-1.5 text-xs font-medium text-cyan-300 bg-cyan-950/40 hover:bg-cyan-900/60 border border-cyan-800/60 rounded-lg transition-colors flex items-center space-x-1"
+            className="mb-2 px-3 py-1.5 text-xs font-bold pop-btn-yellow rounded-xl transition-all flex items-center space-x-1"
           >
             <span className="text-base leading-none">+</span>
             <span>Add Connection</span>
@@ -139,7 +139,7 @@ export function ConnectionsTimeline({
         {currentTab === "connections" ? (
           <div>
             {connections.length === 0 ? (
-              <div className="text-center py-8 text-gray-500 text-sm">
+              <div className="text-center py-8 text-[#A7F3D0]/70 text-sm">
                 No connected tokens found. Add token relations or hypotheses manually.
               </div>
             ) : (
@@ -147,26 +147,26 @@ export function ConnectionsTimeline({
                 {connections.map((conn, idx) => (
                   <div
                     key={conn.id || `conn-${idx}`}
-                    className="p-3.5 rounded-lg bg-[#161c24] border border-gray-800 hover:border-gray-700 transition-colors flex flex-col justify-between"
+                    className="p-3.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#99F6E4] transition-colors flex flex-col justify-between"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-2">
                         <Link
                           href={`/d/${conn.contractAddress}`}
-                          className="font-mono text-sm font-bold text-white hover:text-cyan-400 transition-colors flex items-center space-x-2"
+                          className="font-mono text-sm font-bold text-[#FFFDF7] hover:text-[#99F6E4] transition-colors flex items-center space-x-2"
                         >
                           <span>{conn.symbol || "UNKNOWN"}</span>
                           {conn.name && (
-                            <span className="text-xs text-gray-400 font-sans font-normal">
+                            <span className="text-xs text-[#A7F3D0] font-sans font-normal">
                               ({conn.name})
                             </span>
                           )}
                         </Link>
                         <span
-                          className={`text-[11px] px-2 py-0.5 rounded-full font-medium ${
+                          className={`text-[11px] px-2 py-0.5 rounded-full font-bold uppercase border-[1.5px] border-[#042F2E] ${
                             conn.type === "confirmed"
-                              ? "bg-emerald-950/60 text-emerald-400 border border-emerald-800/60"
-                              : "bg-amber-950/60 text-amber-400 border border-amber-800/60 border-dashed"
+                              ? "bg-[#99F6E4] text-[#042F2E]"
+                              : "bg-[#FFD166] text-[#042F2E]"
                           }`}
                         >
                           {conn.type === "confirmed" ? "Confirmed" : "Hypothesis"}
@@ -174,17 +174,17 @@ export function ConnectionsTimeline({
                       </div>
 
                       {conn.reason && (
-                        <p className="text-xs text-gray-300 leading-relaxed mb-2">
+                        <p className="text-xs text-[#A7F3D0] leading-relaxed mb-2">
                           {conn.reason}
                         </p>
                       )}
                     </div>
 
-                    <div className="pt-2 border-t border-gray-800/60 flex items-center justify-between text-[11px] text-gray-500 font-mono">
+                    <div className="pt-2 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between text-[11px] text-[#A7F3D0] font-mono">
                       <span>{conn.contractAddress.slice(0, 8)}...{conn.contractAddress.slice(-6)}</span>
                       <Link
                         href={`/d/${conn.contractAddress}`}
-                        className="text-cyan-400 hover:underline"
+                        className="text-[#99F6E4] hover:text-[#FFFDF7] hover:underline"
                       >
                         View Dossier &rarr;
                       </Link>
@@ -197,7 +197,7 @@ export function ConnectionsTimeline({
         ) : (
           <div>
             {sortedLogs.length === 0 ? (
-              <div className="text-center py-8 text-gray-500 text-sm">
+              <div className="text-center py-8 text-[#A7F3D0]/70 text-sm">
                 No timeline logs recorded for this dossier.
               </div>
             ) : (
@@ -205,12 +205,12 @@ export function ConnectionsTimeline({
                 {sortedLogs.map((log) => (
                   <div
                     key={log.id}
-                    className="p-2.5 rounded bg-[#161c24] border-l-2 border-cyan-500/80 pl-3 flex flex-col space-y-1"
+                    className="p-2.5 rounded-xl bg-[#042F2E] border-l-2 border-[#99F6E4] pl-3 flex flex-col space-y-1"
                   >
-                    <div className="text-[11px] text-cyan-400 font-semibold">
+                    <div className="text-[11px] text-[#99F6E4] font-semibold">
                       {formatLogDate(log.at)}
                     </div>
-                    <div className="text-gray-300 font-sans text-xs leading-relaxed">
+                    <div className="text-[#FFFDF7] font-sans text-xs leading-relaxed">
                       {log.text}
                     </div>
                   </div>
@@ -222,14 +222,14 @@ export function ConnectionsTimeline({
       </div>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="bg-[#161c24] border border-gray-700 rounded-xl p-6 w-full max-w-md shadow-2xl">
-            <h3 className="text-lg font-bold text-white mb-4">Add Token Connection</h3>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-[#042F2E]/80 backdrop-blur-sm p-4">
+          <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.3)] rounded-3xl p-6 w-full max-w-md shadow-2xl space-y-4">
+            <h3 className="text-lg font-bold text-[#FFFDF7]">Add Token Connection</h3>
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
                 <label
                   htmlFor="connection-ca-input"
-                  className="block text-xs font-medium text-gray-300 mb-1"
+                  className="block text-xs font-semibold uppercase tracking-wider text-[#A7F3D0] mb-1"
                 >
                   Contract Address (CA) *
                 </label>
@@ -242,14 +242,14 @@ export function ConnectionsTimeline({
                   onChange={(e) =>
                     setFormData({ ...formData, contractAddress: e.target.value })
                   }
-                  className="w-full bg-[#11161d] border border-gray-700 rounded-lg px-3 py-2 text-sm text-white font-mono placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3 py-2 text-sm text-[#FFFDF7] font-mono placeholder:text-[#A7F3D0]/50 focus:outline-hidden focus:border-[#99F6E4]"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="connection-symbol-input"
-                  className="block text-xs font-medium text-gray-300 mb-1"
+                  className="block text-xs font-semibold uppercase tracking-wider text-[#A7F3D0] mb-1"
                 >
                   Symbol
                 </label>
@@ -261,14 +261,14 @@ export function ConnectionsTimeline({
                   onChange={(e) =>
                     setFormData({ ...formData, symbol: e.target.value })
                   }
-                  className="w-full bg-[#11161d] border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3 py-2 text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:outline-hidden focus:border-[#99F6E4]"
                 />
               </div>
 
               <div>
                 <label
                   htmlFor="connection-type-select"
-                  className="block text-xs font-medium text-gray-300 mb-1"
+                  className="block text-xs font-semibold uppercase tracking-wider text-[#A7F3D0] mb-1"
                 >
                   Connection Type
                 </label>
@@ -281,7 +281,7 @@ export function ConnectionsTimeline({
                       type: e.target.value as "confirmed" | "hypothesis",
                     })
                   }
-                  className="w-full bg-[#11161d] border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3 py-2 text-sm text-[#FFFDF7] focus:outline-hidden focus:border-[#99F6E4]"
                 >
                   <option value="hypothesis">Hypothesis (Suspected link/cluster)</option>
                   <option value="confirmed">Confirmed (On-chain verified)</option>
@@ -291,7 +291,7 @@ export function ConnectionsTimeline({
               <div>
                 <label
                   htmlFor="connection-reason-input"
-                  className="block text-xs font-medium text-gray-300 mb-1"
+                  className="block text-xs font-semibold uppercase tracking-wider text-[#A7F3D0] mb-1"
                 >
                   Reason / Hypothesis Notes
                 </label>
@@ -303,7 +303,7 @@ export function ConnectionsTimeline({
                   onChange={(e) =>
                     setFormData({ ...formData, reason: e.target.value })
                   }
-                  className="w-full bg-[#11161d] border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-500 focus:outline-none focus:border-cyan-500"
+                  className="w-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3 py-2 text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:outline-hidden focus:border-[#99F6E4]"
                 />
               </div>
 
@@ -311,14 +311,14 @@ export function ConnectionsTimeline({
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-xs font-medium text-gray-300 hover:text-white bg-gray-800 hover:bg-gray-700 rounded-lg transition-colors"
+                  className="px-4 py-2 text-xs font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[rgba(153,246,228,0.2)] rounded-xl transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting || isLoading}
-                  className="px-4 py-2 text-xs font-medium text-black bg-cyan-400 hover:bg-cyan-300 rounded-lg transition-colors disabled:opacity-50"
+                  className="px-4 py-2 text-xs font-bold pop-btn-yellow rounded-xl transition-all disabled:opacity-50"
                 >
                   {isSubmitting ? "Saving..." : "Save Connection"}
                 </button>

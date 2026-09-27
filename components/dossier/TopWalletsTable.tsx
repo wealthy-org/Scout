@@ -38,13 +38,13 @@ export function TopWalletsTable({
   const rows = wallets.slice(0, 12);
 
   return (
-    <div className="border border-border bg-surface shadow-sm">
-      <div className="flex items-center justify-between border-b border-border px-4 py-3">
+    <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] p-4 shadow-xl">
+      <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] px-2 py-3">
         <div className="flex items-center gap-2">
-          <span className="font-mono text-xs font-bold uppercase tracking-wider text-ink">
+          <span className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
             Top Wallets
           </span>
-          <span className="font-mono text-[10px] text-ink-muted">
+          <span className="font-mono text-[10px] text-[#A7F3D0]">
             (Top {rows.length} by volume)
           </span>
         </div>
@@ -53,7 +53,7 @@ export function TopWalletsTable({
       <div className="overflow-x-auto">
         <table className="w-full text-left font-mono text-xs">
           <thead>
-            <tr className="border-b border-border bg-neutral-50 dark:bg-neutral-900/50 text-[10px] uppercase text-ink-muted">
+            <tr className="border-b border-[rgba(153,246,228,0.2)] text-[10px] uppercase text-[#A7F3D0]">
               <th className="py-2.5 px-3">#</th>
               <th className="py-2.5 px-3">Wallet</th>
               <th className="py-2.5 px-3">Tags</th>
@@ -62,12 +62,12 @@ export function TopWalletsTable({
               <th className="py-2.5 px-3 text-right">Trades</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-border">
+          <tbody className="divide-y divide-[rgba(153,246,228,0.15)]">
             {rows.length === 0 ? (
               <tr>
                 <td
                   colSpan={6}
-                  className="py-8 text-center text-xs text-ink-muted"
+                  className="py-8 text-center text-xs text-[#A7F3D0]/70"
                 >
                   No wallet records found
                 </td>
@@ -98,26 +98,26 @@ export function TopWalletsTable({
                 return (
                   <tr
                     key={row.address || idx}
-                    className="transition-colors hover:bg-neutral-50 dark:hover:bg-neutral-900/30"
+                    className="transition-colors hover:bg-[#064E4A]/60"
                   >
-                    <td className="py-2 px-3 text-ink-muted">{idx + 1}</td>
+                    <td className="py-2 px-3 text-[#A7F3D0]">{idx + 1}</td>
                     <td className="py-2 px-3">
                       <div className="flex items-center gap-2">
                         {isDep ? (
                           <Link
                             href={`/deployer/${row.address}`}
-                            className="font-bold text-ink underline decoration-amber-500/50 underline-offset-2 hover:text-amber-600 dark:hover:text-amber-400"
+                            className="font-bold text-[#99F6E4] underline decoration-[#FFD166]/50 underline-offset-2 hover:text-[#FFFDF7]"
                           >
                             {shortAddr}
                           </Link>
                         ) : (
-                          <span className="text-ink">{shortAddr}</span>
+                          <span className="text-[#FFFDF7]">{shortAddr}</span>
                         )}
                         <button
                           type="button"
                           onClick={() => handleCopy(row.address)}
                           title="Copy address"
-                          className="text-ink-muted hover:text-ink"
+                          className="text-[#A7F3D0] hover:text-[#FFFDF7]"
                         >
                           <svg
                             className="h-3 w-3"
@@ -134,7 +134,7 @@ export function TopWalletsTable({
                           </svg>
                         </button>
                         {copiedAddress === row.address && (
-                          <span className="text-[9px] font-bold text-emerald-500">
+                          <span className="text-[9px] font-bold text-[#99F6E4]">
                             Copied
                           </span>
                         )}
@@ -143,37 +143,37 @@ export function TopWalletsTable({
                     <td className="py-2 px-3">
                       <div className="flex flex-wrap gap-1">
                         {isDep && (
-                          <span className="border border-amber-500/30 bg-amber-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase text-amber-600 dark:text-amber-400">
+                          <span className="border-[1.5px] border-[#042F2E] bg-[#FFD166] px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#042F2E]">
                             Deployer
                           </span>
                         )}
                         {isFee && (
-                          <span className="border border-cyan-500/30 bg-cyan-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase text-cyan-600 dark:text-cyan-400">
+                          <span className="border-[1.5px] border-[#042F2E] bg-[#99F6E4] px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#042F2E]">
                             Fee Recipient
                           </span>
                         )}
                         {isEarly && (
-                          <span className="border border-purple-500/30 bg-purple-500/10 px-1.5 py-0.5 text-[9px] font-bold uppercase text-purple-600 dark:text-purple-400">
+                          <span className="border-[1.5px] border-[#042F2E] bg-[#C084FC] px-1.5 py-0.5 text-[9px] font-bold uppercase text-[#042F2E]">
                             Early
                           </span>
                         )}
                       </div>
                     </td>
-                    <td className="py-2 px-3 text-right text-ink">
+                    <td className="py-2 px-3 text-right text-[#FFFDF7]">
                       ${Math.round(row.volume).toLocaleString()}
                     </td>
                     <td
                       className={`py-2 px-3 text-right font-bold ${
                         isNetPositive
-                          ? "text-emerald-600 dark:text-emerald-400"
-                          : "text-red-600 dark:text-red-400"
+                          ? "text-[#99F6E4]"
+                          : "text-[#FF6B6B]"
                       }`}
                     >
                       {`${isNetPositive ? "+" : "-"}$${Math.abs(
                         Math.round(row.netFlow)
                       ).toLocaleString()}`}
                     </td>
-                    <td className="py-2 px-3 text-right text-ink-muted">
+                    <td className="py-2 px-3 text-right text-[#A7F3D0]">
                       {row.tradeCount ?? "-"}
                     </td>
                   </tr>
