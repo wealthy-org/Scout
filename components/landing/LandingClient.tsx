@@ -100,7 +100,7 @@ export function LandingClient({
                 value={caInput}
                 onChange={(e) => setCaInput(e.target.value)}
                 placeholder="Paste token contract address (0x...) to open dossier"
-                className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-hidden font-mono"
+                className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-[#FFFDF7] placeholder-[#A7F3D0]/60 outline-none focus:outline-none focus-visible:outline-none border-none shadow-none font-mono"
               />
               <button
                 type="submit"

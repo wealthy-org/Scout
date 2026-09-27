@@ -104,6 +104,13 @@ body {
   outline-offset: 2px;
 }
 
+input:focus,
+input:focus-visible,
+textarea:focus,
+textarea:focus-visible {
+  outline: none;
+}
+
 .tosca-surface-deep {
   background-color: #064E4A;
   border: 1px solid rgba(153, 246, 228, 0.25);
