@@ -42,9 +42,10 @@ describe("Pixel-Perfect Route Loading Skeletons Verification (TICKET-100)", () =
     assert.ok(content.includes("lg:col-span-4"), "Feed loading skeleton must define 4-col TradeTape and GraduationTape container");
   });
 
-  test("app/loading.tsx matches LandingClient layout with pt-28 hero, 4 macro metrics, 3 module cards, and showcase banner", () => {
+  test("app/loading.tsx matches LandingClient layout with 2-column hero, 4 macro metrics, 3 module cards, and showcase banner", () => {
     const content = fs.readFileSync(path.resolve(process.cwd(), "app/loading.tsx"), "utf-8");
-    assert.ok(content.includes("pt-28"), "Root loading skeleton must match LandingClient top padding");
+    assert.ok(content.includes("pt-28") || content.includes("pt-24"), "Root loading skeleton must match LandingClient top padding");
+    assert.ok(content.includes("lg:grid-cols-12"), "Root loading skeleton must match 2-column hero layout");
     assert.ok(content.includes("md:grid-cols-4"), "Root loading skeleton must match 4 macro stats grid");
     assert.ok(content.includes("md:grid-cols-3"), "Root loading skeleton must match 3 modules 3D grid");
   });

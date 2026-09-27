@@ -3,14 +3,14 @@
   "branchName": "main",
   "worktreePath": "/Users/raka/Developer/repositories/projects/wealthy-people-org/scout-dir/scout",
   "upstream": "origin/main",
-  "mergeBase": "f92a361b9c13a890e157735e96cf9210f2de03d5",
+  "mergeBase": "2e3f0af12170199b50950fd3e61d3b03844c6f0d",
   "firstSeenHead": "ccae023a0f3558315d2f55f26ce59c4729a7b2fe",
-  "lastSeenHead": "f92a361b9c13a890e157735e96cf9210f2de03d5",
-  "lastAnalyzedHead": "f92a361b9c13a890e157735e96cf9210f2de03d5",
+  "lastSeenHead": "2e3f0af12170199b50950fd3e61d3b03844c6f0d",
+  "lastAnalyzedHead": "2e3f0af12170199b50950fd3e61d3b03844c6f0d",
   "stale": false,
   "staleReason": null,
   "staleSince": null,
   "lifecycleEvent": null,
   "createdAt": "2026-09-25T13:44:37.728Z",
-  "updatedAt": "2026-09-27T14:13:42.721Z"
+  "updatedAt": "2026-09-27T15:53:33.359Z"
 }

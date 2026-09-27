@@ -4,7 +4,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { LandingClient } from "../LandingClient";
 
-describe("Tosca Canvas & Colorful Pop Landing Page (TICKET-98)", () => {
+describe("Tosca Canvas & Colorful Pop Clean Hero Landing Page (TICKET-101)", () => {
   const mockStats = {
     total_launches: 1620,
     unique_deployers: 870,
@@ -15,18 +15,35 @@ describe("Tosca Canvas & Colorful Pop Landing Page (TICKET-98)", () => {
     computed_at: new Date().toISOString(),
   };
 
-  test("renders Tosca Main #0D746E canvas background and Ink Light heading", () => {
+  test("renders Tosca Main #0D746E canvas background and 2-column hero layout", () => {
     const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
-    assert.ok(html.includes("bg-[#0D746E]") || html.includes("bg-canvas-main") || html.includes("#0D746E"));
+    assert.ok(html.includes("bg-[#0D746E]") || html.includes("#0D746E"));
     assert.ok(html.includes("Surveillance Engine Active"));
     assert.ok(html.includes("Every Deployer Has A History"));
-    assert.ok(html.includes("Open Case File"));
+    assert.ok(html.includes("lg:grid-cols-12") || html.includes("grid-cols-1 lg:grid-cols-2") || html.includes("lg:grid-cols-7"));
   });
 
-  test("renders Sunshine Yellow CTA button with Deep Pine text and hard border", () => {
+  test("preserves search bar with Open Case File button and focus-within container", () => {
     const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
-    assert.ok(html.includes("bg-[#FFD166]") || html.includes("bg-pop-yellow") || html.includes("#FFD166"));
-    assert.ok(html.includes("text-[#042F2E]") || html.includes("text-ink-dark") || html.includes("#042F2E"));
+    assert.ok(html.includes("Open Case File"));
+    assert.ok(html.includes("Paste token contract address"));
+    assert.ok(html.includes("focus-within:border-[#FFD166]"));
+    assert.ok(html.includes("bg-[#FFD166]") || html.includes("#FFD166"));
+  });
+
+  test("renders right-column animated on-chain surveillance core and floating telemetry cards", () => {
+    const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
+    assert.ok(html.includes("SURVEILLANCE RADAR") || html.includes("LIVE RADAR"));
+    assert.ok(html.includes("TOP REPUTATION DEPLOYER") || html.includes("TOP DEPLOYER"));
+    assert.ok(html.includes("84 / 100") || html.includes("84"));
+    assert.ok(html.includes("GREEN BAND"));
+  });
+
+  test("renders quick telemetry link pills for Feed, Map, and Census", () => {
+    const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
+    assert.ok(html.includes("Launch Radar Feed") || html.includes("Launch Feed"));
+    assert.ok(html.includes("Constellation Graph") || html.includes("Constellation Map"));
+    assert.ok(html.includes("Creator Census"));
   });
 
   test("renders 4 Colorful Pop macro metric cards with distinct pop accent tints", () => {
@@ -52,7 +69,7 @@ describe("Tosca Canvas & Colorful Pop Landing Page (TICKET-98)", () => {
     assert.ok(html.includes("Publish"));
   });
 
-  test("renders 3 PRD-thematic 3D module showcase cards with layered artwork and Tosca deep squircle containers", () => {
+  test("renders 3 PRD-thematic 3D module showcase cards with clean Tosca-toned artwork", () => {
     const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
     assert.ok(html.includes("What Deployer Scoring Unlocks"));
     assert.ok(html.includes("card-reputation-shield.jpg"));

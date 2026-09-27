@@ -71,71 +71,140 @@ export function LandingClient({
 
       <Header walletAddress={userAddress} isAuthenticated={isAuthenticated} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 space-y-16 sm:space-y-24">
-        <section className="relative pt-6 sm:pt-12 pb-8 sm:pb-12 text-center max-w-4xl mx-auto space-y-8">
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.3)] text-[#99F6E4] text-xs font-semibold shadow-[0_0_25px_rgba(4,47,46,0.35)] backdrop-blur-md animate-pulse">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80] shadow-[0_0_10px_#4ADE80]" />
-            <span>Surveillance Engine Active • Robinhood Chain 4663</span>
-          </div>
-
-          <div className="space-y-4">
-            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-[#FFFDF7] tracking-tight leading-[1.08]">
-              Every Deployer Has A History.{" "}
-              <span className="bg-gradient-to-r from-[#FFD166] via-[#FF9F43] to-[#FF6B6B] bg-clip-text text-transparent">
-                Scout Remembers.
-              </span>
-            </h1>
-            <p className="text-base sm:text-xl text-[#A7F3D0] max-w-2xl mx-auto leading-relaxed font-normal">
-              Autonomous on-chain forensic terminal tracking Pons V2 token launches, deployer reputation scores, and cross-wallet origin graphs in real-time.
-            </p>
-          </div>
-
-          <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto relative group">
-            <div className="relative flex flex-col sm:flex-row items-stretch gap-2.5 p-2 rounded-2xl sm:rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.35)] group-hover:border-[#FFD166] focus-within:border-[#FFD166] focus-within:ring-2 focus-within:ring-[#FFD166]/30 shadow-[0_10px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl transition-all duration-300">
-              <div className="flex items-center pl-4 text-[#A7F3D0]">
-                <span className="text-lg">🔍</span>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-20 space-y-16 sm:space-y-24">
+        <section className="pt-6 sm:pt-10 pb-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+            <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
+              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.3)] text-[#99F6E4] text-xs font-semibold shadow-[0_0_25px_rgba(4,47,46,0.35)] backdrop-blur-md">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80] shadow-[0_0_10px_#4ADE80] animate-pulse" />
+                <span>Surveillance Engine Active • Robinhood Chain 4663</span>
               </div>
-              <input
-                type="text"
-                value={caInput}
-                onChange={(e) => setCaInput(e.target.value)}
-                placeholder="Paste token contract address (0x...) to open dossier"
-                className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-[#FFFDF7] placeholder-[#A7F3D0]/60 outline-none focus:outline-none focus-visible:outline-none border-none shadow-none font-mono"
-              />
-              <button
-                type="submit"
-                className="px-7 py-3 rounded-xl sm:rounded-full bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-[1.5px] border-[#042F2E] font-black text-sm uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200 shrink-0"
-              >
-                Open Case File
-              </button>
-            </div>
-            {inputError && (
-              <p className="text-xs text-[#FB7185] mt-2 font-mono text-center">
-                {inputError}
-              </p>
-            )}
-          </form>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs text-[#A7F3D0]">
-            <span className="font-semibold text-[#FFFDF7]">Or inspect live telemetry:</span>
-            <Link
-              href="/feed"
-              className="px-3.5 py-1.5 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.25)] hover:border-[#FFD166] text-[#FFD166] font-medium transition-all"
-            >
-              📡 Launch Radar Feed
-            </Link>
-            <Link
-              href="/map"
-              className="px-3.5 py-1.5 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.25)] hover:border-[#C084FC] text-[#C084FC] font-medium transition-all"
-            >
-              🕸️ Constellation Graph
-            </Link>
-            <Link
-              href="/census"
-              className="px-3.5 py-1.5 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.25)] hover:border-[#4ADE80] text-[#4ADE80] font-medium transition-all"
-            >
-              📊 Creator Census
-            </Link>
+              <div className="space-y-4">
+                <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black text-[#FFFDF7] tracking-tight leading-[1.08]">
+                  Every Deployer Has A History.{" "}
+                  <span className="bg-gradient-to-r from-[#FFD166] via-[#FF9F43] to-[#FF6B6B] bg-clip-text text-transparent">
+                    Scout Remembers.
+                  </span>
+                </h1>
+                <p className="text-base sm:text-lg xl:text-xl text-[#A7F3D0] max-w-xl leading-relaxed font-normal">
+                  Autonomous on-chain forensic terminal tracking Pons V2 token launches, deployer reputation scores, and cross-wallet origin graphs in real-time.
+                </p>
+              </div>
+
+              <form onSubmit={handleSearchSubmit} className="relative group max-w-xl">
+                <div className="relative flex flex-col sm:flex-row items-stretch gap-2.5 p-2 rounded-2xl sm:rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.35)] group-hover:border-[#FFD166] focus-within:border-[#FFD166] focus-within:ring-2 focus-within:ring-[#FFD166]/30 shadow-[0_10px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl transition-all duration-300">
+                  <div className="flex items-center pl-4 text-[#A7F3D0]">
+                    <span className="text-lg">🔍</span>
+                  </div>
+                  <input
+                    type="text"
+                    value={caInput}
+                    onChange={(e) => setCaInput(e.target.value)}
+                    placeholder="Paste token contract address (0x...) to open dossier"
+                    className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-[#FFFDF7] placeholder-[#A7F3D0]/60 outline-none focus:outline-none focus-visible:outline-none border-none shadow-none font-mono"
+                  />
+                  <button
+                    type="submit"
+                    className="px-7 py-3 rounded-xl sm:rounded-full bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-[1.5px] border-[#042F2E] font-black text-sm uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200 shrink-0"
+                  >
+                    Open Case File
+                  </button>
+                </div>
+                {inputError && (
+                  <p className="text-xs text-[#FB7185] mt-2 font-mono">
+                    {inputError}
+                  </p>
+                )}
+              </form>
+
+              <div className="flex flex-wrap items-center gap-3 pt-1 text-xs text-[#A7F3D0]">
+                <span className="font-semibold text-[#FFFDF7]">Or inspect live telemetry:</span>
+                <Link
+                  href="/feed"
+                  className="px-3.5 py-1.5 rounded-full bg-[#064E4A] border border-[rgba(153,246,228,0.25)] hover:border-[#FFD166] text-[#FFD166] font-medium transition-all shadow-sm"
+                >
+                  📡 Launch Radar Feed
+                </Link>
+                <Link
+                  href="/map"
+                  className="px-3.5 py-1.5 rounded-full bg-[#064E4A] border border-[rgba(153,246,228,0.25)] hover:border-[#C084FC] text-[#C084FC] font-medium transition-all shadow-sm"
+                >
+                  🕸️ Constellation Graph
+                </Link>
+                <Link
+                  href="/census"
+                  className="px-3.5 py-1.5 rounded-full bg-[#064E4A] border border-[rgba(153,246,228,0.25)] hover:border-[#4ADE80] text-[#4ADE80] font-medium transition-all shadow-sm"
+                >
+                  📊 Creator Census
+                </Link>
+              </div>
+            </div>
+
+            <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0">
+              <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#14B8A6]/20 via-[#99F6E4]/20 to-[#FFD166]/15 blur-3xl" />
+
+                <div className="absolute inset-4 rounded-full border border-[rgba(153,246,228,0.2)] animate-[spin_30s_linear_infinite]" />
+                <div className="absolute inset-12 rounded-full border border-dashed border-[rgba(153,246,228,0.3)] animate-[spin_20s_linear_infinite_reverse]" />
+                <div className="absolute inset-20 rounded-full border border-[rgba(255,209,102,0.25)]" />
+
+                <div className="absolute inset-6 rounded-full overflow-hidden pointer-events-none opacity-40">
+                  <div className="w-full h-full bg-[conic-gradient(from_0deg,transparent_0_300deg,rgba(153,246,228,0.4)_360deg)] animate-[spin_6s_linear_infinite]" />
+                </div>
+
+                <div className="relative z-10 w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-tr from-[#064E4A] via-[#0D746E] to-[#14B8A6] border-2 border-[#99F6E4]/60 p-6 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(153,246,228,0.3)] backdrop-blur-xl">
+                  <div className="w-14 h-14 rounded-2xl bg-[#042F2E] border border-[#99F6E4] flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(153,246,228,0.5)]">
+                    🛡️
+                  </div>
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#99F6E4] mt-2">
+                    Scout Core
+                  </div>
+                  <div className="text-[10px] text-[#A7F3D0] font-mono mt-0.5">
+                    Sub-Second Audit
+                  </div>
+                </div>
+
+                <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 z-20 px-3.5 py-2 rounded-2xl bg-[#042F2E]/95 border border-[rgba(153,246,228,0.3)] shadow-[0_10px_25px_rgba(4,47,46,0.7)] backdrop-blur-xl flex items-center gap-2 text-[11px] font-mono">
+                  <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse shadow-[0_0_8px_#4ADE80]" />
+                  <span className="text-[#99F6E4] font-bold">SURVEILLANCE RADAR</span>
+                  <span className="text-[#A7F3D0]/70">#27,195,000</span>
+                </div>
+
+                <div className="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-4 z-20 p-4 sm:p-5 rounded-3xl bg-[#064E4A]/95 border border-[rgba(153,246,228,0.35)] shadow-[0_15px_35px_rgba(4,47,46,0.8)] backdrop-blur-2xl space-y-2.5 max-w-[260px] sm:max-w-[280px]">
+                  <div className="flex items-center justify-between text-[10px] uppercase font-bold text-[#A7F3D0]">
+                    <span>TOP DEPLOYER</span>
+                    <span className="text-[#4ADE80] bg-[#4ADE80]/15 px-2 py-0.5 rounded-full border border-[#4ADE80]/30 font-extrabold">GREEN BAND</span>
+                  </div>
+                  <div className="flex items-baseline justify-between">
+                    <div className="text-xs font-mono text-[#99F6E4]">0x89e2...89b2</div>
+                    <div className="text-2xl font-black text-[#FFFDF7]">84 <span className="text-xs text-[#A7F3D0]">/ 100</span></div>
+                  </div>
+                  <div className="flex gap-1 h-2">
+                    {Array.from({ length: 10 }).map((_, i) => (
+                      <div
+                        key={i}
+                        className={`flex-1 rounded-xs ${
+                          i < 8 ? "bg-[#99F6E4] shadow-[0_0_6px_rgba(153,246,228,0.6)]" : "bg-[#042F2E]"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                  <div className="text-[10px] text-[#A7F3D0] flex justify-between pt-0.5">
+                    <span>7 Graduations</span>
+                    <span className="text-[#FFD166]">0 DOA Rugs</span>
+                  </div>
+                </div>
+
+                <div className="absolute top-1/2 -left-4 sm:-left-8 -translate-y-1/2 z-20 px-3.5 py-2 rounded-2xl bg-[#064E4A]/95 border border-[#FFD166]/40 shadow-[0_10px_25px_rgba(4,47,46,0.7)] backdrop-blur-xl flex items-center gap-2.5">
+                  <span className="text-base">⚡</span>
+                  <div>
+                    <div className="text-[10px] uppercase font-bold text-[#FFD166]">Bonding Velocity</div>
+                    <div className="text-xs font-black text-[#FFFDF7]">88.4% Graduated</div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
