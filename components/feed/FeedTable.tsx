@@ -128,8 +128,8 @@ export function FeedTable({
             onClick={() => setActiveTab("most_traded")}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "most_traded"
-                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
-                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
+                ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
+                : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/10"
             }`}
           >
             Most Traded
@@ -139,8 +139,8 @@ export function FeedTable({
             onClick={() => setActiveTab("new_launches")}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "new_launches"
-                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
-                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
+                ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
+                : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/10"
             }`}
           >
             New Launches
@@ -150,8 +150,8 @@ export function FeedTable({
             onClick={() => setActiveTab("near_graduation")}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "near_graduation"
-                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
-                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
+                ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
+                : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/10"
             }`}
           >
             Near Graduation
@@ -161,8 +161,8 @@ export function FeedTable({
             onClick={() => setActiveTab("repeat_deployers")}
             className={`px-4 py-2 rounded-full text-xs font-semibold transition-all duration-200 ${
               activeTab === "repeat_deployers"
-                ? "bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-bold shadow-[0_0_20px_rgba(0,240,255,0.35)]"
-                : "text-slate-400 hover:text-white bg-white/5 hover:bg-white/10"
+                ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
+                : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/10"
             }`}
           >
             Repeat Deployers
@@ -176,7 +176,7 @@ export function FeedTable({
             placeholder="Search by symbol, name, or CA..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-64 bg-slate-950/80 border border-white/10 rounded-full px-4 py-2 text-xs text-slate-100 placeholder:text-slate-500 focus:outline-hidden focus:border-cyan-400/80 focus:shadow-[0_0_15px_rgba(0,240,255,0.2)] transition-all"
+            className="w-full md:w-64 bg-[#042F2E]/80 border border-[rgba(153,246,228,0.25)] rounded-full px-4 py-2 text-xs text-[#FFFDF7] placeholder-[#A7F3D0]/50 focus:outline-hidden focus:border-[#FFD166] transition-all"
           />
         </div>
       </div>

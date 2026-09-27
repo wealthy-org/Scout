@@ -253,9 +253,13 @@
     "image": [
       "public/file.svg",
       "public/globe.svg",
+      "public/images/banner-intelligence-core.jpg",
       "public/images/banner-scout-disc.jpg",
+      "public/images/card-constellation-graph.jpg",
       "public/images/card-constellation-nodes.jpg",
       "public/images/card-reputation-score.jpg",
+      "public/images/card-reputation-shield.jpg",
+      "public/images/card-surveillance-radar.jpg",
       "public/images/card-surveillance-tape.jpg",
       "public/next.svg",
       "public/vercel.svg",
@@ -263,8 +267,8 @@
     ],
     "video": []
   },
-  "total_files": 254,
-  "total_words": 141491,
+  "total_files": 258,
+  "total_words": 202533,
   "needs_graph": true,
   "warning": null,
   "skipped_sensitive": [
@@ -273,7 +277,7 @@
   "graphifyignore_patterns": 27,
   "git": {
     "source_owner": "git",
-    "source_hash": "0ec1fbbbafd1da11b362cffa049099b995ccfa10",
+    "source_hash": "f224565a959fe6a6c8335e0e25d081768ef79ff6",
     "branches": [
       "main"
     ],
@@ -286,11 +290,11 @@
     "source": "default-auto",
     "root": ".",
     "git_root": ".",
-    "head": "0ec1fbbbafd1da11b362cffa049099b995ccfa10",
-    "candidate_count": 348,
-    "included_count": 254,
-    "excluded_untracked_count": 4,
-    "excluded_ignored_count": 44079,
+    "head": "f224565a959fe6a6c8335e0e25d081768ef79ff6",
+    "candidate_count": 352,
+    "included_count": 258,
+    "excluded_untracked_count": 0,
+    "excluded_ignored_count": 44081,
     "excluded_sensitive_count": 1,
     "missing_committed_count": 0,
     "warnings": [],

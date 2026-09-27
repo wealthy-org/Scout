@@ -468,8 +468,8 @@
     "hash": "3bd0e1078f6d90ed47d286aff5755b04"
   },
   "components/feed/FeedTable.tsx": {
-    "mtime": 1790438453442.838,
-    "hash": "d4b40cce63b0e61cea104fae0d369818"
+    "mtime": 1790514018376.4092,
+    "hash": "22a72094db6ac1fc2ba66a4bb998362f"
   },
   "components/feed/FeedTiles.tsx": {
     "mtime": 1790438428359.5522,
@@ -516,16 +516,16 @@
     "hash": "0a04094757bc8850b1e588862403650c"
   },
   "components/landing/LandingClient.tsx": {
-    "mtime": 1790512322078.6194,
-    "hash": "9b2b7e554a80029a4cf1a9eeadba87de"
+    "mtime": 1790513930501.303,
+    "hash": "d7c98cea814ce62a3f73ec19913b9516"
   },
   "components/layout/GlobalHeader.tsx": {
     "mtime": 1790403655298.3662,
     "hash": "8e6776f9de7d77440f50d60a41ed2080"
   },
   "components/layout/Header.tsx": {
-    "mtime": 1790438379730.8535,
-    "hash": "288730f2d6685d68005fefbf931b3ecc"
+    "mtime": 1790513898730.073,
+    "hash": "8552d22a68f0e741fb00fbc13b4346ac"
   },
   "components/layout/TickerTape.tsx": {
     "mtime": 1790403053472.7988,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790441017886.9558,
-    "hash": "7d7bf0f508fa4d39b35860cd5f4a1c7e"
+    "mtime": 1790512651396.067,
+    "hash": "0e915ed3ea2c18015c9fd5f60e6a1479"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -992,8 +992,8 @@
     "hash": "f577f49c09fc402ede47fd20dc4c88b7"
   },
   "components/landing/__tests__/ChromaLanding.test.tsx": {
-    "mtime": 1790512183951.5671,
-    "hash": "82365f67602988bf965df5017d5ba2ea"
+    "mtime": 1790513827977.7146,
+    "hash": "904a3e6c3332049d826d962ccefd908a"
   },
   "components/layout/__tests__/ChromaHeader.test.tsx": {
     "mtime": 1790428332625.5437,
@@ -1022,5 +1022,21 @@
   "public/images/card-surveillance-tape.jpg": {
     "mtime": 1790439425496.4814,
     "hash": "c4f4a0dd7e7bce4e73204f9b7ab6f59f"
+  },
+  "public/images/banner-intelligence-core.jpg": {
+    "mtime": 1790512008366.132,
+    "hash": "d10f94a842f50a23a57dec375d506c37"
+  },
+  "public/images/card-constellation-graph.jpg": {
+    "mtime": 1790512008364.5051,
+    "hash": "6f297dcf51901591728e9242518ae584"
+  },
+  "public/images/card-reputation-shield.jpg": {
+    "mtime": 1790512008360.562,
+    "hash": "39a403c73facd078653c808a358dc90a"
+  },
+  "public/images/card-surveillance-radar.jpg": {
+    "mtime": 1790512008362.6978,
+    "hash": "a7343f588c7b2eb3f4377174bb8cbbb9"
   }
 }
