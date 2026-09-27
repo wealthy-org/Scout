@@ -253,14 +253,18 @@
     "image": [
       "public/file.svg",
       "public/globe.svg",
+      "public/images/banner-scout-disc.jpg",
+      "public/images/card-constellation-nodes.jpg",
+      "public/images/card-reputation-score.jpg",
+      "public/images/card-surveillance-tape.jpg",
       "public/next.svg",
       "public/vercel.svg",
       "public/window.svg"
     ],
     "video": []
   },
-  "total_files": 250,
-  "total_words": 87482,
+  "total_files": 254,
+  "total_words": 141491,
   "needs_graph": true,
   "warning": null,
   "skipped_sensitive": [
@@ -269,7 +273,7 @@
   "graphifyignore_patterns": 27,
   "git": {
     "source_owner": "git",
-    "source_hash": "c82b0464962c451bd30bb9cfbc7f6d31a86a6a73",
+    "source_hash": "0ec1fbbbafd1da11b362cffa049099b995ccfa10",
     "branches": [
       "main"
     ],
@@ -282,11 +286,11 @@
     "source": "default-auto",
     "root": ".",
     "git_root": ".",
-    "head": "c82b0464962c451bd30bb9cfbc7f6d31a86a6a73",
-    "candidate_count": 344,
-    "included_count": 250,
+    "head": "0ec1fbbbafd1da11b362cffa049099b995ccfa10",
+    "candidate_count": 348,
+    "included_count": 254,
     "excluded_untracked_count": 4,
-    "excluded_ignored_count": 44078,
+    "excluded_ignored_count": 44079,
     "excluded_sensitive_count": 1,
     "missing_committed_count": 0,
     "warnings": [],

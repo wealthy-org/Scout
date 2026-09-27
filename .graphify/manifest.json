@@ -516,8 +516,8 @@
     "hash": "0a04094757bc8850b1e588862403650c"
   },
   "components/landing/LandingClient.tsx": {
-    "mtime": 1790440944910.1587,
-    "hash": "f5ad7688389bab9878d7f142a9bf86c7"
+    "mtime": 1790512322078.6194,
+    "hash": "9b2b7e554a80029a4cf1a9eeadba87de"
   },
   "components/layout/GlobalHeader.tsx": {
     "mtime": 1790403655298.3662,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790440371290.852,
-    "hash": "c51887fbef700660dbe48d7d4976f8d7"
+    "mtime": 1790441017886.9558,
+    "hash": "7d7bf0f508fa4d39b35860cd5f4a1c7e"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -992,8 +992,8 @@
     "hash": "f577f49c09fc402ede47fd20dc4c88b7"
   },
   "components/landing/__tests__/ChromaLanding.test.tsx": {
-    "mtime": 1790428313447.0366,
-    "hash": "f7ca1f61bb09cc53c7e069720d384780"
+    "mtime": 1790512183951.5671,
+    "hash": "82365f67602988bf965df5017d5ba2ea"
   },
   "components/layout/__tests__/ChromaHeader.test.tsx": {
     "mtime": 1790428332625.5437,
@@ -1006,5 +1006,21 @@
   "tests/e2e/chroma-visual-verification.test.tsx": {
     "mtime": 1790428049983.5317,
     "hash": "e327ac70d9105f6eebb32644abea8c35"
+  },
+  "public/images/banner-scout-disc.jpg": {
+    "mtime": 1790440272774.9565,
+    "hash": "14c8120b6363b0e613ce7703806b7167"
+  },
+  "public/images/card-constellation-nodes.jpg": {
+    "mtime": 1790439425498.3687,
+    "hash": "59c0fe52f5161e6ff1483bc5679f0d5e"
+  },
+  "public/images/card-reputation-score.jpg": {
+    "mtime": 1790439425494.048,
+    "hash": "21d5eb9403d9cb9cbef9161d5cc70b27"
+  },
+  "public/images/card-surveillance-tape.jpg": {
+    "mtime": 1790439425496.4814,
+    "hash": "c4f4a0dd7e7bce4e73204f9b7ab6f59f"
   }
 }

@@ -4,7 +4,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { LandingClient } from "../LandingClient";
 
-describe("Chroma Landing Page & Hero Macro Cards (TICKET-91)", () => {
+describe("Chroma Landing Page & Hero Macro Cards (TICKET-91 & TICKET-97)", () => {
   const mockStats = {
     total_launches: 1620,
     unique_deployers: 870,
@@ -44,5 +44,26 @@ describe("Chroma Landing Page & Hero Macro Cards (TICKET-91)", () => {
     assert.ok(html.includes("Score"));
     assert.ok(html.includes("Track"));
     assert.ok(html.includes("Publish"));
+  });
+
+  test("renders 3 PRD-thematic 3D module showcase cards with layered artwork and Sky.money squircle container", () => {
+    const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
+    assert.ok(html.includes("What Deployer Scoring Unlocks"));
+    assert.ok(html.includes("card-reputation-shield.jpg"));
+    assert.ok(html.includes("Sub-Second Surveillance Stream"));
+    assert.ok(html.includes("card-surveillance-radar.jpg"));
+    assert.ok(html.includes("Constellation Network Topology"));
+    assert.ok(html.includes("card-constellation-graph.jpg"));
+    assert.ok(html.includes("rounded-[36px]"));
+  });
+
+  test("renders Scout Protocol Showcase Banner with 3D Intelligence Core and Sunset Gradient CTA", () => {
+    const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
+    assert.ok(html.includes("SCOUT: Inspect, Score, Track"));
+    assert.ok(html.includes("banner-intelligence-core.jpg"));
+    assert.ok(html.includes("Launch Radar Terminal"));
+    assert.ok(html.includes("Scout Indexed Launches"));
+    assert.ok(html.includes("Tracked Creators"));
+    assert.ok(html.includes("Repeat Share Rate"));
   });
 });

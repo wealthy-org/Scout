@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Header } from "@/components/layout/Header";
 import type { CensusPayload } from "@/lib/census/compute";
 
@@ -60,83 +61,104 @@ export function LandingClient({
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans relative overflow-hidden pb-20 sm:pb-28">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] sm:w-[1300px] h-[600px] bg-gradient-to-b from-[#00E599]/20 via-[#00F0FF]/15 to-transparent blur-[140px] pointer-events-none -z-10 animate-aura-drift" />
-      <div className="absolute top-60 right-[-10%] w-[600px] h-[600px] bg-gradient-to-br from-[#D946EF]/20 via-[#4D65FF]/15 to-transparent blur-[160px] pointer-events-none -z-10 animate-float-reverse" />
-      <div className="absolute top-[800px] left-[-10%] w-[500px] h-[500px] bg-gradient-to-tr from-[#00F0FF]/15 via-[#00E599]/10 to-transparent blur-[150px] pointer-events-none -z-10 animate-float-slow" />
+    <div className="relative min-h-screen bg-[#07090E] text-slate-100 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden">
+      <div className="fixed inset-0 pointer-events-none -z-10 overflow-hidden">
+        <div className="absolute -top-40 left-1/2 -translate-x-1/2 w-[1000px] h-[600px] bg-gradient-to-b from-[#00F0FF]/15 via-[#818CF8]/10 to-transparent blur-[140px] rounded-full" />
+        <div className="absolute top-[35%] -left-40 w-[600px] h-[600px] bg-gradient-to-r from-[#D946EF]/10 to-transparent blur-[160px] rounded-full" />
+        <div className="absolute top-[60%] -right-40 w-[700px] h-[700px] bg-gradient-to-l from-[#00E599]/10 via-[#00F0FF]/5 to-transparent blur-[160px] rounded-full" />
+        <div className="absolute inset-0 bg-[radial-gradient(#1E293B_1px,transparent_1px)] [background-size:24px_24px] opacity-25" />
+      </div>
 
-      <Header isAuthenticated={isAuthenticated} walletAddress={userAddress} />
+      <Header walletAddress={userAddress} isAuthenticated={isAuthenticated} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-8 sm:pt-14 space-y-16 sm:space-y-24 md:space-y-28 relative z-10">
-        <section className="text-center max-w-4xl mx-auto space-y-6 sm:space-y-8 pt-4 sm:pt-6">
-          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#0D1322]/90 border border-emerald-500/40 backdrop-blur-xl shadow-[0_0_25px_rgba(0,229,153,0.25)] text-xs font-semibold tracking-wide text-emerald-300">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-            </span>
-            <span>Surveillance Engine Active // Robinhood Chain</span>
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 pb-20 space-y-16 sm:space-y-24">
+        <section className="relative pt-6 sm:pt-12 pb-8 sm:pb-12 text-center max-w-4xl mx-auto space-y-8">
+          <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-slate-900/90 border border-cyan-500/40 text-cyan-300 text-xs font-semibold shadow-[0_0_25px_rgba(0,240,255,0.25)] backdrop-blur-md animate-pulse">
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_10px_#00E599]" />
+            <span>Surveillance Engine Active • Robinhood Chain 4663</span>
           </div>
 
-          <h1 className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[1.05] px-2 text-white">
-            Every Deployer Has A History.{" "}
-            <span className="bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#D946EF] bg-clip-text text-transparent">
-              Put Intelligence To Work.
-            </span>
-          </h1>
+          <div className="space-y-4">
+            <h1 className="text-4xl sm:text-6xl md:text-7xl font-black text-white tracking-tight leading-[1.08]">
+              Every Deployer Has A History.{" "}
+              <span className="bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#D946EF] bg-clip-text text-transparent">
+                Scout Remembers.
+              </span>
+            </h1>
+            <p className="text-base sm:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed font-normal">
+              Autonomous on-chain forensic terminal tracking Pons V2 token launches, deployer reputation scores, and cross-wallet origin graphs in real-time.
+            </p>
+          </div>
 
-          <p className="text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mx-auto leading-relaxed px-2 font-normal">
-            Algorithmic deployer reputation scoring, forensic bytecode audits, real-time liquidity streams, and collaborative research case files.
-          </p>
-
-          <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto pt-2 sm:pt-4 px-2">
-            <div className="relative flex flex-col sm:flex-row items-center gap-2 p-2 rounded-full bg-[#0D1322]/95 border border-white/15 focus-within:border-cyan-400 focus-within:shadow-[0_0_35px_rgba(0,240,255,0.3)] shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-2xl transition-all duration-300">
-              <div className="pl-4 text-slate-500 hidden sm:block">
-                <svg className="w-5 h-5 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                </svg>
+          <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto relative group">
+            <div className="relative flex flex-col sm:flex-row items-stretch gap-2.5 p-2 rounded-2xl sm:rounded-full bg-slate-950/80 border border-slate-700/80 group-hover:border-cyan-500/60 shadow-[0_10px_35px_rgba(0,0,0,0.8)] backdrop-blur-2xl transition-all duration-300">
+              <div className="flex items-center pl-4 text-slate-400">
+                <span className="text-lg">🔍</span>
               </div>
               <input
                 type="text"
-                placeholder="Enter Token Contract Address (0x...)"
                 value={caInput}
-                onChange={(e) => {
-                  setCaInput(e.target.value);
-                  if (inputError) setInputError(null);
-                }}
-                className="w-full bg-transparent px-4 py-3 text-xs sm:text-sm font-mono text-slate-100 placeholder:text-slate-500 focus:outline-hidden"
+                onChange={(e) => setCaInput(e.target.value)}
+                placeholder="Paste token contract address (0x...) to open dossier"
+                className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-white placeholder-slate-500 focus:outline-none font-mono"
               />
               <button
                 type="submit"
-                className="w-full sm:w-auto shrink-0 px-8 py-3.5 rounded-full bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#4D65FF] text-slate-950 font-black text-xs uppercase tracking-wider shadow-[0_0_25px_rgba(0,240,255,0.4)] hover:shadow-[0_0_35px_rgba(0,229,153,0.6)] hover:scale-105 active:scale-95 transition-all duration-300"
+                className="px-7 py-3 rounded-xl sm:rounded-full bg-gradient-to-r from-[#00E599] via-[#00F0FF] to-[#38BDF8] text-slate-950 font-black text-sm uppercase tracking-wider hover:opacity-95 shadow-[0_0_20px_rgba(0,240,255,0.4)] active:scale-98 transition-all duration-200 shrink-0"
               >
-                Open Case File →
+                Open Case File
               </button>
             </div>
             {inputError && (
-              <p className="text-xs text-rose-400 mt-2.5 text-left font-medium px-4">{inputError}</p>
+              <p className="text-xs text-rose-400 mt-2 font-mono text-center">
+                {inputError}
+              </p>
             )}
           </form>
 
-          <div className="relative max-w-3xl mx-auto pt-6 sm:pt-10 flex items-center justify-center">
-            <div className="w-full h-44 sm:h-56 relative rounded-3xl overflow-hidden bg-gradient-to-b from-[#0D1322]/80 to-[#07090E]/90 border border-white/10 backdrop-blur-2xl p-6 flex items-center justify-between shadow-[0_15px_45px_rgba(0,0,0,0.5)]">
-              <div className="relative z-10 text-left space-y-2 max-w-sm">
-                <span className="px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-cyan-500/10 border border-cyan-500/30 text-cyan-300">
-                  Live Neural Telemetry
-                </span>
-                <h3 className="text-lg sm:text-2xl font-black text-white tracking-tight">
-                  Autonomous On-Chain Radar
-                </h3>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  Continuous factory indexing &amp; Laplace-smoothed score calibration across all Robinhood Chain pools.
-                </p>
-              </div>
+          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs text-slate-400">
+            <span className="font-semibold text-slate-300">Or inspect live telemetry:</span>
+            <Link
+              href="/feed"
+              className="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/80 hover:border-cyan-400 text-cyan-300 font-medium transition-all"
+            >
+              📡 Launch Radar Feed
+            </Link>
+            <Link
+              href="/map"
+              className="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/80 hover:border-fuchsia-400 text-fuchsia-300 font-medium transition-all"
+            >
+              🕸️ Constellation Graph
+            </Link>
+            <Link
+              href="/census"
+              className="px-3 py-1.5 rounded-lg bg-slate-900/80 border border-slate-700/80 hover:border-emerald-400 text-emerald-300 font-medium transition-all"
+            >
+              📊 Creator Census
+            </Link>
+          </div>
+        </section>
 
-              <div className="relative w-36 sm:w-48 h-36 sm:h-48 flex items-center justify-center">
-                <svg className="w-full h-full animate-spin [animation-duration:25s]" viewBox="0 0 200 200">
-                  <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(0, 240, 255, 0.15)" strokeWidth="1.5" strokeDasharray="6 6" />
-                  <circle cx="100" cy="100" r="60" fill="none" stroke="rgba(0, 229, 153, 0.25)" strokeWidth="2" />
-                  <circle cx="100" cy="100" r="35" fill="none" stroke="rgba(217, 70, 239, 0.3)" strokeWidth="1.5" strokeDasharray="4 4" />
-                </svg>
+        <section className="relative rounded-3xl p-6 sm:p-8 bg-gradient-to-r from-emerald-950/40 via-cyan-950/30 to-indigo-950/40 border border-cyan-500/20 shadow-[0_10px_40px_rgba(0,0,0,0.5)] overflow-hidden">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
+            <div className="space-y-2 text-center md:text-left">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-cyan-400 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30">
+                Pons V2 Historical Reality
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+                43.9% of Launches Come From Repeat Wallets
+              </h2>
+              <p className="text-xs sm:text-sm text-slate-300 max-w-2xl">
+                Serial creators redeploy token contracts rapidly. Scout fingerprinted every launch event on Chain ID 4663 to build permanent historical dossiers.
+              </p>
+            </div>
+            <div className="flex items-center gap-4 shrink-0">
+              <div className="relative flex items-center justify-center">
+                <div className="w-16 h-16 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-2xl font-black text-cyan-300 shadow-[0_0_25px_rgba(0,240,255,0.3)]">
+                  43.9%
+                </div>
+              </div>
+              <div className="relative w-20 h-20 flex items-center justify-center shrink-0">
                 <div className="absolute w-24 h-24 rounded-full bg-gradient-to-tr from-[#00E599]/30 via-[#00F0FF]/20 to-[#D946EF]/30 blur-xl animate-pulse" />
                 <div className="absolute w-12 h-12 rounded-2xl bg-[#0D1322] border border-cyan-400/50 shadow-[0_0_20px_rgba(0,240,255,0.4)] flex items-center justify-center">
                   <span className="text-xl">📡</span>
@@ -224,73 +246,17 @@ export function LandingClient({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <Link
               href="/census"
-              className="relative rounded-[36px] bg-gradient-to-b from-[#24359d] via-[#1a236d] to-[#121446] border border-white/10 shadow-[0_20px_50px_rgba(18,20,70,0.5)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(36,53,157,0.45)] transition-all duration-300 group"
+              className="relative rounded-[36px] bg-gradient-to-b from-[#1c2e88] via-[#121c54] to-[#090e29] border border-white/10 shadow-2xl p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(20,50,180,0.45)] transition-all duration-300 group"
             >
-              <div className="absolute inset-x-0 top-0 h-[360px] flex items-center justify-center pointer-events-none select-none">
-                <svg
-                  viewBox="0 0 400 420"
-                  className="w-full h-full transform group-hover:scale-105 transition-transform duration-500 overflow-visible"
-                  fill="none"
-                >
-                  <defs>
-                    <radialGradient id="stackGlow1" cx="50%" cy="40%" r="55%">
-                      <stop offset="0%" stopColor="#818CF8" stopOpacity="0.35" />
-                      <stop offset="60%" stopColor="#4F46E5" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="#121446" stopOpacity="0" />
-                    </radialGradient>
-                    <filter id="softRim1" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="6" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-
-                  <circle cx="200" cy="190" r="160" fill="url(#stackGlow1)" />
-
-                  <g opacity="0.35" transform="translate(0, 180)">
-                    <ellipse cx="200" cy="130" rx="92" ry="38" fill="#14174a" stroke="rgba(167, 139, 250, 0.35)" strokeWidth="1.5" />
-                    <ellipse cx="200" cy="130" rx="60" ry="24" fill="none" stroke="rgba(167, 139, 250, 0.2)" strokeWidth="1" strokeDasharray="4 4" />
-                  </g>
-
-                  <g opacity="0.55" transform="translate(0, 125)">
-                    <ellipse cx="200" cy="115" rx="98" ry="42" fill="#24155b" stroke="rgba(192, 132, 252, 0.45)" strokeWidth="1.5" />
-                    <path d="M 102 115 A 98 42 0 0 0 298 115 L 298 123 A 98 42 0 0 1 102 123 Z" fill="#1b0f44" opacity="0.8" />
-                    <line x1="200" y1="115" x2="270" y2="100" stroke="rgba(192, 132, 252, 0.35)" strokeWidth="1.5" />
-                    <line x1="200" y1="115" x2="140" y2="135" stroke="rgba(192, 132, 252, 0.35)" strokeWidth="1.5" />
-                    <line x1="200" y1="115" x2="200" y2="157" stroke="rgba(192, 132, 252, 0.35)" strokeWidth="1.5" />
-                  </g>
-
-                  <g opacity="0.8" transform="translate(0, 70)">
-                    <ellipse cx="200" cy="100" rx="104" ry="45" fill="#35145b" stroke="rgba(232, 121, 249, 0.55)" strokeWidth="1.5" />
-                    <path d="M 96 100 A 104 45 0 0 0 304 100 L 304 110 A 104 45 0 0 1 96 110 Z" fill="#250d42" />
-                    <ellipse cx="200" cy="100" rx="72" ry="31" fill="#4c0519" opacity="0.6" stroke="rgba(251, 113, 133, 0.45)" strokeWidth="1" />
-                  </g>
-
-                  <g transform="translate(0, 15)">
-                    <ellipse cx="200" cy="85" rx="110" ry="48" fill="#9a3412" stroke="#fdba74" strokeWidth="1.5" opacity="0.9" />
-                    <path d="M 90 85 A 110 48 0 0 0 310 85 L 310 98 A 110 48 0 0 1 90 98 Z" fill="#7c2d12" />
-                  </g>
-
-                  <g transform="translate(200, 52) rotate(-18)">
-                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#1e1b4b" stroke="#C4B5FD" strokeWidth="8" filter="url(#softRim1)" />
-                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#1e1b4b" stroke="#EDE9FE" strokeWidth="4" />
-                    
-                    <path d="M 0 0 L 0 -86 A 100 86 0 0 1 50 -74 Z" fill="#818CF8" />
-                    <path d="M 0 0 L 50 -74 A 100 86 0 0 1 86 -43 Z" fill="#6366F1" />
-                    <path d="M 0 0 L 86 -43 A 100 86 0 0 1 100 0 Z" fill="#38BDF8" />
-                    <path d="M 0 0 L 100 0 A 100 86 0 0 1 86 43 Z" fill="#06B6D4" />
-                    <path d="M 0 0 L 86 43 A 100 86 0 0 1 50 74 Z" fill="#2DD4BF" />
-                    <path d="M 0 0 L 50 74 A 100 86 0 0 1 0 86 Z" fill="#F43F5E" />
-                    <path d="M 0 0 L 0 86 A 100 86 0 0 1 -50 74 Z" fill="#FB7185" />
-                    <path d="M 0 0 L -50 74 A 100 86 0 0 1 -86 43 Z" fill="#FBBF24" />
-                    <path d="M 0 0 L -86 43 A 100 86 0 0 1 -100 0 Z" fill="#FB923C" />
-                    <path d="M 0 0 L -100 0 A 100 86 0 0 1 -86 -43 Z" fill="#C084FC" />
-                    <path d="M 0 0 L -86 -43 A 100 86 0 0 1 -50 -74 Z" fill="#A855F7" />
-                    <path d="M 0 0 L -50 -74 A 100 86 0 0 1 0 -86 Z" fill="#9333EA" />
-
-                    <circle cx="0" cy="0" r="16" fill="#EDE9FE" opacity="0.95" />
-                    <circle cx="0" cy="0" r="8" fill="#4338CA" />
-                  </g>
-                </svg>
+              <div className="absolute inset-x-0 top-0 h-[72%] sm:h-[76%] overflow-hidden pointer-events-none select-none">
+                <Image
+                  src="/images/card-reputation-shield.jpg"
+                  alt="Deployer Reputation Shield"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#090e29] via-[#090e29]/75 via-45% to-transparent pointer-events-none" />
               </div>
 
               <div className="relative z-10 space-y-3 pt-44 sm:pt-48">
@@ -303,80 +269,24 @@ export function LandingClient({
                 <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#8a9cc4] font-medium">
                   <span>Getting Started</span>
                   <span className="text-slate-500">•</span>
-                  <span>September 26, 2026</span>
+                  <span>September 27, 2026</span>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/feed"
-              className="relative rounded-[36px] bg-gradient-to-b from-[#1b2b8e] via-[#141b60] to-[#0d1038] border border-white/10 shadow-[0_20px_50px_rgba(13,16,56,0.5)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(27,43,142,0.45)] transition-all duration-300 group"
+              className="relative rounded-[36px] bg-gradient-to-b from-[#1b2b8e] via-[#141b60] to-[#0d1038] border border-white/10 shadow-2xl p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(27,43,142,0.45)] transition-all duration-300 group"
             >
-              <div className="absolute inset-x-0 top-0 h-[360px] flex items-center justify-center pointer-events-none select-none">
-                <svg
-                  viewBox="0 0 400 420"
-                  className="w-full h-full transform group-hover:scale-105 transition-transform duration-500 overflow-visible"
-                  fill="none"
-                >
-                  <defs>
-                    <radialGradient id="stackGlow2" cx="50%" cy="40%" r="55%">
-                      <stop offset="0%" stopColor="#00F0FF" stopOpacity="0.3" />
-                      <stop offset="60%" stopColor="#00E599" stopOpacity="0.12" />
-                      <stop offset="100%" stopColor="#0d1038" stopOpacity="0" />
-                    </radialGradient>
-                    <filter id="softRim2" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="6" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-
-                  <circle cx="200" cy="190" r="160" fill="url(#stackGlow2)" />
-
-                  <g opacity="0.35" transform="translate(0, 180)">
-                    <ellipse cx="200" cy="130" rx="92" ry="38" fill="#082f49" stroke="rgba(0, 240, 255, 0.35)" strokeWidth="1.5" />
-                    <ellipse cx="200" cy="130" rx="60" ry="24" fill="none" stroke="rgba(0, 240, 255, 0.2)" strokeWidth="1" strokeDasharray="4 4" />
-                  </g>
-
-                  <g opacity="0.55" transform="translate(0, 125)">
-                    <ellipse cx="200" cy="115" rx="98" ry="42" fill="#064e3b" stroke="rgba(0, 229, 153, 0.45)" strokeWidth="1.5" />
-                    <path d="M 102 115 A 98 42 0 0 0 298 115 L 298 123 A 98 42 0 0 1 102 123 Z" fill="#022c22" opacity="0.8" />
-                    <line x1="200" y1="115" x2="270" y2="100" stroke="rgba(0, 229, 153, 0.35)" strokeWidth="1.5" />
-                    <line x1="200" y1="115" x2="140" y2="135" stroke="rgba(0, 229, 153, 0.35)" strokeWidth="1.5" />
-                    <line x1="200" y1="115" x2="200" y2="157" stroke="rgba(0, 229, 153, 0.35)" strokeWidth="1.5" />
-                  </g>
-
-                  <g opacity="0.8" transform="translate(0, 70)">
-                    <ellipse cx="200" cy="100" rx="104" ry="45" fill="#0369a1" stroke="rgba(56, 189, 248, 0.55)" strokeWidth="1.5" />
-                    <path d="M 96 100 A 104 45 0 0 0 304 100 L 304 110 A 104 45 0 0 1 96 110 Z" fill="#0c4a6e" />
-                    <ellipse cx="200" cy="100" rx="72" ry="31" fill="#0e7490" opacity="0.6" stroke="rgba(6, 182, 212, 0.45)" strokeWidth="1" />
-                  </g>
-
-                  <g transform="translate(0, 15)">
-                    <ellipse cx="200" cy="85" rx="110" ry="48" fill="#065f46" stroke="#6ee7b7" strokeWidth="1.5" opacity="0.9" />
-                    <path d="M 90 85 A 110 48 0 0 0 310 85 L 310 98 A 110 48 0 0 1 90 98 Z" fill="#044e3b" />
-                  </g>
-
-                  <g transform="translate(200, 52) rotate(-18)">
-                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#082f49" stroke="#67E8F9" strokeWidth="8" filter="url(#softRim2)" />
-                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#082f49" stroke="#CFFAFE" strokeWidth="4" />
-                    
-                    <path d="M 0 0 L 0 -86 A 100 86 0 0 1 50 -74 Z" fill="#00E599" />
-                    <path d="M 0 0 L 50 -74 A 100 86 0 0 1 86 -43 Z" fill="#00F0FF" />
-                    <path d="M 0 0 L 86 -43 A 100 86 0 0 1 100 0 Z" fill="#38BDF8" />
-                    <path d="M 0 0 L 100 0 A 100 86 0 0 1 86 43 Z" fill="#818CF8" />
-                    <path d="M 0 0 L 86 43 A 100 86 0 0 1 50 74 Z" fill="#A78BFA" />
-                    <path d="M 0 0 L 50 74 A 100 86 0 0 1 0 86 Z" fill="#C084FC" />
-                    <path d="M 0 0 L 0 86 A 100 86 0 0 1 -50 74 Z" fill="#E879F9" />
-                    <path d="M 0 0 L -50 74 A 100 86 0 0 1 -86 43 Z" fill="#F472B6" />
-                    <path d="M 0 0 L -86 43 A 100 86 0 0 1 -100 0 Z" fill="#FB7185" />
-                    <path d="M 0 0 L -100 0 A 100 86 0 0 1 -86 -43 Z" fill="#FBBF24" />
-                    <path d="M 0 0 L -86 -43 A 100 86 0 0 1 -50 -74 Z" fill="#34D399" />
-                    <path d="M 0 0 L -50 -74 A 100 86 0 0 1 0 -86 Z" fill="#10B981" />
-
-                    <circle cx="0" cy="0" r="16" fill="#CFFAFE" opacity="0.95" />
-                    <circle cx="0" cy="0" r="8" fill="#0e7490" />
-                  </g>
-                </svg>
+              <div className="absolute inset-x-0 top-0 h-[72%] sm:h-[76%] overflow-hidden pointer-events-none select-none">
+                <Image
+                  src="/images/card-surveillance-radar.jpg"
+                  alt="Sub-Second Surveillance Stream"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0d1038] via-[#0d1038]/75 via-45% to-transparent pointer-events-none" />
               </div>
 
               <div className="relative z-10 space-y-3 pt-44 sm:pt-48">
@@ -389,80 +299,24 @@ export function LandingClient({
                 <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#8a9cc4] font-medium">
                   <span>Real-Time Feeds</span>
                   <span className="text-slate-500">•</span>
-                  <span>September 26, 2026</span>
+                  <span>September 27, 2026</span>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/map"
-              className="relative rounded-[36px] bg-gradient-to-b from-[#252285] via-[#1a165a] to-[#0f0e34] border border-white/10 shadow-[0_20px_50px_rgba(15,14,52,0.5)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(37,34,133,0.45)] transition-all duration-300 group"
+              className="relative rounded-[36px] bg-gradient-to-b from-[#252285] via-[#1a165a] to-[#0f0e34] border border-white/10 shadow-2xl p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(37,34,133,0.45)] transition-all duration-300 group"
             >
-              <div className="absolute inset-x-0 top-0 h-[360px] flex items-center justify-center pointer-events-none select-none">
-                <svg
-                  viewBox="0 0 400 420"
-                  className="w-full h-full transform group-hover:scale-105 transition-transform duration-500 overflow-visible"
-                  fill="none"
-                >
-                  <defs>
-                    <radialGradient id="stackGlow3" cx="50%" cy="40%" r="55%">
-                      <stop offset="0%" stopColor="#D946EF" stopOpacity="0.35" />
-                      <stop offset="60%" stopColor="#818CF8" stopOpacity="0.15" />
-                      <stop offset="100%" stopColor="#0f0e34" stopOpacity="0" />
-                    </radialGradient>
-                    <filter id="softRim3" x="-20%" y="-20%" width="140%" height="140%">
-                      <feGaussianBlur stdDeviation="6" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-
-                  <circle cx="200" cy="190" r="160" fill="url(#stackGlow3)" />
-
-                  <g opacity="0.35" transform="translate(0, 180)">
-                    <ellipse cx="200" cy="130" rx="92" ry="38" fill="#180b33" stroke="rgba(217, 70, 239, 0.35)" strokeWidth="1.5" />
-                    <ellipse cx="200" cy="130" rx="60" ry="24" fill="none" stroke="rgba(217, 70, 239, 0.2)" strokeWidth="1" strokeDasharray="4 4" />
-                  </g>
-
-                  <g opacity="0.55" transform="translate(0, 125)">
-                    <ellipse cx="200" cy="115" rx="98" ry="42" fill="#3b0764" stroke="rgba(244, 114, 182, 0.45)" strokeWidth="1.5" />
-                    <path d="M 102 115 A 98 42 0 0 0 298 115 L 298 123 A 98 42 0 0 1 102 123 Z" fill="#240442" opacity="0.8" />
-                    <line x1="200" y1="115" x2="270" y2="100" stroke="rgba(244, 114, 182, 0.35)" strokeWidth="1.5" />
-                    <line x1="200" y1="115" x2="140" y2="135" stroke="rgba(244, 114, 182, 0.35)" strokeWidth="1.5" />
-                    <line x1="200" y1="115" x2="200" y2="157" stroke="rgba(244, 114, 182, 0.35)" strokeWidth="1.5" />
-                  </g>
-
-                  <g opacity="0.8" transform="translate(0, 70)">
-                    <ellipse cx="200" cy="100" rx="104" ry="45" fill="#581c87" stroke="rgba(192, 132, 252, 0.55)" strokeWidth="1.5" />
-                    <path d="M 96 100 A 104 45 0 0 0 304 100 L 304 110 A 104 45 0 0 1 96 110 Z" fill="#3b0764" />
-                    <ellipse cx="200" cy="100" rx="72" ry="31" fill="#701a75" opacity="0.6" stroke="rgba(232, 121, 249, 0.45)" strokeWidth="1" />
-                  </g>
-
-                  <g transform="translate(0, 15)">
-                    <ellipse cx="200" cy="85" rx="110" ry="48" fill="#831843" stroke="#f472b6" strokeWidth="1.5" opacity="0.9" />
-                    <path d="M 90 85 A 110 48 0 0 0 310 85 L 310 98 A 110 48 0 0 1 90 98 Z" fill="#500724" />
-                  </g>
-
-                  <g transform="translate(200, 52) rotate(-18)">
-                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#2e1065" stroke="#F0ABFC" strokeWidth="8" filter="url(#softRim3)" />
-                    <ellipse cx="0" cy="0" rx="100" ry="86" fill="#2e1065" stroke="#FDF4FF" strokeWidth="4" />
-                    
-                    <path d="M 0 0 L 0 -86 A 100 86 0 0 1 50 -74 Z" fill="#D946EF" />
-                    <path d="M 0 0 L 50 -74 A 100 86 0 0 1 86 -43 Z" fill="#C084FC" />
-                    <path d="M 0 0 L 86 -43 A 100 86 0 0 1 100 0 Z" fill="#818CF8" />
-                    <path d="M 0 0 L 100 0 A 100 86 0 0 1 86 43 Z" fill="#00F0FF" />
-                    <path d="M 0 0 L 86 43 A 100 86 0 0 1 50 74 Z" fill="#00E599" />
-                    <path d="M 0 0 L 50 74 A 100 86 0 0 1 0 86 Z" fill="#FBBF24" />
-                    <path d="M 0 0 L 0 86 A 100 86 0 0 1 -50 74 Z" fill="#FB923C" />
-                    <path d="M 0 0 L -50 74 A 100 86 0 0 1 -86 43 Z" fill="#F43F5E" />
-                    <path d="M 0 0 L -86 43 A 100 86 0 0 1 -100 0 Z" fill="#E11D48" />
-                    <path d="M 0 0 L -100 0 A 100 86 0 0 1 -86 -43 Z" fill="#A21CAF" />
-                    <path d="M 0 0 L -86 -43 A 100 86 0 0 1 -50 -74 Z" fill="#7E22CE" />
-                    <path d="M 0 0 L -50 -74 A 100 86 0 0 1 0 -86 Z" fill="#4C1D95" />
-
-                    <circle cx="0" cy="0" r="16" fill="#FDF4FF" opacity="0.95" />
-                    <circle cx="0" cy="0" r="8" fill="#701a75" />
-                  </g>
-                </svg>
+              <div className="absolute inset-x-0 top-0 h-[72%] sm:h-[76%] overflow-hidden pointer-events-none select-none">
+                <Image
+                  src="/images/card-constellation-graph.jpg"
+                  alt="Constellation Network Topology"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0f0e34] via-[#0f0e34]/75 via-45% to-transparent pointer-events-none" />
               </div>
 
               <div className="relative z-10 space-y-3 pt-44 sm:pt-48">
@@ -475,16 +329,17 @@ export function LandingClient({
                 <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#8a9cc4] font-medium">
                   <span>Neural Mapping</span>
                   <span className="text-slate-500">•</span>
-                  <span>September 26, 2026</span>
+                  <span>September 27, 2026</span>
                 </div>
               </div>
             </Link>
           </div>
         </section>
 
-        <section className="relative rounded-[36px] sm:rounded-[44px] bg-gradient-to-r from-[#4f3df5] via-[#432dd8] to-[#341eb5] border border-white/15 p-8 sm:p-12 lg:p-14 shadow-[0_25px_70px_rgba(79,61,245,0.4)] overflow-hidden">
+        <section className="relative rounded-[36px] sm:rounded-[44px] bg-gradient-to-r from-[#4d32d7] via-[#432bc7] to-[#2d1a94] border border-white/15 p-8 sm:p-12 lg:p-14 shadow-[0_25px_70px_rgba(67,43,199,0.45)] overflow-hidden">
           <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-gradient-to-br from-pink-500/20 via-purple-500/15 to-transparent blur-[120px] pointer-events-none -z-0" />
           <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-gradient-to-tr from-[#00F0FF]/15 to-transparent blur-[140px] pointer-events-none -z-0" />
+          <div className="absolute -right-20 -bottom-20 w-[450px] h-[450px] rounded-full bg-gradient-to-tr from-[#FF7243]/30 via-[#A855F7]/30 to-[#00F0FF]/30 blur-3xl pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8 lg:gap-12">
             <div className="space-y-6 max-w-xl text-left">
@@ -504,9 +359,9 @@ export function LandingClient({
               <div className="pt-2">
                 <Link
                   href="/feed"
-                  className="inline-flex items-center gap-3.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#FF7243] via-[#FFA133] to-[#FFC433] text-slate-950 font-bold text-sm shadow-[0_10px_30px_rgba(255,114,67,0.4)] hover:shadow-[0_15px_40px_rgba(255,114,67,0.6)] hover:scale-105 active:scale-95 transition-all duration-300"
+                  className="inline-flex items-center gap-3.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#FF7243] via-[#FFA133] to-[#FFC433] hover:from-[#ff622e] hover:to-[#ffb91a] text-slate-950 font-bold text-sm shadow-[0_10px_30px_rgba(255,114,67,0.4)] hover:shadow-[0_15px_40px_rgba(255,114,67,0.6)] hover:scale-105 active:scale-95 transition-all duration-300"
                 >
-                  <span>Access and explore SCOUT</span>
+                  <span>Launch Radar Terminal</span>
                   <span className="w-6 h-6 rounded-full bg-slate-950 text-white flex items-center justify-center font-bold text-xs">
                     →
                   </span>
@@ -514,48 +369,18 @@ export function LandingClient({
               </div>
             </div>
 
-            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-[380px] lg:h-[380px] shrink-0 flex items-center justify-center">
-              <svg
-                viewBox="0 0 340 340"
-                className="w-full h-full animate-float-slow select-none pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] overflow-visible"
-                fill="none"
-              >
-                <defs>
-                  <filter id="bannerGlow" x="-30%" y="-30%" width="160%" height="160%">
-                    <feGaussianBlur stdDeviation="8" result="blur" />
-                    <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                  </filter>
-                  <linearGradient id="sunbeam" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FDA4AF" stopOpacity="0.4" />
-                    <stop offset="100%" stopColor="#818CF8" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-
-                <path d="M 170 170 L -40 -40 L 40 -100 Z" fill="url(#sunbeam)" opacity="0.6" />
-                <path d="M 170 170 L 380 380 L 320 420 Z" fill="url(#sunbeam)" opacity="0.4" />
-
-                <g transform="translate(170, 170) rotate(-22)">
-                  <ellipse cx="0" cy="0" rx="120" ry="104" fill="#311084" stroke="#F43F5E" strokeWidth="12" opacity="0.8" filter="url(#bannerGlow)" />
-                  <ellipse cx="0" cy="0" rx="120" ry="104" fill="#311084" stroke="#FFFFFF" strokeWidth="10" />
-                  <ellipse cx="0" cy="0" rx="116" ry="100" fill="#230a63" stroke="#FCE7F3" strokeWidth="3" />
-
-                  <path d="M 0 0 L 0 -100 A 116 100 0 0 1 58 -86 Z" fill="#F43F5E" />
-                  <path d="M 0 0 L 58 -86 A 116 100 0 0 1 100 -50 Z" fill="#00F0FF" />
-                  <path d="M 0 0 L 100 -50 A 116 100 0 0 1 116 0 Z" fill="#818CF8" />
-                  <path d="M 0 0 L 116 0 A 116 100 0 0 1 100 50 Z" fill="#C084FC" />
-                  <path d="M 0 0 L 100 50 A 116 100 0 0 1 58 86 Z" fill="#FBBF24" />
-                  <path d="M 0 0 L 58 86 A 116 100 0 0 1 0 100 Z" fill="#38BDF8" />
-                  <path d="M 0 0 L 0 100 A 116 100 0 0 1 -58 86 Z" fill="#FB7185" />
-                  <path d="M 0 0 L -58 86 A 116 100 0 0 1 -100 50 Z" fill="#F472B6" />
-                  <path d="M 0 0 L -100 50 A 116 100 0 0 1 -116 0 Z" fill="#A855F7" />
-                  <path d="M 0 0 L -116 0 A 116 100 0 0 1 -100 -50 Z" fill="#38BDF8" />
-                  <path d="M 0 0 L -100 -50 A 116 100 0 0 1 -58 -86 Z" fill="#00E599" />
-                  <path d="M 0 0 L -58 -86 A 116 100 0 0 1 0 -100 Z" fill="#FB923C" />
-
-                  <circle cx="0" cy="0" r="18" fill="#FFFFFF" />
-                  <circle cx="0" cy="0" r="10" fill="#4338CA" />
-                </g>
-              </svg>
+            <div className="relative w-72 h-72 sm:w-80 sm:h-80 lg:w-[400px] lg:h-[400px] shrink-0 flex items-center justify-center">
+              <div className="absolute inset-0 bg-gradient-to-tr from-[#FF7243]/20 via-[#A855F7]/25 to-[#00F0FF]/25 blur-3xl rounded-full pointer-events-none" />
+              <div className="relative w-full h-full flex items-center justify-center animate-float-slow">
+                <Image
+                  src="/images/banner-intelligence-core.jpg"
+                  alt="Scout Autonomous Forensic Intelligence Core"
+                  width={380}
+                  height={380}
+                  className="w-full h-full object-contain rounded-3xl drop-shadow-[0_25px_50px_rgba(0,0,0,0.65)] select-none pointer-events-none border border-white/10"
+                  priority
+                />
+              </div>
             </div>
           </div>
 
