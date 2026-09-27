@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790514116177.0686,
-    "hash": "425497149e689ba1220df726fdbe2d3a"
+    "mtime": 1790515418138.7053,
+    "hash": "b006b271fa821bf41d379f3e3bcff6aa"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -920,48 +920,48 @@
     "hash": "210370c55ca7e04f554fc293480d5a6b"
   },
   "app/__tests__/loading-skeletons.test.tsx": {
-    "mtime": 1790416546311.9878,
-    "hash": "a8ecbfc917180c9aa8acd064d0debb26"
+    "mtime": 1790518322035.699,
+    "hash": "61fd4e5c3fdb44a8784f9a57bac796c6"
   },
   "app/census/loading.tsx": {
-    "mtime": 1790515061962.744,
-    "hash": "2cea53121810e16e9b75ed3e03b4315a"
+    "mtime": 1790518218333.3315,
+    "hash": "762b322b3fddd6d578af99de2501a5a3"
   },
   "app/d/[ca]/loading.tsx": {
-    "mtime": 1790515076575.561,
-    "hash": "b5e5d3c8b461e600eb172723d77471a0"
+    "mtime": 1790518233629.828,
+    "hash": "6b0617dd0d8f9c70731df52a30b1bcaa"
   },
   "app/docs/loading.tsx": {
-    "mtime": 1790515082226.0613,
-    "hash": "ee105f5f2357dedfd6d23cad170190e1"
+    "mtime": 1790518240970.8826,
+    "hash": "58864d4a46cda72d161ba6e8058ae13e"
   },
   "app/feed/loading.tsx": {
-    "mtime": 1790515040272.702,
-    "hash": "a63d88b8d676fc0d896e5aaacef27998"
+    "mtime": 1790518195206.1372,
+    "hash": "79256464b99f9f42f7274ea482a3609c"
   },
   "app/library/__tests__/page.test.tsx": {
     "mtime": 1790416665208.058,
     "hash": "f95da3d7f314d2dafcbc3e16034d90f7"
   },
   "app/library/loading.tsx": {
-    "mtime": 1790515046497.189,
-    "hash": "e1f12b6f7f173a67ba690c150de2d317"
+    "mtime": 1790518203713.58,
+    "hash": "0aa0d61546e25c74046aaabb09e662e8"
   },
   "app/library/page.tsx": {
     "mtime": 1790416670940.6982,
     "hash": "4ef75f967e4e66278305f0e29ffad211"
   },
   "app/loading.tsx": {
-    "mtime": 1790515032665.6528,
-    "hash": "88cb7b23b6ca1b2a835ff0b491114486"
+    "mtime": 1790518185232.2305,
+    "hash": "77f136621898ceb942cc6985ddc67bd3"
   },
   "app/map/loading.tsx": {
-    "mtime": 1790515069591.5183,
-    "hash": "c0c7ced4b6cab44c5fbdeb854641f35b"
+    "mtime": 1790518225131.7412,
+    "hash": "1d3150392f28cbbcbdf78fe79bb1546f"
   },
   "app/watchlist/loading.tsx": {
-    "mtime": 1790515055194.2153,
-    "hash": "5c6798dc6049b04e068515e4047d85a9"
+    "mtime": 1790518211172.1907,
+    "hash": "2c548ac2a35486db733a5196d2602137"
   },
   "components/layout/TopProgressBar.tsx": {
     "mtime": 1790515262729.6267,
@@ -1004,8 +1004,8 @@
     "hash": "23e474af7c8b61ad6931e298a722178e"
   },
   "tests/e2e/chroma-visual-verification.test.tsx": {
-    "mtime": 1790514423413.938,
-    "hash": "e4f95ddd9dc8b8e56f5412bfde6ec76b"
+    "mtime": 1790518385886.2593,
+    "hash": "fdfee4f43ffedaeafe68d0c408e3dd35"
   },
   "public/images/banner-scout-disc.jpg": {
     "mtime": 1790440272774.9565,

@@ -15,8 +15,19 @@ import { DeployerProfileView } from "../../components/deployer/DeployerProfileVi
 import { ConnectionMap } from "../../components/map/ConnectionMap";
 import { AccountClient } from "../../components/account/AccountClient";
 import { DossierPageView } from "../../app/d/[ca]/page";
+import RootLoading from "../../app/loading";
+import FeedLoading from "../../app/feed/loading";
+import LibraryLoading from "../../app/library/loading";
+import WatchlistLoading from "../../app/watchlist/loading";
+import CensusLoading from "../../app/census/loading";
+import MapLoading from "../../app/map/loading";
+import DossierLoading from "../../app/d/[ca]/loading";
+import DocsLoading from "../../app/docs/loading";
+import HowLoading from "../../app/how/loading";
+import AccountLoading from "../../app/me/loading";
+import DeployerLoading from "../../app/deployer/[address]/loading";
 
-describe("Tosca Canvas & Colorful Pop UI Overhaul Suite (TICKET-96 & TICKET-99)", () => {
+describe("Tosca Canvas & Colorful Pop UI Overhaul Suite (TICKET-96, TICKET-99 & TICKET-100)", () => {
   const mockCensusStats = {
     total_launches: 1620,
     unique_deployers: 870,
@@ -143,5 +154,27 @@ describe("Tosca Canvas & Colorful Pop UI Overhaul Suite (TICKET-96 & TICKET-99)"
     assert.ok(dossierHtml.includes("Holder Distribution"));
     assert.ok(dossierHtml.includes("Constellation Relationship Graph"));
     assert.ok(!dossierHtml.includes("bg-[#07090E]"));
+  });
+
+  test("all 11 route loading skeleton components render cleanly with Tosca Canvas styles", () => {
+    const skeletons = [
+      RootLoading,
+      FeedLoading,
+      LibraryLoading,
+      WatchlistLoading,
+      CensusLoading,
+      MapLoading,
+      DossierLoading,
+      DocsLoading,
+      HowLoading,
+      AccountLoading,
+      DeployerLoading,
+    ];
+
+    for (const SkeletonComponent of skeletons) {
+      const html = renderToString(<SkeletonComponent />);
+      assert.ok(html.includes("bg-[#0D746E]"), "Skeleton must render with Tosca background #0D746E");
+      assert.ok(html.includes("animate-pulse"), "Skeleton must render animated pulse indicators");
+    }
   });
 });

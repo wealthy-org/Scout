@@ -91,7 +91,7 @@ export function LandingClient({
           </div>
 
           <form onSubmit={handleSearchSubmit} className="max-w-2xl mx-auto relative group">
-            <div className="relative flex flex-col sm:flex-row items-stretch gap-2.5 p-2 rounded-2xl sm:rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.35)] group-hover:border-[#FFD166] shadow-[0_10px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl transition-all duration-300">
+            <div className="relative flex flex-col sm:flex-row items-stretch gap-2.5 p-2 rounded-2xl sm:rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.35)] group-hover:border-[#FFD166] focus-within:border-[#FFD166] focus-within:ring-2 focus-within:ring-[#FFD166]/30 shadow-[0_10px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl transition-all duration-300">
               <div className="flex items-center pl-4 text-[#A7F3D0]">
                 <span className="text-lg">🔍</span>
               </div>
@@ -100,7 +100,7 @@ export function LandingClient({
                 value={caInput}
                 onChange={(e) => setCaInput(e.target.value)}
                 placeholder="Paste token contract address (0x...) to open dossier"
-                className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-none font-mono"
+                className="flex-1 bg-transparent px-3 py-3 text-sm sm:text-base text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-hidden font-mono"
               />
               <button
                 type="submit"
