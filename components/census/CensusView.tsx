@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
+import { IconArrowRight } from "@/components/icons/Vectors";
 import type { CensusPayload } from "@/lib/census/compute";
 
 export interface CensusViewProps {
@@ -186,9 +187,10 @@ export function CensusView({
                         <td className="py-3.5 text-right">
                           <Link
                             href={`/deployer/${d.deployerAddress}`}
-                            className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] text-xs"
+                            className="inline-flex items-center gap-1.5 font-bold text-[#99F6E4] hover:text-[#FFFDF7] text-xs transition-colors"
                           >
-                            View Profile →
+                            <span>View Profile</span>
+                            <IconArrowRight size={13} />
                           </Link>
                         </td>
                       </tr>

@@ -2,6 +2,17 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
+import {
+  IconFlame,
+  IconBolt,
+  IconGraduation,
+  IconAlert,
+  IconRadar,
+  IconClipboard,
+  IconCheck,
+  IconClose,
+  IconArrowRight,
+} from "@/components/icons/Vectors";
 
 export type FeedTableTab =
   | "most_traded"
@@ -141,46 +152,50 @@ export function FeedTable({
           <button
             type="button"
             onClick={() => setActiveTab("most_traded")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               activeTab === "most_traded"
                 ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                 : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/15 border border-[rgba(153,246,228,0.15)]"
             }`}
           >
-            🔥 Most Traded
+            <IconFlame size={14} className={activeTab === "most_traded" ? "text-[#042F2E]" : "text-[#FFD166]"} />
+            <span>Most Traded</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("new_launches")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               activeTab === "new_launches"
                 ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                 : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/15 border border-[rgba(153,246,228,0.15)]"
             }`}
           >
-            ⚡ New Launches
+            <IconBolt size={14} className={activeTab === "new_launches" ? "text-[#042F2E]" : "text-[#99F6E4]"} />
+            <span>New Launches</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("near_graduation")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               activeTab === "near_graduation"
                 ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                 : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/15 border border-[rgba(153,246,228,0.15)]"
             }`}
           >
-            🎓 Near Graduation
+            <IconGraduation size={14} className={activeTab === "near_graduation" ? "text-[#042F2E]" : "text-[#FFD166]"} />
+            <span>Near Graduation</span>
           </button>
           <button
             type="button"
             onClick={() => setActiveTab("repeat_deployers")}
-            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 ${
+            className={`px-4 py-2 rounded-full text-xs font-bold transition-all duration-200 flex items-center gap-1.5 ${
               activeTab === "repeat_deployers"
                 ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                 : "text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E]/60 hover:bg-[#99F6E4]/15 border border-[rgba(153,246,228,0.15)]"
             }`}
           >
-            ⚠️ Repeat Deployers
+            <IconAlert size={14} className={activeTab === "repeat_deployers" ? "text-[#042F2E]" : "text-[#FF6B6B]"} />
+            <span>Repeat Deployers</span>
           </button>
         </div>
 
@@ -198,9 +213,10 @@ export function FeedTable({
               <button
                 type="button"
                 onClick={() => setSearch("")}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#A7F3D0] hover:text-[#FFFDF7] p-1 rounded-full transition-colors"
+                aria-label="Clear search"
               >
-                ✕
+                <IconClose size={12} />
               </button>
             )}
           </div>
@@ -225,7 +241,7 @@ export function FeedTable({
               <tr>
                 <td colSpan={7} className="px-5 py-14 text-center text-[#A7F3D0]/70 text-xs">
                   <div className="flex flex-col items-center justify-center gap-2">
-                    <span className="text-2xl">📡</span>
+                    <IconRadar size={28} className="text-[#99F6E4]/50" />
                     <span className="font-medium">No launch items match the active filter or search criteria.</span>
                     <button
                       type="button"
@@ -295,7 +311,11 @@ export function FeedTable({
                               title="Copy contract address"
                             >
                               <span>{truncateAddress(row.contractAddress)}</span>
-                              <span>{isCopied ? "✓" : "📋"}</span>
+                              {isCopied ? (
+                                <IconCheck size={12} className="text-[#4ADE80]" />
+                              ) : (
+                                <IconClipboard size={12} className="text-[#A7F3D0]/70" />
+                              )}
                             </button>
                           </div>
                         </div>
@@ -365,7 +385,7 @@ export function FeedTable({
                         className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#99F6E4] hover:bg-[#14B8A6] border border-[#042F2E] text-[#042F2E] rounded-full text-xs font-bold shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                       >
                         <span>Open</span>
-                        <span>→</span>
+                        <IconArrowRight size={13} />
                       </Link>
                     </td>
                   </tr>

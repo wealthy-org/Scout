@@ -2,6 +2,7 @@
 
 import React, { useState, useRef, useMemo } from "react";
 import Link from "next/link";
+import { IconArrowRight } from "@/components/icons/Vectors";
 
 export type ConnectionType = "confirmed" | "hypothesis";
 
@@ -330,9 +331,10 @@ export function ConstellationGraph({
             <div className="mt-1.5 flex gap-2">
               <Link
                 href={`/d/${hoveredNode.contractAddress}`}
-                className="text-[11px] font-bold text-[#99F6E4] underline"
+                className="inline-flex items-center gap-1 text-[11px] font-bold text-[#99F6E4] hover:underline"
               >
-                Open Dossier →
+                <span>Open Dossier</span>
+                <IconArrowRight size={12} />
               </Link>
             </div>
           </div>

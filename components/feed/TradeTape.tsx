@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { IconWhale, IconRadar } from "@/components/icons/Vectors";
 
 export interface TradeTapeItem {
   id: string;
@@ -76,8 +77,8 @@ export function TradeTape({
 
       <div className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
         {items.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-xs text-[#A7F3D0]/70 gap-1.5">
-            <span className="text-xl">🌊</span>
+          <div className="h-full flex flex-col items-center justify-center text-xs text-[#A7F3D0]/70 gap-2">
+            <IconRadar size={28} className="text-[#99F6E4]/40" />
             <span>No recent trades available.</span>
           </div>
         ) : (
@@ -112,8 +113,9 @@ export function TradeTape({
                         {`$${t.symbol}`}
                       </Link>
                       {isWhale && (
-                        <span className="text-[9px] font-black px-1.5 py-0.2 rounded bg-[#FFD166] text-[#042F2E] border border-[#042F2E]">
-                          🐋 Whale
+                        <span className="text-[9px] font-black px-1.5 py-0.5 rounded bg-[#FFD166] text-[#042F2E] border border-[#042F2E] flex items-center gap-1">
+                          <IconWhale size={10} />
+                          <span>Whale</span>
                         </span>
                       )}
                     </div>

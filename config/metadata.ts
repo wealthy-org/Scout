@@ -5,7 +5,7 @@ export const siteMetadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL || "https://scout.wealthypeople.org"
   ),
   title: {
-    default: "Scout // Dossier.OS — On-Chain Intelligence Terminal",
+    default: "Scout // Dossier.OS: On-Chain Intelligence Terminal",
     template: "%s | Scout",
   },
   description:
@@ -26,7 +26,7 @@ export const siteMetadata: Metadata = {
     locale: "en_US",
     url: "https://scout.wealthypeople.org",
     siteName: "Scout Dossier.OS",
-    title: "Scout // Dossier.OS — On-Chain Intelligence Terminal",
+    title: "Scout // Dossier.OS: On-Chain Intelligence Terminal",
     description:
       "Forensic case files, Bayesian deployer scoring, and token surveillance for Robinhood Chain.",
     images: [
@@ -40,7 +40,7 @@ export const siteMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Scout // Dossier.OS — On-Chain Intelligence Terminal",
+    title: "Scout // Dossier.OS: On-Chain Intelligence Terminal",
     description:
       "Forensic case files, Bayesian deployer scoring, and token surveillance for Robinhood Chain.",
     images: ["/og-preview.png"],

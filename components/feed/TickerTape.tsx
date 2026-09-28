@@ -2,6 +2,12 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import {
+  IconFlame,
+  IconGraduation,
+  IconBolt,
+  IconShield,
+} from "@/components/icons/Vectors";
 
 export interface TickerItemData {
   contractAddress: string;
@@ -27,7 +33,7 @@ const DEFAULT_FALLBACK_ITEMS: TickerItemData[] = [
     name: "Scout Protocol",
     marketCapUsd: 185000,
     deltaPct: 18.4,
-    badge: "🔥 SURGE",
+    badge: "SURGE",
     score: 95,
   },
   {
@@ -36,7 +42,7 @@ const DEFAULT_FALLBACK_ITEMS: TickerItemData[] = [
     name: "Cyber Doge",
     marketCapUsd: 320000,
     deltaPct: 8.2,
-    badge: "🎓 GRADUATED",
+    badge: "GRADUATED",
     score: 82,
   },
   {
@@ -45,7 +51,7 @@ const DEFAULT_FALLBACK_ITEMS: TickerItemData[] = [
     name: "Ethereum",
     marketCapUsd: 318000000000,
     deltaPct: 2.8,
-    badge: "⚡ FAST VOL",
+    badge: "FAST VOL",
   },
   {
     contractAddress: "0x3333333333333333333333333333333333333333",
@@ -53,7 +59,7 @@ const DEFAULT_FALLBACK_ITEMS: TickerItemData[] = [
     name: "Alpha Matrix",
     marketCapUsd: 45000,
     deltaPct: -4.5,
-    badge: "⭐ 84 SCORE",
+    badge: "84 SCORE",
     score: 84,
   },
   {
@@ -69,7 +75,7 @@ const DEFAULT_FALLBACK_ITEMS: TickerItemData[] = [
     name: "Pons Core",
     marketCapUsd: 58400000,
     deltaPct: 14.2,
-    badge: "🔥 HOT",
+    badge: "HOT",
   },
 ];
 
@@ -137,7 +143,7 @@ export function TickerTape({
 
   return (
     <div
-      className="w-full bg-[#064E4A]/90 border-b border-[rgba(153,246,228,0.2)] overflow-hidden font-mono text-xs py-2 select-none relative backdrop-blur-md z-20"
+      className="w-full bg-[#064E4A]/90 border-b border-[rgba(153,246,228,0.2)] overflow-hidden font-mono text-xs py-2 select-none relative backdrop-blur-md z-20 group marquee-container"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => {
         if (isVisibleRef.current) setIsPaused(false);
@@ -151,11 +157,10 @@ export function TickerTape({
 
         <div className="overflow-hidden w-full marquee-mask">
           <div
-            className={`flex items-center gap-3 whitespace-nowrap will-change-transform ${
-              isPaused ? "" : "animate-marquee"
-            }`}
+            className="flex items-center gap-3 whitespace-nowrap will-change-transform animate-marquee"
             style={{
               animationDuration: `${Math.max(activeItems.length * 5, 25)}s`,
+              animationPlayState: isPaused ? "paused" : "running",
             }}
           >
             {loopedItems.map((item, idx) => {
@@ -174,8 +179,17 @@ export function TickerTape({
                   </span>
 
                   {item.badge && (
-                    <span className="text-[9px] font-black uppercase px-1.5 py-0.2 rounded bg-[#FFD166] text-[#042F2E] border border-[#042F2E]">
-                      {item.badge}
+                    <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-[#FFD166] text-[#042F2E] border border-[#042F2E]">
+                      {item.badge.includes("SURGE") ? (
+                        <IconFlame size={10} />
+                      ) : item.badge.includes("GRAD") ? (
+                        <IconGraduation size={10} />
+                      ) : item.badge.includes("VOL") ? (
+                        <IconBolt size={10} />
+                      ) : item.badge.includes("SCORE") ? (
+                        <IconShield size={10} />
+                      ) : null}
+                      <span>{item.badge}</span>
                     </span>
                   )}
 

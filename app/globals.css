@@ -372,6 +372,7 @@ textarea:focus-visible {
   animation: marquee-scroll 32s linear infinite;
 }
 
+.marquee-container:hover .animate-marquee,
 .animate-marquee:hover {
   animation-play-state: paused;
 }

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
+import { IconArrowLeft, IconArrowRight } from "@/components/icons/Vectors";
 import { getSession } from "@/lib/auth/session";
 
 export const metadata: Metadata = {
@@ -214,11 +215,13 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
         </section>
 
         <div className="border-t border-[rgba(153,246,228,0.2)] pt-8 flex items-center justify-between text-xs">
-          <Link href="/how" className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
-            ← Explore Methodology &amp; Glossary
+          <Link href="/how" className="inline-flex items-center gap-1.5 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
+            <IconArrowLeft size={13} />
+            <span>Explore Methodology &amp; Glossary</span>
           </Link>
-          <Link href="/feed" className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
-            Browse Launch Feed →
+          <Link href="/feed" className="inline-flex items-center gap-1.5 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
+            <span>Browse Launch Feed</span>
+            <IconArrowRight size={13} />
           </Link>
         </div>
       </main>

@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { IconTrophy, IconGraduation } from "@/components/icons/Vectors";
 
 export interface GraduationTapeItem {
   id: string;
@@ -83,8 +84,8 @@ export function GraduationTape({
 
       <div className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
         {items.length === 0 ? (
-          <div className="h-full flex flex-col items-center justify-center text-xs text-[#A7F3D0]/70 gap-1.5">
-            <span className="text-xl">🎓</span>
+          <div className="h-full flex flex-col items-center justify-center text-xs text-[#A7F3D0]/70 gap-2">
+            <IconGraduation size={28} className="text-[#FFD166]/40" />
             <span>No recent graduations available.</span>
           </div>
         ) : (
@@ -104,7 +105,9 @@ export function GraduationTape({
               >
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm">🏆</span>
+                    <div className="w-5 h-5 rounded-md bg-[#FFD166]/20 border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166]">
+                      <IconTrophy size={12} />
+                    </div>
                     <Link
                       href={`/d/${g.contractAddress}`}
                       onClick={(e) => e.stopPropagation()}

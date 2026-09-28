@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
+import { IconArrowLeft, IconArrowRight } from "@/components/icons/Vectors";
 import { getSession } from "@/lib/auth/session";
 
 export const metadata: Metadata = {
@@ -246,11 +247,13 @@ export default async function HowPage() {
         </section>
 
         <div className="border-t border-[rgba(153,246,228,0.2)] pt-8 flex items-center justify-between text-xs">
-          <Link href="/docs" className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
-            ← Read Technical Documentation
+          <Link href="/docs" className="inline-flex items-center gap-1.5 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
+            <IconArrowLeft size={13} />
+            <span>Read Technical Documentation</span>
           </Link>
-          <Link href="/census" className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
-            Explore Ecosystem Census →
+          <Link href="/census" className="inline-flex items-center gap-1.5 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
+            <span>Explore Ecosystem Census</span>
+            <IconArrowRight size={13} />
           </Link>
         </div>
       </main>

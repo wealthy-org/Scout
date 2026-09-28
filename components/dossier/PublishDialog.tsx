@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import { IconRocket } from "@/components/icons/Vectors";
 
 export interface PublishDialogProps {
   contractAddress: string;
@@ -106,7 +107,7 @@ export function PublishDialog({
 
         <div className="flex items-center gap-2.5 mb-5 border-b border-[rgba(153,246,228,0.2)] pb-4">
           <div className="w-8 h-8 rounded-xl bg-[#FFD166] text-[#042F2E] border-[1.5px] border-[#042F2E] flex items-center justify-center font-black text-sm shadow-[2px_2px_0px_#042F2E]">
-            🚀
+            <IconRocket size={16} />
           </div>
           <div>
             <h2 className="text-base sm:text-lg font-bold tracking-tight text-[#FFFDF7]">

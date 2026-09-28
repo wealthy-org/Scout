@@ -4,6 +4,7 @@ import React, { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { DOSSIER_STATUSES, type DossierStatus } from "@/lib/db/schema";
+import { IconLock, IconClose, IconArrowRight } from "@/components/icons/Vectors";
 
 export interface LibraryDossierCard {
   id: string;
@@ -159,8 +160,8 @@ export function LibraryClient({
 
         {!isAuthenticated ? (
           <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-8 sm:p-14 text-center space-y-4 shadow-[0_20px_50px_rgba(4,47,46,0.5)] backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
-            <div className="w-14 h-14 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center mx-auto text-2xl font-bold text-[#99F6E4] shadow-[0_0_20px_rgba(153,246,228,0.3)]">
-              🔒
+            <div className="w-14 h-14 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center mx-auto text-[#99F6E4] shadow-[0_0_20px_rgba(153,246,228,0.3)]">
+              <IconLock size={26} />
             </div>
             <h2 className="text-lg sm:text-xl font-bold text-[#FFFDF7] tracking-tight">Authentication Required</h2>
             <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
@@ -169,9 +170,10 @@ export function LibraryClient({
             <div className="pt-3">
               <Link
                 href="/feed"
-                className="inline-block px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all"
+                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all"
               >
-                Browse Public Launch Feed →
+                <span>Browse Public Launch Feed</span>
+                <IconArrowRight size={14} />
               </Link>
             </div>
           </div>
@@ -251,9 +253,10 @@ export function LibraryClient({
                 {dossiers.length === 0 && (
                   <Link
                     href="/feed"
-                    className="inline-block px-4 py-2 rounded-xl bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold text-xs shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] transition-all"
+                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold text-xs shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] transition-all"
                   >
-                    Browse Launch Feed →
+                    <span>Browse Launch Feed</span>
+                    <IconArrowRight size={13} />
                   </Link>
                 )}
               </div>
@@ -323,7 +326,7 @@ export function LibraryClient({
                           className="font-bold text-[#FFD166] hover:text-[#FFFDF7] flex items-center gap-1.5 text-xs transition-colors"
                         >
                           <span>Open Dossier</span>
-                          <span>→</span>
+                          <IconArrowRight size={13} />
                         </Link>
 
                         <a
@@ -354,9 +357,10 @@ export function LibraryClient({
                     setImportError(null);
                     setImportSuccess(null);
                   }}
-                  className="text-xs font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] p-1"
+                  className="text-xs font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] p-1 rounded-full hover:bg-[#14B8A6]/20 transition-colors"
+                  aria-label="Close modal"
                 >
-                  ✕
+                  <IconClose size={14} />
                 </button>
               </div>
 

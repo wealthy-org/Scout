@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import type { DossierStatus } from "@/lib/db/schema";
+import { IconClose } from "@/components/icons/Vectors";
 import type {
   PutDossierRequestBody,
   PutDossierItemInput,
@@ -288,9 +289,10 @@ export function ResearchPanel({
                   <button
                     type="button"
                     onClick={() => handleRemoveItem(items.indexOf(p))}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    aria-label="Remove item"
                   >
-                    ×
+                    <IconClose size={12} />
                   </button>
                 </div>
               ))}
@@ -336,9 +338,10 @@ export function ResearchPanel({
                   <button
                     type="button"
                     onClick={() => handleRemoveItem(items.indexOf(c))}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    aria-label="Remove item"
                   >
-                    ×
+                    <IconClose size={12} />
                   </button>
                 </div>
               ))}
@@ -398,9 +401,10 @@ export function ResearchPanel({
                   <button
                     type="button"
                     onClick={() => handleRemoveQuestion(idx)}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    aria-label="Remove question"
                   >
-                    ×
+                    <IconClose size={12} />
                   </button>
                 </div>
               ))}
@@ -453,9 +457,10 @@ export function ResearchPanel({
                   <button
                     type="button"
                     onClick={() => handleRemoveItem(items.indexOf(s))}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    aria-label="Remove source"
                   >
-                    ×
+                    <IconClose size={12} />
                   </button>
                 </div>
               ))}

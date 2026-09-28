@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
+import { IconCheck } from "@/components/icons/Vectors";
 
 export interface PublicDossierPayload {
   symbol?: string;
@@ -98,9 +99,15 @@ export function PublicDossierClient({
                 {saving ? (
                   <span>Saving...</span>
                 ) : saveStatus === "saved" ? (
-                  <span>✓ Saved to Library</span>
+                  <>
+                    <IconCheck size={14} />
+                    <span>Saved to Library</span>
+                  </>
                 ) : saveStatus === "already_exists" ? (
-                  <span>✓ In Your Library</span>
+                  <>
+                    <IconCheck size={14} />
+                    <span>In Your Library</span>
+                  </>
                 ) : (
                   <>
                     <svg className="h-3.5 w-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

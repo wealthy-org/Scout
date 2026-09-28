@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
+import { IconClose } from "@/components/icons/Vectors";
 
 export interface UserProfileData {
   walletAddress: string;
@@ -234,9 +235,10 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
                     setDeleteError(null);
                     setConfirmAddress("");
                   }}
-                  className="text-xs font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] p-1"
+                  className="text-xs font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] p-1 rounded-full hover:bg-[#14B8A6]/20 transition-colors"
+                  aria-label="Close modal"
                 >
-                  ✕
+                  <IconClose size={14} />
                 </button>
               </div>
 

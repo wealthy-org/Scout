@@ -38,26 +38,25 @@ export default function RootLoading() {
           </div>
         </section>
 
-        <section className="rounded-3xl p-6 sm:p-8 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] h-44 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div className="space-y-2 w-full max-w-xl">
-            <div className="h-6 w-44 bg-[#042F2E] rounded-full" />
-            <div className="h-8 w-3/4 bg-[#042F2E] rounded-lg" />
-            <div className="h-4 w-full bg-[#042F2E] rounded-full" />
-          </div>
-          <div className="w-16 h-16 rounded-2xl bg-[#042F2E] shrink-0" />
-        </section>
-
-        <section className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
-          {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-40 rounded-3xl bg-[#064E4A] border border-[rgba(153,246,228,0.25)] p-5 sm:p-6 space-y-3">
-              <div className="flex justify-between items-center">
-                <div className="h-4 w-24 bg-[#042F2E] rounded-full" />
-                <div className="w-8 h-8 rounded-xl bg-[#042F2E]" />
-              </div>
-              <div className="h-10 w-28 bg-[#042F2E] rounded-lg" />
-              <div className="h-3 w-full bg-[#042F2E] rounded-full" />
+        <section className="rounded-3xl p-6 sm:p-8 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] shadow-xl space-y-6 sm:space-y-8">
+          <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+            <div className="space-y-2.5 w-full max-w-2xl">
+              <div className="h-6 w-44 bg-[#042F2E] rounded-full" />
+              <div className="h-9 w-3/4 bg-[#042F2E] rounded-xl" />
+              <div className="h-4 w-full bg-[#042F2E] rounded-full" />
             </div>
-          ))}
+            <div className="w-full lg:w-80 h-24 rounded-2xl bg-[#042F2E] shrink-0" />
+          </div>
+
+          <div className="border-t border-[rgba(153,246,228,0.15)] pt-6 grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="p-4 rounded-2xl bg-[#042F2E]/70 border border-[rgba(153,246,228,0.15)] space-y-2">
+                <div className="h-4 w-28 bg-[#064E4A] rounded-full" />
+                <div className="h-8 w-24 bg-[#064E4A] rounded-lg" />
+                <div className="h-3 w-full bg-[#064E4A]/80 rounded-full" />
+              </div>
+            ))}
+          </div>
         </section>
 
         <section className="space-y-6 sm:space-y-8">

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
+import { IconAlert, IconArrowRight } from "@/components/icons/Vectors";
 import { getDemoDossier, DEMO_SLUGS } from "@/config/demo";
 
 interface PageProps {
@@ -33,8 +34,9 @@ export default async function DemoDossierPage({ params }: PageProps) {
 
       <Header isAuthenticated={false} />
 
-      <div className="bg-[#FFD166]/20 border-b border-[#FFD166]/30 text-[#FFD166] px-6 py-2.5 text-center text-xs font-bold uppercase tracking-wider backdrop-blur-md">
-        ⚠️ [DEMO MODE] This is a static synthetic case file fixture for evaluation. No live RPC connections.
+      <div className="bg-[#FFD166]/20 border-b border-[#FFD166]/30 text-[#FFD166] px-6 py-2.5 text-center text-xs font-bold uppercase tracking-wider backdrop-blur-md flex items-center justify-center gap-2">
+        <IconAlert size={14} />
+        <span>[DEMO MODE] This is a static synthetic case file fixture for evaluation. No live RPC connections.</span>
       </div>
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-8 relative z-10">
@@ -58,9 +60,10 @@ export default async function DemoDossierPage({ params }: PageProps) {
 
           <Link
             href="/feed"
-            className="px-4 py-1.5 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-bold text-[#FFFDF7] hover:bg-[#14B8A6]/30 transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-bold text-[#FFFDF7] hover:bg-[#14B8A6]/30 transition-colors"
           >
-            Launch Live Feed →
+            <span>Launch Live Feed</span>
+            <IconArrowRight size={13} />
           </Link>
         </div>
 

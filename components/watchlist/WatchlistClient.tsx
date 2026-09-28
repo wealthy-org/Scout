@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
+import { IconArrowRight } from "@/components/icons/Vectors";
 
 export interface WatchlistItem {
   id: string;
@@ -234,7 +235,7 @@ export function WatchlistClient({
                       className="font-bold text-[#99F6E4] hover:text-[#FFFDF7] flex items-center gap-1.5 transition-colors"
                     >
                       <span>View Profile</span>
-                      <span>→</span>
+                      <IconArrowRight size={13} />
                     </Link>
 
                     <button

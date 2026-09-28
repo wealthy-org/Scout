@@ -1,6 +1,13 @@
 "use client";
 
 import React from "react";
+import {
+  IconBolt,
+  IconDiamond,
+  IconUsers,
+  IconGraduation,
+  IconRepeat,
+} from "@/components/icons/Vectors";
 
 export interface FeedStatsData {
   totalLaunches10m?: number;
@@ -38,9 +45,8 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#99F6E4]/50 transition-all group backdrop-blur-md">
         <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
           <span>Launches (10m)</span>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-ping" />
-            <span className="text-xs">⚡</span>
+          <div className="w-6 h-6 rounded-lg bg-[#99F6E4]/15 border border-[#99F6E4]/30 flex items-center justify-center text-[#99F6E4]">
+            <IconBolt size={14} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
@@ -62,9 +68,8 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#FFD166]/50 transition-all group backdrop-blur-md">
         <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
           <span>Total Volume</span>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#FFD166] animate-pulse" />
-            <span className="text-xs">💎</span>
+          <div className="w-6 h-6 rounded-lg bg-[#FFD166]/15 border border-[#FFD166]/30 flex items-center justify-center text-[#FFD166]">
+            <IconDiamond size={14} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
@@ -81,9 +86,8 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#C084FC]/50 transition-all group backdrop-blur-md">
         <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
           <span>Unique Wallets</span>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#C084FC] animate-pulse" />
-            <span className="text-xs">👥</span>
+          <div className="w-6 h-6 rounded-lg bg-[#C084FC]/15 border border-[#C084FC]/30 flex items-center justify-center text-[#C084FC]">
+            <IconUsers size={14} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
@@ -100,9 +104,8 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#99F6E4]/50 transition-all group backdrop-blur-md">
         <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
           <span>Graduated (24h)</span>
-          <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-pulse" />
-            <span className="text-xs">🎓</span>
+          <div className="w-6 h-6 rounded-lg bg-[#99F6E4]/15 border border-[#99F6E4]/30 flex items-center justify-center text-[#99F6E4]">
+            <IconGraduation size={14} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
@@ -122,17 +125,8 @@ export function FeedTiles({ stats }: FeedTilesProps) {
       <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 transition-all group backdrop-blur-md col-span-2 sm:col-span-1">
         <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
           <span>Repeat Deployers</span>
-          <div className="flex items-center gap-1.5">
-            <span
-              className={`w-2 h-2 rounded-full animate-pulse ${
-                isToxicityHigh
-                  ? "bg-[#FF6B6B]"
-                  : isToxicityMed
-                  ? "bg-[#FFD166]"
-                  : "bg-[#99F6E4]"
-              }`}
-            />
-            <span className="text-xs">🔄</span>
+          <div className="w-6 h-6 rounded-lg bg-[#FF6B6B]/15 border border-[#FF6B6B]/30 flex items-center justify-center text-[#FF6B6B]">
+            <IconRepeat size={14} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">

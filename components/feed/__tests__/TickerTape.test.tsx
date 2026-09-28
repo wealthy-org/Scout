@@ -15,7 +15,7 @@ describe("Ticker Tape Marquee Component (TICKET-103)", () => {
       name: "Alpha Matrix",
       marketCapUsd: 150000,
       deltaPct: 15.4,
-      badge: "🔥 SURGE",
+      badge: "SURGE",
       score: 92,
     },
     {
@@ -24,7 +24,7 @@ describe("Ticker Tape Marquee Component (TICKET-103)", () => {
       name: "Beta Doge",
       marketCapUsd: 85000,
       deltaPct: -6.2,
-      badge: "🎓 GRADUATED",
+      badge: "GRADUATED",
     },
     {
       contractAddress: "0x3333333333333333333333333333333333333333",

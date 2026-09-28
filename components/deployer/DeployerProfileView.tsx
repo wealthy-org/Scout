@@ -3,6 +3,12 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
+import {
+  IconCheck,
+  IconChevronDown,
+  IconChevronUp,
+  IconArrowRight,
+} from "@/components/icons/Vectors";
 import type { DeployerScoreSignals } from "@/types/score";
 
 export interface DeployerLaunchItem {
@@ -118,11 +124,16 @@ export function DeployerProfileView({
                     : "pop-btn-yellow"
                 }`}
               >
-                {watchlistLoading
-                  ? "Updating..."
-                  : inWatchlist
-                  ? "✓ In Watchlist"
-                  : "+ Add to Watchlist"}
+                {watchlistLoading ? (
+                  "Updating..."
+                ) : inWatchlist ? (
+                  <span className="inline-flex items-center gap-1">
+                    <IconCheck size={14} />
+                    <span>In Watchlist</span>
+                  </span>
+                ) : (
+                  "+ Add to Watchlist"
+                )}
               </button>
             ) : (
               <Link
@@ -247,7 +258,7 @@ export function DeployerProfileView({
                 className="w-full flex items-center justify-between font-bold text-xs uppercase text-[#FFFDF7] hover:text-[#99F6E4]"
               >
                 <span>Why this score? (Algorithmic Rationale)</span>
-                <span>{whyOpen ? "▲" : "▼"}</span>
+                {whyOpen ? <IconChevronUp size={16} /> : <IconChevronDown size={16} />}
               </button>
 
               {whyOpen && (
@@ -327,9 +338,10 @@ export function DeployerProfileView({
                       <td className="p-3.5 text-right">
                         <Link
                           href={`/d/${l.tokenAddress}`}
-                          className="text-xs font-bold text-[#99F6E4] hover:text-[#FFFDF7]"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#99F6E4] hover:text-[#FFFDF7] transition-colors"
                         >
-                          Inspect Case File →
+                          <span>Inspect Case File</span>
+                          <IconArrowRight size={13} />
                         </Link>
                       </td>
                     </tr>

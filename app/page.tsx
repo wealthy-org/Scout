@@ -10,7 +10,7 @@ import {
 } from "@/components/landing/LandingClient";
 
 export const metadata: Metadata = {
-  title: "Scout // Dossier.OS — On-Chain Intelligence for Robinhood Chain",
+  title: "Scout // Dossier.OS: On-Chain Intelligence for Robinhood Chain",
   description:
     "Real-time surveillance, deployer scoring, forensic case files, and bonding curve market analysis on Robinhood Chain.",
 };

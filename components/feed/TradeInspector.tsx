@@ -2,6 +2,7 @@
 
 import React, { useEffect } from "react";
 import Link from "next/link";
+import { IconArrowRight } from "@/components/icons/Vectors";
 
 export interface TradeItem {
   id: string;
@@ -283,7 +284,7 @@ export function TradeInspector({
             className="w-full py-3 px-4 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
           >
             <span>Open Full Dossier</span>
-            <span>→</span>
+            <IconArrowRight size={14} />
           </Link>
         </div>
       </div>
