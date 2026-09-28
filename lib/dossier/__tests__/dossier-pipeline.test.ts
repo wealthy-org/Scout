@@ -9,6 +9,7 @@ describe("Dossier Query & Transform Pipeline (REFACTOR-2 & SPEC-3)", () => {
       existingDossierRecords: [],
       userDossierRecord: null,
       deployerAsDeployer: [],
+      deployerLaunchesByDeployer: [],
       tokenLaunchRecord: {
         deployerAddress: "0xdeployer1111111111111111111111111111111111",
         tokenAddress: "0xtoken1111111111111111111111111111111111111",

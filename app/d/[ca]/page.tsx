@@ -13,6 +13,7 @@ import { ResearchPanel } from "@/components/dossier/ResearchPanel";
 import { SinceLastCheck } from "@/components/dossier/SinceLastCheck";
 import { ScoutRemembers } from "@/components/dossier/ScoutRemembers";
 import { ConnectionsTimeline } from "@/components/dossier/ConnectionsTimeline";
+import { getSession } from "@/lib/auth/session";
 import {
   fetchDossierPageData,
   type DossierPagePropsData,
@@ -52,6 +53,8 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
     );
   }
 
+  const tokenPhase = data.phase || (data.curveProgressPct && data.curveProgressPct >= 100 ? "graduated" : "curve");
+
   return (
     <main className="min-h-screen bg-[#0D746E] text-[#FFFDF7] p-4 sm:p-6 lg:p-8 font-sans relative overflow-hidden pb-16">
       <div className="absolute top-0 left-1/4 w-[800px] h-[500px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
@@ -60,7 +63,7 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
         <DossierHeader
           symbol={data.symbol || "UNKNOWN"}
           name={data.name || "Unknown Token"}
-          phase="graduated"
+          phase={tokenPhase}
           contractAddress={data.contractAddress}
         />
 
@@ -80,7 +83,10 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
                 Trade Flow Analytics
               </h2>
               <div className="space-y-4">
-                <TradeFlowChart />
+                <TradeFlowChart
+                  candles={data.tradeCandles}
+                  graduationIndex={data.graduationIndex}
+                />
                 <TradeFlowPanel data={data.tradeFlow} />
               </div>
             </div>
@@ -159,7 +165,15 @@ export default async function DossierPage(props: {
   const resolvedParams = await props.params;
   const ca = resolvedParams.ca;
 
-  const data = await fetchDossierPageData(ca);
+  let userWalletAddress: string | undefined;
+  try {
+    const session = await getSession();
+    if (session && session.wallet_address) {
+      userWalletAddress = session.wallet_address;
+    }
+  } catch {}
+
+  const data = await fetchDossierPageData(ca, userWalletAddress);
 
   if (data.isDeployer) {
     redirect(`/deployer/${ca}`);

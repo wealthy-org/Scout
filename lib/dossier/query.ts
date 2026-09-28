@@ -15,12 +15,13 @@ import {
   type DossierItem,
   type DossierQuestion,
 } from "@/lib/db/schema";
-import { eq, desc, inArray } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 export interface RawDossierQueryResult {
   existingDossierRecords: Dossier[];
   userDossierRecord: Dossier | null;
   deployerAsDeployer: DeployerScore[];
+  deployerLaunchesByDeployer: DeployerLaunch[];
   tokenLaunchRecord: DeployerLaunch | null;
   deployerScoreRecord: DeployerScore | null;
   deployerLaunchesList: DeployerLaunch[];
@@ -55,6 +56,12 @@ export async function queryDossierRawData(
     .where(eq(deployerScores.deployerAddress, normalizedCA))
     .limit(1);
 
+  const deployerLaunchesByDeployer = await db
+    .select()
+    .from(deployerLaunches)
+    .where(eq(deployerLaunches.deployerAddress, normalizedCA))
+    .limit(40);
+
   const tokenLaunchRecords = await db
     .select()
     .from(deployerLaunches)
@@ -68,30 +75,32 @@ export async function queryDossierRawData(
   let items: DossierItem[] = [];
   let questions: DossierQuestion[] = [];
 
-  if (userDossierRecord) {
+  const activeDossier = userDossierRecord ?? existingDossierRecords[0] ?? null;
+
+  if (activeDossier) {
     latestSnapshots = await db
       .select()
       .from(snapshots)
-      .where(eq(snapshots.dossierId, userDossierRecord.id))
+      .where(eq(snapshots.dossierId, activeDossier.id))
       .orderBy(desc(snapshots.at))
       .limit(2);
 
     logs = await db
       .select()
       .from(dossierLog)
-      .where(eq(dossierLog.dossierId, userDossierRecord.id))
+      .where(eq(dossierLog.dossierId, activeDossier.id))
       .orderBy(desc(dossierLog.at))
       .limit(200);
 
     items = await db
       .select()
       .from(dossierItems)
-      .where(eq(dossierItems.dossierId, userDossierRecord.id));
+      .where(eq(dossierItems.dossierId, activeDossier.id));
 
     questions = await db
       .select()
       .from(dossierQuestions)
-      .where(eq(dossierQuestions.dossierId, userDossierRecord.id));
+      .where(eq(dossierQuestions.dossierId, activeDossier.id));
   }
 
   let tokenDeployer = tokenLaunchRecord?.deployerAddress;
@@ -102,8 +111,12 @@ export async function queryDossierRawData(
     }
   }
 
-  const resolvedDeployerAddress =
-    tokenDeployer || "0x0000000000000000000000000000000000000001";
+  let seed = 0;
+  for (let i = 2; i < normalizedCA.length; i++) {
+    seed = (seed * 31 + normalizedCA.charCodeAt(i)) >>> 0;
+  }
+  const defaultDeployerHex = (seed.toString(16) + "0000000000000000000000000000000000000000").slice(0, 40);
+  const resolvedDeployerAddress = tokenDeployer || `0x${defaultDeployerHex}`;
 
   const dScores = await db
     .select()
@@ -123,6 +136,7 @@ export async function queryDossierRawData(
     existingDossierRecords,
     userDossierRecord,
     deployerAsDeployer,
+    deployerLaunchesByDeployer,
     tokenLaunchRecord,
     deployerScoreRecord,
     deployerLaunchesList,
