@@ -10,7 +10,6 @@ import {
   IconCheck,
   IconClipboard,
   IconAlert,
-  IconShield,
 } from "@/components/icons/Vectors";
 
 interface DocsClientProps {
@@ -445,7 +444,7 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
   };
 
   return (
-    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 sm:pb-24 selection:bg-[#FFD166] selection:text-[#042F2E]">
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-16 sm:pb-24 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 right-1/4 w-[750px] h-[500px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
@@ -473,7 +472,7 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
         <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
           <aside
             aria-label="Developer Documentation Sidebar"
-            className="w-full lg:w-72 shrink-0 lg:sticky lg:top-24 max-h-[calc(100vh-7rem)] overflow-y-auto pr-1 space-y-6"
+            className="w-full lg:w-72 shrink-0 lg:sticky lg:top-20 self-start max-h-[calc(100vh-6rem)] overflow-y-auto space-y-6 z-20"
           >
             <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.6)] backdrop-blur-xl space-y-5">
               <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-3">
@@ -618,7 +617,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                       <td className="p-3 text-[#A7F3D0]">Average launch track record or unproven new deployer.</td>
                     </tr>
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">0 – 34</td>
+                      <td className="p-3 font-bold text-[#FF6B6B] font-bold">0 – 34</td>
                       <td className="p-3 text-[#FF6B6B] font-bold">RED</td>
                       <td className="p-3 text-[#FFFDF7]">Serial / Repeat</td>
                       <td className="p-3 text-[#A7F3D0]">Serial launcher penalty or high frequency of rapid abandonments.</td>

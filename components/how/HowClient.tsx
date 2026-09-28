@@ -6,15 +6,10 @@ import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import {
   IconArrowLeft,
   IconArrowRight,
-  IconRadar,
-  IconShield,
-  IconRepeat,
-  IconLock,
   IconSearch,
   IconCheck,
   IconClipboard,
   IconGraph,
-  IconAlert,
 } from "@/components/icons/Vectors";
 
 interface HowClientProps {
@@ -280,6 +275,18 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
     };
   }, [calculatedScore]);
 
+  const baseScoreVal = useMemo(() => {
+    return Number((((simGraduated + 1) / (simTotal + 2)) * 100).toFixed(1));
+  }, [simGraduated, simTotal]);
+
+  const doaDeductionVal = useMemo(() => {
+    return Math.min(simDoa * 8, 30);
+  }, [simDoa]);
+
+  const burstDeductionVal = useMemo(() => {
+    return Math.min(Number(((simBurst / 100) * 15).toFixed(1)), 20);
+  }, [simBurst]);
+
   const handleCopy = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
     setCopiedKey(key);
@@ -301,7 +308,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-20 sm:pb-28 selection:bg-[#FFD166] selection:text-[#042F2E]">
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-20 sm:pb-28 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 right-1/4 w-[850px] h-[550px] bg-gradient-to-b from-[#14B8A6]/25 via-[#99F6E4]/15 to-transparent blur-[150px] pointer-events-none -z-10" />
       <div className="absolute top-1/3 left-0 w-[500px] h-[500px] bg-gradient-to-r from-[#FFD166]/10 via-[#14B8A6]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
 
@@ -382,9 +389,11 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             </div>
           </div>
 
-          <div className="relative border-l-2 border-[#14B8A6]/40 ml-3 sm:ml-6 pl-6 sm:pl-10 space-y-12 sm:space-y-16">
-            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 0 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
-              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#99F6E4] flex items-center justify-center text-xs font-mono font-black text-[#99F6E4] shadow-[0_0_12px_rgba(153,246,228,0.4)]">
+          <div className="relative space-y-12 sm:space-y-16">
+            <div className="absolute left-4 sm:left-5 top-4 bottom-4 w-[2px] bg-gradient-to-b from-[#99F6E4] via-[#FFD166] via-[#FF9F43] to-[#C084FC] pointer-events-none" />
+
+            <div className={`relative pl-12 sm:pl-16 transition-all duration-300 ${activeWorkflowTab === 0 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute left-4 sm:left-5 top-0 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#042F2E] border-2 border-[#99F6E4] flex items-center justify-center text-xs font-mono font-black text-[#99F6E4] shadow-[0_0_14px_rgba(153,246,228,0.6)] z-10">
                 01
               </span>
 
@@ -425,8 +434,8 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
               </div>
             </div>
 
-            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 1 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
-              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#FFD166] flex items-center justify-center text-xs font-mono font-black text-[#FFD166] shadow-[0_0_12px_rgba(255,209,102,0.4)]">
+            <div className={`relative pl-12 sm:pl-16 transition-all duration-300 ${activeWorkflowTab === 1 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute left-4 sm:left-5 top-0 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#042F2E] border-2 border-[#FFD166] flex items-center justify-center text-xs font-mono font-black text-[#FFD166] shadow-[0_0_14px_rgba(255,209,102,0.6)] z-10">
                 02
               </span>
 
@@ -467,8 +476,8 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
               </div>
             </div>
 
-            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 2 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
-              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#FF9F43] flex items-center justify-center text-xs font-mono font-black text-[#FF9F43] shadow-[0_0_12px_rgba(255,159,67,0.4)]">
+            <div className={`relative pl-12 sm:pl-16 transition-all duration-300 ${activeWorkflowTab === 2 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute left-4 sm:left-5 top-0 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#042F2E] border-2 border-[#FF9F43] flex items-center justify-center text-xs font-mono font-black text-[#FF9F43] shadow-[0_0_14px_rgba(255,159,67,0.6)] z-10">
                 03
               </span>
 
@@ -505,8 +514,8 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
               </div>
             </div>
 
-            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 3 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
-              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#C084FC] flex items-center justify-center text-xs font-mono font-black text-[#C084FC] shadow-[0_0_12px_rgba(192,132,252,0.4)]">
+            <div className={`relative pl-12 sm:pl-16 transition-all duration-300 ${activeWorkflowTab === 3 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute left-4 sm:left-5 top-0 -translate-x-1/2 w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#042F2E] border-2 border-[#C084FC] flex items-center justify-center text-xs font-mono font-black text-[#C084FC] shadow-[0_0_14px_rgba(192,132,252,0.6)] z-10">
                 04
               </span>
 
@@ -549,180 +558,208 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
           </div>
         </section>
 
-        <section id="bayesian-math" className="space-y-8 border-t border-[rgba(153,246,228,0.2)] pt-12">
+        <section id="bayesian-math" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-10 shadow-[0_20px_50px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-8">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.2)] pb-4">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFD166] font-bold">
-                SECTION 02 // MATHEMATICAL SPEC &amp; WORKBENCH
+                SECTION 02 // MATHEMATICAL WORKBENCH
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight mt-1">
                 Bayesian Mathematical Formulation &amp; Sandbox
               </h2>
             </div>
-            <span className="text-xs font-mono text-[#A7F3D0]">REPUTATION ALGORITHM v2.4</span>
+            <div className="px-3.5 py-1 rounded-full bg-[#042F2E] border border-[rgba(153,246,228,0.3)] text-xs font-mono text-[#FFD166]">
+              BAYESIAN REPUTATION SPEC v2.4
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-            <div className="lg:col-span-7 space-y-6">
-              <p className="text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                Scout rejects simplistic percentage graduation rates, which grant an artificial 100% score to deployers with just 1 lucky token. Instead, we compute a <strong>Laplace-Smoothed Bayesian Prior</strong> bounded with forensic penalization factors:
-              </p>
-
-              <div className="space-y-4 font-mono text-xs">
-                <div className="border-l-2 border-[#99F6E4] pl-4 py-1 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-[#99F6E4] font-bold uppercase">POSTULATE 1.1 // BASE LAPLACE SCORE</span>
-                    <button
-                      onClick={() => handleCopy("S_base = ((k + 1) / (n + 2)) * 100", "p1")}
-                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
-                    >
-                      {copiedKey === "p1" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
-                      <span>Copy</span>
-                    </button>
-                  </div>
-                  <div className="text-base font-bold text-[#FFD166]">S_base = ((k + 1) / (n + 2)) × 100</div>
-                  <p className="font-sans text-xs text-[#A7F3D0]">
-                    Where <strong>k</strong> represents graduated tokens, and <strong>n</strong> represents total lifetime creator deployments.
-                  </p>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            <div className="lg:col-span-7 bg-[#042F2E] rounded-2xl border border-[rgba(153,246,228,0.25)] p-5 sm:p-6 space-y-4 flex flex-col justify-between shadow-md">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-3">
+                  <span className="text-xs font-mono font-bold text-[#99F6E4] uppercase tracking-wider">
+                    MATHEMATICAL SPECIFICATION CANVAS
+                  </span>
+                  <span className="text-[10px] font-mono text-[#A7F3D0]">4 CORE POSTULATES</span>
                 </div>
 
-                <div className="border-l-2 border-[#FF6B6B] pl-4 py-1 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-[#FF6B6B] font-bold uppercase">POSTULATE 1.2 // DEAD ON ARRIVAL (DOA) DEDUCTION</span>
-                    <button
-                      onClick={() => handleCopy("P_doa = min(8 * d, 30)", "p2")}
-                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
-                    >
-                      {copiedKey === "p2" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
-                      <span>Copy</span>
-                    </button>
-                  </div>
-                  <div className="text-base font-bold text-[#FF6B6B]">P_doa = min(8 × d, 30)</div>
-                  <p className="font-sans text-xs text-[#A7F3D0]">
-                    Docks 8 points per abandoned launch whose volume ceases or drops &gt;95% within 10 minutes of genesis.
-                  </p>
-                </div>
+                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                  Scout replaces raw percentage graduation rates with a <strong>Laplace-Smoothed Bayesian Prior</strong> bounded by 3 forensic deduction factors:
+                </p>
 
-                <div className="border-l-2 border-[#FF9F43] pl-4 py-1 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-[#FF9F43] font-bold uppercase">POSTULATE 1.3 // BURST VELOCITY DAMPENER</span>
-                    <button
-                      onClick={() => handleCopy("P_burst = min((b / 100) * 15, 20)", "p3")}
-                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
-                    >
-                      {copiedKey === "p3" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
-                      <span>Copy</span>
-                    </button>
+                <div className="space-y-3 font-mono text-xs">
+                  <div className="bg-[#064E4A]/80 border border-[rgba(153,246,228,0.2)] rounded-xl p-3.5 space-y-1.5 hover:border-[#FFD166]/50 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[#FFD166] font-bold uppercase">POSTULATE 1.1 // BASE LAPLACE PRIOR</span>
+                      <button
+                        onClick={() => handleCopy("S_base = ((k + 1) / (n + 2)) * 100", "p1")}
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                      >
+                        {copiedKey === "p1" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                        <span>Copy</span>
+                      </button>
+                    </div>
+                    <div className="text-sm font-bold text-[#FFD166]">S_base = ((k + 1) / (n + 2)) × 100</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-normal">
+                      Where <strong>k</strong> is graduation count and <strong>n</strong> is total lifetime genesis launches.
+                    </p>
                   </div>
-                  <div className="text-base font-bold text-[#FF9F43]">P_burst = min((b / 100) × 15, 20)</div>
-                  <p className="font-sans text-xs text-[#A7F3D0]">
-                    Penalizes creator wallets deploying multiple tokens within a tight 30-minute window (burst automated bot launches).
-                  </p>
-                </div>
 
-                <div className="border-l-2 border-[#C084FC] pl-4 py-1 space-y-1">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-[#C084FC] font-bold uppercase">POSTULATE 1.4 // SERIAL RUGGER QUARANTINE CLAMP</span>
-                    <button
-                      onClick={() => handleCopy("If (n >= 6 && k == 0) -> S_final <= 25", "p4")}
-                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
-                    >
-                      {copiedKey === "p4" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
-                      <span>Copy</span>
-                    </button>
+                  <div className="bg-[#064E4A]/80 border border-[rgba(153,246,228,0.2)] rounded-xl p-3.5 space-y-1.5 hover:border-[#FF6B6B]/50 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[#FF6B6B] font-bold uppercase">POSTULATE 1.2 // DEAD ON ARRIVAL (DOA) DEDUCTION</span>
+                      <button
+                        onClick={() => handleCopy("P_doa = min(8 * d, 30)", "p2")}
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                      >
+                        {copiedKey === "p2" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                        <span>Copy</span>
+                      </button>
+                    </div>
+                    <div className="text-sm font-bold text-[#FF6B6B]">P_doa = min(8 × d, 30)</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-normal">
+                      Docks 8 points per abandoned token whose trading volume halts or loses &gt;95% within 10 minutes of genesis.
+                    </p>
                   </div>
-                  <div className="text-base font-bold text-[#C084FC]">If (n ≥ 6 ∧ k == 0) → S_final ≤ 25</div>
-                  <p className="font-sans text-xs text-[#A7F3D0]">
-                    Enforces a strict mathematical ceiling locking repeat zero-graduation creators inside the Red Hostile Band.
-                  </p>
+
+                  <div className="bg-[#064E4A]/80 border border-[rgba(153,246,228,0.2)] rounded-xl p-3.5 space-y-1.5 hover:border-[#FF9F43]/50 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[#FF9F43] font-bold uppercase">POSTULATE 1.3 // BURST VELOCITY DAMPENER</span>
+                      <button
+                        onClick={() => handleCopy("P_burst = min((b / 100) * 15, 20)", "p3")}
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                      >
+                        {copiedKey === "p3" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                        <span>Copy</span>
+                      </button>
+                    </div>
+                    <div className="text-sm font-bold text-[#FF9F43]">P_burst = min((b / 100) × 15, 20)</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-normal">
+                      Penalizes automated deployment bots launching multiple tokens within 30 minutes.
+                    </p>
+                  </div>
+
+                  <div className="bg-[#064E4A]/80 border border-[rgba(153,246,228,0.2)] rounded-xl p-3.5 space-y-1.5 hover:border-[#C084FC]/50 transition-colors">
+                    <div className="flex items-center justify-between">
+                      <span className="text-[10px] text-[#C084FC] font-bold uppercase">POSTULATE 1.4 // SERIAL RUGGER QUARANTINE CLAMP</span>
+                      <button
+                        onClick={() => handleCopy("If (n >= 6 && k == 0) -> S_final <= 25", "p4")}
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                      >
+                        {copiedKey === "p4" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                        <span>Copy</span>
+                      </button>
+                    </div>
+                    <div className="text-sm font-bold text-[#C084FC]">If (n ≥ 6 ∧ k == 0) → S_final ≤ 25</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-normal">
+                      Hard mathematical ceiling clamping score to maximum 25 whenever total launches ≥ 6 and graduations equal 0.
+                    </p>
+                  </div>
                 </div>
+              </div>
+
+              <div className="p-3 rounded-xl bg-[#031E1D] border border-[#FFD166]/30 text-xs font-mono text-[#FFFDF7] flex items-center justify-between">
+                <span className="text-[#99F6E4] font-bold">MASTER FORMULA:</span>
+                <span className="text-[#FFD166] font-bold">S_final = clamp(S_base - P_doa - P_burst, 0, 100)</span>
               </div>
             </div>
 
-            <div className="lg:col-span-5 bg-[#042F2E] rounded-3xl border border-[rgba(153,246,228,0.25)] p-6 space-y-6 shadow-xl">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-3">
-                <span className="text-xs font-mono font-bold text-[#FFD166] uppercase">LIVE PARAMETER INSTRUMENT</span>
-                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${scoreBand.color}`}>
-                  {scoreBand.label}
-                </span>
+            <div className="lg:col-span-5 bg-[#042F2E] rounded-2xl border border-[rgba(153,246,228,0.25)] p-5 sm:p-6 space-y-5 flex flex-col justify-between shadow-md">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-3">
+                  <span className="text-xs font-mono font-bold text-[#FFD166] uppercase">FORENSIC SIMULATOR INSTRUMENT</span>
+                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${scoreBand.color}`}>
+                    {scoreBand.label}
+                  </span>
+                </div>
+
+                <div className="text-center py-5 bg-[#064E4A] rounded-2xl border border-[rgba(153,246,228,0.2)]">
+                  <div className="text-5xl sm:text-6xl font-black text-[#FFFDF7] tracking-tight">{calculatedScore}</div>
+                  <div className="text-[11px] font-mono text-[#A7F3D0] mt-1">CALCULATED REPUTATION SCORE / 100</div>
+                  <p className="text-xs text-[#99F6E4] mt-2 px-4 font-medium">{scoreBand.desc}</p>
+                </div>
+
+                <div className="space-y-3.5 font-mono text-xs">
+                  <div>
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                      <span>Total Launches (n):</span>
+                      <span className="font-bold text-[#FFFDF7]">{simTotal}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="1"
+                      max="30"
+                      value={simTotal}
+                      onChange={(e) => {
+                        const val = Number(e.target.value);
+                        setSimTotal(val);
+                        if (simGraduated > val) setSimGraduated(val);
+                      }}
+                      className="w-full accent-[#FFD166] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                      <span>Graduated Count (k):</span>
+                      <span className="font-bold text-[#99F6E4]">{simGraduated}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max={simTotal}
+                      value={simGraduated}
+                      onChange={(e) => setSimGraduated(Number(e.target.value))}
+                      className="w-full accent-[#99F6E4] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                      <span>DOA Incidents (d):</span>
+                      <span className="font-bold text-[#FF6B6B]">{simDoa}</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="5"
+                      value={simDoa}
+                      onChange={(e) => setSimDoa(Number(e.target.value))}
+                      className="w-full accent-[#FF6B6B] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                    />
+                  </div>
+
+                  <div>
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                      <span>Burst Velocity Ratio (b):</span>
+                      <span className="font-bold text-[#FF9F43]">{simBurst}%</span>
+                    </div>
+                    <input
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="10"
+                      value={simBurst}
+                      onChange={(e) => setSimBurst(Number(e.target.value))}
+                      className="w-full accent-[#FF9F43] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                    />
+                  </div>
+                </div>
               </div>
 
-              <div className="text-center py-5 bg-[#064E4A] rounded-2xl border border-[rgba(153,246,228,0.2)]">
-                <div className="text-6xl font-black text-[#FFFDF7] tracking-tight">{calculatedScore}</div>
-                <div className="text-[11px] font-mono text-[#A7F3D0] mt-1">CALCULATED REPUTATION SCORE / 100</div>
-                <p className="text-xs text-[#99F6E4] mt-2 px-4 font-medium">{scoreBand.desc}</p>
-              </div>
-
-              <div className="space-y-4 font-mono text-xs">
-                <div>
-                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                    <span>Total Launches (n):</span>
-                    <span className="font-bold text-[#FFFDF7]">{simTotal}</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="1"
-                    max="30"
-                    value={simTotal}
-                    onChange={(e) => {
-                      const val = Number(e.target.value);
-                      setSimTotal(val);
-                      if (simGraduated > val) setSimGraduated(val);
-                    }}
-                    className="w-full accent-[#FFD166] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                  />
+              <div className="pt-3 border-t border-[rgba(153,246,228,0.15)] text-[10px] font-mono text-[#A7F3D0] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span>Base Score (S_base):</span>
+                  <span className="text-[#FFD166] font-bold">{baseScoreVal}</span>
                 </div>
-
-                <div>
-                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                    <span>Graduated Count (k):</span>
-                    <span className="font-bold text-[#99F6E4]">{simGraduated}</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max={simTotal}
-                    value={simGraduated}
-                    onChange={(e) => setSimGraduated(Number(e.target.value))}
-                    className="w-full accent-[#99F6E4] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                  />
+                <div className="flex items-center justify-between">
+                  <span>DOA Penalty (-P_doa):</span>
+                  <span className="text-[#FF6B6B] font-bold">-{doaDeductionVal}</span>
                 </div>
-
-                <div>
-                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                    <span>DOA Incidents (d):</span>
-                    <span className="font-bold text-[#FF6B6B]">{simDoa}</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="5"
-                    value={simDoa}
-                    onChange={(e) => setSimDoa(Number(e.target.value))}
-                    className="w-full accent-[#FF6B6B] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                  />
+                <div className="flex items-center justify-between">
+                  <span>Burst Penalty (-P_burst):</span>
+                  <span className="text-[#FF9F43] font-bold">-{burstDeductionVal}</span>
                 </div>
-
-                <div>
-                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                    <span>Burst Velocity Ratio (b):</span>
-                    <span className="font-bold text-[#FF9F43]">{simBurst}%</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="0"
-                    max="100"
-                    step="10"
-                    value={simBurst}
-                    onChange={(e) => setSimBurst(Number(e.target.value))}
-                    className="w-full accent-[#FF9F43] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                  />
-                </div>
-              </div>
-
-              <div className="pt-3 border-t border-[rgba(153,246,228,0.15)] text-[10px] font-mono text-[#A7F3D0] flex items-center justify-between">
-                <span>Model: Laplace Prior</span>
-                <span>Bounds: Clamped [0, 100]</span>
               </div>
             </div>
           </div>
