@@ -147,6 +147,9 @@ describe("Phantom & EVM Wallet Connection (TICKET-106)", () => {
         if (method === "eth_requestAccounts") {
           return [rawInputAddress];
         }
+        if (method === "eth_chainId") {
+          return "0x1";
+        }
         if (method === "personal_sign") {
           signedMessage = (params?.[0] as string) || "";
           signedAddress = (params?.[1] as string) || "";
@@ -195,8 +198,66 @@ describe("Phantom & EVM Wallet Connection (TICKET-106)", () => {
       assert.equal(signedAddress, expectedChecksummedAddress);
       assert.ok(signedMessage.includes(expectedChecksummedAddress));
       assert.ok(!signedMessage.includes(rawInputAddress));
+      assert.ok(signedMessage.includes("Chain ID: 1"));
       assert.equal(verifyBody.signature, "0xmock_signature");
       assert.ok(progressSteps.length >= 3);
+    } finally {
+      globalObj.window = prevWindow;
+      globalObj.fetch = prevFetch;
+    }
+  });
+
+  test("signInWithWallet dynamically reflects wallet active chainId in SIWE message", async () => {
+    const rawInputAddress = "0xc951b9b954e2bb8db3ba9bea3bdd266226faccac";
+    let signedMessage = "";
+
+    const mockProvider = {
+      request: async ({ method, params }: { method: string; params?: unknown[] }) => {
+        if (method === "eth_requestAccounts") {
+          return [rawInputAddress];
+        }
+        if (method === "eth_chainId") {
+          return "0x1237";
+        }
+        if (method === "personal_sign") {
+          signedMessage = (params?.[0] as string) || "";
+          return "0xmock_signature_robinhood";
+        }
+        return null;
+      },
+    };
+
+    const globalObj = global as unknown as {
+      window: {
+        location: { host: "localhost:3000"; origin: "http://localhost:3000" };
+        phantom: { ethereum: typeof mockProvider };
+      };
+      fetch: typeof fetch;
+    };
+
+    const prevWindow = globalObj.window;
+    const prevFetch = globalObj.fetch;
+
+    globalObj.window = {
+      location: { host: "localhost:3000", origin: "http://localhost:3000" },
+      phantom: { ethereum: mockProvider },
+    };
+
+    globalObj.fetch = (async (input: RequestInfo | URL) => {
+      const url = String(input);
+      if (url === "/api/auth/nonce") {
+        return new Response(JSON.stringify({ nonce: "87654321" }), { status: 200 });
+      }
+      if (url === "/api/auth/verify") {
+        return new Response(JSON.stringify({ ok: true }), { status: 200 });
+      }
+      return new Response("Not found", { status: 404 });
+    }) as typeof fetch;
+
+    try {
+      const result = await signInWithWallet("phantom");
+      assert.equal(result.success, true);
+      assert.ok(signedMessage.includes("Chain ID: 4663"));
     } finally {
       globalObj.window = prevWindow;
       globalObj.fetch = prevFetch;

@@ -138,6 +138,25 @@ export async function signInWithWallet(
 
   const checksummedAddress = getAddress(accounts[0]);
 
+  let chainId = 1;
+  try {
+    const rawChainId = await provider.request({ method: "eth_chainId" });
+    if (typeof rawChainId === "string") {
+      const trimmed = rawChainId.trim();
+      const parsed =
+        trimmed.startsWith("0x") || trimmed.startsWith("0X")
+          ? parseInt(trimmed, 16)
+          : parseInt(trimmed, 10);
+      if (Number.isFinite(parsed) && parsed > 0) {
+        chainId = parsed;
+      }
+    } else if (typeof rawChainId === "number" && Number.isFinite(rawChainId) && rawChainId > 0) {
+      chainId = rawChainId;
+    }
+  } catch {
+    chainId = 1;
+  }
+
   onProgress?.("Requesting cryptographic nonce...");
   const nonceRes = await fetch("/api/auth/nonce", { method: "POST" });
   if (!nonceRes.ok) {
@@ -158,7 +177,7 @@ export async function signInWithWallet(
     statement: "Sign in with Ethereum to Scout",
     uri: origin,
     version: "1",
-    chainId: 4663,
+    chainId,
     nonce: nonceData.nonce,
   });
 
