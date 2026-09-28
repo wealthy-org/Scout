@@ -10,11 +10,11 @@ import {
   IconShield,
   IconRepeat,
   IconLock,
-  IconCpu,
   IconSearch,
   IconCheck,
   IconClipboard,
   IconGraph,
+  IconAlert,
 } from "@/components/icons/Vectors";
 
 interface HowClientProps {
@@ -180,6 +180,63 @@ const GLOSSARY_DATA: GlossaryItem[] = [
   },
 ];
 
+const DELTA_METRICS = [
+  {
+    code: "DELTA-01",
+    name: "FDV Fluctuation",
+    category: "VOLATILITY",
+    condition: "|FDV_t - FDV_0| / FDV_0 ≥ 20%",
+    status: "ACTIVE TRIGGER",
+    statusColor: "bg-[#99F6E4]/20 text-[#99F6E4] border-[#99F6E4]/40",
+    rationale: "Triggers when market capitalization shifts by ±20% or more since previous inspection.",
+  },
+  {
+    code: "DELTA-02",
+    name: "Liquidity Shift",
+    category: "RESERVES",
+    condition: "|Liq_t - Liq_0| / Liq_0 ≥ 20%",
+    status: "ACTIVE TRIGGER",
+    statusColor: "bg-[#99F6E4]/20 text-[#99F6E4] border-[#99F6E4]/40",
+    rationale: "Monitors pool drainage or sudden liquidity injection on DEX pairs.",
+  },
+  {
+    code: "DELTA-03",
+    name: "Phase Progression",
+    category: "MILESTONE",
+    condition: "Phase_t ≠ Phase_0 (Curve → Graduated UniV3)",
+    status: "CRITICAL EVENT",
+    statusColor: "bg-[#FFD166]/20 text-[#FFD166] border-[#FFD166]/40",
+    rationale: "Triggers instantly upon graduation migration or protocol fee sweep events.",
+  },
+  {
+    code: "DELTA-04",
+    name: "Fee Recipient Routing",
+    category: "FORENSIC",
+    condition: "Recipient_addr_t ≠ Recipient_addr_0",
+    status: "SYBIL ALERT",
+    statusColor: "bg-[#FF6B6B]/20 text-[#FF6B6B] border-[#FF6B6B]/40",
+    rationale: "Flags any modification in the recipient address receiving creator trading fees.",
+  },
+  {
+    code: "DELTA-05",
+    name: "GitHub Activity",
+    category: "CODEBASE",
+    condition: "Commit_SHA_t ≠ Commit_SHA_0",
+    status: "REPO UPDATE",
+    statusColor: "bg-[#99F6E4]/20 text-[#99F6E4] border-[#99F6E4]/40",
+    rationale: "Alerts researcher when fresh code is pushed to associated public repositories.",
+  },
+  {
+    code: "DELTA-06",
+    name: "Deployer Genesis",
+    category: "CREATOR",
+    condition: "Total_Deployments_t > Total_0",
+    status: "NEW LAUNCH",
+    statusColor: "bg-[#FFD166]/20 text-[#FFD166] border-[#FFD166]/40",
+    rationale: "Notifies when creator wallet deploys a subsequent token elsewhere in the factory.",
+  },
+];
+
 export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
@@ -250,14 +307,12 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 space-y-14 sm:space-y-20 relative z-10">
-        <header className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 p-8 sm:p-12 shadow-[0_20px_50px_rgba(4,47,46,0.6)] backdrop-blur-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-80 h-80 bg-gradient-to-bl from-[#FFD166]/15 to-transparent rounded-bl-full pointer-events-none" />
-
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 pt-8 sm:pt-12 space-y-16 sm:space-y-24 relative z-10">
+        <header className="border-b border-[rgba(153,246,228,0.25)] pb-10 sm:pb-12 relative">
           <div className="flex flex-wrap items-center gap-2.5 mb-4">
             <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-[11px] font-bold tracking-widest uppercase bg-[#042F2E] border border-[rgba(153,246,228,0.35)] text-[#99F6E4] shadow-inner">
               <span className="w-2.5 h-2.5 rounded-full bg-[#14B8A6] animate-pulse" />
-              RESEARCH FIELD MANUAL // METHODOLOGY & HEURISTICS
+              RESEARCH FIELD MANUAL // METHODOLOGY &amp; HEURISTICS
             </span>
             <span className="px-3 py-1 rounded-full text-[11px] font-mono font-bold bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
               BAYESIAN DOSSIER.OS v2.4
@@ -271,69 +326,42 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             The mathematical foundation, Bayesian reputation models, on-chain delta triggers, and relational graph topology powering real-time token investigations.
           </p>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-8 pt-8 border-t border-[rgba(153,246,228,0.2)]">
-            <div className="p-3.5 rounded-2xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]">
-              <div className="text-[10px] font-mono font-bold uppercase text-[#A7F3D0]">BAYESIAN CORE</div>
-              <div className="text-base font-extrabold text-[#FFFDF7] mt-0.5">Laplace Smoothing</div>
-              <div className="text-[11px] font-mono text-[#99F6E4] mt-1">α=1, β=2 Prior</div>
+          <div className="mt-8 pt-6 border-t border-[rgba(153,246,228,0.15)] flex flex-wrap items-center justify-between gap-4 font-mono text-xs">
+            <div className="flex flex-wrap items-center gap-6 text-[#A7F3D0]">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#99F6E4]" />
+                <span className="text-[#FFFDF7] font-bold">Bayesian Core:</span>
+                <span>Laplace (α=1, β=2)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#FFD166]" />
+                <span className="text-[#FFFDF7] font-bold">Surveillance:</span>
+                <span>6 Delta Triggers</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#FF9F43]" />
+                <span className="text-[#FFFDF7] font-bold">Topology:</span>
+                <span>3 Edge Weights</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-[#C084FC]" />
+                <span className="text-[#FFFDF7] font-bold">Speed:</span>
+                <span>MultiCall3 &lt;85ms</span>
+              </div>
             </div>
-            <div className="p-3.5 rounded-2xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]">
-              <div className="text-[10px] font-mono font-bold uppercase text-[#A7F3D0]">SURVEILLANCE</div>
-              <div className="text-base font-extrabold text-[#FFFDF7] mt-0.5">Delta Triggers</div>
-              <div className="text-[11px] font-mono text-[#FFD166] mt-1">6 Metric Watches</div>
-            </div>
-            <div className="p-3.5 rounded-2xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]">
-              <div className="text-[10px] font-mono font-bold uppercase text-[#A7F3D0]">TOPOLOGY</div>
-              <div className="text-base font-extrabold text-[#FFFDF7] mt-0.5">Sybil Cluster Graph</div>
-              <div className="text-[11px] font-mono text-[#FF9F43] mt-1">3 Edge Weights</div>
-            </div>
-            <div className="p-3.5 rounded-2xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]">
-              <div className="text-[10px] font-mono font-bold uppercase text-[#A7F3D0]">SPEED</div>
-              <div className="text-base font-extrabold text-[#FFFDF7] mt-0.5">MultiCall3 Batch</div>
-              <div className="text-[11px] font-mono text-[#C084FC] mt-1">&lt; 85ms RPC Latency</div>
+            <div className="text-[11px] px-3 py-1 rounded-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-[#99F6E4]">
+              ROBINHOOD CHAIN // 4663
             </div>
           </div>
-
-          <nav aria-label="Page Sections" className="flex flex-wrap items-center gap-2 mt-8 pt-6 border-t border-[rgba(153,246,228,0.15)]">
-            <a
-              href="#workflow"
-              className="px-4 py-2 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 border border-[rgba(153,246,228,0.25)] text-xs font-bold text-[#99F6E4] hover:text-[#FFFDF7] transition-all"
-            >
-              01 // 4-Step Intelligence Loop
-            </a>
-            <a
-              href="#bayesian-math"
-              className="px-4 py-2 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 border border-[rgba(153,246,228,0.25)] text-xs font-bold text-[#FFD166] hover:text-[#FFFDF7] transition-all"
-            >
-              02 // Mathematical Core &amp; Simulator
-            </a>
-            <a
-              href="#delta-engine"
-              className="px-4 py-2 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 border border-[rgba(153,246,228,0.25)] text-xs font-bold text-[#FF9F43] hover:text-[#FFFDF7] transition-all"
-            >
-              03 // Delta Surveillance Triggers
-            </a>
-            <a
-              href="#graph-topology"
-              className="px-4 py-2 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 border border-[rgba(153,246,228,0.25)] text-xs font-bold text-[#C084FC] hover:text-[#FFFDF7] transition-all"
-            >
-              04 // Constellation Graph Relational
-            </a>
-            <a
-              href="#glossary-math"
-              className="px-4 py-2 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 border border-[rgba(153,246,228,0.25)] text-xs font-bold text-[#FFFDF7] hover:text-[#FFD166] transition-all"
-            >
-              05 // Glossary &amp; Research Taxonomy
-            </a>
-          </nav>
         </header>
-        <section id="workflow" className="space-y-6">
-          <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+        <section id="workflow" className="space-y-8">
+          <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                SECTION 01 // OPERATIONAL FRAMEWORK
+                PROTOCOL PIPELINE // 4 STAGES
               </span>
-              <h2 className="text-xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight mt-1">
                 The 4-Step Intelligence Workflow
               </h2>
             </div>
@@ -354,178 +382,166 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
-            <div
-              className={`rounded-3xl border transition-all p-6 sm:p-8 space-y-4 backdrop-blur-xl ${
-                activeWorkflowTab === 0
-                  ? "border-[#99F6E4] bg-[#064E4A] ring-2 ring-[#99F6E4]/25 shadow-[0_15px_35px_-5px_rgba(4,47,46,0.8)]"
-                  : "border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 hover:border-[#99F6E4]/40"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="text-xs font-mono font-bold text-[#99F6E4] tracking-wider uppercase">
-                    Step 01 // Bytecode &amp; Liquidity Audit
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] mt-0.5">01. Investigate</h3>
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-[#042F2E] border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4] shadow-inner">
-                  <IconRadar size={24} />
-                </div>
-              </div>
+          <div className="relative border-l-2 border-[#14B8A6]/40 ml-3 sm:ml-6 pl-6 sm:pl-10 space-y-12 sm:space-y-16">
+            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 0 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#99F6E4] flex items-center justify-center text-xs font-mono font-black text-[#99F6E4] shadow-[0_0_12px_rgba(153,246,228,0.4)]">
+                01
+              </span>
 
-              <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                When a token contract address is inspected, Scout concurrently batches factory state, token metadata, liquidity balances, and DexScreener pricing pairs into a single atomic payload.
-              </p>
-
-              <div className="rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] p-4 space-y-2.5 font-mono text-[11px]">
-                <div className="flex items-center justify-between text-[#99F6E4] text-[10px] pb-2 border-b border-[rgba(153,246,228,0.15)]">
-                  <span>MULTICALL3 BATCH RUNNER // RPC ENGINE</span>
-                  <span className="text-[#A7F3D0]">4663 RPC</span>
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                    01. Investigate // Bytecode &amp; Liquidity Audit
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#042F2E] text-[#99F6E4] border border-[#99F6E4]/30">
+                    MULTICALL3 ATOMIC READ
+                  </span>
                 </div>
-                <div className="text-[#A7F3D0] space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <span>1. Factory.getPool(ca)</span>
-                    <span className="text-[#99F6E4] font-semibold">0x90a2...b41</span>
+
+                <p className="text-sm text-[#A7F3D0] leading-relaxed max-w-4xl font-normal">
+                  When a token contract address is inspected, Scout concurrently batches factory state, token metadata, liquidity balances, and DexScreener pricing pairs into a single atomic payload without rate limits.
+                </p>
+
+                <div className="p-4 rounded-2xl bg-[#042F2E]/90 border border-[rgba(153,246,228,0.2)] font-mono text-xs space-y-2 max-w-3xl">
+                  <div className="flex items-center justify-between text-[#99F6E4] text-[10px] pb-1.5 border-b border-[rgba(153,246,228,0.15)] font-bold">
+                    <span>MULTICALL3 BATCH RUNNER // RPC TELEMETRY</span>
+                    <span className="text-[#A7F3D0]">4663 RPC</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>2. ERC20.totalSupply()</span>
-                    <span className="text-[#FFD166] font-semibold">1,000,000,000</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>3. PonsV2.getReserves()</span>
-                    <span className="text-[#99F6E4] font-semibold">42.5 ETH</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] pt-1 text-[#A7F3D0]">
+                    <div>
+                      <span className="text-[#99F6E4]">Factory.getPool(ca)</span>
+                      <div className="text-[#FFFDF7] font-bold">0x90a2...b41</div>
+                    </div>
+                    <div>
+                      <span className="text-[#FFD166]">ERC20.totalSupply()</span>
+                      <div className="text-[#FFFDF7] font-bold">1,000,000,000</div>
+                    </div>
+                    <div>
+                      <span className="text-[#99F6E4]">PonsV2.getReserves()</span>
+                      <div className="text-[#FFFDF7] font-bold">42.5 ETH</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div
-              className={`rounded-3xl border transition-all p-6 sm:p-8 space-y-4 backdrop-blur-xl ${
-                activeWorkflowTab === 1
-                  ? "border-[#FFD166] bg-[#064E4A] ring-2 ring-[#FFD166]/25 shadow-[0_15px_35px_-5px_rgba(4,47,46,0.8)]"
-                  : "border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 hover:border-[#FFD166]/40"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="text-xs font-mono font-bold text-[#FFD166] tracking-wider uppercase">
-                    Step 02 // Bayesian Probability Model
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] mt-0.5">02. Score</h3>
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-[#042F2E] border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166] shadow-inner">
-                  <IconShield size={24} />
-                </div>
-              </div>
+            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 1 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#FFD166] flex items-center justify-center text-xs font-mono font-black text-[#FFD166] shadow-[0_0_12px_rgba(255,209,102,0.4)]">
+                02
+              </span>
 
-              <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                Deployer origin wallets are scored between 0–100 using Laplace-smoothed graduation rates, DOA penalties, burst rate dampeners, and hard serial penalty clamps.
-              </p>
-
-              <div className="rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] p-4 space-y-2.5 font-mono text-[11px]">
-                <div className="flex items-center justify-between text-[#FFD166] text-[10px] pb-2 border-b border-[rgba(153,246,228,0.15)]">
-                  <span>BAYESIAN WEIGHT MATRIX</span>
-                  <span className="text-[#A7F3D0]">ALPHA=1, BETA=2</span>
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                    02. Score // Bayesian Probability Formulation
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
+                    LAPLACE PRIOR &amp; PENALTIES
+                  </span>
                 </div>
-                <div className="text-[#A7F3D0] space-y-1.5">
-                  <div className="flex items-center justify-between">
-                    <span>Base Formula:</span>
-                    <span className="text-[#FFD166]">((k + 1) / (n + 2)) × 100</span>
+
+                <p className="text-sm text-[#A7F3D0] leading-relaxed max-w-4xl font-normal">
+                  Deployer origin wallets are scored between 0–100 using Laplace-smoothed graduation rates, DOA penalties, burst rate dampeners, and hard serial penalty clamps.
+                </p>
+
+                <div className="p-4 rounded-2xl bg-[#042F2E]/90 border border-[rgba(153,246,228,0.2)] font-mono text-xs space-y-2 max-w-3xl">
+                  <div className="flex items-center justify-between text-[#FFD166] text-[10px] pb-1.5 border-b border-[rgba(153,246,228,0.15)] font-bold">
+                    <span>BAYESIAN WEIGHT MATRIX</span>
+                    <span className="text-[#A7F3D0]">ALPHA=1, BETA=2</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>DOA Deduction:</span>
-                    <span className="text-[#FF6B6B]">-8 pts / event</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>Serial Rugger Clamp:</span>
-                    <span className="text-[#FF6B6B]">Max 25 if n≥6 ∧ k=0</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] pt-1 text-[#A7F3D0]">
+                    <div>
+                      <span className="text-[#FFD166]">Base Laplace Formula</span>
+                      <div className="text-[#FFFDF7] font-bold">((k + 1)/(n + 2)) × 100</div>
+                    </div>
+                    <div>
+                      <span className="text-[#FF6B6B]">DOA Deduction</span>
+                      <div className="text-[#FFFDF7] font-bold">-8 pts / incident</div>
+                    </div>
+                    <div>
+                      <span className="text-[#FF6B6B]">Serial Rugger Clamp</span>
+                      <div className="text-[#FFFDF7] font-bold">Max 25 (if n≥6 ∧ k=0)</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div
-              className={`rounded-3xl border transition-all p-6 sm:p-8 space-y-4 backdrop-blur-xl ${
-                activeWorkflowTab === 2
-                  ? "border-[#FF9F43] bg-[#064E4A] ring-2 ring-[#FF9F43]/25 shadow-[0_15px_35px_-5px_rgba(4,47,46,0.8)]"
-                  : "border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 hover:border-[#FF9F43]/40"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="text-xs font-mono font-bold text-[#FF9F43] tracking-wider uppercase">
-                    Step 03 // State Delta Comparison
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] mt-0.5">03. Track</h3>
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-[#042F2E] border border-[#FF9F43]/40 flex items-center justify-center text-[#FF9F43] shadow-inner">
-                  <IconRepeat size={24} />
-                </div>
-              </div>
+            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 2 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#FF9F43] flex items-center justify-center text-xs font-mono font-black text-[#FF9F43] shadow-[0_0_12px_rgba(255,159,67,0.4)]">
+                03
+              </span>
 
-              <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                Every inspection records a snapshot. When revisited, Scout computes granular metric differences (FDV jumps, liquidity shifts, git commits, fee recipient modifications).
-              </p>
-
-              <div className="rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] p-4 space-y-2 font-mono text-[11px]">
-                <div className="flex items-center justify-between text-[#FF9F43] text-[10px] pb-2 border-b border-[rgba(153,246,228,0.15)]">
-                  <span>SNAPSHOT DELTA COMPARATOR</span>
-                  <span className="text-[#A7F3D0]">Δt = 4h 12m</span>
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                    03. Track // State Delta Comparison
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#042F2E] text-[#FF9F43] border border-[#FF9F43]/30">
+                    SINCE LAST CHECK ENGINE
+                  </span>
                 </div>
-                <div className="grid grid-cols-2 gap-2 text-[10px]">
-                  <div className="p-2.5 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.15)]">
-                    <span className="text-[#A7F3D0]">Market Cap Delta</span>
-                    <div className="text-sm font-bold text-[#99F6E4] mt-0.5">+28.4% (Alert)</div>
+
+                <p className="text-sm text-[#A7F3D0] leading-relaxed max-w-4xl font-normal">
+                  Every inspection records a snapshot. When revisited, Scout computes granular metric differences (FDV jumps, liquidity shifts, git commits, fee recipient modifications).
+                </p>
+
+                <div className="p-4 rounded-2xl bg-[#042F2E]/90 border border-[rgba(153,246,228,0.2)] font-mono text-xs space-y-2 max-w-3xl">
+                  <div className="flex items-center justify-between text-[#FF9F43] text-[10px] pb-1.5 border-b border-[rgba(153,246,228,0.15)] font-bold">
+                    <span>SNAPSHOT DELTA COMPARATOR</span>
+                    <span className="text-[#A7F3D0]">Δt = 4h 12m</span>
                   </div>
-                  <div className="p-2.5 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.15)]">
-                    <span className="text-[#A7F3D0]">Curve Phase</span>
-                    <div className="text-sm font-bold text-[#FFD166] mt-0.5">Graduated UniV3</div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-[11px] pt-1 text-[#A7F3D0]">
+                    <div className="flex items-center justify-between bg-[#064E4A] p-2 rounded-xl">
+                      <span>Market Cap Delta:</span>
+                      <span className="font-bold text-[#99F6E4]">+28.4% (Threshold Exceeded)</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-[#064E4A] p-2 rounded-xl">
+                      <span>Curve Phase:</span>
+                      <span className="font-bold text-[#FFD166]">Graduated UniV3 Pool</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div
-              className={`rounded-3xl border transition-all p-6 sm:p-8 space-y-4 backdrop-blur-xl ${
-                activeWorkflowTab === 3
-                  ? "border-[#C084FC] bg-[#064E4A] ring-2 ring-[#C084FC]/25 shadow-[0_15px_35px_-5px_rgba(4,47,46,0.8)]"
-                  : "border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 hover:border-[#C084FC]/40"
-              }`}
-            >
-              <div className="flex items-start justify-between">
-                <div>
-                  <div className="text-xs font-mono font-bold text-[#C084FC] tracking-wider uppercase">
-                    Step 04 // Immutable Forensic Dossier
-                  </div>
-                  <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] mt-0.5">04. Publish</h3>
-                </div>
-                <div className="w-12 h-12 rounded-2xl bg-[#042F2E] border border-[#C084FC]/40 flex items-center justify-center text-[#C084FC] shadow-inner">
-                  <IconLock size={24} />
-                </div>
-              </div>
+            <div className={`relative transition-all duration-300 ${activeWorkflowTab === 3 ? "opacity-100" : "opacity-85 hover:opacity-100"}`}>
+              <span className="absolute -left-[31px] sm:-left-[47px] top-0 w-8 h-8 rounded-full bg-[#042F2E] border-2 border-[#C084FC] flex items-center justify-center text-xs font-mono font-black text-[#C084FC] shadow-[0_0_12px_rgba(192,132,252,0.4)]">
+                04
+              </span>
 
-              <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                Researchers can freeze their thesis and findings into permanent shareable case files with creator attribution, fork capability, and instant revocation controls.
-              </p>
-
-              <div className="rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] p-4 space-y-2 font-mono text-[11px]">
-                <div className="flex items-center justify-between text-[#C084FC] text-[10px] pb-2 border-b border-[rgba(153,246,228,0.15)]">
-                  <span>CRYPTOGRAPHIC SNAPSHOT PROOF</span>
-                  <span className="text-[#A7F3D0]">IMMUTABLE</span>
+              <div className="space-y-4">
+                <div className="flex flex-wrap items-center gap-3">
+                  <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                    04. Publish // Immutable Forensic Dossier
+                  </h3>
+                  <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#042F2E] text-[#C084FC] border border-[#C084FC]/30">
+                    EIP-191 CRYPTOGRAPHIC HASH
+                  </span>
                 </div>
-                <div className="text-[#A7F3D0] space-y-1.5 text-[10px]">
-                  <div className="flex items-center justify-between">
-                    <span>Digest Hash:</span>
-                    <span className="text-[#C084FC] font-bold font-mono">0x7f2a...c89e</span>
+
+                <p className="text-sm text-[#A7F3D0] leading-relaxed max-w-4xl font-normal">
+                  Researchers can freeze their thesis and findings into permanent shareable case files with creator attribution, fork capability, and instant revocation controls.
+                </p>
+
+                <div className="p-4 rounded-2xl bg-[#042F2E]/90 border border-[rgba(153,246,228,0.2)] font-mono text-xs space-y-2 max-w-3xl">
+                  <div className="flex items-center justify-between text-[#C084FC] text-[10px] pb-1.5 border-b border-[rgba(153,246,228,0.15)] font-bold">
+                    <span>CRYPTOGRAPHIC SNAPSHOT PROOF</span>
+                    <span className="text-[#A7F3D0]">IMMUTABLE STATE</span>
                   </div>
-                  <div className="flex items-center justify-between">
-                    <span>Author Proof:</span>
-                    <span className="text-[#99F6E4]">EIP-191 Personal Sign</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span>State Access:</span>
-                    <span className="text-[#FFD166]">Read-Only / Forkable</span>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-[11px] pt-1 text-[#A7F3D0]">
+                    <div>
+                      <span className="text-[#C084FC]">Digest Hash</span>
+                      <div className="text-[#FFFDF7] font-bold truncate">0x7f2a...c89e</div>
+                    </div>
+                    <div>
+                      <span className="text-[#99F6E4]">Author Proof</span>
+                      <div className="text-[#FFFDF7] font-bold">EIP-191 Personal Sign</div>
+                    </div>
+                    <div>
+                      <span className="text-[#FFD166]">State Access</span>
+                      <div className="text-[#FFFDF7] font-bold">Read-Only / Forkable</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -533,135 +549,174 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
           </div>
         </section>
 
-        <section id="bayesian-math" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-10 shadow-[0_20px_50px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-8">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.2)] pb-6">
+        <section id="bayesian-math" className="space-y-8 border-t border-[rgba(153,246,228,0.2)] pt-12">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.2)] pb-4">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFD166] font-bold">
-                MATHEMATICAL ENGINE // REPUTATION FORMULATION
+                SECTION 02 // MATHEMATICAL SPEC &amp; WORKBENCH
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight mt-1">
-                Bayesian Scoring &amp; Live Sandbox
+                Bayesian Mathematical Formulation &amp; Sandbox
               </h2>
             </div>
-            <div className="px-3.5 py-1.5 rounded-full bg-[#042F2E] border border-[rgba(153,246,228,0.3)] text-xs font-mono text-[#FFD166]">
-              INTERACTIVE SIMULATOR
-            </div>
+            <span className="text-xs font-mono text-[#A7F3D0]">REPUTATION ALGORITHM v2.4</span>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="space-y-4">
-              <h3 className="text-lg font-black text-[#FFFDF7] tracking-tight">Mathematical Formulation</h3>
-              <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                Scout rejects simplistic percentage graduation rates, which grant a 100% score to deployers with just 1 lucky token. Instead, we compute a <strong>Laplace Smoothed Bayesian Prior</strong> with penalization factors:
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <div className="lg:col-span-7 space-y-6">
+              <p className="text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                Scout rejects simplistic percentage graduation rates, which grant an artificial 100% score to deployers with just 1 lucky token. Instead, we compute a <strong>Laplace-Smoothed Bayesian Prior</strong> bounded with forensic penalization factors:
               </p>
 
-              <div className="space-y-3 font-mono text-xs">
-                <div className="p-3.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1">
-                  <div className="text-[10px] text-[#99F6E4] uppercase font-bold">1. Base Laplace Score</div>
-                  <div className="text-[#FFD166] text-sm font-bold">S_base = ((k + 1) / (n + 2)) × 100</div>
-                  <div className="text-[11px] text-[#A7F3D0]">Where k = Graduated Count, n = Total Genesis Launches.</div>
+              <div className="space-y-4 font-mono text-xs">
+                <div className="border-l-2 border-[#99F6E4] pl-4 py-1 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-[#99F6E4] font-bold uppercase">POSTULATE 1.1 // BASE LAPLACE SCORE</span>
+                    <button
+                      onClick={() => handleCopy("S_base = ((k + 1) / (n + 2)) * 100", "p1")}
+                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedKey === "p1" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                      <span>Copy</span>
+                    </button>
+                  </div>
+                  <div className="text-base font-bold text-[#FFD166]">S_base = ((k + 1) / (n + 2)) × 100</div>
+                  <p className="font-sans text-xs text-[#A7F3D0]">
+                    Where <strong>k</strong> represents graduated tokens, and <strong>n</strong> represents total lifetime creator deployments.
+                  </p>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1">
-                  <div className="text-[10px] text-[#FF6B6B] uppercase font-bold">2. Dead on Arrival (DOA) Penalty</div>
-                  <div className="text-[#FF6B6B] text-sm font-bold">P_doa = min(8 × d, 30)</div>
-                  <div className="text-[11px] text-[#A7F3D0]">Docks 8 points per abandoned launch within 10 minutes of genesis.</div>
+                <div className="border-l-2 border-[#FF6B6B] pl-4 py-1 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-[#FF6B6B] font-bold uppercase">POSTULATE 1.2 // DEAD ON ARRIVAL (DOA) DEDUCTION</span>
+                    <button
+                      onClick={() => handleCopy("P_doa = min(8 * d, 30)", "p2")}
+                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedKey === "p2" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                      <span>Copy</span>
+                    </button>
+                  </div>
+                  <div className="text-base font-bold text-[#FF6B6B]">P_doa = min(8 × d, 30)</div>
+                  <p className="font-sans text-xs text-[#A7F3D0]">
+                    Docks 8 points per abandoned launch whose volume ceases or drops &gt;95% within 10 minutes of genesis.
+                  </p>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1">
-                  <div className="text-[10px] text-[#FF9F43] uppercase font-bold">3. Rapid-Fire Burst Velocity Penalty</div>
-                  <div className="text-[#FF9F43] text-sm font-bold">P_burst = min((b / 100) × 15, 20)</div>
-                  <div className="text-[11px] text-[#A7F3D0]">Penalizes creator wallets deploying multiple tokens within 30 minutes.</div>
+                <div className="border-l-2 border-[#FF9F43] pl-4 py-1 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-[#FF9F43] font-bold uppercase">POSTULATE 1.3 // BURST VELOCITY DAMPENER</span>
+                    <button
+                      onClick={() => handleCopy("P_burst = min((b / 100) * 15, 20)", "p3")}
+                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedKey === "p3" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                      <span>Copy</span>
+                    </button>
+                  </div>
+                  <div className="text-base font-bold text-[#FF9F43]">P_burst = min((b / 100) × 15, 20)</div>
+                  <p className="font-sans text-xs text-[#A7F3D0]">
+                    Penalizes creator wallets deploying multiple tokens within a tight 30-minute window (burst automated bot launches).
+                  </p>
                 </div>
 
-                <div className="p-3.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1">
-                  <div className="text-[10px] text-[#C084FC] uppercase font-bold">4. Serial Rugger Quarantine Clamp</div>
-                  <div className="text-[#C084FC] text-sm font-bold">If (n ≥ 6 ∧ k == 0) → S_final ≤ 25</div>
-                  <div className="text-[11px] text-[#A7F3D0]">Hard mathematical ceiling locking repeat zero-grad creators in Hostile Band.</div>
+                <div className="border-l-2 border-[#C084FC] pl-4 py-1 space-y-1">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-[#C084FC] font-bold uppercase">POSTULATE 1.4 // SERIAL RUGGER QUARANTINE CLAMP</span>
+                    <button
+                      onClick={() => handleCopy("If (n >= 6 && k == 0) -> S_final <= 25", "p4")}
+                      className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                    >
+                      {copiedKey === "p4" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                      <span>Copy</span>
+                    </button>
+                  </div>
+                  <div className="text-base font-bold text-[#C084FC]">If (n ≥ 6 ∧ k == 0) → S_final ≤ 25</div>
+                  <p className="font-sans text-xs text-[#A7F3D0]">
+                    Enforces a strict mathematical ceiling locking repeat zero-graduation creators inside the Red Hostile Band.
+                  </p>
                 </div>
               </div>
             </div>
 
-            <div className="p-6 rounded-3xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-5 flex flex-col justify-between shadow-inner">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-3">
-                  <span className="text-xs font-mono font-bold text-[#FFD166] uppercase">Real-Time Parameter Simulator</span>
-                  <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-extrabold border ${scoreBand.color}`}>
-                    {scoreBand.label}
-                  </span>
+            <div className="lg:col-span-5 bg-[#042F2E] rounded-3xl border border-[rgba(153,246,228,0.25)] p-6 space-y-6 shadow-xl">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-3">
+                <span className="text-xs font-mono font-bold text-[#FFD166] uppercase">LIVE PARAMETER INSTRUMENT</span>
+                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold border ${scoreBand.color}`}>
+                  {scoreBand.label}
+                </span>
+              </div>
+
+              <div className="text-center py-5 bg-[#064E4A] rounded-2xl border border-[rgba(153,246,228,0.2)]">
+                <div className="text-6xl font-black text-[#FFFDF7] tracking-tight">{calculatedScore}</div>
+                <div className="text-[11px] font-mono text-[#A7F3D0] mt-1">CALCULATED REPUTATION SCORE / 100</div>
+                <p className="text-xs text-[#99F6E4] mt-2 px-4 font-medium">{scoreBand.desc}</p>
+              </div>
+
+              <div className="space-y-4 font-mono text-xs">
+                <div>
+                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                    <span>Total Launches (n):</span>
+                    <span className="font-bold text-[#FFFDF7]">{simTotal}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="1"
+                    max="30"
+                    value={simTotal}
+                    onChange={(e) => {
+                      const val = Number(e.target.value);
+                      setSimTotal(val);
+                      if (simGraduated > val) setSimGraduated(val);
+                    }}
+                    className="w-full accent-[#FFD166] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                  />
                 </div>
 
-                <div className="text-center py-4 bg-[#064E4A]/80 rounded-2xl border border-[rgba(153,246,228,0.2)]">
-                  <div className="text-5xl sm:text-6xl font-black text-[#FFFDF7] tracking-tight">{calculatedScore}</div>
-                  <div className="text-xs font-mono text-[#A7F3D0] mt-1">CALCULATED REPUTATION SCORE / 100</div>
-                  <p className="text-xs text-[#99F6E4] mt-2 px-4 font-medium">{scoreBand.desc}</p>
+                <div>
+                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                    <span>Graduated Count (k):</span>
+                    <span className="font-bold text-[#99F6E4]">{simGraduated}</span>
+                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max={simTotal}
+                    value={simGraduated}
+                    onChange={(e) => setSimGraduated(Number(e.target.value))}
+                    className="w-full accent-[#99F6E4] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                  />
                 </div>
 
-                <div className="space-y-3 font-mono text-xs">
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                      <span>Total Launches (n):</span>
-                      <span className="font-bold text-[#FFFDF7]">{simTotal}</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="1"
-                      max="30"
-                      value={simTotal}
-                      onChange={(e) => {
-                        const val = Number(e.target.value);
-                        setSimTotal(val);
-                        if (simGraduated > val) setSimGraduated(val);
-                      }}
-                      className="w-full accent-[#FFD166] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                    />
+                <div>
+                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                    <span>DOA Incidents (d):</span>
+                    <span className="font-bold text-[#FF6B6B]">{simDoa}</span>
                   </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="5"
+                    value={simDoa}
+                    onChange={(e) => setSimDoa(Number(e.target.value))}
+                    className="w-full accent-[#FF6B6B] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                  />
+                </div>
 
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                      <span>Graduated Count (k):</span>
-                      <span className="font-bold text-[#99F6E4]">{simGraduated}</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max={simTotal}
-                      value={simGraduated}
-                      onChange={(e) => setSimGraduated(Number(e.target.value))}
-                      className="w-full accent-[#99F6E4] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                    />
+                <div>
+                  <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
+                    <span>Burst Velocity Ratio (b):</span>
+                    <span className="font-bold text-[#FF9F43]">{simBurst}%</span>
                   </div>
-
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                      <span>DOA Incidents (d):</span>
-                      <span className="font-bold text-[#FF6B6B]">{simDoa}</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="5"
-                      value={simDoa}
-                      onChange={(e) => setSimDoa(Number(e.target.value))}
-                      className="w-full accent-[#FF6B6B] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                    />
-                  </div>
-
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1">
-                      <span>Burst Velocity Ratio (b):</span>
-                      <span className="font-bold text-[#FF9F43]">{simBurst}%</span>
-                    </div>
-                    <input
-                      type="range"
-                      min="0"
-                      max="100"
-                      step="10"
-                      value={simBurst}
-                      onChange={(e) => setSimBurst(Number(e.target.value))}
-                      className="w-full accent-[#FF9F43] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
-                    />
-                  </div>
+                  <input
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="10"
+                    value={simBurst}
+                    onChange={(e) => setSimBurst(Number(e.target.value))}
+                    className="w-full accent-[#FF9F43] h-2 bg-[#064E4A] rounded-lg cursor-pointer"
+                  />
                 </div>
               </div>
 
@@ -673,206 +728,142 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
           </div>
         </section>
 
-        <section id="delta-engine" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 shadow-[0_12px_30px_-6px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
+        <section id="delta-engine" className="space-y-6 border-t border-[rgba(153,246,228,0.2)] pt-12">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.2)] pb-4">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                SECTION 02 // REAL-TIME SURVEILLANCE
+                SECTION 03 // REAL-TIME SURVEILLANCE
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight mt-1">
                 Since Last Check Delta Methodology
               </h2>
             </div>
             <div className="px-3 py-1 rounded-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#99F6E4]">
-              30 SNAPSHOT BUFFER / TOKEN
+              30 SNAPSHOT RETENTION BUFFER
             </div>
           </div>
 
-          <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-            Scout maintains up to 30 historical snapshots per token. When you reopen a dossier, the snapshot comparison engine evaluates metric deltas against the following predefined sensitivity thresholds:
+          <p className="text-sm text-[#A7F3D0] leading-relaxed font-normal">
+            Scout maintains up to 30 historical snapshots per token. When you revisit a case file, the comparison engine calculates deltas against 6 continuous telemetry streams:
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#99F6E4]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#99F6E4]">METRIC 01</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">VOLATILITY</span>
-              </div>
-              <div>
-                <div className="text-xs font-bold text-[#99F6E4] uppercase tracking-wide">FDV Fluctuations</div>
-                <div className="text-xl font-black mt-1 text-[#FFFDF7]">±20% Delta</div>
-              </div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Triggers when Market Cap shifts up or down by 20% or more since previous visit.
-              </p>
-              <div className="text-[10px] font-mono text-[#99F6E4] pt-2 border-t border-[rgba(153,246,228,0.15)]">
-                Formula: |FDV_t - FDV_0| / FDV_0 ≥ 0.20
-              </div>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#99F6E4]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#99F6E4]">METRIC 02</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">LIQUIDITY</span>
-              </div>
-              <div>
-                <div className="text-xs font-bold text-[#99F6E4] uppercase tracking-wide">Liquidity Shifts</div>
-                <div className="text-xl font-black mt-1 text-[#FFFDF7]">±20% Delta</div>
-              </div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Monitors pool drainage or sudden liquidity injection on DEX pairs.
-              </p>
-              <div className="text-[10px] font-mono text-[#99F6E4] pt-2 border-t border-[rgba(153,246,228,0.15)]">
-                Formula: |Liq_t - Liq_0| / Liq_0 ≥ 0.20
-              </div>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#FFD166]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#FFD166]">METRIC 03</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">MILESTONE</span>
-              </div>
-              <div>
-                <div className="text-xs font-bold text-[#FFD166] uppercase tracking-wide">Phase Progression</div>
-                <div className="text-xl font-black mt-1 text-[#FFFDF7]">Curve → Graduated</div>
-              </div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Triggers instantly upon graduation migration or protocol fee sweep events.
-              </p>
-              <div className="text-[10px] font-mono text-[#FFD166] pt-2 border-t border-[rgba(153,246,228,0.15)]">
-                Event: Phase_t != Phase_0 (Pons V2 → UniV3)
-              </div>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#FF6B6B]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#FF6B6B]">METRIC 04</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">FORENSIC</span>
-              </div>
-              <div>
-                <div className="text-xs font-bold text-[#FF6B6B] uppercase tracking-wide">Fee Recipient Routing</div>
-                <div className="text-xl font-black mt-1 text-[#FFFDF7]">Address Change</div>
-              </div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Flags any modification in the recipient address receiving creator trading fees.
-              </p>
-              <div className="text-[10px] font-mono text-[#FF6B6B] pt-2 border-t border-[rgba(153,246,228,0.15)]">
-                Condition: Recipient_addr_t != Recipient_addr_0
-              </div>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#99F6E4]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#99F6E4]">METRIC 05</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">CODEBASE</span>
-              </div>
-              <div>
-                <div className="text-xs font-bold text-[#99F6E4] uppercase tracking-wide">GitHub Activity</div>
-                <div className="text-xl font-black mt-1 text-[#FFFDF7]">New Commit SHA</div>
-              </div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Alerts researcher when fresh code is pushed to associated public repositories.
-              </p>
-              <div className="text-[10px] font-mono text-[#99F6E4] pt-2 border-t border-[rgba(153,246,228,0.15)]">
-                Digest: Commit_SHA_t != Commit_SHA_0
-              </div>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#FFD166]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#FFD166]">METRIC 06</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">CREATOR</span>
-              </div>
-              <div>
-                <div className="text-xs font-bold text-[#FFD166] uppercase tracking-wide">Deployer Genesis</div>
-                <div className="text-xl font-black mt-1 text-[#FFFDF7]">New Launch Event</div>
-              </div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Notifies when creator wallet deploys a subsequent token elsewhere in the factory.
-              </p>
-              <div className="text-[10px] font-mono text-[#FFD166] pt-2 border-t border-[rgba(153,246,228,0.15)]">
-                Delta: Total_Deployments_t &gt; Total_0
-              </div>
-            </div>
+          <div className="overflow-x-auto border-t border-b border-[rgba(153,246,228,0.2)]">
+            <table className="w-full text-xs font-mono border-collapse">
+              <thead>
+                <tr className="bg-[#042F2E] text-left text-[#A7F3D0] border-b border-[rgba(153,246,228,0.2)]">
+                  <th className="p-3.5">Metric Code</th>
+                  <th className="p-3.5">Trigger Condition</th>
+                  <th className="p-3.5 font-sans">Forensic Rationale</th>
+                  <th className="p-3.5">Status</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-[rgba(153,246,228,0.15)] text-[#FFFDF7]">
+                {DELTA_METRICS.map((item) => (
+                  <tr key={item.code} className="hover:bg-[#042F2E]/50 transition-colors">
+                    <td className="p-3.5">
+                      <div className="font-bold text-[#FFD166]">{item.code}</div>
+                      <div className="text-[11px] text-[#99F6E4]">{item.name}</div>
+                    </td>
+                    <td className="p-3.5">
+                      <span className="px-2 py-1 rounded bg-[#042F2E] border border-[rgba(153,246,228,0.2)] text-[#99F6E4]">
+                        {item.condition}
+                      </span>
+                    </td>
+                    <td className="p-3.5 font-sans text-[#A7F3D0] max-w-md">{item.rationale}</td>
+                    <td className="p-3.5">
+                      <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold border ${item.statusColor}`}>
+                        {item.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </section>
 
-        <section id="graph-topology" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 shadow-[0_12px_30px_-6px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
+        <section id="graph-topology" className="space-y-6 border-t border-[rgba(153,246,228,0.2)] pt-12">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.2)] pb-4">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                SECTION 03 // MULTI-ENTITY SYBIL DETECTION
+                SECTION 04 // SYBIL DETECTION ENGINE
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight mt-1">
                 Constellation Graph Relational Logic
               </h2>
             </div>
             <div className="flex items-center gap-2 text-xs font-mono text-[#FFD166]">
               <IconGraph size={16} />
-              <span>CLUSTER MAPPER</span>
+              <span>3-TIER RELATIONAL SCHEMATIC</span>
             </div>
           </div>
 
-          <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-            The Constellation Engine maps multi-token clusters by analyzing cryptographic and behavioral links across the blockchain:
+          <p className="text-sm text-[#A7F3D0] leading-relaxed font-normal">
+            The Constellation Engine maps multi-token clusters by evaluating cryptographic lineage across 3 distinct edge weight classes:
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#99F6E4]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#99F6E4]">EDGE TYPE 01</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">DETERMINISTIC</span>
+          <div className="border-t border-b border-[rgba(153,246,228,0.2)] divide-y divide-[rgba(153,246,228,0.15)] font-mono text-xs">
+            <div className="py-4 sm:py-5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="space-y-1 md:max-w-xl">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#042F2E] text-[#99F6E4] border border-[#99F6E4]/30">
+                    TIER 1 (WEIGHT = 1.00)
+                  </span>
+                  <span className="font-bold text-[#FFFDF7] font-sans text-sm">01. Direct Deployer Origin Link</span>
+                </div>
+                <p className="font-sans text-xs text-[#A7F3D0]">
+                  Direct cryptographic connection linking all tokens deployed by the exact same Ethereum origin wallet.
+                </p>
               </div>
-              <div className="text-sm font-bold uppercase text-[#99F6E4]">01. Direct Deployer Link</div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Edges connect all tokens deployed by the exact same origin Ethereum address, showing the creator&apos;s chronological timeline.
-              </p>
-              <div className="text-[10px] font-mono text-[#99F6E4] pt-2 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between">
-                <span>E_origin(T_i, T_j)</span>
-                <span>Weight = 1.0</span>
-              </div>
-            </div>
-
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#FFD166]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#FFD166]">EDGE TYPE 02</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">SYBIL DETECTION</span>
-              </div>
-              <div className="text-sm font-bold uppercase text-[#FFD166]">02. Shared Fee Recipient</div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Connects distinct deployer wallets that route their creator protocol fees to an identical destination address (Sybil cluster detection).
-              </p>
-              <div className="text-[10px] font-mono text-[#FFD166] pt-2 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between">
-                <span>E_fee(D_a, D_b)</span>
-                <span>Weight = 0.85</span>
+              <div className="text-[#99F6E4] text-xs font-bold px-3 py-1.5 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] self-start md:self-auto">
+                Formula: E_origin(T_i, T_j) = 1.00
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-3 hover:border-[#C084FC]/50 transition-all">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-[#064E4A] text-[#C084FC]">EDGE TYPE 03</span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">LIQUIDITY SOURCE</span>
+            <div className="py-4 sm:py-5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="space-y-1 md:max-w-xl">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
+                    TIER 2 (WEIGHT = 0.85)
+                  </span>
+                  <span className="font-bold text-[#FFFDF7] font-sans text-sm">02. Shared Fee Recipient Sink</span>
+                </div>
+                <p className="font-sans text-xs text-[#A7F3D0]">
+                  Uncovers stealth Sybil rings where distinct burner deployer addresses route their creator trading fees to a common destination sink.
+                </p>
               </div>
-              <div className="text-sm font-bold uppercase text-[#C084FC]">03. Shared Dev Wallet</div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Uncovers coordinated wallets funded by common upstream CEX or relayer liquidity sources.
-              </p>
-              <div className="text-[10px] font-mono text-[#C084FC] pt-2 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between">
-                <span>E_funder(W_1, W_2)</span>
-                <span>Weight = 0.70</span>
+              <div className="text-[#FFD166] text-xs font-bold px-3 py-1.5 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] self-start md:self-auto">
+                Formula: E_fee(D_a, D_b) = 0.85
+              </div>
+            </div>
+
+            <div className="py-4 sm:py-5 flex flex-col md:flex-row md:items-center justify-between gap-3">
+              <div className="space-y-1 md:max-w-xl">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-[#042F2E] text-[#C084FC] border border-[#C084FC]/30">
+                    TIER 3 (WEIGHT = 0.70)
+                  </span>
+                  <span className="font-bold text-[#FFFDF7] font-sans text-sm">03. Shared Upstream Funding Wallet</span>
+                </div>
+                <p className="font-sans text-xs text-[#A7F3D0]">
+                  Traces coordinated creator wallets funded by common upstream CEX deposit addresses or relayer liquidity sources.
+                </p>
+              </div>
+              <div className="text-[#C084FC] text-xs font-bold px-3 py-1.5 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] self-start md:self-auto">
+                Formula: E_funder(W_1, W_2) = 0.70
               </div>
             </div>
           </div>
         </section>
 
-        <section id="glossary-math" className="space-y-6">
+        <section id="glossary-math" className="space-y-8 border-t border-[rgba(153,246,228,0.2)] pt-12">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.2)] pb-4">
             <div>
               <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                SECTION 04 // PROTOCOL TAXONOMY
+                SECTION 05 // ON-CHAIN RESEARCH LEXICON
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                Section 04 // On-Chain Glossary
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight mt-1">
+                On-Chain Glossary &amp; Taxonomy
               </h2>
             </div>
             <div className="text-xs font-mono font-semibold text-[#A7F3D0]">
@@ -903,7 +894,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all cursor-pointer ${
                     selectedCategory === cat.id
                       ? "bg-[#FFD166] text-[#042F2E] shadow-sm"
                       : "bg-[#064E4A] text-[#A7F3D0] hover:text-[#FFFDF7] border border-[rgba(153,246,228,0.2)]"
@@ -915,46 +906,42 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="divide-y divide-[rgba(153,246,228,0.15)] border-t border-b border-[rgba(153,246,228,0.2)]">
             {filteredGlossary.map((item) => (
-              <div
-                key={item.term}
-                className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] space-y-3 backdrop-blur-xl hover:border-[#99F6E4]/60 transition-all flex flex-col justify-between"
-              >
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between gap-2">
+              <div key={item.term} className="py-5 space-y-2.5 hover:bg-[#042F2E]/40 px-2 rounded-xl transition-colors">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2">
                     <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#042F2E] text-[#99F6E4] border border-[rgba(153,246,228,0.2)]">
                       {item.badge}
                     </span>
-                    <span className="text-[10px] font-mono text-[#A7F3D0] uppercase">
-                      {item.categoryLabel}
-                    </span>
+                    <h3 className="text-base sm:text-lg font-black text-[#FFFDF7] tracking-tight">
+                      {item.term}
+                    </h3>
                   </div>
-
-                  <h3 className="text-base sm:text-lg font-black text-[#FFFDF7] tracking-tight">
-                    {item.term}
-                  </h3>
-
-                  {item.formula && (
-                    <div className="p-2.5 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.15)] flex items-center justify-between text-xs font-mono text-[#FFD166]">
-                      <span>{item.formula}</span>
-                      <button
-                        onClick={() => handleCopy(item.formula!, item.id)}
-                        className="p-1 hover:text-[#FFFDF7] text-[#99F6E4] transition-colors"
-                        title="Copy formula"
-                      >
-                        {copiedKey === item.id ? <IconCheck size={14} /> : <IconClipboard size={14} />}
-                      </button>
-                    </div>
-                  )}
-
-                  <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                    {item.definition}
-                  </p>
+                  <span className="text-[10px] font-mono text-[#A7F3D0] uppercase">
+                    {item.categoryLabel}
+                  </span>
                 </div>
 
-                <div className="pt-3 border-t border-[rgba(153,246,228,0.15)] text-[11px] text-[#99F6E4] font-mono flex items-center gap-1.5">
-                  <span className="font-bold text-[#FFD166]">IMPLICATION:</span>
+                {item.formula && (
+                  <div className="p-2 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.15)] flex items-center justify-between text-xs font-mono text-[#FFD166] max-w-2xl">
+                    <span>{item.formula}</span>
+                    <button
+                      onClick={() => handleCopy(item.formula!, item.id)}
+                      className="p-1 hover:text-[#FFFDF7] text-[#99F6E4] transition-colors cursor-pointer"
+                      title="Copy formula"
+                    >
+                      {copiedKey === item.id ? <IconCheck size={14} /> : <IconClipboard size={14} />}
+                    </button>
+                  </div>
+                )}
+
+                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                  {item.definition}
+                </p>
+
+                <div className="text-[11px] text-[#99F6E4] font-mono flex items-center gap-1.5 pt-1">
+                  <span className="font-bold text-[#FFD166]">RESEARCH IMPLICATION:</span>
                   <span className="text-[#A7F3D0]">{item.implication}</span>
                 </div>
               </div>
@@ -968,7 +955,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             className="inline-flex items-center gap-2 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline"
           >
             <IconArrowLeft size={14} />
-            <span>Read Technical Documentation</span>
+            <span>Read Technical API Documentation</span>
           </Link>
 
           <Link
