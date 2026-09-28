@@ -344,8 +344,8 @@
     "hash": "812cfa66ccf573ef1c90a0c0939546bc"
   },
   "components/census/CensusView.tsx": {
-    "mtime": 1790587717393.5415,
-    "hash": "9e217c47f3d8be52c758ff9247f4d37a"
+    "mtime": 1790603325148.0505,
+    "hash": "b57f182eda2664942d59a5ca967d871d"
   },
   "components/deployer/DeployerProfileView.tsx": {
     "mtime": 1790586667305.5693,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790599496207.1987,
-    "hash": "d9be03fabd9c0bb148d679834353d0bc"
+    "mtime": 1790602574185.2505,
+    "hash": "6c583eab3d7500a5c4cbe697f107c1f0"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -980,8 +980,8 @@
     "hash": "738a4193c0e4b0065b603666a15bd98f"
   },
   "components/census/__tests__/ChromaCensus.test.tsx": {
-    "mtime": 1790428411249.283,
-    "hash": "da9df82536b58b1bc269a94ad37ac28d"
+    "mtime": 1790603360565.194,
+    "hash": "de8bfe2139f29863ef047101166d0b0e"
   },
   "components/dossier/__tests__/ChromaDossier.test.tsx": {
     "mtime": 1790428680556.7568,
@@ -1062,5 +1062,9 @@
   "components/icons/Vectors.tsx": {
     "mtime": 1790588590435.5505,
     "hash": "a3b80fa7127ec6caebfa1b13c35860af"
+  },
+  "components/map/MapClient.tsx": {
+    "mtime": 1790602495692.564,
+    "hash": "23eec04884141d6d3305eeed3e719390"
   }
 }

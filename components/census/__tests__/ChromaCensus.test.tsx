@@ -40,6 +40,13 @@ describe("Chroma Census, Deployer Profile & Documentation (TICKET-95)", () => {
     assert.ok(html.includes("Launch Density by Block Range"));
     assert.ok(html.includes("Repeat Launchers"));
     assert.ok(html.includes("0x89e24b"));
+    assert.ok(html.includes("Methodology &amp; Mathematical Architecture"));
+    assert.ok(html.includes("Bayesian Model"));
+    assert.ok(html.includes("Pipeline &amp; Epoch"));
+    assert.ok(html.includes("Risk Matrix"));
+    assert.ok(html.includes("Live Simulator"));
+    assert.ok(html.includes("Laplace Smoothing Prior"));
+    assert.ok(html.includes("Serial Rugger Hard-Clamp"));
   });
 
   test("renders DeployerProfileView with 10-bar scoring gauge and signals", () => {

@@ -154,6 +154,7 @@
       "components/library/LibraryClient.tsx",
       "components/library/__tests__/ChromaLibrary.test.tsx",
       "components/map/ConnectionMap.tsx",
+      "components/map/MapClient.tsx",
       "components/map/__tests__/ConnectionMap.test.tsx",
       "components/responsive/__tests__/responsive-layout.test.tsx",
       "components/watchlist/WatchlistClient.tsx",
@@ -273,8 +274,8 @@
     ],
     "video": []
   },
-  "total_files": 264,
-  "total_words": 189287,
+  "total_files": 265,
+  "total_words": 191628,
   "needs_graph": true,
   "warning": null,
   "skipped_sensitive": [
@@ -283,7 +284,7 @@
   "graphifyignore_patterns": 27,
   "git": {
     "source_owner": "git",
-    "source_hash": "42f1b994e2efd1ce459e19420e670107fa5a061b",
+    "source_hash": "c9a3b60b5a06d5a5b2fc756ef46ff52be46bc0b2",
     "branches": [
       "main"
     ],
@@ -296,11 +297,11 @@
     "source": "default-auto",
     "root": ".",
     "git_root": ".",
-    "head": "42f1b994e2efd1ce459e19420e670107fa5a061b",
-    "candidate_count": 358,
-    "included_count": 264,
-    "excluded_untracked_count": 1,
-    "excluded_ignored_count": 44249,
+    "head": "c9a3b60b5a06d5a5b2fc756ef46ff52be46bc0b2",
+    "candidate_count": 359,
+    "included_count": 265,
+    "excluded_untracked_count": 0,
+    "excluded_ignored_count": 44252,
     "excluded_sensitive_count": 1,
     "missing_committed_count": 0,
     "warnings": [],

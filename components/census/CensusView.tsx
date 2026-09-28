@@ -16,6 +16,9 @@ import {
   IconArrowRight,
   IconFlame,
   IconAlert,
+  IconCpu,
+  IconGraph,
+  IconTarget,
 } from "@/components/icons/Vectors";
 import type { CensusPayload } from "@/lib/census/compute";
 
@@ -31,6 +34,37 @@ export function CensusView({
   userAddress,
 }: CensusViewProps) {
   const [copiedAddr, setCopiedAddr] = useState<string | null>(null);
+  const [methodologyTab, setMethodologyTab] = useState<"laplace" | "epoch" | "matrix" | "simulator">("laplace");
+  const [copiedFormula, setCopiedFormula] = useState<string | null>(null);
+
+  const [simLaunches, setSimLaunches] = useState<number>(8);
+  const [simGraduated, setSimGraduated] = useState<number>(3);
+  const [simDoa, setSimDoa] = useState<number>(1);
+  const [simBurst, setSimBurst] = useState<number>(2);
+
+  const safeSimGraduated = Math.min(simGraduated, simLaunches);
+  const safeSimDoa = Math.min(simDoa, simLaunches);
+  const safeSimBurst = Math.min(simBurst, simLaunches);
+
+  const simRawLaplace = Math.round(((safeSimGraduated + 1) / (simLaunches + 2)) * 100);
+  const simDoaRate = safeSimDoa / Math.max(simLaunches, 1);
+  const simBurstRate = safeSimBurst / Math.max(simLaunches, 1);
+  const simDoaPenalty = Math.round(Math.min(20 * simDoaRate, 30));
+  const simBurstPenalty = Math.round(Math.min(15 * simBurstRate, 20));
+  const simInterScore = Math.max(0, Math.min(100, simRawLaplace - simDoaPenalty - simBurstPenalty));
+  const isSerialClamp = simLaunches >= 6 && safeSimGraduated === 0;
+  const simFinalScore = isSerialClamp ? Math.min(simInterScore, 25) : simInterScore;
+
+  const simLabel = simLaunches <= 1 ? "fresh" : simLaunches <= 5 ? "repeat" : "serial";
+  const simBand = simFinalScore >= 65 ? "green" : simFinalScore >= 35 ? "yellow" : "red";
+
+  const handleCopyFormula = (formula: string, key: string) => {
+    if (typeof navigator !== "undefined" && navigator.clipboard) {
+      navigator.clipboard.writeText(formula);
+      setCopiedFormula(key);
+      setTimeout(() => setCopiedFormula(null), 2000);
+    }
+  };
 
   const launchesByBlock = useMemo(() => {
     return (
@@ -356,31 +390,524 @@ export function CensusView({
           </div>
         </section>
 
-        <section className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/95 p-6 sm:p-8 shadow-[0_15px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-4">
-          <div className="flex items-center gap-2 border-b border-[rgba(153,246,228,0.2)] pb-3">
-            <IconShield size={18} className="text-[#FFD166]" />
-            <h2 className="text-base sm:text-lg font-bold text-[#FFFDF7] tracking-tight">Methodology &amp; Mathematical Architecture</h2>
+        <section className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/95 p-6 sm:p-8 shadow-[0_15px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.2)] pb-4">
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.3)] flex items-center justify-center text-[#FFD166]">
+                <IconShield size={18} />
+              </div>
+              <div>
+                <h2 className="text-base sm:text-lg font-bold text-[#FFFDF7] tracking-tight">
+                  Methodology &amp; Mathematical Architecture
+                </h2>
+                <p className="text-[11px] sm:text-xs text-[#A7F3D0]/80">
+                  Bayesian inference parameters, empirical risk matrices, and statistical pipeline proofs
+                </p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1.5 p-1 bg-[#042F2E] rounded-2xl border border-[rgba(153,246,228,0.25)]" role="tablist">
+              <button
+                type="button"
+                role="tab"
+                aria-selected={methodologyTab === "laplace"}
+                onClick={() => setMethodologyTab("laplace")}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  methodologyTab === "laplace"
+                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                }`}
+              >
+                <IconCpu size={13} />
+                <span>Bayesian Model</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={methodologyTab === "epoch"}
+                onClick={() => setMethodologyTab("epoch")}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  methodologyTab === "epoch"
+                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                }`}
+              >
+                <IconGraph size={13} />
+                <span>Pipeline &amp; Epoch</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={methodologyTab === "matrix"}
+                onClick={() => setMethodologyTab("matrix")}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  methodologyTab === "matrix"
+                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                }`}
+              >
+                <IconAlert size={13} />
+                <span>Risk Matrix</span>
+              </button>
+              <button
+                type="button"
+                role="tab"
+                aria-selected={methodologyTab === "simulator"}
+                onClick={() => setMethodologyTab("simulator")}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                  methodologyTab === "simulator"
+                    ? "bg-[#FFD166] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                }`}
+              >
+                <IconTarget size={13} />
+                <span>Live Simulator</span>
+              </button>
+            </div>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-1">
-            <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-2">
-              <div className="text-xs font-bold uppercase text-[#99F6E4]">1. Laplace Smoothing Prior</div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Base reputation uses Bayesian Laplace smoothing <code className="text-[#99F6E4] font-mono">(graduated + 1) / (total + 2)</code> to prevent small sample size distortion.
-              </p>
+
+          {methodologyTab === "laplace" && (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">
+                      1. Laplace Smoothing Prior
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyFormula("S_Laplace(k, n) = ((k + 1) / (n + 2)) * 100", "laplace")}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#99F6E4] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      title="Copy formula"
+                    >
+                      {copiedFormula === "laplace" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
+                      <span>{copiedFormula === "laplace" ? "Copied" : "Copy"}</span>
+                    </button>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#FFFDF7] text-center">
+                    S<sub>Laplace</sub>(k, n) = [(k + 1) / (n + 2)] × 100
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Under a uniform Beta(1, 1) Bayesian prior, unobserved creators start at exactly 50.0 (maximum entropy). A creator with 1 launch and 1 graduation yields 66.7 score rather than a biased 100.0, eliminating small sample distortion.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#FFD166]">
+                      2. Serial Rugger Hard-Clamp
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyFormula("n >= 6 && k == 0 => S_final <= 25", "clamp")}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#FFD166] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      title="Copy formula"
+                    >
+                      {copiedFormula === "clamp" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
+                      <span>{copiedFormula === "clamp" ? "Copied" : "Copy"}</span>
+                    </button>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#FFD166] text-center">
+                    ∀ n ≥ 6 ∧ k = 0 ⟹ S<sub>final</sub> ≤ 25 (Red Band)
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Creators deploying 6 or more contracts without achieving a single AMM migration trigger an empirical quarantine rule, overriding posterior smoothing and locking reputation to the high-hazard Red Band.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#F87171]">
+                      3. Dead-On-Arrival (DOA) Penalty
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyFormula("P_DOA = min(20 * (d / n), 30)", "doa")}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#F87171] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      title="Copy formula"
+                    >
+                      {copiedFormula === "doa" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
+                      <span>{copiedFormula === "doa" ? "Copied" : "Copy"}</span>
+                    </button>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#F87171] text-center">
+                    P<sub>DOA</sub> = min(20 × [d / n], 30)
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Tokens abandoned within 30 minutes of deployment with near-zero volume or liquidity draining impose a progressive subtraction of up to 30 penalty points against the creator base score.
+                  </p>
+                </div>
+
+                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#C084FC]">
+                      4. Rapid-Fire Burst Penalty
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => handleCopyFormula("P_Burst = min(15 * (b / n), 20)", "burst")}
+                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#C084FC] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      title="Copy formula"
+                    >
+                      {copiedFormula === "burst" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
+                      <span>{copiedFormula === "burst" ? "Copied" : "Copy"}</span>
+                    </button>
+                  </div>
+                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#C084FC] text-center">
+                    P<sub>Burst</sub> = min(15 × [b / n], 20)
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Spam genesis deployments occurring within &lt;15 blocks of a previous token launch signal automated factory bots, deducting up to 20 penalty points to disincentivize sybil clustering.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-2">
+                  <IconShield size={16} className="text-[#99F6E4]" />
+                  <span className="text-xs font-bold text-[#FFFDF7]">Final Reputation Formulation:</span>
+                  <code className="text-xs font-mono text-[#99F6E4] bg-[#064E4A] px-2 py-0.5 rounded border border-[rgba(153,246,228,0.2)]">
+                    S_final = clamp[0, 100]( S_Laplace - P_DOA - P_Burst )
+                  </code>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setMethodologyTab("simulator")}
+                  className="inline-flex items-center gap-1 text-xs font-bold text-[#FFD166] hover:underline"
+                >
+                  <span>Test with live simulator</span>
+                  <IconArrowRight size={12} />
+                </button>
+              </div>
             </div>
-            <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-2">
-              <div className="text-xs font-bold uppercase text-[#FFD166]">2. Serial Rugger Clamp</div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Creators with ≥6 launches and 0 graduations are mathematically clamped to a maximum score of 25 (Red Band quarantine).
-              </p>
+          )}
+
+          {methodologyTab === "epoch" && (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#99F6E4]">
+                    01
+                  </div>
+                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">Bytecode Ingestion</div>
+                  <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
+                    Continuously scans token creation traces and log topics across the 2,000,000 block Robinhood chain sliding window.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#FFD166]">
+                    02
+                  </div>
+                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">Creator Graphing</div>
+                  <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
+                    Aggregates deployer addresses by nonce sequence, origin funding tree roots, and contract factory proxy patterns.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#4ADE80]">
+                    03
+                  </div>
+                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">AMM Migration Audit</div>
+                  <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
+                    Listens for pool creation and liquidity lock events to certify genuine graduation onto Robinhood Swap AMM.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
+                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#F87171]">
+                    04
+                  </div>
+                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">Macro Aggregation</div>
+                  <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
+                    Computes global metrics: Repeat deployer share, serial rugger density, and real-time network survival percentages.
+                  </p>
+                </div>
+              </div>
+
+              <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <span className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">
+                    Repeat Launcher Share Metric Formulation
+                  </span>
+                  <button
+                    type="button"
+                    onClick={() => handleCopyFormula("RepeatShare = (Sum(Launches from Repeat Deployers) / Total Launches) * 100", "repeatshare")}
+                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#99F6E4] border border-[rgba(153,246,228,0.2)] transition-colors self-start sm:self-auto"
+                  >
+                    {copiedFormula === "repeatshare" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
+                    <span>{copiedFormula === "repeatshare" ? "Copied" : "Copy"}</span>
+                  </button>
+                </div>
+                <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#FFFDF7] text-center">
+                  Repeat Share (%) = [ ∑<sub>i ∈ Repeat</sub> (Total Launches<sub>i</sub>) / Total Network Launches ] × 100
+                </div>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Repeat launchers are defined as any wallet address with ≥2 token creation transactions indexed within the sliding census window. A high repeat share (&gt;50%) indicates heavy concentration of speculative factory activity among few entities.
+                </p>
+              </div>
             </div>
-            <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-2">
-              <div className="text-xs font-bold uppercase text-[#C084FC]">3. Macro Epoch Aggregation</div>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Token genesis bytecode is audited continuously across sliding block windows on Robinhood Chain to detect factory anomalies.
-              </p>
+          )}
+
+          {methodologyTab === "matrix" && (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="overflow-x-auto rounded-2xl border border-[rgba(153,246,228,0.25)]">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-[#042F2E] text-[#99F6E4] uppercase tracking-wider font-bold border-b border-[rgba(153,246,228,0.2)]">
+                    <tr>
+                      <th className="py-3 px-4">Risk Band</th>
+                      <th className="py-3 px-4">Score Range</th>
+                      <th className="py-3 px-4">Cohort Label</th>
+                      <th className="py-3 px-4">Mathematical Conditions</th>
+                      <th className="py-3 px-4">Action / Protocol Status</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[rgba(153,246,228,0.1)] bg-[#042F2E]/60">
+                    <tr className="hover:bg-[#064E4A]/40 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-[#4ADE80] flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80]" />
+                        <span>Green Band</span>
+                      </td>
+                      <td className="py-3.5 px-4 font-mono font-bold text-[#FFFDF7]">65 – 100</td>
+                      <td className="py-3.5 px-4">
+                        <span className="px-2 py-0.5 rounded-md bg-[#4ADE80]/20 text-[#4ADE80] font-mono text-[10px] font-bold">
+                          repeat / fresh
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4 text-[#A7F3D0] font-mono text-[11px]">
+                        k / n ≥ 0.5 ∧ P_DOA = 0
+                      </td>
+                      <td className="py-3.5 px-4 text-[#C3F8E3]">
+                        Verified track record. Low hazard classification.
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-[#064E4A]/40 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-[#FBBF24] flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#FBBF24]" />
+                        <span>Yellow Band</span>
+                      </td>
+                      <td className="py-3.5 px-4 font-mono font-bold text-[#FFFDF7]">35 – 64</td>
+                      <td className="py-3.5 px-4">
+                        <span className="px-2 py-0.5 rounded-md bg-[#FBBF24]/20 text-[#FBBF24] font-mono text-[10px] font-bold">
+                          fresh / repeat
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4 text-[#A7F3D0] font-mono text-[11px]">
+                        n ≤ 5 ∨ (k / n &lt; 0.5 ∧ k &gt; 0)
+                      </td>
+                      <td className="py-3.5 px-4 text-[#C3F8E3]">
+                        Inconclusive sample size or mixed graduation history.
+                      </td>
+                    </tr>
+                    <tr className="hover:bg-[#064E4A]/40 transition-colors">
+                      <td className="py-3.5 px-4 font-bold text-[#F87171] flex items-center gap-1.5">
+                        <span className="w-2.5 h-2.5 rounded-full bg-[#F87171]" />
+                        <span>Red Band</span>
+                      </td>
+                      <td className="py-3.5 px-4 font-mono font-bold text-[#FFFDF7]">0 – 34</td>
+                      <td className="py-3.5 px-4">
+                        <span className="px-2 py-0.5 rounded-md bg-[#F87171]/20 text-[#F87171] font-mono text-[10px] font-bold">
+                          serial
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4 text-[#F87171] font-mono text-[11px]">
+                        (n ≥ 6 ∧ k = 0) ∨ P_DOA ≥ 20
+                      </td>
+                      <td className="py-3.5 px-4 text-[#FCA5A5] font-semibold">
+                        Quarantine active. High rug probability warning flag.
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5">
+                  <div className="text-xs font-bold uppercase text-[#99F6E4]">Fresh Deployers (n ≤ 1)</div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    First-time creators with no historical record. Bayesian score initializes at 50.0 prior to eliminate false-negative penalties.
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5">
+                  <div className="text-xs font-bold uppercase text-[#FFD166]">Repeat Deployers (2 ≤ n ≤ 5)</div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Intermediate creators accumulating empirical record. Prior weighting gradually diminishes as n increases.
+                  </p>
+                </div>
+                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5">
+                  <div className="text-xs font-bold uppercase text-[#F87171]">Serial Deployers (n ≥ 6)</div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    High-volume deployers. If graduation count remains 0, the hard-clamp restricts reputation to &le;25 unconditionally.
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
+          )}
+
+          {methodologyTab === "simulator" && (
+            <div className="space-y-6 animate-fadeIn">
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div className="lg:col-span-7 p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-5">
+                  <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-3">
+                    <div className="flex items-center gap-2">
+                      <IconTarget size={16} className="text-[#FFD166]" />
+                      <span className="text-xs font-bold text-[#FFFDF7] uppercase tracking-wider">
+                        Interactive Parameter Controls
+                      </span>
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSimLaunches(8);
+                        setSimGraduated(3);
+                        setSimDoa(1);
+                        setSimBurst(2);
+                      }}
+                      className="text-[10px] font-mono text-[#99F6E4] hover:text-[#FFD166] transition-colors"
+                    >
+                      Reset Defaults
+                    </button>
+                  </div>
+
+                  <div className="space-y-4">
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs">
+                        <span className="font-bold text-[#C3F8E3]">Total Deployments (n):</span>
+                        <span className="font-mono font-bold text-[#FFD166]">{simLaunches}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="1"
+                        max="20"
+                        value={simLaunches}
+                        onChange={(e) => {
+                          const val = Number(e.target.value);
+                          setSimLaunches(val);
+                          if (simGraduated > val) setSimGraduated(val);
+                          if (simDoa > val) setSimDoa(val);
+                          if (simBurst > val) setSimBurst(val);
+                        }}
+                        className="w-full accent-[#FFD166] cursor-pointer"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs">
+                        <span className="font-bold text-[#C3F8E3]">Graduated to AMM (k):</span>
+                        <span className="font-mono font-bold text-[#4ADE80]">{safeSimGraduated}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max={simLaunches}
+                        value={safeSimGraduated}
+                        onChange={(e) => setSimGraduated(Number(e.target.value))}
+                        className="w-full accent-[#4ADE80] cursor-pointer"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs">
+                        <span className="font-bold text-[#C3F8E3]">Dead-On-Arrival Drains (d):</span>
+                        <span className="font-mono font-bold text-[#F87171]">{safeSimDoa}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max={simLaunches}
+                        value={safeSimDoa}
+                        onChange={(e) => setSimDoa(Number(e.target.value))}
+                        className="w-full accent-[#F87171] cursor-pointer"
+                      />
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <div className="flex justify-between text-xs">
+                        <span className="font-bold text-[#C3F8E3]">Rapid-Fire Spams (b):</span>
+                        <span className="font-mono font-bold text-[#C084FC]">{safeSimBurst}</span>
+                      </div>
+                      <input
+                        type="range"
+                        min="0"
+                        max={simLaunches}
+                        value={safeSimBurst}
+                        onChange={(e) => setSimBurst(Number(e.target.value))}
+                        className="w-full accent-[#C084FC] cursor-pointer"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="lg:col-span-5 p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-4">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">
+                        Simulated Output
+                      </span>
+                      <span
+                        className={`px-2.5 py-0.5 text-[10px] font-black uppercase rounded-full ${
+                          simBand === "green"
+                            ? "bg-[#4ADE80]/20 text-[#4ADE80] border border-[#4ADE80]/40"
+                            : simBand === "yellow"
+                            ? "bg-[#FBBF24]/20 text-[#FBBF24] border border-[#FBBF24]/40"
+                            : "bg-[#F87171]/20 text-[#F87171] border border-[#F87171]/40"
+                        }`}
+                      >
+                        {simBand.toUpperCase()} BAND
+                      </span>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] text-center space-y-1">
+                      <div className="text-[10px] uppercase font-bold text-[#A7F3D0] tracking-wider">
+                        Final Bayesian Score
+                      </div>
+                      <div
+                        className={`text-4xl font-black font-mono ${
+                          simBand === "green"
+                            ? "text-[#4ADE80]"
+                            : simBand === "yellow"
+                            ? "text-[#FFD166]"
+                            : "text-[#F87171]"
+                        }`}
+                      >
+                        {simFinalScore} <span className="text-base font-normal text-[#A7F3D0]/60">/ 100</span>
+                      </div>
+                      <div className="text-xs font-bold text-[#C3F8E3] capitalize">
+                        Classification: <span className="text-[#FFD166]">{simLabel}</span>
+                      </div>
+                    </div>
+
+                    {isSerialClamp && (
+                      <div className="p-2.5 rounded-xl bg-[#EF4444]/20 border border-[#EF4444]/50 flex items-center gap-2 text-xs text-[#FCA5A5] font-bold animate-pulse">
+                        <IconAlert size={14} className="text-[#EF4444] shrink-0" />
+                        <span>Serial Rugger Hard-Clamp Active (Clamped &le; 25)</span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-[#064E4A]/60 border border-[rgba(153,246,228,0.15)] space-y-1.5 text-xs">
+                    <div className="flex justify-between text-[#A7F3D0]">
+                      <span>Raw Laplace:</span>
+                      <span className="font-mono font-bold text-[#FFFDF7]">{simRawLaplace} pts</span>
+                    </div>
+                    <div className="flex justify-between text-[#F87171]">
+                      <span>DOA Penalty:</span>
+                      <span className="font-mono font-bold">-{simDoaPenalty} pts</span>
+                    </div>
+                    <div className="flex justify-between text-[#C084FC]">
+                      <span>Burst Penalty:</span>
+                      <span className="font-mono font-bold">-{simBurstPenalty} pts</span>
+                    </div>
+                    <div className="border-t border-[rgba(153,246,228,0.15)] pt-1.5 flex justify-between font-bold text-[#99F6E4]">
+                      <span>Computed Score:</span>
+                      <span className="font-mono">{simFinalScore} pts</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
         </section>
       </main>
     </div>
