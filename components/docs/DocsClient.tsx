@@ -472,7 +472,7 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
         <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
           <aside
             aria-label="Developer Documentation Sidebar"
-            className="w-full lg:w-64 shrink-0 lg:sticky lg:top-20 self-start max-h-none lg:max-h-[calc(100vh-6rem)] overflow-y-visible lg:overflow-y-auto space-y-4 z-20"
+            className="w-full lg:w-64 shrink-0 lg:sticky lg:top-28 self-start max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-visible lg:overflow-y-auto space-y-4 z-20"
           >
             <div className="rounded-2xl lg:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-3.5 sm:p-5 shadow-lg backdrop-blur-xl space-y-3.5 sm:space-y-4">
               <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2.5">
