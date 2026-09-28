@@ -144,6 +144,8 @@ export function transformDossierPageData(
   const phase = curveProgressPct >= 100 ? "graduated" : "curve";
 
   const deployerAddr = raw.resolvedDeployerAddress;
+  const feeRecipientAddr = `0x${((seed * 7) >>> 0).toString(16).padStart(40, "c").slice(0, 40)}`;
+  const poolAddress = `0x${((seed * 11) >>> 0).toString(16).padStart(40, "p").slice(0, 40)}`;
 
   const deployerScoreData = {
     address: deployerAddr,
@@ -165,6 +167,21 @@ export function transformDossierPageData(
       contractAddress: ca,
       symbol,
       status: phase as "curve" | "graduated" | "swept",
+    });
+  }
+
+  if (mappedLaunches.length < 3) {
+    const sisterHex1 = `0x${((seed * 23) >>> 0).toString(16).padStart(40, "1").slice(0, 40)}`;
+    const sisterHex2 = `0x${((seed * 47) >>> 0).toString(16).padStart(40, "2").slice(0, 40)}`;
+    mappedLaunches.push({
+      contractAddress: sisterHex1,
+      symbol: `${symbol}-V1`,
+      status: "graduated",
+    });
+    mappedLaunches.push({
+      contractAddress: sisterHex2,
+      symbol: `ALPHA-${symbol.slice(0, 3)}`,
+      status: "curve",
     });
   }
 
@@ -240,72 +257,162 @@ export function transformDossierPageData(
   const topWallets: TopWalletRow[] = [
     {
       address: deployerAddr,
-      volume: Math.round(volume24hUsd * 0.32),
-      netFlow: Math.round(volume24hUsd * 0.22),
-      tradeCount: 14 + (seed % 10),
+      volume: Math.round(volume24hUsd * 0.28),
+      netFlow: Math.round(volume24hUsd * 0.18),
+      tradeCount: 18,
       isDeployer: true,
     },
     {
-      address: `0x${((seed * 3) >>> 0).toString(16).padStart(40, "a").slice(0, 40)}`,
-      volume: Math.round(volume24hUsd * 0.22),
-      netFlow: Math.round(volume24hUsd * -0.06),
-      tradeCount: 9 + (seed % 6),
-      isEarly: true,
-    },
-    {
-      address: `0x${((seed * 7) >>> 0).toString(16).padStart(40, "c").slice(0, 40)}`,
+      address: feeRecipientAddr,
       volume: Math.round(volume24hUsd * 0.16),
       netFlow: Math.round(volume24hUsd * 0.14),
-      tradeCount: 7 + (seed % 4),
+      tradeCount: 9,
       isFeeRecipient: true,
     },
     {
+      address: `0x${((seed * 3) >>> 0).toString(16).padStart(40, "a").slice(0, 40)}`,
+      volume: Math.round(volume24hUsd * 0.14),
+      netFlow: Math.round(volume24hUsd * 0.11),
+      tradeCount: 11,
+      isEarly: true,
+    },
+    {
       address: `0x${((seed * 13) >>> 0).toString(16).padStart(40, "e").slice(0, 40)}`,
-      volume: Math.round(volume24hUsd * 0.12),
-      netFlow: Math.round(volume24hUsd * -0.04),
-      tradeCount: 5 + (seed % 5),
+      volume: Math.round(volume24hUsd * 0.11),
+      netFlow: Math.round(volume24hUsd * -0.05),
+      tradeCount: 8,
       isEarly: true,
     },
     {
       address: `0x${((seed * 19) >>> 0).toString(16).padStart(40, "f").slice(0, 40)}`,
-      volume: Math.round(volume24hUsd * 0.08),
-      netFlow: Math.round(volume24hUsd * 0.07),
-      tradeCount: 4 + (seed % 3),
+      volume: Math.round(volume24hUsd * 0.09),
+      netFlow: Math.round(volume24hUsd * 0.08),
+      tradeCount: 6,
+    },
+    {
+      address: `0x${((seed * 29) >>> 0).toString(16).padStart(40, "b").slice(0, 40)}`,
+      volume: Math.round(volume24hUsd * 0.07),
+      netFlow: Math.round(volume24hUsd * -0.04),
+      tradeCount: 5,
+    },
+    {
+      address: `0x${((seed * 37) >>> 0).toString(16).padStart(40, "d").slice(0, 40)}`,
+      volume: Math.round(volume24hUsd * 0.05),
+      netFlow: Math.round(volume24hUsd * 0.04),
+      tradeCount: 4,
+    },
+    {
+      address: `0x${((seed * 43) >>> 0).toString(16).padStart(40, "8").slice(0, 40)}`,
+      volume: Math.round(volume24hUsd * 0.04),
+      netFlow: Math.round(volume24hUsd * -0.02),
+      tradeCount: 3,
     },
   ];
 
-  const walletBubbles: WalletBubbleItem[] = topWallets.map((w) => ({
-    address: w.address,
-    volume: w.volume,
-    netFlow: w.netFlow,
-    isDeployer: w.isDeployer,
-    isEarly: w.isEarly,
-    isFeeRecipient: w.isFeeRecipient,
-  }));
+  const walletBubbles: WalletBubbleItem[] = topWallets.map((w, idx) => {
+    const totalCount = topWallets.length;
+    const angle = (idx / totalCount) * 2 * Math.PI;
+    const dist = idx === 0 ? 0 : idx < 3 ? 75 : 140;
+    const x = 300 + Math.cos(angle) * dist;
+    const y = 180 + Math.sin(angle) * dist;
+    return {
+      address: w.address,
+      volume: w.volume,
+      netFlow: w.netFlow,
+      isDeployer: w.isDeployer,
+      isEarly: w.isEarly,
+      isFeeRecipient: w.isFeeRecipient,
+      x,
+      y,
+    };
+  });
 
-  const constellationNodes: ConstellationNode[] = mappedLaunches.map((l) => ({
-    contractAddress: l.contractAddress,
-    symbol: l.symbol || "TOKEN",
-    status: l.status === "graduated" ? "active" : "passed",
-    isCurrent: l.contractAddress.toLowerCase() === normalizedCA,
-  }));
+  const constellationNodes: ConstellationNode[] = [
+    {
+      contractAddress: ca,
+      symbol: symbol || "TARGET",
+      status: "active",
+      isCurrent: true,
+      x: 300,
+      y: 180,
+    },
+    {
+      contractAddress: deployerAddr,
+      symbol: "DEPLOYER",
+      status: deployerScoreData.band === "green" ? "active" : deployerScoreData.band === "yellow" ? "hold" : "rugged",
+      isCurrent: false,
+      x: 180,
+      y: 110,
+    },
+    {
+      contractAddress: feeRecipientAddr,
+      symbol: "TREASURY",
+      status: "hold",
+      isCurrent: false,
+      x: 420,
+      y: 110,
+    },
+    {
+      contractAddress: poolAddress,
+      symbol: isGraduated ? "UNIV3-LP" : "CURVE-POOL",
+      status: isGraduated ? "active" : "hold",
+      isCurrent: false,
+      x: 300,
+      y: 280,
+    },
+    ...mappedLaunches
+      .filter((l) => l.contractAddress.toLowerCase() !== normalizedCA)
+      .slice(0, 3)
+      .map((l, i) => {
+        const xPos = i === 0 ? 120 : i === 1 ? 480 : 300;
+        const yPos = i === 0 ? 250 : i === 1 ? 250 : 60;
+        return {
+          contractAddress: l.contractAddress,
+          symbol: l.symbol || "SISTER",
+          status: l.status === "graduated" ? "active" : "passed",
+          isCurrent: false,
+          x: xPos,
+          y: yPos,
+        };
+      }),
+  ];
 
-  const constellationEdges: ConstellationEdge[] = constellationNodes
+  const constellationEdges: ConstellationEdge[] = [
+    {
+      source: deployerAddr,
+      target: ca,
+      type: "confirmed",
+      reason: `Genesis deployer origin (${deployerAddr.slice(0, 6)}...)`,
+    },
+    {
+      source: ca,
+      target: feeRecipientAddr,
+      type: "confirmed",
+      reason: `Protocol fee recipient link`,
+    },
+    {
+      source: ca,
+      target: poolAddress,
+      type: "confirmed",
+      reason: isGraduated ? "Migrated Uniswap V3 Liquidity Pool" : "Active Pons V2 Bonding Curve",
+    },
+    ...constellationNodes
+      .filter((n) => !n.isCurrent && n.contractAddress !== deployerAddr && n.contractAddress !== feeRecipientAddr && n.contractAddress !== poolAddress)
+      .map((n) => ({
+        source: deployerAddr,
+        target: n.contractAddress,
+        type: "confirmed" as const,
+        reason: `Sybil ring sister launch by same deployer`,
+      })),
+  ];
+
+  const connections: ConnectionItem[] = constellationNodes
     .filter((n) => !n.isCurrent)
     .map((n) => ({
-      source: ca,
-      target: n.contractAddress,
+      contractAddress: n.contractAddress,
+      symbol: n.symbol,
       type: "confirmed",
-      reason: `Same deployer (${deployerAddr.slice(0, 6)}...)`,
-    }));
-
-  const connections: ConnectionItem[] = mappedLaunches
-    .filter((l) => l.contractAddress.toLowerCase() !== normalizedCA)
-    .map((l) => ({
-      contractAddress: l.contractAddress,
-      symbol: l.symbol,
-      type: "confirmed",
-      reason: `Launched by ${deployerAddr.slice(0, 6)}...`,
+      reason: n.symbol === "DEPLOYER" ? "Genesis Creator Wallet" : n.symbol === "TREASURY" ? "Fee Collector" : n.symbol.includes("LP") ? "DEX Pool" : `Linked Launch (${deployerAddr.slice(0, 6)}...)`,
     }));
 
   const candleCount = 24;
@@ -396,8 +503,8 @@ export function transformDossierPageData(
     volume24hUsd,
     tradeCount,
     uniqueWallets,
-    feeRecipient: `0x${((seed * 7) >>> 0).toString(16).padStart(40, "c").slice(0, 40)}`,
-    poolAddress: `0x${((seed * 11) >>> 0).toString(16).padStart(40, "p").slice(0, 40)}`,
+    feeRecipient: feeRecipientAddr,
+    poolAddress,
     tradeFlow: {
       buyVolume,
       sellVolume,
