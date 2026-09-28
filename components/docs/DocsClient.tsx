@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import {
@@ -10,6 +10,9 @@ import {
   IconCheck,
   IconClipboard,
   IconAlert,
+  IconCode,
+  IconShield,
+  IconDatabase,
 } from "@/components/icons/Vectors";
 
 interface DocsClientProps {
@@ -399,19 +402,66 @@ print(resp.json())`,
   },
 ];
 
-const SECTIONS = [
-  { id: "formula", label: "01 // Score Formula", badge: "MATH" },
-  { id: "endpoints", label: "02 // REST Endpoints", badge: "API" },
-  { id: "sandbox", label: "03 // Live Playground", badge: "RUN" },
-  { id: "contracts", label: "04 // Smart Contracts", badge: "RPC" },
-  { id: "limits", label: "05 // Rate Limits", badge: "QUOTA" },
-  { id: "disclaimer", label: "06 // Risk Disclaimer", badge: "WARN" },
+const NAV_GROUPS = [
+  {
+    title: "Getting Started",
+    items: [
+      { id: "introduction", label: "Introduction" },
+      { id: "architecture", label: "Architecture & MultiCall" },
+    ],
+  },
+  {
+    title: "Reputation Engine",
+    items: [
+      { id: "formula", label: "Deployer Score Formula" },
+      { id: "scoring-bands", label: "Scoring Bands Matrix" },
+    ],
+  },
+  {
+    title: "REST API Endpoints",
+    items: [
+      { id: "endpoints", label: "Overview & Reference" },
+      { id: "endpoint-deployer-profile", label: "GET /api/deployer/:address" },
+      { id: "endpoint-census-macro", label: "GET /api/census" },
+      { id: "endpoint-case-file-public", label: "GET /api/p/:slug" },
+      { id: "endpoint-dossier-ca", label: "GET /api/dossier/:ca" },
+      { id: "endpoint-watchlist", label: "/api/watchlist (CRUD)" },
+      { id: "endpoint-auth-me", label: "GET /api/auth/me" },
+    ],
+  },
+  {
+    title: "Developer Tools",
+    items: [
+      { id: "sandbox", label: "Interactive API Playground" },
+      { id: "contracts", label: "Verified Smart Contracts" },
+    ],
+  },
+  {
+    title: "Specifications & Policies",
+    items: [
+      { id: "limits", label: "Rate Limits & Quotas" },
+      { id: "disclaimer", label: "On-Chain Risk Disclaimer" },
+    ],
+  },
+];
+
+const TOC_ITEMS = [
+  { id: "introduction", label: "Introduction" },
+  { id: "architecture", label: "Architecture" },
+  { id: "formula", label: "Score Formula" },
+  { id: "scoring-bands", label: "Scoring Bands" },
+  { id: "endpoints", label: "REST Reference" },
+  { id: "sandbox", label: "API Playground" },
+  { id: "contracts", label: "Smart Contracts" },
+  { id: "limits", label: "Rate Limits" },
+  { id: "disclaimer", label: "Risk Disclaimer" },
 ];
 
 export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
   const [selectedEndpointId, setSelectedEndpointId] = useState<string>("deployer-profile");
   const [activeCodeLang, setActiveCodeLang] = useState<"curl" | "typescript" | "python">("curl");
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string>("introduction");
 
   const [sandboxAddress, setSandboxAddress] = useState<string>("0x89e247413697b0d911b3327d78fa1b94541889b2");
   const [sandboxResponse, setSandboxResponse] = useState<string | null>(null);
@@ -420,6 +470,23 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
   const activeEndpoint = useMemo(() => {
     return ENDPOINTS.find((ep) => ep.id === selectedEndpointId) || ENDPOINTS[0];
   }, [selectedEndpointId]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 140;
+      for (let i = TOC_ITEMS.length - 1; i >= 0; i--) {
+        const item = TOC_ITEMS[i];
+        const el = document.getElementById(item.id);
+        if (el && el.offsetTop <= scrollPosition) {
+          setActiveSection(item.id);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const handleCopy = (text: string, key: string) => {
     navigator.clipboard.writeText(text);
@@ -432,253 +499,413 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
     setTimeout(() => {
       setSandboxResponse(activeEndpoint.sampleResponse);
       setIsSimulating(false);
-    }, 450);
-  };
-
-  const handleSelectEndpointFromSidebar = (epId: string) => {
-    setSelectedEndpointId(epId);
-    const endpointsSection = document.getElementById("endpoints");
-    if (endpointsSection) {
-      endpointsSection.scrollIntoView({ behavior: "smooth" });
-    }
+    }, 350);
   };
 
   return (
-    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-16 sm:pb-24 selection:bg-[#FFD166] selection:text-[#042F2E]">
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-20 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 right-1/4 w-[750px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 pt-5 sm:pt-8 relative z-10">
-        <header className="border-b border-[rgba(153,246,228,0.2)] pb-6 mb-6 sm:pb-8 sm:mb-8">
-          <div className="flex flex-wrap items-center gap-2 mb-2.5">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#064E4A] border border-[rgba(153,246,228,0.3)] text-[#99F6E4]">
-              <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse" />
-              DEVELOPER SPECIFICATION // ROBINHOOD 4663
-            </span>
-            <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
-              REST API v2.4
-            </span>
-          </div>
-
-          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#FFFDF7]">
-            Technical Documentation &amp; API Reference
-          </h1>
-          <p className="text-xs sm:text-base text-[#A7F3D0] mt-2 leading-relaxed max-w-3xl font-normal">
-            Mathematical scoring algorithms, public endpoints, rate limits, data schemas, and integration guidelines.
-          </p>
-        </header>
-
-        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
+        <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 items-start">
+          
           <aside
-            aria-label="Developer Documentation Sidebar"
-            className="w-full lg:w-64 shrink-0 lg:sticky lg:top-28 self-start max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-visible lg:overflow-y-auto space-y-4 z-20"
+            aria-label="Documentation Navigation"
+            className="w-full lg:w-60 xl:w-64 shrink-0 lg:sticky lg:top-28 self-start max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-visible lg:overflow-y-auto pb-6 lg:border-r lg:border-[rgba(153,246,228,0.15)] lg:pr-4"
           >
-            <div className="rounded-2xl lg:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-3.5 sm:p-5 shadow-lg backdrop-blur-xl space-y-3.5 sm:space-y-4">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2.5">
-                <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#99F6E4]">
-                  DOCUMENTATION SECTIONS
+            <div className="space-y-6">
+              <div className="hidden lg:flex items-center justify-between pb-3 border-b border-[rgba(153,246,228,0.2)]">
+                <span className="text-[11px] font-mono uppercase tracking-wider font-black text-[#99F6E4]">
+                  DOCUMENTATION
                 </span>
-                <span className="text-[10px] font-mono text-[#A7F3D0]">INDEX</span>
+                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
+                  v2.4
+                </span>
               </div>
 
-              <nav className="flex lg:flex-col gap-1 overflow-x-auto no-scrollbar py-0.5 lg:py-0">
-                {SECTIONS.map((sec) => (
+              <div className="flex lg:hidden overflow-x-auto gap-2 pb-2 no-scrollbar border-b border-[rgba(153,246,228,0.2)]">
+                {TOC_ITEMS.map((item) => (
                   <a
-                    key={sec.id}
-                    href={`#${sec.id}`}
-                    className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap transition-all text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/80 border border-transparent hover:border-[rgba(153,246,228,0.2)]"
+                    key={item.id}
+                    href={`#${item.id}`}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                      activeSection === item.id
+                        ? "bg-[#FFD166] text-[#042F2E] font-bold"
+                        : "bg-[#042F2E]/80 text-[#A7F3D0] hover:text-[#FFFDF7]"
+                    }`}
                   >
-                    <span>{sec.label}</span>
-                    <span className="hidden lg:inline-block text-[8px] font-mono px-1 rounded bg-[#042F2E] text-[#FFD166]">
-                      {sec.badge}
-                    </span>
+                    {item.label}
                   </a>
                 ))}
-              </nav>
-
-              <div className="pt-3 border-t border-[rgba(153,246,228,0.15)] space-y-1.5">
-                <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase text-[#FFD166]">
-                  <span>REST ENDPOINTS ({ENDPOINTS.length})</span>
-                  <span>JUMP</span>
-                </div>
-                <div className="flex lg:flex-col gap-1 overflow-x-auto no-scrollbar py-0.5 lg:py-0">
-                  {ENDPOINTS.map((ep) => (
-                    <button
-                      key={ep.id}
-                      onClick={() => handleSelectEndpointFromSidebar(ep.id)}
-                      className={`text-left flex items-center justify-between px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-mono whitespace-nowrap transition-all cursor-pointer ${
-                        selectedEndpointId === ep.id
-                          ? "bg-[#FFD166] text-[#042F2E] font-bold shadow-sm"
-                          : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/60 bg-[#042F2E]/40"
-                      }`}
-                    >
-                      <div className="flex items-center gap-1 truncate">
-                        <span
-                          className={`text-[8px] font-black px-1 rounded ${
-                            ep.method === "GET"
-                              ? "bg-[#14B8A6]/30 text-[#99F6E4]"
-                              : ep.method === "POST"
-                              ? "bg-[#FF9F43]/30 text-[#FFD166]"
-                              : "bg-[#FF6B6B]/30 text-[#FF6B6B]"
-                          }`}
-                        >
-                          {ep.method}
-                        </span>
-                        <span className="truncate">{ep.path.split("?")[0]}</span>
-                      </div>
-                    </button>
-                  ))}
-                </div>
               </div>
 
-              <div className="pt-2.5 border-t border-[rgba(153,246,228,0.15)] rounded-xl bg-[#042F2E]/90 p-2.5 font-mono text-[9px] flex items-center justify-between text-[#A7F3D0]">
-                <span>CHAIN: 4663</span>
-                <span className="text-[#99F6E4]">MultiCall3 Active</span>
+              <div className="hidden lg:block space-y-6">
+                {NAV_GROUPS.map((group) => (
+                  <div key={group.title} className="space-y-2">
+                    <h5 className="text-[11px] font-mono uppercase tracking-wider font-bold text-[#FFD166]/90 px-2">
+                      {group.title}
+                    </h5>
+                    <ul className="space-y-0.5 text-xs font-medium">
+                      {group.items.map((item) => {
+                        const isNavActive =
+                          activeSection === item.id ||
+                          (item.id.startsWith("endpoint-") &&
+                            selectedEndpointId === item.id.replace("endpoint-", "") &&
+                            activeSection === "endpoints");
+                        return (
+                          <li key={item.id}>
+                            <a
+                              href={`#${item.id.startsWith("endpoint-") ? "endpoints" : item.id}`}
+                              onClick={() => {
+                                if (item.id.startsWith("endpoint-")) {
+                                  setSelectedEndpointId(item.id.replace("endpoint-", ""));
+                                }
+                              }}
+                              className={`block px-2.5 py-1.5 rounded-md transition-all ${
+                                isNavActive
+                                  ? "bg-[#042F2E] text-[#FFFDF7] font-bold border-l-2 border-[#14B8A6]"
+                                  : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/40"
+                              }`}
+                            >
+                              {item.label}
+                            </a>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+
+              <div className="hidden lg:block pt-4 border-t border-[rgba(153,246,228,0.15)] px-2 font-mono text-[10px] text-[#A7F3D0] space-y-1">
+                <div className="flex items-center justify-between">
+                  <span>CHAIN ID:</span>
+                  <span className="text-[#99F6E4] font-bold">4663 (ROBINHOOD)</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <span>RPC STATUS:</span>
+                  <span className="text-[#14B8A6] font-bold flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#14B8A6] animate-pulse" />
+                    CONNECTED
+                  </span>
+                </div>
               </div>
             </div>
           </aside>
 
-          <main className="flex-1 min-w-0 space-y-8 sm:space-y-12">
-            <section id="formula" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+          <main className="flex-1 min-w-0 max-w-4xl space-y-12 pb-12">
+            
+            <header className="space-y-3 pb-6 border-b border-[rgba(153,246,228,0.2)]">
+              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-[#99F6E4]">
+                <Link href="/" className="hover:underline">Home</Link>
+                <span>/</span>
+                <span className="text-[#A7F3D0]">Docs</span>
+                <span>/</span>
+                <span className="text-[#FFD166]">API Reference</span>
+              </nav>
+
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FFFDF7]">
+                Technical Documentation &amp; API Reference
+              </h1>
+
+              <p className="text-base sm:text-lg text-[#A7F3D0] leading-relaxed max-w-3xl font-normal">
+                Comprehensive technical specifications, Bayesian deployer scoring mathematics, public REST endpoints, rate quotas, and verified on-chain smart contract registries on Robinhood Chain.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-2 pt-2">
+                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[#042F2E] border border-[rgba(153,246,228,0.3)] text-[#99F6E4]">
+                  <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse" />
+                  REST API v2.4
+                </span>
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
+                  CHAIN 4663
+                </span>
+                <span className="px-2.5 py-1 rounded-full text-[11px] font-mono text-[#A7F3D0] bg-[#042F2E]/60 border border-[rgba(153,246,228,0.2)]">
+                  MULTICALL3 BATCHING
+                </span>
+              </div>
+            </header>
+
+            <section id="introduction" className="space-y-4 scroll-mt-28">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  Introduction
+                </h2>
+                <span className="text-xs font-mono text-[#99F6E4]">OVERVIEW</span>
+              </div>
+
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+                Scout Dossier.OS operates an on-chain surveillance and creator intelligence engine that indexes every transaction and smart contract deployment across Robinhood Chain. Our public and authenticated endpoints provide sub-second access to mathematical creator reputation profiles, macro ecosystem density census, real-time MultiCall3 aggregations, and immutable research case files.
+              </p>
+
+              <div className="border-l-4 border-l-[#14B8A6] bg-[#042F2E]/80 rounded-r-xl p-4 sm:p-5 space-y-1.5 shadow-sm">
+                <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#99F6E4] uppercase tracking-wider">
+                  <IconShield size={16} className="text-[#14B8A6]" />
+                  <span>Public &amp; Authenticated Integration</span>
+                </div>
+                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                  All public endpoints (`/api/deployer/:address`, `/api/census`, `/api/p/:slug`, `/api/dossier/:ca`) require no authentication and are rate-limited to 30 requests per minute per IP. Mutation and personal watchlist endpoints require Sign-In with Ethereum (SIWE) session cookies.
+                </p>
+              </div>
+            </section>
+
+            <section id="architecture" className="space-y-4 scroll-mt-28">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  Architecture &amp; On-Chain Indexing
+                </h2>
+                <span className="text-xs font-mono text-[#FFD166]">INFRASTRUCTURE</span>
+              </div>
+
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+                Scout uses an autonomous 3-tier pipeline designed for high-concurrency Ethereum Layer-2 RPC feeds:
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div className="p-4 rounded-xl bg-[#042F2E]/70 border border-[rgba(153,246,228,0.2)] space-y-2">
+                  <div className="text-xs font-mono font-bold text-[#99F6E4] flex items-center gap-1.5">
+                    <IconDatabase size={14} className="text-[#14B8A6]" />
+                    <span>01 // MultiCall3</span>
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Combines 10+ smart contract queries into a single atomic JSON-RPC request to Robinhood Chain Node.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#042F2E]/70 border border-[rgba(153,246,228,0.2)] space-y-2">
+                  <div className="text-xs font-mono font-bold text-[#FFD166] flex items-center gap-1.5">
+                    <IconCpu size={14} className="text-[#FFD166]" />
+                    <span>02 // Bayesian Pipeline</span>
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Computes Laplace smoothed success distributions, DOA decay curves, and serial deployer clamps.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-[#042F2E]/70 border border-[rgba(153,246,228,0.2)] space-y-2">
+                  <div className="text-xs font-mono font-bold text-[#99F6E4] flex items-center gap-1.5">
+                    <IconCode size={14} className="text-[#14B8A6]" />
+                    <span>03 // Edge Serving</span>
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                    Zero-latency responses cached with strict TTL headers for high-frequency algorithmic consumers.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <section id="formula" className="space-y-4 scroll-mt-28">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                    SECTION 01 // MATHEMATICAL ALGORITHMS
-                  </span>
-                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                     Deployer Score Formula
                   </h2>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#042F2E] border border-[#FFD166]/40 text-[11px] font-mono font-bold text-[#FFD166] self-start sm:self-auto">
-                  SPEC
-                </span>
+                <span className="text-xs font-mono text-[#FFD166] font-bold">MATHEMATICAL SPEC</span>
               </div>
 
-              <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                Deployer reputation scores are deterministically calculated based on historical launch performance on Robinhood Chain:
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+                Creator wallets are evaluated using deterministic Bayesian Laplace smoothing combined with non-linear penalties for dead-on-arrival (DOA) tokens, burst genesis velocity, and serial failure caps:
               </p>
 
-              <div className="p-3 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] font-mono text-[11px] sm:text-xs text-[#99F6E4] space-y-2">
-                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-1.5">
-                  <span className="font-bold text-[#FFFDF7] font-sans text-xs">Score Formula:</span>
+              <div className="rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] p-4 sm:p-5 font-mono text-xs sm:text-sm text-[#99F6E4] space-y-3">
+                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-2">
+                  <span className="font-bold text-[#FFFDF7] font-sans text-xs">Algorithmic Formulation:</span>
                   <button
                     onClick={() =>
                       handleCopy(
                         `Base Score:  B = ((graduated + 1) / (total + 2)) * 100\nPenalties:   P_doa = doa_rate * 25\n             P_burst = burst_rate * 15\nRaw Score:   S_raw = clamp(B - P_doa - P_burst, 0, 100)\nSerial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`,
-                        "formula"
+                        "formula-math"
                       )
                     }
-                    className="flex items-center gap-1 text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] cursor-pointer"
+                    className="flex items-center gap-1.5 text-xs text-[#A7F3D0] hover:text-[#FFFDF7] cursor-pointer"
                   >
-                    {copiedKey === "formula" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
-                    <span>{copiedKey === "formula" ? "Copied" : "Copy Math"}</span>
+                    {copiedKey === "formula-math" ? <IconCheck size={14} className="text-[#99F6E4]" /> : <IconClipboard size={14} />}
+                    <span>{copiedKey === "formula-math" ? "Copied" : "Copy Math"}</span>
                   </button>
                 </div>
                 <div className="overflow-x-auto whitespace-pre leading-relaxed text-[#FFFDF7]">
-                  {`Base Score:  B = ((graduated + 1) / (total + 2)) * 100
+{`Base Score:  B = ((graduated + 1) / (total + 2)) * 100
 Penalties:   P_doa = doa_rate * 25, P_burst = burst_rate * 15
 Raw Score:   S_raw = clamp(B - P_doa - P_burst, 0, 100)
 Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 </div>
               </div>
 
-              <div className="overflow-x-auto">
-                <table className="w-full text-[11px] sm:text-xs font-sans border-collapse">
+              <div className="space-y-2 pt-2">
+                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#99F6E4]">
+                  Variables &amp; Operational Definitions:
+                </h4>
+                <ul className="space-y-1.5 text-xs sm:text-sm text-[#A7F3D0] list-disc list-inside">
+                  <li><strong className="text-[#FFFDF7] font-mono">graduated:</strong> Tokens that successfully completed the Pons V2 bonding curve and migrated liquidity to Uniswap V3.</li>
+                  <li><strong className="text-[#FFFDF7] font-mono">total:</strong> Total count of smart contract genesis launches triggered by the creator address.</li>
+                  <li><strong className="text-[#FFFDF7] font-mono">doa_rate:</strong> Ratio of tokens with under 5 transactions or less than 0.1 ETH total trading volume within 24h.</li>
+                  <li><strong className="text-[#FFFDF7] font-mono">burst_rate:</strong> Frequency of launching more than 3 contracts within a rolling 60-minute window.</li>
+                </ul>
+              </div>
+            </section>
+
+            <section id="scoring-bands" className="space-y-4 scroll-mt-28">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  Scoring Bands &amp; Severity Matrix
+                </h2>
+                <span className="text-xs font-mono text-[#99F6E4]">THRESHOLDS</span>
+              </div>
+
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+                Calculated scores are segmented into 3 standardized risk bands indicating creator credibility and historical migration success:
+              </p>
+
+              <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+                <table className="w-full text-xs sm:text-sm font-sans border-collapse">
                   <thead>
-                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase">
-                      <th className="p-2 sm:p-3">Score</th>
-                      <th className="p-2 sm:p-3">Band</th>
-                      <th className="p-2 sm:p-3">Label</th>
-                      <th className="p-2 sm:p-3">Interpretation</th>
+                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase text-[11px]">
+                      <th className="p-3">Score Range</th>
+                      <th className="p-3">Risk Band</th>
+                      <th className="p-3">Classification</th>
+                      <th className="p-3">System Behavior &amp; Interpretation</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)]">
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">65 – 100</td>
-                      <td className="p-2 sm:p-3 text-[#99F6E4] font-bold">GREEN</td>
-                      <td className="p-2 sm:p-3 text-[#FFFDF7]">Fresh/Repeat</td>
-                      <td className="p-2 sm:p-3 text-[#A7F3D0]">High graduation velocity; minimal penalties.</td>
+                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40">
+                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
+                      <td className="p-3 font-mono font-bold text-[#FFFDF7]">65 – 100</td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#14B8A6]/20 text-[#99F6E4] border border-[#14B8A6]/40">
+                          GREEN
+                        </span>
+                      </td>
+                      <td className="p-3 text-[#FFFDF7] font-medium">Reliable / Proven</td>
+                      <td className="p-3 text-[#A7F3D0]">High graduation velocity; minimal DOA penalties; low burst frequency.</td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">35 – 64</td>
-                      <td className="p-2 sm:p-3 text-[#FFD166] font-bold">YELLOW</td>
-                      <td className="p-2 sm:p-3 text-[#FFFDF7]">Fresh/Repeat</td>
-                      <td className="p-2 sm:p-3 text-[#A7F3D0]">Average launch track record or unproven creator.</td>
+                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
+                      <td className="p-3 font-mono font-bold text-[#FFFDF7]">35 – 64</td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#FFD166]/20 text-[#FFD166] border border-[#FFD166]/40">
+                          YELLOW
+                        </span>
+                      </td>
+                      <td className="p-3 text-[#FFFDF7] font-medium">Moderate / Unproven</td>
+                      <td className="p-3 text-[#A7F3D0]">Average launch track record, fresh deployer wallet, or intermediate success rate.</td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-2 sm:p-3 font-bold text-[#FF6B6B] font-bold">0 – 34</td>
-                      <td className="p-2 sm:p-3 text-[#FF6B6B] font-bold">RED</td>
-                      <td className="p-2 sm:p-3 text-[#FFFDF7]">Serial/Repeat</td>
-                      <td className="p-2 sm:p-3 text-[#A7F3D0]">Serial launcher penalty or high DOA frequency.</td>
+                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
+                      <td className="p-3 font-mono font-bold text-[#FF6B6B]">0 – 34</td>
+                      <td className="p-3">
+                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#FF6B6B]/20 text-[#FF6B6B] border border-[#FF6B6B]/40">
+                          RED
+                        </span>
+                      </td>
+                      <td className="p-3 text-[#FF6B6B] font-medium">High Risk / Serial</td>
+                      <td className="p-3 text-[#A7F3D0]">Serial launcher penalty applied, high DOA abandonment, or persistent zero graduation.</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </section>
 
-            <section id="endpoints" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
+            <section id="endpoints" className="space-y-6 scroll-mt-28">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(153,246,228,0.2)] pb-2">
                 <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                    SECTION 02 // REST INTERFACES
-                  </span>
-                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                    Public API Reference
+                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                    REST API Reference
                   </h2>
                 </div>
-                <span className="px-2.5 py-0.5 rounded-full bg-[#042F2E] border border-[#FFD166]/40 text-[11px] font-mono font-bold text-[#FFD166] self-start sm:self-auto">
-                  REST / JSON
-                </span>
+                <span className="text-xs font-mono text-[#99F6E4] font-bold">6 PUBLIC &amp; AUTH ENDPOINTS</span>
               </div>
 
-              <div className="p-3.5 sm:p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-4">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(153,246,228,0.15)] pb-3">
-                  <div className="space-y-0.5">
+              <div className="flex flex-wrap gap-2 pb-2">
+                {ENDPOINTS.map((ep) => (
+                  <button
+                    key={ep.id}
+                    onClick={() => setSelectedEndpointId(ep.id)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 ${
+                      selectedEndpointId === ep.id
+                        ? "bg-[#FFD166] text-[#042F2E] font-bold shadow"
+                        : "bg-[#042F2E] text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]"
+                    }`}
+                  >
+                    <span
+                      className={`text-[9px] font-black px-1 rounded ${
+                        ep.method === "GET"
+                          ? "bg-[#14B8A6]/30 text-[#99F6E4]"
+                          : ep.method === "POST"
+                          ? "bg-[#FF9F43]/30 text-[#FFD166]"
+                          : "bg-[#FF6B6B]/30 text-[#FF6B6B]"
+                      }`}
+                    >
+                      {ep.method}
+                    </span>
+                    <span>{ep.path}</span>
+                  </button>
+                ))}
+              </div>
+
+              <div className="space-y-6 pt-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                  <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="px-2 py-0.2 bg-[#99F6E4] text-[#042F2E] font-bold text-xs rounded-md">
+                      <span className="px-2.5 py-0.5 bg-[#99F6E4] text-[#042F2E] font-black font-mono text-xs rounded">
                         {activeEndpoint.method}
                       </span>
-                      <span className="text-sm sm:text-base font-black font-mono text-[#FFFDF7]">{activeEndpoint.path}</span>
+                      <h3 className="text-lg sm:text-xl font-mono font-black text-[#FFFDF7]">
+                        {activeEndpoint.path}
+                      </h3>
                     </div>
-                    <div className="text-xs sm:text-sm font-bold text-[#FFD166]">{activeEndpoint.title}</div>
+                    <p className="text-xs sm:text-sm font-bold text-[#FFD166]">
+                      {activeEndpoint.title}
+                    </p>
                   </div>
-                  <div className="flex items-center gap-1.5 text-[11px] font-mono">
-                    <span className="px-2 py-0.5 rounded bg-[#064E4A] text-[#99F6E4]">
+
+                  <div className="flex items-center gap-2 text-xs font-mono">
+                    <span className="px-2.5 py-1 rounded-md bg-[#042F2E] border border-[rgba(153,246,228,0.2)] text-[#99F6E4]">
                       {activeEndpoint.rateLimit}
                     </span>
-                    {activeEndpoint.authRequired && (
-                      <span className="px-2 py-0.5 rounded bg-[#FF6B6B]/20 text-[#FF6B6B] font-bold">
-                        SIWE
+                    {activeEndpoint.authRequired ? (
+                      <span className="px-2.5 py-1 rounded-md bg-[#FF6B6B]/20 text-[#FF6B6B] border border-[#FF6B6B]/40 font-bold">
+                        SIWE AUTH
+                      </span>
+                    ) : (
+                      <span className="px-2.5 py-1 rounded-md bg-[#14B8A6]/20 text-[#99F6E4] border border-[#14B8A6]/30">
+                        PUBLIC
                       </span>
                     )}
                   </div>
                 </div>
 
-                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                <p className="text-sm text-[#A7F3D0] leading-relaxed">
                   {activeEndpoint.description}
                 </p>
 
                 {activeEndpoint.params.length > 0 && (
-                  <div className="space-y-1.5">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#99F6E4]">Parameters:</div>
-                    <div className="overflow-x-auto">
-                      <table className="w-full text-[11px] font-mono border-collapse">
+                  <div className="space-y-2">
+                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#99F6E4]">
+                      URL &amp; Query Parameters:
+                    </h4>
+                    <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+                      <table className="w-full text-xs font-mono border-collapse">
                         <thead>
-                          <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#064E4A] text-left text-[#A7F3D0]">
-                            <th className="p-2">Field</th>
-                            <th className="p-2">Type</th>
-                            <th className="p-2">Required</th>
-                            <th className="p-2 font-sans">Description</th>
+                          <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0]">
+                            <th className="p-2.5">Parameter</th>
+                            <th className="p-2.5">Type</th>
+                            <th className="p-2.5">Required</th>
+                            <th className="p-2.5 font-sans">Description</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-[rgba(153,246,228,0.15)] text-[#FFFDF7]">
+                        <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40 text-[#FFFDF7]">
                           {activeEndpoint.params.map((p) => (
-                            <tr key={p.name} className="hover:bg-[#064E4A]/50">
-                              <td className="p-2 text-[#FFD166] font-bold">{p.name}</td>
-                              <td className="p-2 text-[#99F6E4]">{p.type}</td>
-                              <td className="p-2">{p.required ? <span className="text-[#FF6B6B] font-bold">YES</span> : <span className="text-[#A7F3D0]">NO</span>}</td>
-                              <td className="p-2 font-sans text-[#A7F3D0]">{p.description}</td>
+                            <tr key={p.name} className="hover:bg-[#042F2E]/80">
+                              <td className="p-2.5 text-[#FFD166] font-bold">{p.name}</td>
+                              <td className="p-2.5 text-[#99F6E4]">{p.type}</td>
+                              <td className="p-2.5">
+                                {p.required ? (
+                                  <span className="text-[#FF6B6B] font-bold">YES</span>
+                                ) : (
+                                  <span className="text-[#A7F3D0]">NO</span>
+                                )}
+                              </td>
+                              <td className="p-2.5 font-sans text-[#A7F3D0]">{p.description}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -687,16 +914,20 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   </div>
                 )}
 
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#99F6E4]">Request Example:</div>
-                    <div className="flex items-center gap-1 bg-[#064E4A] p-0.5 rounded-lg text-[10px] font-mono">
+                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#99F6E4]">
+                      Code Request Example:
+                    </h4>
+                    <div className="flex items-center gap-1 bg-[#042F2E] p-1 rounded-lg text-xs font-mono border border-[rgba(153,246,228,0.2)]">
                       {(["curl", "typescript", "python"] as const).map((lang) => (
                         <button
                           key={lang}
                           onClick={() => setActiveCodeLang(lang)}
-                          className={`px-1.5 py-0.5 rounded-md font-bold transition-all cursor-pointer ${
-                            activeCodeLang === lang ? "bg-[#FFD166] text-[#042F2E]" : "text-[#A7F3D0] hover:text-[#FFFDF7]"
+                          className={`px-2 py-0.5 rounded font-bold transition-all cursor-pointer ${
+                            activeCodeLang === lang
+                              ? "bg-[#FFD166] text-[#042F2E]"
+                              : "text-[#A7F3D0] hover:text-[#FFFDF7]"
                           }`}
                         >
                           {lang.toUpperCase()}
@@ -705,32 +936,42 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                     </div>
                   </div>
 
-                  <div className="p-3 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] font-mono text-[11px] text-[#99F6E4] relative group">
+                  <div className="rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] p-4 font-mono text-xs text-[#99F6E4] relative group">
                     <button
                       onClick={() => handleCopy(activeEndpoint.exampleRequest[activeCodeLang], `code-${activeEndpoint.id}`)}
-                      className="absolute right-2.5 top-2.5 p-1 rounded-md bg-[#042F2E] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 text-[10px] cursor-pointer"
+                      className="absolute right-3 top-3 px-2.5 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1.5 text-xs cursor-pointer border border-[rgba(153,246,228,0.2)]"
                     >
-                      {copiedKey === `code-${activeEndpoint.id}` ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
-                      <span>{copiedKey === `code-${activeEndpoint.id}` ? "Copied" : "Copy"}</span>
+                      {copiedKey === `code-${activeEndpoint.id}` ? (
+                        <IconCheck size={14} className="text-[#99F6E4]" />
+                      ) : (
+                        <IconClipboard size={14} />
+                      )}
+                      <span>{copiedKey === `code-${activeEndpoint.id}` ? "Copied" : "Copy Code"}</span>
                     </button>
-                    <pre className="overflow-x-auto whitespace-pre text-[#FFFDF7] leading-relaxed">
+                    <pre className="overflow-x-auto whitespace-pre text-[#FFFDF7] leading-relaxed pt-2">
                       {activeEndpoint.exampleRequest[activeCodeLang]}
                     </pre>
                   </div>
                 </div>
 
-                <div className="space-y-1.5">
+                <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#FFD166]">Sample JSON Response:</div>
+                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#FFD166]">
+                      Sample JSON Response:
+                    </h4>
                     <button
                       onClick={() => handleCopy(activeEndpoint.sampleResponse, `resp-${activeEndpoint.id}`)}
-                      className="text-[10px] font-mono text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                      className="text-xs font-mono text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1.5 cursor-pointer"
                     >
-                      {copiedKey === `resp-${activeEndpoint.id}` ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
-                      <span>Copy Payload</span>
+                      {copiedKey === `resp-${activeEndpoint.id}` ? (
+                        <IconCheck size={14} className="text-[#99F6E4]" />
+                      ) : (
+                        <IconClipboard size={14} />
+                      )}
+                      <span>{copiedKey === `resp-${activeEndpoint.id}` ? "Copied" : "Copy JSON"}</span>
                     </button>
                   </div>
-                  <div className="p-3 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] font-mono text-[11px] text-[#99F6E4] max-h-56 overflow-y-auto">
+                  <div className="rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] p-4 font-mono text-xs text-[#99F6E4] max-h-72 overflow-y-auto">
                     <pre className="overflow-x-auto whitespace-pre text-[#FFFDF7] leading-relaxed">
                       {activeEndpoint.sampleResponse}
                     </pre>
@@ -739,23 +980,22 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="sandbox" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                    SECTION 03 // LIVE REST PLAYGROUND
-                  </span>
-                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                    Interactive API Playground
-                  </h2>
-                </div>
-                <span className="text-[11px] font-mono text-[#A7F3D0]">4663 SANDBOX</span>
+            <section id="sandbox" className="space-y-4 scroll-mt-28">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  Interactive API Playground
+                </h2>
+                <span className="text-xs font-mono text-[#FFD166]">LIVE CONSOLE</span>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-3">
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+                Test API schemas and inspect real-time payload returns directly in your browser:
+              </p>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                <div className="space-y-3.5 p-4 rounded-xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]">
                   <div className="space-y-1">
-                    <label className="text-[11px] font-mono uppercase font-bold text-[#99F6E4]">Target Endpoint:</label>
+                    <label className="text-xs font-mono uppercase font-bold text-[#99F6E4]">Target Endpoint:</label>
                     <select
                       value={selectedEndpointId}
                       onChange={(e) => {
@@ -763,7 +1003,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                         setSandboxResponse(null);
                       }}
                       aria-label="Select Target Endpoint"
-                      className="w-full px-3 py-2 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
+                      className="w-full px-3 py-2 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
                     >
                       {ENDPOINTS.map((ep) => (
                         <option key={ep.id} value={ep.id}>
@@ -775,7 +1015,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
 
                   {activeEndpoint.params.length > 0 && (
                     <div className="space-y-1">
-                      <label className="text-[11px] font-mono uppercase font-bold text-[#FFD166]">
+                      <label className="text-xs font-mono uppercase font-bold text-[#FFD166]">
                         Param: {activeEndpoint.params[0].name}
                       </label>
                       <input
@@ -783,7 +1023,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                         value={sandboxAddress}
                         onChange={(e) => setSandboxAddress(e.target.value)}
                         placeholder="Enter parameter input..."
-                        className="w-full px-3 py-2 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
+                        className="w-full px-3 py-2 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
                       />
                     </div>
                   )}
@@ -791,27 +1031,27 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   <button
                     onClick={handleRunSandbox}
                     disabled={isSimulating}
-                    className="w-full py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FFD166]/90 text-[#042F2E] font-black text-xs font-mono uppercase transition-all disabled:opacity-50 cursor-pointer"
+                    className="w-full py-2.5 rounded-lg bg-[#FFD166] hover:bg-[#FFD166]/90 text-[#042F2E] font-black text-xs font-mono uppercase transition-all disabled:opacity-50 cursor-pointer shadow"
                   >
-                    {isSimulating ? "Loading..." : "Preview Sample Response"}
+                    {isSimulating ? "Simulating Execution..." : "Execute Query Simulation"}
                   </button>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-2 font-mono text-xs">
-                  <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-1.5 text-[10px]">
+                <div className="p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-2 font-mono text-xs min-h-[180px]">
+                  <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-2 text-[11px]">
                     <span className="text-[#99F6E4] font-bold">RESPONSE INSPECTOR</span>
-                    <span className="text-[#A7F3D0]">{sandboxResponse ? "SAMPLE PAYLOAD" : "Awaiting Preview"}</span>
+                    <span className="text-[#A7F3D0]">{sandboxResponse ? "HTTP 200 OK" : "Awaiting Execution"}</span>
                   </div>
 
-                  <div className="flex-1 max-h-44 overflow-y-auto">
+                  <div className="flex-1 max-h-52 overflow-y-auto">
                     {sandboxResponse ? (
-                      <pre className="text-[11px] text-[#FFFDF7] leading-relaxed whitespace-pre">
+                      <pre className="text-xs text-[#FFFDF7] leading-relaxed whitespace-pre">
                         {sandboxResponse}
                       </pre>
                     ) : (
-                      <div className="h-full flex flex-col items-center justify-center text-center p-4 text-[#A7F3D0]/60 space-y-1">
-                        <IconCpu size={20} className="text-[#99F6E4]/40" />
-                        <span className="text-[11px]">Click &quot;Preview Sample Response&quot; to inspect output.</span>
+                      <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#A7F3D0]/60 space-y-2">
+                        <IconCpu size={24} className="text-[#99F6E4]/40" />
+                        <span className="text-xs">Click &quot;Execute Query Simulation&quot; to inspect response schema.</span>
                       </div>
                     )}
                   </div>
@@ -819,138 +1059,179 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="contracts" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                    SECTION 04 // ON-CHAIN SMART CONTRACT REGISTRY
-                  </span>
-                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                    Robinhood Chain (4663) Deployments
-                  </h2>
-                </div>
-                <span className="text-[11px] font-mono font-bold text-[#FFD166]">VERIFIED RPC</span>
+            <section id="contracts" className="space-y-4 scroll-mt-28">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  Verified Smart Contracts Registry
+                </h2>
+                <span className="text-xs font-mono text-[#FFD166] font-bold">CHAIN 4663</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4">
-                <div className="p-3.5 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[#99F6E4] text-[10px] font-bold">
-                    <span>MULTICALL3</span>
-                    <span>AGGREGATE3</span>
-                  </div>
-                  <div className="text-[11px] text-[#FFFDF7] break-all font-bold">
-                    0xcA11bde05977b3631167028862bE2a173976CA11
-                  </div>
-                  <p className="text-[10px] font-sans text-[#A7F3D0]">
-                    Batch aggregator for low-latency atomic reads.
-                  </p>
-                </div>
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+                Core protocol deployments on Robinhood Chain (4663). All contracts are byte-verified and accessible via public RPC:
+              </p>
 
-                <div className="p-3.5 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[#FFD166] text-[10px] font-bold">
-                    <span>PONS V2 FACTORY</span>
-                    <span>CURVES</span>
-                  </div>
-                  <div className="text-[11px] text-[#FFFDF7] break-all font-bold">
-                    0x4663000000000000000000000000000000000001
-                  </div>
-                  <p className="text-[10px] font-sans text-[#A7F3D0]">
-                    Orchestrates genesis and curve progression.
-                  </p>
-                </div>
-
-                <div className="p-3.5 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[#C084FC] text-[10px] font-bold">
-                    <span>UNISWAP V3 MIGRATOR</span>
-                    <span>POOL</span>
-                  </div>
-                  <div className="text-[11px] text-[#FFFDF7] break-all font-bold">
-                    0x4663000000000000000000000000000000000002
-                  </div>
-                  <p className="text-[10px] font-sans text-[#A7F3D0]">
-                    Automated DEX pool migration for graduates.
-                  </p>
-                </div>
-              </div>
-            </section>
-
-            <section id="limits" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                    SECTION 05 // SYSTEM SPECIFICATIONS
-                  </span>
-                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                    Rate Limits &amp; System Constraints
-                  </h2>
-                </div>
-                <span className="text-[11px] font-mono text-[#A7F3D0]">POLICIES</span>
-              </div>
-
-              <div className="overflow-x-auto">
-                <table className="w-full text-[11px] sm:text-xs font-sans border-collapse">
+              <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+                <table className="w-full text-xs sm:text-sm font-sans border-collapse">
                   <thead>
-                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase">
-                      <th className="p-2 sm:p-3">Resource</th>
-                      <th className="p-2 sm:p-3">Constraint</th>
-                      <th className="p-2 sm:p-3">Enforcement</th>
+                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase text-[11px]">
+                      <th className="p-3">Protocol Contract</th>
+                      <th className="p-3">Contract Address</th>
+                      <th className="p-3">Purpose &amp; Interface</th>
+                      <th className="p-3 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)]">
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Public API</td>
-                      <td className="p-2 sm:p-3 text-[#A7F3D0]">30 req / min / IP</td>
-                      <td className="p-2 sm:p-3 text-[#FF6B6B]">HTTP 429 Too Many Requests</td>
+                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40 font-mono">
+                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
+                      <td className="p-3 font-bold text-[#99F6E4]">MultiCall3</td>
+                      <td className="p-3 text-[#FFFDF7] break-all">0xcA11bde05977b3631167028862bE2a173976CA11</td>
+                      <td className="p-3 font-sans text-xs text-[#A7F3D0]">Batch aggregator for atomic multi-contract reads.</td>
+                      <td className="p-3 text-right">
+                        <button
+                          onClick={() => handleCopy("0xcA11bde05977b3631167028862bE2a173976CA11", "contract-multicall")}
+                          className="px-2 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs cursor-pointer inline-flex items-center gap-1"
+                        >
+                          {copiedKey === "contract-multicall" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                          <span>{copiedKey === "contract-multicall" ? "Copied" : "Copy"}</span>
+                        </button>
+                      </td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Watchlist Quota</td>
-                      <td className="p-2 sm:p-3 text-[#A7F3D0]">30 addresses max</td>
-                      <td className="p-2 sm:p-3 text-[#FF6B6B]">HTTP 422 Unprocessable</td>
+                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
+                      <td className="p-3 font-bold text-[#FFD166]">Pons V2 Factory</td>
+                      <td className="p-3 text-[#FFFDF7] break-all">0x4663000000000000000000000000000000000001</td>
+                      <td className="p-3 font-sans text-xs text-[#A7F3D0]">Orchestrates token genesis and curve lifecycle events.</td>
+                      <td className="p-3 text-right">
+                        <button
+                          onClick={() => handleCopy("0x4663000000000000000000000000000000000001", "contract-pons")}
+                          className="px-2 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs cursor-pointer inline-flex items-center gap-1"
+                        >
+                          {copiedKey === "contract-pons" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                          <span>{copiedKey === "contract-pons" ? "Copied" : "Copy"}</span>
+                        </button>
+                      </td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Thesis Length</td>
-                      <td className="p-2 sm:p-3 text-[#A7F3D0]">4,000 chars max</td>
-                      <td className="p-2 sm:p-3 text-[#FF6B6B]">Zod schema rejection</td>
-                    </tr>
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Snapshots</td>
-                      <td className="p-2 sm:p-3 text-[#A7F3D0]">30 retention limit</td>
-                      <td className="p-2 sm:p-3 text-[#99F6E4]">Automated FIFO rotation</td>
+                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
+                      <td className="p-3 font-bold text-[#C084FC]">Uniswap V3 Migrator</td>
+                      <td className="p-3 text-[#FFFDF7] break-all">0x4663000000000000000000000000000000000002</td>
+                      <td className="p-3 font-sans text-xs text-[#A7F3D0]">Executes automated DEX pool seed migration for graduated tokens.</td>
+                      <td className="p-3 text-right">
+                        <button
+                          onClick={() => handleCopy("0x4663000000000000000000000000000000000002", "contract-migrator")}
+                          className="px-2 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs cursor-pointer inline-flex items-center gap-1"
+                        >
+                          {copiedKey === "contract-migrator" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
+                          <span>{copiedKey === "contract-migrator" ? "Copied" : "Copy"}</span>
+                        </button>
+                      </td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </section>
 
-            <section id="disclaimer" className="rounded-2xl sm:rounded-3xl border border-[#FF6B6B]/40 bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-3">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-2.5 flex items-center justify-between">
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-[#FF6B6B] font-bold">
-                    SECTION 06 // RISK DISCLOSURE
-                  </span>
+            <section id="limits" className="space-y-4 scroll-mt-28">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  Rate Limits &amp; System Constraints
+                </h2>
+                <span className="text-xs font-mono text-[#99F6E4]">POLICIES</span>
+              </div>
+
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+                To guarantee high availability and protect RPC indexers from denial-of-service degradation, the following limits are enforced across endpoints:
+              </p>
+
+              <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+                <table className="w-full text-xs sm:text-sm font-sans border-collapse">
+                  <thead>
+                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase text-[11px]">
+                      <th className="p-3">Resource / Scope</th>
+                      <th className="p-3">Policy Constraint</th>
+                      <th className="p-3">HTTP Enforcement Response</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40">
+                    <tr className="hover:bg-[#042F2E]/80">
+                      <td className="p-3 font-bold text-[#FFFDF7]">Public API Endpoints</td>
+                      <td className="p-3 text-[#A7F3D0] font-mono">30 req / min / IP</td>
+                      <td className="p-3 text-[#FF6B6B] font-mono">HTTP 429 (Too Many Requests)</td>
+                    </tr>
+                    <tr className="hover:bg-[#042F2E]/80">
+                      <td className="p-3 font-bold text-[#FFFDF7]">Watchlist Quota</td>
+                      <td className="p-3 text-[#A7F3D0] font-mono">30 creator addresses max</td>
+                      <td className="p-3 text-[#FF6B6B] font-mono">HTTP 422 (Unprocessable Content)</td>
+                    </tr>
+                    <tr className="hover:bg-[#042F2E]/80">
+                      <td className="p-3 font-bold text-[#FFFDF7]">Case File Thesis Length</td>
+                      <td className="p-3 text-[#A7F3D0] font-mono">4,000 characters max</td>
+                      <td className="p-3 text-[#FF6B6B] font-mono">HTTP 400 (Zod Validation Error)</td>
+                    </tr>
+                    <tr className="hover:bg-[#042F2E]/80">
+                      <td className="p-3 font-bold text-[#FFFDF7]">Dossier Snapshots Retention</td>
+                      <td className="p-3 text-[#A7F3D0] font-mono">30 historical records</td>
+                      <td className="p-3 text-[#99F6E4] font-mono">Automated FIFO rotation</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </section>
+
+            <section id="disclaimer" className="space-y-3 scroll-mt-28">
+              <div className="border-l-4 border-l-[#FF6B6B] bg-[#042F2E]/90 rounded-r-xl p-5 space-y-2 border border-[rgba(255,107,107,0.3)] shadow-md">
+                <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#FF6B6B] uppercase tracking-wider">
+                  <IconAlert size={18} className="text-[#FF6B6B]" />
                   <h2 className="text-sm sm:text-base font-bold uppercase text-[#FF6B6B] tracking-tight">
                     On-Chain Risk Disclaimer
                   </h2>
                 </div>
-                <IconAlert size={16} className="text-[#FF6B6B]" />
+                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                  Scout Dossier.OS is an open-source decentralized intelligence surveillance framework. Reputation scores, metrics, and case files are computed strictly algorithmically from public blockchain bytecode, transaction histories, and event logs. Nothing on this website or in our API documentation constitutes financial, investment, or legal advice. On-chain trading, bonding curves, and early-stage token deployments carry inherent risks of total capital loss.
+                </p>
               </div>
-
-              <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                Scout Dossier.OS is an open on-chain intelligence surveillance tool. Scores, metrics, and case files are computed algorithmically from public blockchain bytecode and RPC events. Nothing on this platform constitutes financial, investment, or legal advice. On-chain trading, bonding curves, and decentralized tokens carry extreme risks of total capital loss. Always perform independent verification before interacting with smart contracts.
-              </p>
             </section>
 
-            <footer className="border-t border-[rgba(153,246,228,0.2)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
-              <Link href="/how" className="inline-flex items-center gap-1.5 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
-                <IconArrowLeft size={14} />
-                <span>Explore Research Field Manual</span>
+            <footer className="border-t border-[rgba(153,246,228,0.2)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+              <Link
+                href="/how"
+                className="inline-flex items-center gap-2 font-bold text-[#99F6E4] hover:text-[#FFFDF7] transition-colors"
+              >
+                <IconArrowLeft size={16} />
+                <span>Previous: Research Field Manual</span>
               </Link>
-              <Link href="/census" className="inline-flex items-center gap-1.5 font-bold text-[#FFD166] hover:text-[#FFFDF7] hover:underline">
-                <span>Explore Ecosystem Census</span>
-                <IconArrowRight size={14} />
+              <Link
+                href="/census"
+                className="inline-flex items-center gap-2 font-bold text-[#FFD166] hover:text-[#FFFDF7] transition-colors"
+              >
+                <span>Next: Ecosystem Census</span>
+                <IconArrowRight size={16} />
               </Link>
             </footer>
           </main>
+
+          <aside
+            aria-label="Table of Contents"
+            className="hidden xl:block w-48 shrink-0 sticky top-28 self-start space-y-3 pl-4 border-l border-[rgba(153,246,228,0.15)] text-xs"
+          >
+            <div className="font-mono text-[11px] font-black uppercase tracking-wider text-[#99F6E4]">
+              On This Page
+            </div>
+            <ul className="space-y-2 font-medium">
+              {TOC_ITEMS.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className={`block transition-colors ${
+                      activeSection === item.id
+                        ? "text-[#FFD166] font-bold"
+                        : "text-[#A7F3D0] hover:text-[#FFFDF7]"
+                    }`}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </aside>
         </div>
       </div>
     </div>
