@@ -75,11 +75,6 @@ export function LandingClient({
         <section className="pt-6 sm:pt-10 pb-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
-              <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.3)] text-[#99F6E4] text-xs font-semibold shadow-[0_0_25px_rgba(4,47,46,0.35)] backdrop-blur-md">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80] shadow-[0_0_10px_#4ADE80] animate-pulse" />
-                <span>Surveillance Engine Active • Robinhood Chain 4663</span>
-              </div>
-
               <div className="space-y-4">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-black text-[#FFFDF7] tracking-tight leading-[1.08]">
                   Every Deployer Has A History.{" "}
@@ -141,40 +136,46 @@ export function LandingClient({
               </div>
             </div>
 
-            <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0">
-              <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#14B8A6]/20 via-[#99F6E4]/20 to-[#FFD166]/15 blur-3xl" />
+            <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0 [perspective:1200px]">
+              <div className="relative w-full max-w-[440px] aspect-square flex items-center justify-center [transform-style:preserve-3d]">
+                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#14B8A6]/25 via-[#99F6E4]/20 to-[#FFD166]/20 blur-3xl pointer-events-none" />
 
-                <div className="absolute inset-4 rounded-full border border-[rgba(153,246,228,0.2)] animate-[spin_30s_linear_infinite]" />
-                <div className="absolute inset-12 rounded-full border border-dashed border-[rgba(153,246,228,0.3)] animate-[spin_20s_linear_infinite_reverse]" />
-                <div className="absolute inset-20 rounded-full border border-[rgba(255,209,102,0.25)]" />
-
-                <div className="absolute inset-6 rounded-full overflow-hidden pointer-events-none opacity-40">
-                  <div className="w-full h-full bg-[conic-gradient(from_0deg,transparent_0_300deg,rgba(153,246,228,0.4)_360deg)] animate-[spin_6s_linear_infinite]" />
+                <div className="absolute w-80 h-80 sm:w-96 sm:h-96 rounded-full border border-[rgba(153,246,228,0.25)] animate-spin-3d-slow shadow-[0_0_30px_rgba(153,246,228,0.15)] flex items-center justify-center">
+                  <div className="absolute top-0 w-3 h-3 rounded-full bg-[#99F6E4] shadow-[0_0_12px_#99F6E4]" />
+                  <div className="absolute bottom-0 w-2.5 h-2.5 rounded-full bg-[#FFD166] shadow-[0_0_10px_#FFD166]" />
                 </div>
 
-                <div className="relative z-10 w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-tr from-[#064E4A] via-[#0D746E] to-[#14B8A6] border-2 border-[#99F6E4]/60 p-6 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(153,246,228,0.3)] backdrop-blur-xl">
-                  <div className="w-14 h-14 rounded-2xl bg-[#042F2E] border border-[#99F6E4] flex items-center justify-center text-2xl shadow-[0_0_20px_rgba(153,246,228,0.5)]">
+                <div className="absolute w-64 h-64 sm:w-72 sm:h-72 rounded-full border border-dashed border-[rgba(153,246,228,0.35)] animate-spin-3d-reverse flex items-center justify-center">
+                  <div className="absolute left-0 w-2.5 h-2.5 rounded-full bg-[#C084FC] shadow-[0_0_10px_#C084FC]" />
+                  <div className="absolute right-0 w-2 h-2 rounded-full bg-[#4ADE80] shadow-[0_0_8px_#4ADE80]" />
+                </div>
+
+                <div className="absolute w-52 h-52 sm:w-60 sm:h-60 rounded-full border border-[rgba(255,209,102,0.3)] animate-spin-3d-slow" />
+
+                <div className="relative z-10 w-40 h-40 sm:w-48 sm:h-48 rounded-full bg-gradient-to-tr from-[#064E4A] via-[#0D746E] to-[#14B8A6] border-2 border-[#99F6E4]/70 p-5 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(153,246,228,0.4)] backdrop-blur-2xl">
+                  <div className="w-14 h-14 rounded-2xl bg-[#042F2E] border border-[#99F6E4] flex items-center justify-center text-2xl shadow-[0_0_25px_rgba(153,246,228,0.6)]">
                     🛡️
                   </div>
-                  <div className="text-[11px] font-bold uppercase tracking-wider text-[#99F6E4] mt-2">
+                  <div className="text-xs font-black uppercase tracking-wider text-[#99F6E4] mt-2">
                     Scout Core
                   </div>
                   <div className="text-[10px] text-[#A7F3D0] font-mono mt-0.5">
-                    Sub-Second Audit
+                    Forensic Terminal
                   </div>
                 </div>
 
-                <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-4 z-20 px-3.5 py-2 rounded-2xl bg-[#042F2E]/95 border border-[rgba(153,246,228,0.3)] shadow-[0_10px_25px_rgba(4,47,46,0.7)] backdrop-blur-xl flex items-center gap-2 text-[11px] font-mono">
-                  <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse shadow-[0_0_8px_#4ADE80]" />
-                  <span className="text-[#99F6E4] font-bold">SURVEILLANCE RADAR</span>
-                  <span className="text-[#A7F3D0]/70">#27,195,000</span>
+                <div className="absolute -top-3 sm:-top-5 -left-2 sm:-left-6 z-20 px-4 py-2.5 rounded-2xl bg-[#042F2E]/95 border border-[rgba(153,246,228,0.35)] shadow-[0_12px_30px_rgba(4,47,46,0.8)] backdrop-blur-xl flex items-center gap-2.5 text-xs font-mono animate-float-1">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80] animate-ping shadow-[0_0_8px_#4ADE80]" />
+                  <div>
+                    <div className="text-[#99F6E4] font-bold text-[11px] leading-tight">ROBINHOOD CHAIN 4663</div>
+                    <div className="text-[#A7F3D0]/80 text-[10px]">Block #27,195,000 • 0.0s</div>
+                  </div>
                 </div>
 
-                <div className="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-4 z-20 p-4 sm:p-5 rounded-3xl bg-[#064E4A]/95 border border-[rgba(153,246,228,0.35)] shadow-[0_15px_35px_rgba(4,47,46,0.8)] backdrop-blur-2xl space-y-2.5 max-w-[260px] sm:max-w-[280px]">
+                <div className="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-4 z-20 p-4 sm:p-5 rounded-3xl bg-[#064E4A]/95 border border-[rgba(153,246,228,0.4)] shadow-[0_20px_45px_rgba(4,47,46,0.9)] backdrop-blur-2xl space-y-2.5 max-w-[260px] sm:max-w-[280px] animate-float-2">
                   <div className="flex items-center justify-between text-[10px] uppercase font-bold text-[#A7F3D0]">
-                    <span>TOP DEPLOYER</span>
-                    <span className="text-[#4ADE80] bg-[#4ADE80]/15 px-2 py-0.5 rounded-full border border-[#4ADE80]/30 font-extrabold">GREEN BAND</span>
+                    <span>DEPLOYER DOSSIER</span>
+                    <span className="text-[#4ADE80] bg-[#4ADE80]/15 px-2.5 py-0.5 rounded-full border border-[#4ADE80]/30 font-extrabold">GREEN BAND</span>
                   </div>
                   <div className="flex items-baseline justify-between">
                     <div className="text-xs font-mono text-[#99F6E4]">0x89e2...89b2</div>
@@ -190,13 +191,13 @@ export function LandingClient({
                       />
                     ))}
                   </div>
-                  <div className="text-[10px] text-[#A7F3D0] flex justify-between pt-0.5">
+                  <div className="text-[10px] text-[#A7F3D0] flex justify-between pt-0.5 font-medium">
                     <span>7 Graduations</span>
                     <span className="text-[#FFD166]">0 DOA Rugs</span>
                   </div>
                 </div>
 
-                <div className="absolute top-1/2 -left-4 sm:-left-8 -translate-y-1/2 z-20 px-3.5 py-2 rounded-2xl bg-[#064E4A]/95 border border-[#FFD166]/40 shadow-[0_10px_25px_rgba(4,47,46,0.7)] backdrop-blur-xl flex items-center gap-2.5">
+                <div className="absolute top-1/2 -left-4 sm:-left-8 -translate-y-1/2 z-20 px-3.5 py-2.5 rounded-2xl bg-[#064E4A]/95 border border-[#FFD166]/40 shadow-[0_12px_30px_rgba(4,47,46,0.8)] backdrop-blur-xl flex items-center gap-2.5 animate-float-3">
                   <span className="text-base">⚡</span>
                   <div>
                     <div className="text-[10px] uppercase font-bold text-[#FFD166]">Bonding Velocity</div>
@@ -338,7 +339,7 @@ export function LandingClient({
                 <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#99F6E4] font-medium">
                   <span>Getting Started</span>
                   <span className="text-[#A7F3D0]/60">•</span>
-                  <span>September 27, 2026</span>
+                  <span>September 28, 2026</span>
                 </div>
               </div>
             </Link>
@@ -368,7 +369,7 @@ export function LandingClient({
                 <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#99F6E4] font-medium">
                   <span>Real-Time Feeds</span>
                   <span className="text-[#A7F3D0]/60">•</span>
-                  <span>September 27, 2026</span>
+                  <span>September 28, 2026</span>
                 </div>
               </div>
             </Link>
@@ -398,7 +399,7 @@ export function LandingClient({
                 <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm text-[#99F6E4] font-medium">
                   <span>Neural Mapping</span>
                   <span className="text-[#A7F3D0]/60">•</span>
-                  <span>September 27, 2026</span>
+                  <span>September 28, 2026</span>
                 </div>
               </div>
             </Link>

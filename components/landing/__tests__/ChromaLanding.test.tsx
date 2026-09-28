@@ -4,7 +4,7 @@ import React from "react";
 import { renderToString } from "react-dom/server";
 import { LandingClient } from "../LandingClient";
 
-describe("Tosca Canvas & Colorful Pop Clean Hero Landing Page (TICKET-101)", () => {
+describe("Tosca Canvas & Colorful Pop Clean Hero Landing Page (TICKET-101 & TICKET-102)", () => {
   const mockStats = {
     total_launches: 1620,
     unique_deployers: 870,
@@ -15,12 +15,12 @@ describe("Tosca Canvas & Colorful Pop Clean Hero Landing Page (TICKET-101)", () 
     computed_at: new Date().toISOString(),
   };
 
-  test("renders Tosca Main #0D746E canvas background and 2-column hero layout", () => {
+  test("renders Tosca Main #0D746E canvas background, 2-column hero layout, and no AI-slop badge", () => {
     const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
     assert.ok(html.includes("bg-[#0D746E]") || html.includes("#0D746E"));
-    assert.ok(html.includes("Surveillance Engine Active"));
+    assert.ok(!html.includes("Surveillance Engine Active"));
     assert.ok(html.includes("Every Deployer Has A History"));
-    assert.ok(html.includes("lg:grid-cols-12") || html.includes("grid-cols-1 lg:grid-cols-2") || html.includes("lg:grid-cols-7"));
+    assert.ok(html.includes("lg:grid-cols-12"));
   });
 
   test("preserves search bar with Open Case File button and focus-within container", () => {
@@ -31,12 +31,13 @@ describe("Tosca Canvas & Colorful Pop Clean Hero Landing Page (TICKET-101)", () 
     assert.ok(html.includes("bg-[#FFD166]") || html.includes("#FFD166"));
   });
 
-  test("renders right-column animated on-chain surveillance core and floating telemetry cards", () => {
+  test("renders 3D perspective gyroscope surveillance core and floating telemetry cards", () => {
     const html = renderToString(<LandingClient stats={mockStats} isAuthenticated={false} />);
-    assert.ok(html.includes("SURVEILLANCE RADAR") || html.includes("LIVE RADAR"));
-    assert.ok(html.includes("TOP REPUTATION DEPLOYER") || html.includes("TOP DEPLOYER"));
-    assert.ok(html.includes("84 / 100") || html.includes("84"));
+    assert.ok(html.includes("ROBINHOOD CHAIN 4663"));
+    assert.ok(html.includes("DEPLOYER DOSSIER"));
+    assert.ok(html.includes("84"));
     assert.ok(html.includes("GREEN BAND"));
+    assert.ok(html.includes("Bonding Velocity"));
   });
 
   test("renders quick telemetry link pills for Feed, Map, and Census", () => {

@@ -516,8 +516,8 @@
     "hash": "0a04094757bc8850b1e588862403650c"
   },
   "components/landing/LandingClient.tsx": {
-    "mtime": 1790524302159.1042,
-    "hash": "46ef99ab9c969dac725fa95864aa6391"
+    "mtime": 1790554192604.632,
+    "hash": "abec536765439167d78ec5850f4ea840"
   },
   "components/layout/GlobalHeader.tsx": {
     "mtime": 1790403655298.3662,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790518422670.1853,
-    "hash": "b10db87dc37708823c8b76415d2d105f"
+    "mtime": 1790524413311.8867,
+    "hash": "c65ac2ca3ae93cdbf1a8a8f9e90fe8a3"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -952,8 +952,8 @@
     "hash": "4ef75f967e4e66278305f0e29ffad211"
   },
   "app/loading.tsx": {
-    "mtime": 1790524321977.8513,
-    "hash": "206817eb570a71536b52a49522cdc1be"
+    "mtime": 1790554205782.6375,
+    "hash": "3ca3ae13e98adb6ccb43b2dffd2f8cb3"
   },
   "app/map/loading.tsx": {
     "mtime": 1790518225131.7412,
@@ -992,8 +992,8 @@
     "hash": "f577f49c09fc402ede47fd20dc4c88b7"
   },
   "components/landing/__tests__/ChromaLanding.test.tsx": {
-    "mtime": 1790524256543.4878,
-    "hash": "bdcf24f7d0c3d6ac3076e5f51e12fb45"
+    "mtime": 1790554163775.818,
+    "hash": "1b05dd2df9c51ceba89f7d89aaf522d2"
   },
   "components/layout/__tests__/ChromaHeader.test.tsx": {
     "mtime": 1790428332625.5437,
@@ -1004,8 +1004,8 @@
     "hash": "23e474af7c8b61ad6931e298a722178e"
   },
   "tests/e2e/chroma-visual-verification.test.tsx": {
-    "mtime": 1790518385886.2593,
-    "hash": "fdfee4f43ffedaeafe68d0c408e3dd35"
+    "mtime": 1790554220361.14,
+    "hash": "2e0defe91dcf688e7db0a46f4f0e539e"
   },
   "public/images/banner-scout-disc.jpg": {
     "mtime": 1790440272774.9565,
@@ -1024,8 +1024,8 @@
     "hash": "c4f4a0dd7e7bce4e73204f9b7ab6f59f"
   },
   "public/images/banner-intelligence-core.jpg": {
-    "mtime": 1790524245824.109,
-    "hash": "37d9162f6ee68baf453da1c660496f7e"
+    "mtime": 1790554105747.1572,
+    "hash": "7c2db47991153b61398c5401b932187c"
   },
   "public/images/card-constellation-graph.jpg": {
     "mtime": 1790524245822.1917,

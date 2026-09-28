@@ -292,6 +292,71 @@ textarea:focus-visible {
   }
 }
 
+@keyframes float-1 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-8px) rotate(-1deg);
+  }
+}
+
+@keyframes float-2 {
+  0%, 100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  50% {
+    transform: translateY(10px) rotate(1.5deg);
+  }
+}
+
+@keyframes float-3 {
+  0%, 100% {
+    transform: translateY(0px) scale(1);
+  }
+  50% {
+    transform: translateY(-6px) scale(1.02);
+  }
+}
+
+@keyframes spin-3d-slow {
+  0% {
+    transform: rotateX(60deg) rotateZ(0deg);
+  }
+  100% {
+    transform: rotateX(60deg) rotateZ(360deg);
+  }
+}
+
+@keyframes spin-3d-reverse {
+  0% {
+    transform: rotateX(60deg) rotateZ(360deg);
+  }
+  100% {
+    transform: rotateX(60deg) rotateZ(0deg);
+  }
+}
+
+.animate-float-1 {
+  animation: float-1 4.5s ease-in-out infinite;
+}
+
+.animate-float-2 {
+  animation: float-2 5.5s ease-in-out infinite;
+}
+
+.animate-float-3 {
+  animation: float-3 6.5s ease-in-out infinite;
+}
+
+.animate-spin-3d-slow {
+  animation: spin-3d-slow 24s linear infinite;
+}
+
+.animate-spin-3d-reverse {
+  animation: spin-3d-reverse 18s linear infinite;
+}
+
 .animate-float-slow {
   animation: float-slow 6s ease-in-out infinite;
 }

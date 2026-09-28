@@ -70,7 +70,7 @@ describe("Tosca Canvas & Colorful Pop UI Overhaul Suite (TICKET-96, TICKET-99 & 
     assert.ok(headerHtml.includes("Library"));
 
     const landingHtml = renderToString(<LandingClient stats={mockCensusStats} isAuthenticated={true} />);
-    assert.ok(landingHtml.includes("Surveillance Engine Active"));
+    assert.ok(landingHtml.includes("Every Deployer Has A History"));
     assert.ok(landingHtml.includes("Investigate"));
 
     const feedTilesHtml = renderToString(<FeedTiles stats={{ totalLaunches10m: 18, totalVolumeUsd: 950000, uniqueWallets: 620, graduatedCount: 8, repeatDeployerPct: 29.5 }} />);

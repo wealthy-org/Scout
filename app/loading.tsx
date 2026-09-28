@@ -11,8 +11,6 @@ export default function RootLoading() {
         <section className="pt-6 sm:pt-10 pb-4">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
-              <div className="h-8 w-80 max-w-full bg-[#064E4A] rounded-full" />
-
               <div className="space-y-4">
                 <div className="h-16 sm:h-20 w-full max-w-xl bg-[#064E4A] rounded-3xl" />
                 <div className="h-6 w-full max-w-lg bg-[#064E4A]/80 rounded-full" />
