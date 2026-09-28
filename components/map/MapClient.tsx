@@ -82,15 +82,30 @@ export function MapClient({
               </div>
             </div>
           ) : nodes.length === 0 ? (
-            <div className="w-full h-[650px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl flex flex-col items-center justify-center p-6 text-center space-y-3">
-              <div className="w-12 h-12 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center mx-auto text-[#99F6E4]">
-                <IconGraph size={24} />
+            <div className="w-full h-[650px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl flex flex-col items-center justify-center p-6 text-center space-y-4 shadow-[0_20px_50px_rgba(4,47,46,0.5)]">
+              <div className="w-14 h-14 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center mx-auto text-[#99F6E4] shadow-[0_0_20px_rgba(153,246,228,0.25)]">
+                <IconGraph size={28} />
               </div>
-              <div className="text-sm font-bold text-[#FFFDF7]">
+              <div className="text-base font-bold text-[#FFFDF7] tracking-tight">
                 No Dossier Connections Found
               </div>
-              <div className="text-xs text-[#A7F3D0] max-w-md">
-                Add dossiers to your library or link tokens through deployer investigations to generate graph nodes.
+              <div className="text-xs sm:text-sm text-[#A7F3D0] max-w-md font-normal leading-relaxed">
+                Add dossiers to your library or link tokens through deployer investigations to generate relational constellation nodes and connection links.
+              </div>
+              <div className="pt-2 flex flex-wrap items-center justify-center gap-3">
+                <Link
+                  href="/feed"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all"
+                >
+                  <span>Explore Launch Feed</span>
+                  <IconArrowRight size={14} />
+                </Link>
+                <Link
+                  href="/library"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 text-[#99F6E4] hover:text-[#FFFDF7] border border-[rgba(153,246,228,0.25)] font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>Go to Library</span>
+                </Link>
               </div>
             </div>
           ) : (
