@@ -21,9 +21,9 @@ describe("Global Navigation Header Component (TICKET-47)", () => {
     assert.ok(html.includes("Search CA") || html.includes("0x..."));
   });
 
-  test("renders live block height indicator", () => {
-    const html = renderToString(<Header initialBlockHeight={21845120} />);
-    assert.ok(html.includes("21,845,120") || html.includes("21845120"));
+  test("renders mobile menu toggle button", () => {
+    const html = renderToString(<Header />);
+    assert.ok(html.includes("Toggle Mobile Menu") || html.includes("md:hidden"));
   });
 
   test("renders Connect Wallet button when not authenticated", () => {

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useWallet } from "@/components/wallet/WalletContext";
@@ -16,42 +16,13 @@ export interface HeaderProps {
 export function Header({
   isAuthenticated,
   walletAddress,
-  initialBlockHeight = 21845120,
   onConnectWallet,
   onDisconnect,
 }: HeaderProps) {
   const pathname = usePathname();
   const wallet = useWallet();
   const [searchQuery, setSearchQuery] = useState("");
-  const [blockHeight, setBlockHeight] = useState(initialBlockHeight);
-  const [isLiveBlock, setIsLiveBlock] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchBlock = async () => {
-      try {
-        const res = await fetch("/api/block");
-        if (res.ok) {
-          const data = await res.json();
-          if (data.ok && typeof data.blockNumber === "number" && isMounted) {
-            setBlockHeight(data.blockNumber);
-            setIsLiveBlock(data.source === "rpc");
-          }
-        }
-      } catch {
-      }
-    };
-
-    fetchBlock();
-    const interval = setInterval(fetchBlock, 10000);
-
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, []);
 
   const isAuthed = isAuthenticated !== undefined ? isAuthenticated : wallet.isAuthenticated;
   const activeAddress = walletAddress !== undefined ? walletAddress : wallet.userAddress;
@@ -164,19 +135,6 @@ export function Header({
               &crarr;
             </button>
           </form>
-
-          <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-[#042F2E]/80 border border-[rgba(153,246,228,0.25)] rounded-full font-mono text-[11px] text-[#A7F3D0]">
-            <span className={`w-1.5 h-1.5 rounded-full ${isLiveBlock ? "bg-[#14B8A6] animate-pulse" : "bg-[#FFD166]"}`} />
-            <span className="text-[#A7F3D0]/80">Block</span>
-            <span className="font-bold text-[#FFFDF7]">#{blockHeight.toLocaleString()}</span>
-            <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded border ${
-              isLiveBlock 
-                ? "bg-[#14B8A6]/20 text-[#99F6E4] border-[#14B8A6]/30" 
-                : "bg-[#FFD166]/20 text-[#FFD166] border-[#FFD166]/30"
-            }`}>
-              {isLiveBlock ? "LIVE" : "DEMO"}
-            </span>
-          </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
             {isAuthed ? (

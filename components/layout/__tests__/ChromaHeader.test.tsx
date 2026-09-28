@@ -5,19 +5,18 @@ import { renderToString } from "react-dom/server";
 import { Header } from "../Header";
 
 describe("Chroma Header & Navigation Overhaul (TICKET-90)", () => {
-  test("renders Chroma style brand logo, glowing badge, and live block telemetry", () => {
+  test("renders Chroma style brand logo, glowing badge, and search input", () => {
     const html = renderToString(
       <Header
         isAuthenticated={false}
         walletAddress={null}
-        initialBlockHeight={21845120}
       />
     );
 
     assert.ok(html.includes("SCOUT"));
     assert.ok(html.includes("Dossier.OS"));
     assert.ok(html.includes("Connect Wallet"));
-    assert.ok(html.includes("Block"));
+    assert.ok(html.includes("Search CA"));
   });
 
   test("renders authenticated state with truncated wallet address and logout pill", () => {
