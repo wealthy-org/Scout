@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790605867739.1511,
-    "hash": "c644f5b582a99dd8a43584488bfe8117"
+    "mtime": 1790607939917.6797,
+    "hash": "dd1397464d1d280899d5894f6c7f721f"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -1066,5 +1066,49 @@
   "components/map/MapClient.tsx": {
     "mtime": 1790604301442.152,
     "hash": "db1fb7283f1c55094c243c881370037f"
+  },
+  "app/api/block/__tests__/route.test.ts": {
+    "mtime": 1790607693280.888,
+    "hash": "e32d695ae8a390e0a6b0019584e9a05d"
+  },
+  "app/api/block/route.ts": {
+    "mtime": 1790607687601.2004,
+    "hash": "87b39cb4cc43c2656f16d675477e41ba"
+  },
+  "app/api/feed/__tests__/route.test.ts": {
+    "mtime": 1790607749608.7014,
+    "hash": "88695976d035b4374fd45eccda5dd65d"
+  },
+  "app/api/feed/route.ts": {
+    "mtime": 1790607857637.42,
+    "hash": "19ddc2b7826b2c481728d81a73a49805"
+  },
+  "components/wallet/ConnectWalletModal.tsx": {
+    "mtime": 1790604414210.5718,
+    "hash": "4e39dae6b3b4e7b3217c21a718a3e85b"
+  },
+  "components/wallet/WalletContext.tsx": {
+    "mtime": 1790604220547.5889,
+    "hash": "82b017f2cb4c650b1101185096f8e3c5"
+  },
+  "components/wallet/__tests__/WalletConnect.test.tsx": {
+    "mtime": 1790608952663.9392,
+    "hash": "73eb23114a199fa3f4ca099e5dbb4e8f"
+  },
+  "lib/auth/wallet.ts": {
+    "mtime": 1790608938287.6902,
+    "hash": "1ededf5be9d3b1a2c9c12633d5467eb2"
+  },
+  "lib/dossier/__tests__/dossier-pipeline.test.ts": {
+    "mtime": 1790607820945.7966,
+    "hash": "82cd3dca097dae70c5fb276197e0eb51"
+  },
+  "lib/dossier/query.ts": {
+    "mtime": 1790607792040.6536,
+    "hash": "feb7db243eebd68d7c140f95041ff120"
+  },
+  "lib/dossier/transform.ts": {
+    "mtime": 1790607802589.578,
+    "hash": "390549497a861158dc0d22938188ccda"
   }
 }

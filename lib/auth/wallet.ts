@@ -1,4 +1,5 @@
 import { SiweMessage } from "siwe";
+import { getAddress } from "viem";
 
 export type WalletType = "phantom" | "metamask" | "injected";
 
@@ -135,7 +136,7 @@ export async function signInWithWallet(
     throw new Error("No account address returned from wallet.");
   }
 
-  const account = accounts[0].toLowerCase();
+  const checksummedAddress = getAddress(accounts[0]);
 
   onProgress?.("Requesting cryptographic nonce...");
   const nonceRes = await fetch("/api/auth/nonce", { method: "POST" });
@@ -153,7 +154,7 @@ export async function signInWithWallet(
 
   const siweMessage = new SiweMessage({
     domain,
-    address: account,
+    address: checksummedAddress,
     statement: "Sign in with Ethereum to Scout",
     uri: origin,
     version: "1",
@@ -168,7 +169,7 @@ export async function signInWithWallet(
   try {
     signature = (await provider.request({
       method: "personal_sign",
-      params: [messageToSign, account],
+      params: [messageToSign, checksummedAddress],
     })) as string;
   } catch (err: unknown) {
     const error = err as { code?: number; message?: string };
@@ -192,7 +193,7 @@ export async function signInWithWallet(
 
   return {
     success: true,
-    walletAddress: account,
+    walletAddress: checksummedAddress.toLowerCase(),
   };
 }
 
