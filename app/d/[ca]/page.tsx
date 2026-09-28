@@ -86,6 +86,7 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
                 <TradeFlowChart
                   candles={data.tradeCandles}
                   graduationIndex={data.graduationIndex}
+                  tokenSymbol={data.symbol}
                 />
                 <TradeFlowPanel data={data.tradeFlow} />
               </div>
