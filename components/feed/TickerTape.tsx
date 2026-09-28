@@ -143,13 +143,13 @@ export function TickerTape({
 
   return (
     <div
-      className="w-full bg-[#064E4A]/90 border-b border-[rgba(153,246,228,0.2)] overflow-hidden font-mono text-xs py-2 select-none relative backdrop-blur-md z-20 group marquee-container"
+      className="w-full h-10 bg-[#064E4A]/90 border-b border-[rgba(153,246,228,0.2)] overflow-hidden font-mono text-xs select-none relative backdrop-blur-md z-20 group marquee-container flex items-center"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => {
         if (isVisibleRef.current) setIsPaused(false);
       }}
     >
-      <div className="flex items-center">
+      <div className="flex items-center w-full">
         <div className="hidden sm:flex items-center gap-2 pl-4 pr-3 py-0.5 border-r border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-[10px] font-bold text-[#99F6E4] uppercase tracking-wider shrink-0 z-10 shadow-[2px_0_10px_rgba(0,0,0,0.3)]">
           <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-pulse" />
           <span>Stream</span>

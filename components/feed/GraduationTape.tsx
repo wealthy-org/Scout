@@ -62,7 +62,7 @@ export function GraduationTape({
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-[rgba(153,246,228,0.2)]">
+      <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-[rgba(153,246,228,0.2)] min-h-[30px]">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFD166] opacity-75" />
@@ -72,12 +72,14 @@ export function GraduationTape({
             Graduation Stream
           </h3>
         </div>
-        <div className="flex items-center gap-2 text-[11px] text-[#A7F3D0]">
-          {isPaused && (
-            <span className="px-2 py-0.5 rounded-full bg-[#FFD166] text-[#042F2E] border-[1.5px] border-[#042F2E] font-black text-[9px] uppercase">
-              PAUSED
-            </span>
-          )}
+        <div className="flex items-center gap-2 text-[11px] text-[#A7F3D0] h-5">
+          <span
+            className={`px-2 py-0.5 rounded-full bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-black text-[9px] uppercase leading-none transition-all duration-150 ${
+              isPaused ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
+            }`}
+          >
+            PAUSED
+          </span>
           <span className="font-mono">{`${items.length} Graduated`}</span>
         </div>
       </div>
