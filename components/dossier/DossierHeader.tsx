@@ -46,30 +46,33 @@ export function DossierHeader({
   return (
     <header className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl font-sans">
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center gap-2.5">
+        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-3">
             <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#FFFDF7]">
               ${symbol || "UNKNOWN"}
             </span>
-            <span className="text-sm font-semibold text-[#A7F3D0]">
-              {name || "Unnamed Token"}
-            </span>
-          </div>
 
-          <span
-            className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider border-[1.5px] border-[#042F2E] shadow-[2px_2px_0px_#042F2E] ${
-              isGraduated
-                ? "bg-[#99F6E4] text-[#042F2E]"
-                : "bg-[#FFD166] text-[#042F2E]"
-            }`}
-          >
-            <span
-              className={`h-2 w-2 rounded-full ${
-                isGraduated ? "bg-[#042F2E] animate-pulse" : "bg-[#042F2E]"
-              }`}
-            />
-            {isGraduated ? "Graduated" : "Bonding Curve"}
-          </span>
+            <div className="flex flex-col items-start gap-1">
+              <span className="text-xs sm:text-sm font-semibold text-[#A7F3D0]">
+                {name || "Unnamed Token"}
+              </span>
+
+              <span
+                className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border-[1.5px] border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] ${
+                  isGraduated
+                    ? "bg-[#99F6E4] text-[#042F2E]"
+                    : "bg-[#FFD166] text-[#042F2E]"
+                }`}
+              >
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${
+                    isGraduated ? "bg-[#042F2E] animate-pulse" : "bg-[#042F2E]"
+                  }`}
+                />
+                {isGraduated ? "Graduated" : "Bonding Curve"}
+              </span>
+            </div>
+          </div>
 
           <button
             type="button"
