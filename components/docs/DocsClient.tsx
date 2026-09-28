@@ -445,77 +445,77 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
 
   return (
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-16 sm:pb-24 selection:bg-[#FFD166] selection:text-[#042F2E]">
-      <div className="absolute top-0 right-1/4 w-[750px] h-[500px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-0 right-1/4 w-[750px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 relative z-10">
-        <header className="border-b border-[rgba(153,246,228,0.2)] pb-8 mb-8 sm:mb-12">
-          <div className="flex flex-wrap items-center gap-2.5 mb-3">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#064E4A] border border-[rgba(153,246,228,0.3)] text-[#99F6E4]">
+      <div className="max-w-7xl mx-auto px-3.5 sm:px-6 pt-5 sm:pt-8 relative z-10">
+        <header className="border-b border-[rgba(153,246,228,0.2)] pb-6 mb-6 sm:pb-8 sm:mb-8">
+          <div className="flex flex-wrap items-center gap-2 mb-2.5">
+            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] font-bold tracking-widest uppercase bg-[#064E4A] border border-[rgba(153,246,228,0.3)] text-[#99F6E4]">
               <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse" />
-              DEVELOPER &amp; RESEARCHER SPECIFICATION // ROBINHOOD 4663
+              DEVELOPER SPECIFICATION // ROBINHOOD 4663
             </span>
             <span className="px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
-              REST &amp; ON-CHAIN RPC API v2.4
+              REST API v2.4
             </span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#FFFDF7]">
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight text-[#FFFDF7]">
             Technical Documentation &amp; API Reference
           </h1>
-          <p className="text-sm sm:text-base text-[#A7F3D0] mt-3 leading-relaxed max-w-3xl font-normal">
+          <p className="text-xs sm:text-base text-[#A7F3D0] mt-2 leading-relaxed max-w-3xl font-normal">
             Mathematical scoring algorithms, public endpoints, rate limits, data schemas, and integration guidelines.
           </p>
         </header>
 
-        <div className="flex flex-col lg:flex-row gap-8 lg:gap-10 items-start">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 items-start">
           <aside
             aria-label="Developer Documentation Sidebar"
-            className="w-full lg:w-72 shrink-0 lg:sticky lg:top-20 self-start max-h-[calc(100vh-6rem)] overflow-y-auto space-y-6 z-20"
+            className="w-full lg:w-64 shrink-0 lg:sticky lg:top-20 self-start max-h-none lg:max-h-[calc(100vh-6rem)] overflow-y-visible lg:overflow-y-auto space-y-4 z-20"
           >
-            <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.6)] backdrop-blur-xl space-y-5">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-3">
+            <div className="rounded-2xl lg:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-3.5 sm:p-5 shadow-lg backdrop-blur-xl space-y-3.5 sm:space-y-4">
+              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2.5">
                 <span className="text-[10px] font-mono uppercase tracking-widest font-bold text-[#99F6E4]">
                   DOCUMENTATION SECTIONS
                 </span>
                 <span className="text-[10px] font-mono text-[#A7F3D0]">INDEX</span>
               </div>
 
-              <nav className="space-y-1">
+              <nav className="flex lg:flex-col gap-1 overflow-x-auto no-scrollbar py-0.5 lg:py-0">
                 {SECTIONS.map((sec) => (
                   <a
                     key={sec.id}
                     href={`#${sec.id}`}
-                    className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-bold transition-all text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/80 border border-transparent hover:border-[rgba(153,246,228,0.2)]"
+                    className="flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-bold whitespace-nowrap transition-all text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/80 border border-transparent hover:border-[rgba(153,246,228,0.2)]"
                   >
                     <span>{sec.label}</span>
-                    <span className="text-[9px] font-mono px-1.5 py-0.5 rounded bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/20">
+                    <span className="hidden lg:inline-block text-[8px] font-mono px-1 rounded bg-[#042F2E] text-[#FFD166]">
                       {sec.badge}
                     </span>
                   </a>
                 ))}
               </nav>
 
-              <div className="pt-4 border-t border-[rgba(153,246,228,0.15)] space-y-2">
+              <div className="pt-3 border-t border-[rgba(153,246,228,0.15)] space-y-1.5">
                 <div className="flex items-center justify-between text-[10px] font-mono font-bold uppercase text-[#FFD166]">
                   <span>REST ENDPOINTS ({ENDPOINTS.length})</span>
                   <span>JUMP</span>
                 </div>
-                <div className="space-y-1">
+                <div className="flex lg:flex-col gap-1 overflow-x-auto no-scrollbar py-0.5 lg:py-0">
                   {ENDPOINTS.map((ep) => (
                     <button
                       key={ep.id}
                       onClick={() => handleSelectEndpointFromSidebar(ep.id)}
-                      className={`w-full text-left flex items-center justify-between px-2.5 py-1.5 rounded-lg text-[11px] font-mono transition-all cursor-pointer ${
+                      className={`text-left flex items-center justify-between px-2 py-1 rounded-lg text-[10px] sm:text-[11px] font-mono whitespace-nowrap transition-all cursor-pointer ${
                         selectedEndpointId === ep.id
                           ? "bg-[#FFD166] text-[#042F2E] font-bold shadow-sm"
-                          : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/60"
+                          : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/60 bg-[#042F2E]/40"
                       }`}
                     >
-                      <div className="flex items-center gap-1.5 truncate">
+                      <div className="flex items-center gap-1 truncate">
                         <span
-                          className={`text-[9px] font-black px-1 rounded ${
+                          className={`text-[8px] font-black px-1 rounded ${
                             ep.method === "GET"
                               ? "bg-[#14B8A6]/30 text-[#99F6E4]"
                               : ep.method === "POST"
@@ -527,40 +527,31 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                         </span>
                         <span className="truncate">{ep.path.split("?")[0]}</span>
                       </div>
-                      {ep.authRequired && (
-                        <span className="text-[8px] font-bold px-1 rounded bg-[#FF6B6B]/20 text-[#FF6B6B]">
-                          LOCK
-                        </span>
-                      )}
                     </button>
                   ))}
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-[rgba(153,246,228,0.15)] rounded-2xl bg-[#042F2E]/90 p-3 font-mono text-[10px] space-y-1.5 text-[#A7F3D0]">
-                <div className="flex items-center justify-between text-[#99F6E4] font-bold">
-                  <span>CHAIN ID: 4663</span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#14B8A6] animate-pulse" />
-                </div>
-                <div className="text-[#FFFDF7] truncate">Robinhood Testnet</div>
-                <div className="text-[9px] text-[#A7F3D0]/80">MultiCall3 Batch Enabled</div>
+              <div className="pt-2.5 border-t border-[rgba(153,246,228,0.15)] rounded-xl bg-[#042F2E]/90 p-2.5 font-mono text-[9px] flex items-center justify-between text-[#A7F3D0]">
+                <span>CHAIN: 4663</span>
+                <span className="text-[#99F6E4]">MultiCall3 Active</span>
               </div>
             </div>
           </aside>
 
-          <main className="flex-1 min-w-0 space-y-12 sm:space-y-16">
-            <section id="formula" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 shadow-[0_12px_30px_-6px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <main className="flex-1 min-w-0 space-y-8 sm:space-y-12">
+            <section id="formula" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
+              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
                     SECTION 01 // MATHEMATICAL ALGORITHMS
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                     Deployer Score Formula
                   </h2>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#042F2E] border border-[#FFD166]/40 text-xs font-mono font-bold text-[#FFD166]">
-                  MATHEMATICAL SPEC
+                <span className="px-2.5 py-0.5 rounded-full bg-[#042F2E] border border-[#FFD166]/40 text-[11px] font-mono font-bold text-[#FFD166] self-start sm:self-auto">
+                  SPEC
                 </span>
               </div>
 
@@ -568,9 +559,9 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                 Deployer reputation scores are deterministically calculated based on historical launch performance on Robinhood Chain:
               </p>
 
-              <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] font-mono text-xs text-[#99F6E4] space-y-3">
-                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-2">
-                  <span className="font-bold text-[#FFFDF7] font-sans text-sm">Score Formula Definition:</span>
+              <div className="p-3 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] font-mono text-[11px] sm:text-xs text-[#99F6E4] space-y-2">
+                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-1.5">
+                  <span className="font-bold text-[#FFFDF7] font-sans text-xs">Score Formula:</span>
                   <button
                     onClick={() =>
                       handleCopy(
@@ -578,88 +569,87 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                         "formula"
                       )
                     }
-                    className="flex items-center gap-1 text-[11px] text-[#A7F3D0] hover:text-[#FFFDF7] cursor-pointer"
+                    className="flex items-center gap-1 text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] cursor-pointer"
                   >
-                    {copiedKey === "formula" ? <IconCheck size={14} className="text-[#99F6E4]" /> : <IconClipboard size={14} />}
+                    {copiedKey === "formula" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
                     <span>{copiedKey === "formula" ? "Copied" : "Copy Math"}</span>
                   </button>
                 </div>
                 <div className="overflow-x-auto whitespace-pre leading-relaxed text-[#FFFDF7]">
                   {`Base Score:  B = ((graduated + 1) / (total + 2)) * 100
-Penalties:   P_doa = doa_rate * 25
-             P_burst = burst_rate * 15
+Penalties:   P_doa = doa_rate * 25, P_burst = burst_rate * 15
 Raw Score:   S_raw = clamp(B - P_doa - P_burst, 0, 100)
 Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 </div>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-xs font-sans border-collapse">
+                <table className="w-full text-[11px] sm:text-xs font-sans border-collapse">
                   <thead>
                     <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase">
-                      <th className="p-3">Score Range</th>
-                      <th className="p-3">Band</th>
-                      <th className="p-3">Label</th>
-                      <th className="p-3">Interpretation</th>
+                      <th className="p-2 sm:p-3">Score</th>
+                      <th className="p-2 sm:p-3">Band</th>
+                      <th className="p-2 sm:p-3">Label</th>
+                      <th className="p-2 sm:p-3">Interpretation</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[rgba(153,246,228,0.15)]">
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">65 – 100</td>
-                      <td className="p-3 text-[#99F6E4] font-bold">GREEN</td>
-                      <td className="p-3 text-[#FFFDF7]">Fresh / Repeat</td>
-                      <td className="p-3 text-[#A7F3D0]">High graduation velocity; minimal DOA/burst penalties.</td>
+                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">65 – 100</td>
+                      <td className="p-2 sm:p-3 text-[#99F6E4] font-bold">GREEN</td>
+                      <td className="p-2 sm:p-3 text-[#FFFDF7]">Fresh/Repeat</td>
+                      <td className="p-2 sm:p-3 text-[#A7F3D0]">High graduation velocity; minimal penalties.</td>
                     </tr>
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">35 – 64</td>
-                      <td className="p-3 text-[#FFD166] font-bold">YELLOW</td>
-                      <td className="p-3 text-[#FFFDF7]">Fresh / Repeat</td>
-                      <td className="p-3 text-[#A7F3D0]">Average launch track record or unproven new deployer.</td>
+                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">35 – 64</td>
+                      <td className="p-2 sm:p-3 text-[#FFD166] font-bold">YELLOW</td>
+                      <td className="p-2 sm:p-3 text-[#FFFDF7]">Fresh/Repeat</td>
+                      <td className="p-2 sm:p-3 text-[#A7F3D0]">Average launch track record or unproven creator.</td>
                     </tr>
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FF6B6B] font-bold">0 – 34</td>
-                      <td className="p-3 text-[#FF6B6B] font-bold">RED</td>
-                      <td className="p-3 text-[#FFFDF7]">Serial / Repeat</td>
-                      <td className="p-3 text-[#A7F3D0]">Serial launcher penalty or high frequency of rapid abandonments.</td>
+                      <td className="p-2 sm:p-3 font-bold text-[#FF6B6B] font-bold">0 – 34</td>
+                      <td className="p-2 sm:p-3 text-[#FF6B6B] font-bold">RED</td>
+                      <td className="p-2 sm:p-3 text-[#FFFDF7]">Serial/Repeat</td>
+                      <td className="p-2 sm:p-3 text-[#A7F3D0]">Serial launcher penalty or high DOA frequency.</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </section>
 
-            <section id="endpoints" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 shadow-[0_12px_30px_-6px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <section id="endpoints" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
+              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
                     SECTION 02 // REST INTERFACES
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                     Public API Reference
                   </h2>
                 </div>
-                <span className="px-3 py-1 rounded-full bg-[#042F2E] border border-[#FFD166]/40 text-xs font-mono font-bold text-[#FFD166]">
+                <span className="px-2.5 py-0.5 rounded-full bg-[#042F2E] border border-[#FFD166]/40 text-[11px] font-mono font-bold text-[#FFD166] self-start sm:self-auto">
                   REST / JSON
                 </span>
               </div>
 
-              <div className="p-6 rounded-3xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-6">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.15)] pb-4">
-                  <div className="space-y-1">
-                    <div className="flex items-center gap-3">
-                      <span className="px-2.5 py-0.5 bg-[#99F6E4] text-[#042F2E] border-[1.5px] border-[#042F2E] font-bold text-xs rounded-md shadow-[2px_2px_0px_#042F2E]">
+              <div className="p-3.5 sm:p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(153,246,228,0.15)] pb-3">
+                  <div className="space-y-0.5">
+                    <div className="flex items-center gap-2">
+                      <span className="px-2 py-0.2 bg-[#99F6E4] text-[#042F2E] font-bold text-xs rounded-md">
                         {activeEndpoint.method}
                       </span>
-                      <span className="text-base font-black font-mono text-[#FFFDF7]">{activeEndpoint.path}</span>
+                      <span className="text-sm sm:text-base font-black font-mono text-[#FFFDF7]">{activeEndpoint.path}</span>
                     </div>
-                    <div className="text-sm font-bold text-[#FFD166]">{activeEndpoint.title}</div>
+                    <div className="text-xs sm:text-sm font-bold text-[#FFD166]">{activeEndpoint.title}</div>
                   </div>
-                  <div className="flex items-center gap-2 text-xs font-mono">
-                    <span className="px-2 py-0.5 rounded bg-[#064E4A] text-[#99F6E4] border border-[rgba(153,246,228,0.2)]">
+                  <div className="flex items-center gap-1.5 text-[11px] font-mono">
+                    <span className="px-2 py-0.5 rounded bg-[#064E4A] text-[#99F6E4]">
                       {activeEndpoint.rateLimit}
                     </span>
                     {activeEndpoint.authRequired && (
-                      <span className="px-2 py-0.5 rounded bg-[#FF6B6B]/20 text-[#FF6B6B] border border-[#FF6B6B]/40 font-bold">
-                        SIWE AUTH
+                      <span className="px-2 py-0.5 rounded bg-[#FF6B6B]/20 text-[#FF6B6B] font-bold">
+                        SIWE
                       </span>
                     )}
                   </div>
@@ -670,25 +660,25 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 </p>
 
                 {activeEndpoint.params.length > 0 && (
-                  <div className="space-y-2">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">Parameters:</div>
+                  <div className="space-y-1.5">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#99F6E4]">Parameters:</div>
                     <div className="overflow-x-auto">
-                      <table className="w-full text-xs font-mono border-collapse">
+                      <table className="w-full text-[11px] font-mono border-collapse">
                         <thead>
                           <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#064E4A] text-left text-[#A7F3D0]">
-                            <th className="p-2.5">Field</th>
-                            <th className="p-2.5">Type</th>
-                            <th className="p-2.5">Required</th>
-                            <th className="p-2.5 font-sans">Description</th>
+                            <th className="p-2">Field</th>
+                            <th className="p-2">Type</th>
+                            <th className="p-2">Required</th>
+                            <th className="p-2 font-sans">Description</th>
                           </tr>
                         </thead>
                         <tbody className="divide-y divide-[rgba(153,246,228,0.15)] text-[#FFFDF7]">
                           {activeEndpoint.params.map((p) => (
                             <tr key={p.name} className="hover:bg-[#064E4A]/50">
-                              <td className="p-2.5 text-[#FFD166] font-bold">{p.name}</td>
-                              <td className="p-2.5 text-[#99F6E4]">{p.type}</td>
-                              <td className="p-2.5">{p.required ? <span className="text-[#FF6B6B] font-bold">YES</span> : <span className="text-[#A7F3D0]">NO</span>}</td>
-                              <td className="p-2.5 font-sans text-[#A7F3D0]">{p.description}</td>
+                              <td className="p-2 text-[#FFD166] font-bold">{p.name}</td>
+                              <td className="p-2 text-[#99F6E4]">{p.type}</td>
+                              <td className="p-2">{p.required ? <span className="text-[#FF6B6B] font-bold">YES</span> : <span className="text-[#A7F3D0]">NO</span>}</td>
+                              <td className="p-2 font-sans text-[#A7F3D0]">{p.description}</td>
                             </tr>
                           ))}
                         </tbody>
@@ -697,15 +687,15 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   </div>
                 )}
 
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">Request Example:</div>
-                    <div className="flex items-center gap-1 bg-[#064E4A] p-1 rounded-xl border border-[rgba(153,246,228,0.2)] text-[11px] font-mono">
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#99F6E4]">Request Example:</div>
+                    <div className="flex items-center gap-1 bg-[#064E4A] p-0.5 rounded-lg text-[10px] font-mono">
                       {(["curl", "typescript", "python"] as const).map((lang) => (
                         <button
                           key={lang}
                           onClick={() => setActiveCodeLang(lang)}
-                          className={`px-2 py-0.5 rounded-lg font-bold transition-all cursor-pointer ${
+                          className={`px-1.5 py-0.5 rounded-md font-bold transition-all cursor-pointer ${
                             activeCodeLang === lang ? "bg-[#FFD166] text-[#042F2E]" : "text-[#A7F3D0] hover:text-[#FFFDF7]"
                           }`}
                         >
@@ -715,12 +705,12 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] font-mono text-xs text-[#99F6E4] relative group">
+                  <div className="p-3 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] font-mono text-[11px] text-[#99F6E4] relative group">
                     <button
                       onClick={() => handleCopy(activeEndpoint.exampleRequest[activeCodeLang], `code-${activeEndpoint.id}`)}
-                      className="absolute right-3 top-3 p-1.5 rounded-lg bg-[#042F2E] border border-[rgba(153,246,228,0.2)] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 text-[11px] cursor-pointer"
+                      className="absolute right-2.5 top-2.5 p-1 rounded-md bg-[#042F2E] text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 text-[10px] cursor-pointer"
                     >
-                      {copiedKey === `code-${activeEndpoint.id}` ? <IconCheck size={14} className="text-[#99F6E4]" /> : <IconClipboard size={14} />}
+                      {copiedKey === `code-${activeEndpoint.id}` ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
                       <span>{copiedKey === `code-${activeEndpoint.id}` ? "Copied" : "Copy"}</span>
                     </button>
                     <pre className="overflow-x-auto whitespace-pre text-[#FFFDF7] leading-relaxed">
@@ -729,18 +719,18 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   </div>
                 </div>
 
-                <div className="space-y-2">
+                <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold uppercase tracking-wider text-[#FFD166]">Sample JSON Response:</div>
+                    <div className="text-[11px] font-bold uppercase tracking-wider text-[#FFD166]">Sample JSON Response:</div>
                     <button
                       onClick={() => handleCopy(activeEndpoint.sampleResponse, `resp-${activeEndpoint.id}`)}
-                      className="text-[11px] font-mono text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
+                      className="text-[10px] font-mono text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1 cursor-pointer"
                     >
-                      {copiedKey === `resp-${activeEndpoint.id}` ? <IconCheck size={14} className="text-[#99F6E4]" /> : <IconClipboard size={14} />}
+                      {copiedKey === `resp-${activeEndpoint.id}` ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
                       <span>Copy Payload</span>
                     </button>
                   </div>
-                  <div className="p-4 rounded-2xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] font-mono text-xs text-[#99F6E4] max-h-72 overflow-y-auto">
+                  <div className="p-3 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] font-mono text-[11px] text-[#99F6E4] max-h-56 overflow-y-auto">
                     <pre className="overflow-x-auto whitespace-pre text-[#FFFDF7] leading-relaxed">
                       {activeEndpoint.sampleResponse}
                     </pre>
@@ -749,27 +739,23 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="sandbox" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 shadow-[0_12px_30px_-6px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <section id="sandbox" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
+              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
                     SECTION 03 // LIVE REST PLAYGROUND
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                     Interactive API Playground
                   </h2>
                 </div>
-                <span className="text-xs font-mono text-[#A7F3D0]">SIMULATED SANDBOX // 4663</span>
+                <span className="text-[11px] font-mono text-[#A7F3D0]">4663 SANDBOX</span>
               </div>
 
-              <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                Test and inspect Scout REST endpoints directly in your browser with real-time response parsing:
-              </p>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="space-y-2">
-                    <label className="text-xs font-mono uppercase font-bold text-[#99F6E4]">Select Target Endpoint:</label>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="space-y-3">
+                  <div className="space-y-1">
+                    <label className="text-[11px] font-mono uppercase font-bold text-[#99F6E4]">Target Endpoint:</label>
                     <select
                       value={selectedEndpointId}
                       onChange={(e) => {
@@ -777,7 +763,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                         setSandboxResponse(null);
                       }}
                       aria-label="Select Target Endpoint"
-                      className="w-full px-3.5 py-2.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none focus:border-[#FFD166]"
+                      className="w-full px-3 py-2 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
                     >
                       {ENDPOINTS.map((ep) => (
                         <option key={ep.id} value={ep.id}>
@@ -788,16 +774,16 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   </div>
 
                   {activeEndpoint.params.length > 0 && (
-                    <div className="space-y-2">
-                      <label className="text-xs font-mono uppercase font-bold text-[#FFD166]">
-                        Parameter: {activeEndpoint.params[0].name}
+                    <div className="space-y-1">
+                      <label className="text-[11px] font-mono uppercase font-bold text-[#FFD166]">
+                        Param: {activeEndpoint.params[0].name}
                       </label>
                       <input
                         type="text"
                         value={sandboxAddress}
                         onChange={(e) => setSandboxAddress(e.target.value)}
-                        placeholder="Enter input address or value..."
-                        className="w-full px-3.5 py-2.5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none focus:border-[#FFD166]"
+                        placeholder="Enter parameter input..."
+                        className="w-full px-3 py-2 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
                       />
                     </div>
                   )}
@@ -805,27 +791,27 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   <button
                     onClick={handleRunSandbox}
                     disabled={isSimulating}
-                    className="w-full py-3 rounded-2xl bg-[#FFD166] hover:bg-[#FFD166]/90 text-[#042F2E] font-black text-xs font-mono tracking-wider uppercase transition-all shadow-[0_4px_14px_rgba(255,209,102,0.4)] disabled:opacity-50 cursor-pointer"
+                    className="w-full py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FFD166]/90 text-[#042F2E] font-black text-xs font-mono uppercase transition-all disabled:opacity-50 cursor-pointer"
                   >
-                    {isSimulating ? "Loading Preview..." : "Preview Sample Response"}
+                    {isSimulating ? "Loading..." : "Preview Sample Response"}
                   </button>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-3 font-mono text-xs">
-                  <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-2 text-[11px]">
+                <div className="p-3 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-2 font-mono text-xs">
+                  <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-1.5 text-[10px]">
                     <span className="text-[#99F6E4] font-bold">RESPONSE INSPECTOR</span>
                     <span className="text-[#A7F3D0]">{sandboxResponse ? "SAMPLE PAYLOAD" : "Awaiting Preview"}</span>
                   </div>
 
-                  <div className="flex-1 max-h-56 overflow-y-auto">
+                  <div className="flex-1 max-h-44 overflow-y-auto">
                     {sandboxResponse ? (
-                      <pre className="text-xs text-[#FFFDF7] leading-relaxed whitespace-pre">
+                      <pre className="text-[11px] text-[#FFFDF7] leading-relaxed whitespace-pre">
                         {sandboxResponse}
                       </pre>
                     ) : (
-                      <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#A7F3D0]/60 space-y-2">
-                        <IconCpu size={24} className="text-[#99F6E4]/40" />
-                        <span>Click &quot;Preview Sample Response&quot; to inspect formatted sample JSON payload.</span>
+                      <div className="h-full flex flex-col items-center justify-center text-center p-4 text-[#A7F3D0]/60 space-y-1">
+                        <IconCpu size={20} className="text-[#99F6E4]/40" />
+                        <span className="text-[11px]">Click &quot;Preview Sample Response&quot; to inspect output.</span>
                       </div>
                     )}
                   </div>
@@ -833,125 +819,120 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="contracts" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 shadow-[0_12px_30px_-6px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex items-center justify-between">
+            <section id="contracts" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
+              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
                     SECTION 04 // ON-CHAIN SMART CONTRACT REGISTRY
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                     Robinhood Chain (4663) Deployments
                   </h2>
                 </div>
-                <span className="text-xs font-mono font-bold text-[#FFD166]">VERIFIED RPC</span>
+                <span className="text-[11px] font-mono font-bold text-[#FFD166]">VERIFIED RPC</span>
               </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-2 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[#99F6E4] text-[11px] font-bold">
-                    <span>MULTICALL3 BATCHER</span>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-4">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5 font-mono text-xs">
+                  <div className="flex items-center justify-between text-[#99F6E4] text-[10px] font-bold">
+                    <span>MULTICALL3</span>
                     <span>AGGREGATE3</span>
                   </div>
                   <div className="text-[11px] text-[#FFFDF7] break-all font-bold">
                     0xcA11bde05977b3631167028862bE2a173976CA11
                   </div>
-                  <p className="text-[11px] font-sans text-[#A7F3D0]">
-                    Canonical multicall batch aggregator for low-latency atomic reads.
+                  <p className="text-[10px] font-sans text-[#A7F3D0]">
+                    Batch aggregator for low-latency atomic reads.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-2 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[#FFD166] text-[11px] font-bold">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5 font-mono text-xs">
+                  <div className="flex items-center justify-between text-[#FFD166] text-[10px] font-bold">
                     <span>PONS V2 FACTORY</span>
-                    <span>BONDING CURVES</span>
+                    <span>CURVES</span>
                   </div>
                   <div className="text-[11px] text-[#FFFDF7] break-all font-bold">
                     0x4663000000000000000000000000000000000001
                   </div>
-                  <p className="text-[11px] font-sans text-[#A7F3D0]">
-                    Factory smart contract orchestrating token genesis and curve progression.
+                  <p className="text-[10px] font-sans text-[#A7F3D0]">
+                    Orchestrates genesis and curve progression.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-2 font-mono text-xs">
-                  <div className="flex items-center justify-between text-[#C084FC] text-[11px] font-bold">
+                <div className="p-3.5 sm:p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5 font-mono text-xs">
+                  <div className="flex items-center justify-between text-[#C084FC] text-[10px] font-bold">
                     <span>UNISWAP V3 MIGRATOR</span>
-                    <span>GRADUATION POOL</span>
+                    <span>POOL</span>
                   </div>
                   <div className="text-[11px] text-[#FFFDF7] break-all font-bold">
                     0x4663000000000000000000000000000000000002
                   </div>
-                  <p className="text-[11px] font-sans text-[#A7F3D0]">
-                    Automated DEX liquidity migration pool for graduated tokens.
+                  <p className="text-[10px] font-sans text-[#A7F3D0]">
+                    Automated DEX pool migration for graduates.
                   </p>
                 </div>
               </div>
             </section>
 
-            <section id="limits" className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl space-y-6">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex items-center justify-between">
+            <section id="limits" className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-4">
+              <div className="border-b border-[rgba(153,246,228,0.2)] pb-3 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
                     SECTION 05 // SYSTEM SPECIFICATIONS
                   </span>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                     Rate Limits &amp; System Constraints
                   </h2>
                 </div>
-                <span className="text-xs font-mono text-[#A7F3D0]">ENFORCEMENT POLICIES</span>
+                <span className="text-[11px] font-mono text-[#A7F3D0]">POLICIES</span>
               </div>
 
               <div className="overflow-x-auto">
-                <table className="w-full text-xs font-sans border-collapse">
+                <table className="w-full text-[11px] sm:text-xs font-sans border-collapse">
                   <thead>
                     <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase">
-                      <th className="p-3">Resource / Action</th>
-                      <th className="p-3">Constraint Limit</th>
-                      <th className="p-3">Enforcement Behavior</th>
+                      <th className="p-2 sm:p-3">Resource</th>
+                      <th className="p-2 sm:p-3">Constraint</th>
+                      <th className="p-2 sm:p-3">Enforcement</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[rgba(153,246,228,0.15)]">
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Public API Endpoints</td>
-                      <td className="p-3 text-[#A7F3D0]">30 requests / minute / IP</td>
-                      <td className="p-3 text-[#FF6B6B]">HTTP 429 Too Many Requests (Retry-After)</td>
+                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Public API</td>
+                      <td className="p-2 sm:p-3 text-[#A7F3D0]">30 req / min / IP</td>
+                      <td className="p-2 sm:p-3 text-[#FF6B6B]">HTTP 429 Too Many Requests</td>
                     </tr>
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">User Watchlist Quota</td>
-                      <td className="p-3 text-[#A7F3D0]">30 deployer addresses max</td>
-                      <td className="p-3 text-[#FF6B6B]">HTTP 422 Unprocessable Entity</td>
+                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Watchlist Quota</td>
+                      <td className="p-2 sm:p-3 text-[#A7F3D0]">30 addresses max</td>
+                      <td className="p-2 sm:p-3 text-[#FF6B6B]">HTTP 422 Unprocessable</td>
                     </tr>
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Dossier Items Limit</td>
-                      <td className="p-3 text-[#A7F3D0]">50 items max per section</td>
-                      <td className="p-3 text-[#FF6B6B]">Payload schema validation rejection</td>
+                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Thesis Length</td>
+                      <td className="p-2 sm:p-3 text-[#A7F3D0]">4,000 chars max</td>
+                      <td className="p-2 sm:p-3 text-[#FF6B6B]">Zod schema rejection</td>
                     </tr>
                     <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Research Thesis Length</td>
-                      <td className="p-3 text-[#A7F3D0]">4,000 characters max</td>
-                      <td className="p-3 text-[#FF6B6B]">Zod schema string truncation / rejection</td>
-                    </tr>
-                    <tr className="hover:bg-[#042F2E]/40">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Historical Snapshots</td>
-                      <td className="p-3 text-[#A7F3D0]">30 snapshots retention limit</td>
-                      <td className="p-3 text-[#99F6E4]">Automated FIFO rotation</td>
+                      <td className="p-2 sm:p-3 font-bold text-[#FFFDF7]">Snapshots</td>
+                      <td className="p-2 sm:p-3 text-[#A7F3D0]">30 retention limit</td>
+                      <td className="p-2 sm:p-3 text-[#99F6E4]">Automated FIFO rotation</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </section>
 
-            <section id="disclaimer" className="rounded-3xl border border-[#FF6B6B]/40 bg-[#064E4A] p-6 sm:p-8 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl space-y-4">
-              <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex items-center justify-between">
+            <section id="disclaimer" className="rounded-2xl sm:rounded-3xl border border-[#FF6B6B]/40 bg-[#064E4A] p-4 sm:p-7 shadow-lg space-y-3">
+              <div className="border-b border-[rgba(153,246,228,0.2)] pb-2.5 flex items-center justify-between">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-widest text-[#FF6B6B] font-bold">
                     SECTION 06 // RISK DISCLOSURE
                   </span>
-                  <h2 className="text-base font-bold uppercase text-[#FF6B6B] tracking-tight">
+                  <h2 className="text-sm sm:text-base font-bold uppercase text-[#FF6B6B] tracking-tight">
                     On-Chain Risk Disclaimer
                   </h2>
                 </div>
-                <IconAlert size={18} className="text-[#FF6B6B]" />
+                <IconAlert size={16} className="text-[#FF6B6B]" />
               </div>
 
               <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
@@ -959,12 +940,12 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </p>
             </section>
 
-            <footer className="border-t border-[rgba(153,246,228,0.2)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
-              <Link href="/how" className="inline-flex items-center gap-2 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
+            <footer className="border-t border-[rgba(153,246,228,0.2)] pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs font-mono">
+              <Link href="/how" className="inline-flex items-center gap-1.5 font-bold text-[#99F6E4] hover:text-[#FFFDF7] hover:underline">
                 <IconArrowLeft size={14} />
                 <span>Explore Research Field Manual</span>
               </Link>
-              <Link href="/census" className="inline-flex items-center gap-2 font-bold text-[#FFD166] hover:text-[#FFFDF7] hover:underline">
+              <Link href="/census" className="inline-flex items-center gap-1.5 font-bold text-[#FFD166] hover:text-[#FFFDF7] hover:underline">
                 <span>Explore Ecosystem Census</span>
                 <IconArrowRight size={14} />
               </Link>
