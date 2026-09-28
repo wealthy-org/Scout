@@ -288,8 +288,8 @@
     "hash": "e245f3af788ef8d1dd38fbacf2a084fe"
   },
   "app/feed/page.tsx": {
-    "mtime": 1790514475065.7686,
-    "hash": "4c61e67f05884e7009f0ccead6e1282b"
+    "mtime": 1790582177179.371,
+    "hash": "90d8af03a73b891c0972c213d1a0731f"
   },
   "app/how/__tests__/page.test.tsx": {
     "mtime": 1790406497418.4348,
@@ -468,28 +468,28 @@
     "hash": "d47fe7949a8a177d13e3e091fc9ff4cd"
   },
   "components/feed/FeedTable.tsx": {
-    "mtime": 1790515226064.414,
-    "hash": "10f5225f35d2a180f545ce56e6b1c2ad"
+    "mtime": 1790582028679.0876,
+    "hash": "387d5ca16343123645ac4cb844c6a210"
   },
   "components/feed/FeedTiles.tsx": {
-    "mtime": 1790515233258.2832,
-    "hash": "138253004189f548400cb407e9b00505"
+    "mtime": 1790581169950.5774,
+    "hash": "c27f930379af134ce2f0ebb496b1a1b7"
   },
   "components/feed/GraduationTape.tsx": {
-    "mtime": 1790514702079.505,
-    "hash": "7fb20e2425cca15857df6cbb0943a573"
+    "mtime": 1790582048538.3032,
+    "hash": "03aecfd1b5ce748b9d8d74d640b97329"
   },
   "components/feed/TickerTape.tsx": {
-    "mtime": 1790515245783.6465,
-    "hash": "d3d1aff5502d21ec8cbfc84d2ada440a"
+    "mtime": 1790581155035.162,
+    "hash": "e7560c2d8a66a2a3e0e5e4e14c389d38"
   },
   "components/feed/TradeInspector.tsx": {
     "mtime": 1790514684210.3142,
     "hash": "fb7297778cf183fe2564232bbe0524d3"
   },
   "components/feed/TradeTape.tsx": {
-    "mtime": 1790514691872.16,
-    "hash": "19c700b24c172d5be2a74685cbd6d646"
+    "mtime": 1790582038704.3706,
+    "hash": "8be3f975d62bddd81aa9059ff64d1e61"
   },
   "components/feed/__tests__/FeedPoller.test.tsx": {
     "mtime": 1790403108364.9736,
@@ -508,8 +508,8 @@
     "hash": "8c52eb41890cb34276014c8755f99026"
   },
   "components/feed/__tests__/TickerTape.test.tsx": {
-    "mtime": 1790403038368.0789,
-    "hash": "d544483b4bc01c0d4b02848a729cb855"
+    "mtime": 1790582205811.5496,
+    "hash": "6697090910b6d305155df0bc5f46f47b"
   },
   "components/feed/__tests__/TradeInspector.test.tsx": {
     "mtime": 1790403365484.8904,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790524413311.8867,
-    "hash": "c65ac2ca3ae93cdbf1a8a8f9e90fe8a3"
+    "mtime": 1790554263473.518,
+    "hash": "1a950d05a474930323ea3c9afe1b4160"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -936,8 +936,8 @@
     "hash": "58864d4a46cda72d161ba6e8058ae13e"
   },
   "app/feed/loading.tsx": {
-    "mtime": 1790518195206.1372,
-    "hash": "79256464b99f9f42f7274ea482a3609c"
+    "mtime": 1790582198542.7776,
+    "hash": "d9cd7afb5ac646d07e18f94da5f5849e"
   },
   "app/library/__tests__/page.test.tsx": {
     "mtime": 1790416665208.058,

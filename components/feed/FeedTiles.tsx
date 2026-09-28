@@ -30,80 +30,139 @@ export function FeedTiles({ stats }: FeedTilesProps) {
     return `$${val.toLocaleString()}`;
   };
 
-  const tiles = [
-    {
-      id: "tile-launches",
-      title: "Launches (10m)",
-      value: totalLaunches10m.toLocaleString(),
-      accentColor: "text-[#99F6E4]",
-      icon: "⚡",
-      dotColor: "bg-[#99F6E4]",
-    },
-    {
-      id: "tile-volume",
-      title: "Total Volume",
-      value: formatVolume(totalVolumeUsd),
-      accentColor: "text-[#FFD166]",
-      icon: "💎",
-      dotColor: "bg-[#FFD166]",
-    },
-    {
-      id: "tile-wallets",
-      title: "Unique Wallets",
-      value: uniqueWallets.toLocaleString(),
-      accentColor: "text-[#C084FC]",
-      icon: "👥",
-      dotColor: "bg-[#C084FC]",
-    },
-    {
-      id: "tile-graduated",
-      title: "Graduated (24h)",
-      value: graduatedCount.toLocaleString(),
-      accentColor: "text-[#99F6E4]",
-      icon: "🎓",
-      dotColor: "bg-[#99F6E4]",
-    },
-    {
-      id: "tile-repeat",
-      title: "Repeat Deployers",
-      value: `${repeatDeployerPct.toFixed(1)}%`,
-      accentColor:
-        repeatDeployerPct > 50
-          ? "text-[#FF6B6B]"
-          : repeatDeployerPct > 25
-          ? "text-[#FFD166]"
-          : "text-[#99F6E4]",
-      icon: "🔄",
-      dotColor:
-        repeatDeployerPct > 50
-          ? "bg-[#FF6B6B]"
-          : repeatDeployerPct > 25
-          ? "bg-[#FFD166]"
-          : "bg-[#99F6E4]",
-    },
-  ];
+  const isToxicityHigh = repeatDeployerPct > 50;
+  const isToxicityMed = repeatDeployerPct > 25;
 
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 font-sans select-none">
-      {tiles.map((tile) => (
-        <div
-          key={tile.id}
-          className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-4 sm:p-5 flex flex-col justify-between shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] hover:-translate-y-1 transition-all"
-        >
-          <div className="flex items-center justify-between text-xs font-semibold text-[#A7F3D0] uppercase tracking-wider mb-2">
-            <span>{tile.title}</span>
-            <div className="flex items-center gap-1.5">
-              <span className={`w-2 h-2 rounded-full ${tile.dotColor} animate-pulse`} />
-              <span className="text-xs">{tile.icon}</span>
-            </div>
-          </div>
-          <div
-            className={`text-2xl sm:text-3xl font-black tracking-tight ${tile.accentColor}`}
-          >
-            {tile.value}
+      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#99F6E4]/50 transition-all group backdrop-blur-md">
+        <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
+          <span>Launches (10m)</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-ping" />
+            <span className="text-xs">⚡</span>
           </div>
         </div>
-      ))}
+        <div className="flex items-baseline justify-between gap-2">
+          <div className="text-2xl sm:text-3xl font-black tracking-tight text-[#99F6E4] drop-shadow-sm">
+            {totalLaunches10m.toLocaleString()}
+          </div>
+          <div className="flex items-end gap-0.5 h-4 opacity-75">
+            <div className="w-1 h-2 bg-[#99F6E4]/40 rounded-full" />
+            <div className="w-1 h-3 bg-[#99F6E4]/70 rounded-full" />
+            <div className="w-1 h-4 bg-[#99F6E4] rounded-full" />
+          </div>
+        </div>
+        <div className="text-[10px] text-[#A7F3D0]/70 font-mono mt-1 flex items-center justify-between">
+          <span>Velocity</span>
+          <span className="text-[#99F6E4] font-semibold">Active Surge</span>
+        </div>
+      </div>
+
+      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#FFD166]/50 transition-all group backdrop-blur-md">
+        <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
+          <span>Total Volume</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#FFD166] animate-pulse" />
+            <span className="text-xs">💎</span>
+          </div>
+        </div>
+        <div className="flex items-baseline justify-between gap-2">
+          <div className="text-2xl sm:text-3xl font-black tracking-tight text-[#FFD166] drop-shadow-sm">
+            {formatVolume(totalVolumeUsd)}
+          </div>
+        </div>
+        <div className="text-[10px] text-[#A7F3D0]/70 font-mono mt-1 flex items-center justify-between">
+          <span>24h Liquidity</span>
+          <span className="text-[#FFD166] font-semibold">Bonding Flow</span>
+        </div>
+      </div>
+
+      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#C084FC]/50 transition-all group backdrop-blur-md">
+        <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
+          <span>Unique Wallets</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#C084FC] animate-pulse" />
+            <span className="text-xs">👥</span>
+          </div>
+        </div>
+        <div className="flex items-baseline justify-between gap-2">
+          <div className="text-2xl sm:text-3xl font-black tracking-tight text-[#C084FC] drop-shadow-sm">
+            {uniqueWallets.toLocaleString()}
+          </div>
+        </div>
+        <div className="text-[10px] text-[#A7F3D0]/70 font-mono mt-1 flex items-center justify-between">
+          <span>Traders</span>
+          <span className="text-[#C084FC] font-semibold">Verified</span>
+        </div>
+      </div>
+
+      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 hover:border-[#99F6E4]/50 transition-all group backdrop-blur-md">
+        <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
+          <span>Graduated (24h)</span>
+          <div className="flex items-center gap-1.5">
+            <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-pulse" />
+            <span className="text-xs">🎓</span>
+          </div>
+        </div>
+        <div className="flex items-baseline justify-between gap-2">
+          <div className="text-2xl sm:text-3xl font-black tracking-tight text-[#99F6E4] drop-shadow-sm">
+            {graduatedCount.toLocaleString()}
+          </div>
+          <span className="text-xs font-bold text-[#FFD166] bg-[#042F2E] px-2 py-0.5 rounded border border-[#042F2E]">
+            100% DEX
+          </span>
+        </div>
+        <div className="text-[10px] text-[#A7F3D0]/70 font-mono mt-1 flex items-center justify-between">
+          <span>Swept Curve</span>
+          <span className="text-[#99F6E4] font-semibold">DEX Ready</span>
+        </div>
+      </div>
+
+      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-4.5 flex flex-col justify-between shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-1 transition-all group backdrop-blur-md col-span-2 sm:col-span-1">
+        <div className="flex items-center justify-between text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider mb-2">
+          <span>Repeat Deployers</span>
+          <div className="flex items-center gap-1.5">
+            <span
+              className={`w-2 h-2 rounded-full animate-pulse ${
+                isToxicityHigh
+                  ? "bg-[#FF6B6B]"
+                  : isToxicityMed
+                  ? "bg-[#FFD166]"
+                  : "bg-[#99F6E4]"
+              }`}
+            />
+            <span className="text-xs">🔄</span>
+          </div>
+        </div>
+        <div className="flex items-baseline justify-between gap-2">
+          <div
+            className={`text-2xl sm:text-3xl font-black tracking-tight drop-shadow-sm ${
+              isToxicityHigh
+                ? "text-[#FF6B6B]"
+                : isToxicityMed
+                ? "text-[#FFD166]"
+                : "text-[#99F6E4]"
+            }`}
+          >
+            {`${repeatDeployerPct.toFixed(1)}%`}
+          </div>
+        </div>
+        <div className="text-[10px] text-[#A7F3D0]/70 font-mono mt-1 flex items-center justify-between">
+          <span>Toxicity Index</span>
+          <span
+            className={`font-semibold ${
+              isToxicityHigh
+                ? "text-[#FF6B6B]"
+                : isToxicityMed
+                ? "text-[#FFD166]"
+                : "text-[#99F6E4]"
+            }`}
+          >
+            {isToxicityHigh ? "High Alert" : isToxicityMed ? "Elevated" : "Nominal"}
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

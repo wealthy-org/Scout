@@ -50,47 +50,50 @@ export function TradeTape({
 
   return (
     <div
-      className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-4 sm:p-5 flex flex-col h-[480px] shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl font-sans"
+      className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-3xl p-4 sm:p-5 flex flex-col h-[480px] shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl font-sans"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
       <div className="flex items-center justify-between pb-3.5 mb-3 border-b border-[rgba(153,246,228,0.2)]">
         <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#99F6E4] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#99F6E4]" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#99F6E4]" />
           </span>
-          <h3 className="text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
+          <h3 className="text-xs font-black uppercase tracking-wider text-[#FFFDF7]">
             Live Trade Tape
           </h3>
         </div>
         <div className="flex items-center gap-2 text-[11px] text-[#A7F3D0]">
           {isPaused && (
-            <span className="px-2 py-0.5 rounded-full bg-[#FFD166] text-[#042F2E] border-[1.5px] border-[#042F2E] font-bold text-[10px]">
+            <span className="px-2 py-0.5 rounded-full bg-[#FFD166] text-[#042F2E] border-[1.5px] border-[#042F2E] font-black text-[9px] uppercase">
               PAUSED
             </span>
           )}
-          <span>{`${items.length} Recent`}</span>
+          <span className="font-mono">{`${items.length} Recent`}</span>
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-2 pr-1">
+      <div className="flex-1 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
         {items.length === 0 ? (
-          <div className="h-full flex items-center justify-center text-xs text-[#A7F3D0]/70">
-            No recent trades available.
+          <div className="h-full flex flex-col items-center justify-center text-xs text-[#A7F3D0]/70 gap-1.5">
+            <span className="text-xl">🌊</span>
+            <span>No recent trades available.</span>
           </div>
         ) : (
           items.map((t) => {
             const isBuy = t.type === "buy";
+            const isWhale = t.amountEth >= 2.0;
+
             return (
               <div
                 key={t.id}
                 onClick={() => onSelectTrade?.(t)}
-                className="p-3 bg-[#042F2E] hover:bg-[#14B8A6]/20 rounded-2xl border border-[rgba(153,246,228,0.2)] transition-colors flex items-center justify-between cursor-pointer group"
+                className="p-3 bg-[#042F2E]/90 hover:bg-[#083835] rounded-2xl border border-[rgba(153,246,228,0.2)] hover:border-[#99F6E4]/40 transition-all flex items-center justify-between cursor-pointer group shadow-sm hover:scale-[1.01]"
               >
                 <div className="flex items-center gap-2.5">
                   <span
-                    className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase tracking-wider border-[1.5px] border-[#042F2E] ${
+                    className={`text-[10px] font-black px-2 py-0.5 rounded-full uppercase tracking-wider border-[1.5px] border-[#042F2E] shadow-[1px_1px_0px_#042F2E] ${
                       isBuy
                         ? "bg-[#99F6E4] text-[#042F2E]"
                         : "bg-[#FF6B6B] text-[#042F2E]"
@@ -98,20 +101,31 @@ export function TradeTape({
                   >
                     {t.type}
                   </span>
-                  <Link
-                    href={`/d/${t.contractAddress}`}
-                    className="font-bold text-[#FFFDF7] group-hover:text-[#99F6E4] text-xs transition-colors"
-                  >
-                    {`$${t.symbol}`}
-                  </Link>
-                  <span className="text-[11px] font-mono text-[#A7F3D0] hidden sm:inline">
-                    {truncateAddress(t.trader)}
-                  </span>
+
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <Link
+                        href={`/d/${t.contractAddress}`}
+                        onClick={(e) => e.stopPropagation()}
+                        className="font-extrabold text-[#FFFDF7] group-hover:text-[#99F6E4] text-xs transition-colors"
+                      >
+                        {`$${t.symbol}`}
+                      </Link>
+                      {isWhale && (
+                        <span className="text-[9px] font-black px-1.5 py-0.2 rounded bg-[#FFD166] text-[#042F2E] border border-[#042F2E]">
+                          🐋 Whale
+                        </span>
+                      )}
+                    </div>
+                    <div className="text-[10px] font-mono text-[#A7F3D0]/70">
+                      {truncateAddress(t.trader)}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="text-right">
+                <div className="text-right font-mono">
                   <div
-                    className={`text-xs font-bold ${
+                    className={`text-xs font-black ${
                       isBuy ? "text-[#99F6E4]" : "text-[#FF6B6B]"
                     }`}
                   >

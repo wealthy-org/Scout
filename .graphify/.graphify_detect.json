@@ -271,7 +271,7 @@
     "video": []
   },
   "total_files": 261,
-  "total_words": 180232,
+  "total_words": 181212,
   "needs_graph": true,
   "warning": null,
   "skipped_sensitive": [
@@ -280,7 +280,7 @@
   "graphifyignore_patterns": 27,
   "git": {
     "source_owner": "git",
-    "source_hash": "22d2e90d8fd79d9b1e931d37125aa50b8c122b6d",
+    "source_hash": "b55c1b8ee1dab4d94ec14b51d6f81e96eae37204",
     "branches": [
       "main"
     ],
@@ -293,11 +293,11 @@
     "source": "default-auto",
     "root": ".",
     "git_root": ".",
-    "head": "22d2e90d8fd79d9b1e931d37125aa50b8c122b6d",
+    "head": "b55c1b8ee1dab4d94ec14b51d6f81e96eae37204",
     "candidate_count": 355,
     "included_count": 261,
     "excluded_untracked_count": 0,
-    "excluded_ignored_count": 44185,
+    "excluded_ignored_count": 44189,
     "excluded_sensitive_count": 1,
     "missing_committed_count": 0,
     "warnings": [],

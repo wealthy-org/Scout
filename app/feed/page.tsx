@@ -79,7 +79,7 @@ const initialTrades: TradeTapeItem[] = [
     symbol: "SCOUT",
     contractAddress: "0x1111111111111111111111111111111111111111",
     type: "buy",
-    amountEth: 1.85,
+    amountEth: 2.85,
     amountToken: 320000,
     trader: "0xaaaa1111aaaa1111aaaa1111aaaa1111aaaa1111",
     timestamp: "2026-09-26T12:35:00Z",
@@ -183,25 +183,31 @@ export default function FeedPage() {
           </div>
 
           <div className="lg:col-span-4 space-y-6">
-            <TradeTape trades={initialTrades} onSelectTrade={(t) => {
-              setSelectedToken({
-                contractAddress: t.contractAddress,
-                symbol: t.symbol,
-              });
-              setIsInspectorOpen(true);
-            }} />
-            <GraduationTape graduations={initialGraduations} onSelectGraduation={(g) => {
-              setSelectedToken({
-                contractAddress: g.contractAddress,
-                symbol: g.symbol,
-                name: g.name,
-                marketCapUsd: g.marketCapUsd,
-                deployerAddress: g.deployerAddress,
-                score: g.deployerScore,
-                band: g.deployerBand,
-              });
-              setIsInspectorOpen(true);
-            }} />
+            <TradeTape
+              trades={initialTrades}
+              onSelectTrade={(t) => {
+                setSelectedToken({
+                  contractAddress: t.contractAddress,
+                  symbol: t.symbol,
+                });
+                setIsInspectorOpen(true);
+              }}
+            />
+            <GraduationTape
+              graduations={initialGraduations}
+              onSelectGraduation={(g) => {
+                setSelectedToken({
+                  contractAddress: g.contractAddress,
+                  symbol: g.symbol,
+                  name: g.name,
+                  marketCapUsd: g.marketCapUsd,
+                  deployerAddress: g.deployerAddress,
+                  score: g.deployerScore,
+                  band: g.deployerBand,
+                });
+                setIsInspectorOpen(true);
+              }}
+            />
           </div>
         </div>
       </main>
