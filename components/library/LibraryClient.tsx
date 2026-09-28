@@ -4,7 +4,8 @@ import React, { useState, useMemo, useRef } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { DOSSIER_STATUSES, type DossierStatus } from "@/lib/db/schema";
-import { IconLock, IconClose, IconArrowRight } from "@/components/icons/Vectors";
+import { IconLock, IconClose, IconArrowRight, IconWallet } from "@/components/icons/Vectors";
+import { useWallet } from "@/components/wallet/WalletContext";
 
 export interface LibraryDossierCard {
   id: string;
@@ -35,6 +36,7 @@ export function LibraryClient({
   isAuthenticated,
   userAddress,
 }: LibraryClientProps) {
+  const { openModal } = useWallet();
   const [dossiers, setDossiers] = useState<LibraryDossierCard[]>(initialDossiers);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState<string>("ALL");
@@ -167,15 +169,23 @@ export function LibraryClient({
             <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
               Connect your Ethereum wallet using Sign-In with Ethereum (SIWE) to access, manage, and research private case files in your personal library.
             </p>
-            <div className="pt-3">
-              <Link
-                href="/feed"
-                className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all"
-              >
-                <span>Browse Public Launch Feed</span>
-                <IconArrowRight size={14} />
-              </Link>
-            </div>
+              <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all cursor-pointer"
+                >
+                  <IconWallet size={14} />
+                  <span>Connect Wallet</span>
+                </button>
+                <Link
+                  href="/feed"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 text-[#99F6E4] hover:text-[#FFFDF7] border border-[rgba(153,246,228,0.25)] font-bold text-xs uppercase tracking-wider transition-all"
+                >
+                  <span>Browse Public Launch Feed</span>
+                  <IconArrowRight size={14} />
+                </Link>
+              </div>
           </div>
         ) : (
           <div className="space-y-6">

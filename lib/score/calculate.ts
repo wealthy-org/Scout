@@ -17,8 +17,25 @@ import type {
   DeployerLabel,
   DeployerBand,
   DeployerScoreResult,
+  DeployerScoreSignals,
   DeployerLaunchInput,
 } from "@/types/score";
+
+export function buildSignalsFromRecord(record: {
+  totalLaunches: number;
+  graduatedCount: number;
+  deadOnArrivalCount: number;
+  burstLaunches: number;
+}): DeployerScoreSignals {
+  const total = record.totalLaunches;
+  return {
+    grad_rate: (record.graduatedCount + GRAD_NUMERATOR_ADD) / (total + GRAD_DENOMINATOR_ADD),
+    doa_rate: record.deadOnArrivalCount / Math.max(total, 1),
+    burst_rate: record.burstLaunches / Math.max(total, 1),
+    total_launches: total,
+    graduated_count: record.graduatedCount,
+  };
+}
 
 export function calculateScore(
   launches: DeployerLaunchInput[] = [],

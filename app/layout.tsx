@@ -3,6 +3,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { siteMetadata } from "@/config/metadata";
 import { TopProgressBar } from "@/components/layout/TopProgressBar";
+import { WalletProvider } from "@/components/wallet/WalletContext";
+import { getSession } from "@/lib/auth/session";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -17,11 +19,22 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = siteMetadata;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  let isAuthenticated = false;
+  let userAddress: string | null = null;
+
+  try {
+    const session = await getSession();
+    if (session && session.wallet_address) {
+      isAuthenticated = true;
+      userAddress = session.wallet_address.toLowerCase();
+    }
+  } catch {}
+
   return (
     <html
       lang="en"
@@ -31,8 +44,14 @@ export default function RootLayout({
         <Suspense fallback={null}>
           <TopProgressBar />
         </Suspense>
-        {children}
+        <WalletProvider
+          initialAuthenticated={isAuthenticated}
+          initialUserAddress={userAddress}
+        >
+          {children}
+        </WalletProvider>
       </body>
     </html>
   );
 }
+

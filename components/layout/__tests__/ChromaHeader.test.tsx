@@ -35,6 +35,7 @@ describe("Chroma Header & Navigation Overhaul (TICKET-90)", () => {
   test("contains rounded pill navigation items for all core routes", () => {
     const html = renderToString(<Header />);
     assert.ok(html.includes("Launch Feed"));
+    assert.ok(html.includes('href="/feed"'));
     assert.ok(html.includes("Library"));
     assert.ok(html.includes("Map"));
     assert.ok(html.includes("Watchlist"));

@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { IconClose } from "@/components/icons/Vectors";
+import { useWallet } from "@/components/wallet/WalletContext";
 
 export interface UserProfileData {
   walletAddress: string;
@@ -17,6 +17,7 @@ export interface AccountClientProps {
 }
 
 export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
+  const { openModal } = useWallet();
   const [handle, setHandle] = useState(user?.handle || "");
   const [savingHandle, setSavingHandle] = useState(false);
   const [handleError, setHandleError] = useState<string | null>(null);
@@ -126,12 +127,13 @@ export function AccountClient({ isAuthenticated, user }: AccountClientProps) {
               Connect your Ethereum wallet to access account settings, configure research handles, and manage your intelligence profile.
             </p>
             <div className="pt-2">
-              <Link
-                href="/"
-                className="inline-block px-5 py-2.5 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider transition-all"
+              <button
+                type="button"
+                onClick={openModal}
+                className="inline-block px-5 py-2.5 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
               >
                 Connect Wallet
-              </Link>
+              </button>
             </div>
           </div>
         ) : (

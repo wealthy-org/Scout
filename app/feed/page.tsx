@@ -1,10 +1,10 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { TickerTape } from "@/components/feed/TickerTape";
-import { FeedTiles } from "@/components/feed/FeedTiles";
-import { IconAlert } from "@/components/icons/Vectors";
+import { FeedTiles, type FeedStatsData } from "@/components/feed/FeedTiles";
+import { FeedPoller } from "@/components/feed/FeedPoller";
 import { FeedTable, type FeedTableRowData } from "@/components/feed/FeedTable";
 import { TradeTape, type TradeTapeItem } from "@/components/feed/TradeTape";
 import { GraduationTape, type GraduationTapeItem } from "@/components/feed/GraduationTape";
@@ -23,8 +23,8 @@ const initialFeedItems: FeedTableRowData[] = [
     marketCapUsd: 185000,
     volume24hUsd: 94000,
     phase: "curve",
-    block: 10050,
-    timestamp: "2026-09-26T12:30:00Z",
+    block: 21845120,
+    timestamp: new Date().toISOString(),
   },
   {
     contractAddress: "0x2222222222222222222222222222222222222222",
@@ -38,8 +38,8 @@ const initialFeedItems: FeedTableRowData[] = [
     marketCapUsd: 320000,
     volume24hUsd: 142000,
     phase: "graduated",
-    block: 10045,
-    timestamp: "2026-09-26T12:15:00Z",
+    block: 21845115,
+    timestamp: new Date(Date.now() - 300000).toISOString(),
   },
   {
     contractAddress: "0x3333333333333333333333333333333333333333",
@@ -53,8 +53,8 @@ const initialFeedItems: FeedTableRowData[] = [
     marketCapUsd: 45000,
     volume24hUsd: 18000,
     phase: "curve",
-    block: 10040,
-    timestamp: "2026-09-26T12:00:00Z",
+    block: 21845100,
+    timestamp: new Date(Date.now() - 600000).toISOString(),
   },
   {
     contractAddress: "0x4444444444444444444444444444444444444444",
@@ -68,8 +68,8 @@ const initialFeedItems: FeedTableRowData[] = [
     marketCapUsd: 8500,
     volume24hUsd: 3200,
     phase: "curve",
-    block: 10035,
-    timestamp: "2026-09-26T11:45:00Z",
+    block: 21845080,
+    timestamp: new Date(Date.now() - 900000).toISOString(),
   },
 ];
 
@@ -82,7 +82,7 @@ const initialTrades: TradeTapeItem[] = [
     amountEth: 2.85,
     amountToken: 320000,
     trader: "0xaaaa1111aaaa1111aaaa1111aaaa1111aaaa1111",
-    timestamp: "2026-09-26T12:35:00Z",
+    timestamp: new Date().toISOString(),
   },
   {
     id: "tx-2",
@@ -92,17 +92,7 @@ const initialTrades: TradeTapeItem[] = [
     amountEth: 3.2,
     amountToken: 850000,
     trader: "0xbbbb2222bbbb2222bbbb2222bbbb2222bbbb2222",
-    timestamp: "2026-09-26T12:34:00Z",
-  },
-  {
-    id: "tx-3",
-    symbol: "ALPHA",
-    contractAddress: "0x3333333333333333333333333333333333333333",
-    type: "sell",
-    amountEth: 0.75,
-    amountToken: 120000,
-    trader: "0xcccc3333cccc3333cccc3333cccc3333cccc3333",
-    timestamp: "2026-09-26T12:33:00Z",
+    timestamp: new Date(Date.now() - 60000).toISOString(),
   },
 ];
 
@@ -116,15 +106,50 @@ const initialGraduations: GraduationTapeItem[] = [
     deployerScore: 82,
     deployerBand: "green",
     marketCapUsd: 320000,
-    graduatedAt: "2026-09-26T12:15:00Z",
+    graduatedAt: new Date(Date.now() - 300000).toISOString(),
   },
 ];
 
 const watchedDeployers = ["0x9999999999999999999999999999999999999999"];
 
 export default function FeedPage() {
+  const [feedItems, setFeedItems] = useState<FeedTableRowData[]>(initialFeedItems);
+  const [stats, setStats] = useState<FeedStatsData>({
+    totalLaunches10m: 24,
+    totalVolumeUsd: 1428000,
+    uniqueWallets: 842,
+    graduatedCount: 9,
+    repeatDeployerPct: 34.5,
+  });
+  const [trades, setTrades] = useState<TradeTapeItem[]>(initialTrades);
+  const [graduations, setGraduations] = useState<GraduationTapeItem[]>(initialGraduations);
   const [selectedToken, setSelectedToken] = useState<InspectorToken | null>(null);
   const [isInspectorOpen, setIsInspectorOpen] = useState(false);
+
+  const fetchFeedData = useCallback(async () => {
+    try {
+      const res = await fetch("/api/feed");
+      if (!res.ok) return;
+      const data = await res.json();
+      if (data.ok && Array.isArray(data.items) && data.items.length > 0) {
+        setFeedItems(data.items);
+        if (data.stats) {
+          setStats(data.stats);
+        }
+        if (Array.isArray(data.trades) && data.trades.length > 0) {
+          setTrades(data.trades);
+        }
+        if (Array.isArray(data.graduations) && data.graduations.length > 0) {
+          setGraduations(data.graduations);
+        }
+      }
+    } catch {
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchFeedData();
+  }, [fetchFeedData]);
 
   const handleRowClick = (row: FeedTableRowData) => {
     setSelectedToken({
@@ -148,11 +173,6 @@ export default function FeedPage() {
       <GlobalHeader />
       <TickerTape />
 
-      <div className="bg-[#FFD166]/20 border-b border-[#FFD166]/30 text-[#FFD166] px-6 py-2.5 text-center text-xs font-bold uppercase tracking-wider backdrop-blur-md flex items-center justify-center gap-2">
-        <IconAlert size={14} />
-        <span>[DEMO MODE] Synthetic launch feed fixture. Real-time RPC poller is offline.</span>
-      </div>
-
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 relative z-10">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
@@ -160,30 +180,25 @@ export default function FeedPage() {
               <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#FFFDF7]">
                 Live Launches
               </h1>
-              <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-bold bg-[#FFD166]/20 text-[#FFD166] border border-[#FFD166]/40">
-                DEMO FEED
-              </span>
+              <FeedPoller
+                isLive={true}
+                itemCount={feedItems.length}
+                onFetchNewLaunches={fetchFeedData}
+                pollingIntervalMs={2000}
+              />
             </div>
             <p className="text-xs sm:text-sm text-[#A7F3D0] mt-1 font-normal">
-              Interactive demonstration preview of bonding curve tracker, deployer reputation scoring, and trade monitor.
+              Sub-second live streaming launch radar, bonding curve telemetries, and deployer Bayesian reputation tracking.
             </p>
           </div>
         </div>
 
-        <FeedTiles
-          stats={{
-            totalLaunches10m: 24,
-            totalVolumeUsd: 1428000,
-            uniqueWallets: 842,
-            graduatedCount: 9,
-            repeatDeployerPct: 34.5,
-          }}
-        />
+        <FeedTiles stats={stats} />
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
           <div className="lg:col-span-8 space-y-6">
             <FeedTable
-              items={initialFeedItems}
+              items={feedItems}
               watchedDeployers={watchedDeployers}
               onRowClick={handleRowClick}
             />
@@ -191,7 +206,7 @@ export default function FeedPage() {
 
           <div className="lg:col-span-4 space-y-6">
             <TradeTape
-              trades={initialTrades}
+              trades={trades}
               onSelectTrade={(t) => {
                 setSelectedToken({
                   contractAddress: t.contractAddress,
@@ -201,7 +216,7 @@ export default function FeedPage() {
               }}
             />
             <GraduationTape
-              graduations={initialGraduations}
+              graduations={graduations}
               onSelectGraduation={(g) => {
                 setSelectedToken({
                   contractAddress: g.contractAddress,

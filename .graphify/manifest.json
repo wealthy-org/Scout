@@ -1,7 +1,7 @@
 {
   "app/layout.tsx": {
-    "mtime": 1790514447116.5925,
-    "hash": "9eee765247052dc52292cb0b6a0c1863"
+    "mtime": 1790604259753.5186,
+    "hash": "f784b12dbf2d93b1f7b367a8d0e52f04"
   },
   "app/page.tsx": {
     "mtime": 1790583296265.3289,
@@ -128,8 +128,8 @@
     "hash": "1fb21e942116469ae0072082225d6caf"
   },
   "app/api/deployer/[address]/route.ts": {
-    "mtime": 1790395162213.7256,
-    "hash": "10a51b1335943b97d5bcd4ef0029515b"
+    "mtime": 1790605748371.261,
+    "hash": "a4ef14b0beeaacb5824a8f29334e5b1c"
   },
   "app/api/dossier/[ca]/__tests__/delete-route.test.ts": {
     "mtime": 1790394841847.9192,
@@ -260,8 +260,8 @@
     "hash": "49b666573be065702c5ae82d387aaf23"
   },
   "app/deployer/[address]/page.tsx": {
-    "mtime": 1790515301258.7927,
-    "hash": "0dee91da5d92bf3931693e7960dd27fb"
+    "mtime": 1790605758563.2178,
+    "hash": "1f46bab704133ce0be05a8d94aa525e4"
   },
   "app/docs/__tests__/page.test.tsx": {
     "mtime": 1790406522240.5083,
@@ -288,8 +288,8 @@
     "hash": "e245f3af788ef8d1dd38fbacf2a084fe"
   },
   "app/feed/page.tsx": {
-    "mtime": 1790599195296.1704,
-    "hash": "29649994104545b841d7f1324104a7b0"
+    "mtime": 1790607872444.8208,
+    "hash": "5703797f737b22e5d21fd678db438731"
   },
   "app/how/__tests__/page.test.tsx": {
     "mtime": 1790406497418.4348,
@@ -340,8 +340,8 @@
     "hash": "f7db55068ed5eade2197ab5435a8ad08"
   },
   "components/account/AccountClient.tsx": {
-    "mtime": 1790586414421.6028,
-    "hash": "812cfa66ccf573ef1c90a0c0939546bc"
+    "mtime": 1790604402258.8086,
+    "hash": "019ed3fd06f04f5486dae26486ef5ab1"
   },
   "components/census/CensusView.tsx": {
     "mtime": 1790603325148.0505,
@@ -524,8 +524,8 @@
     "hash": "8e6776f9de7d77440f50d60a41ed2080"
   },
   "components/layout/Header.tsx": {
-    "mtime": 1790599141222.6157,
-    "hash": "c06e8f6a49e92474aa080e40fcbcb450"
+    "mtime": 1790607727019.8765,
+    "hash": "a886b82134f70d2a8f0e69ba2df5cf91"
   },
   "components/layout/TickerTape.tsx": {
     "mtime": 1790403053472.7988,
@@ -544,8 +544,8 @@
     "hash": "ccab5c1f22453f26b85ae04c3df051fe"
   },
   "components/library/LibraryClient.tsx": {
-    "mtime": 1790586450200.8833,
-    "hash": "c3f7ef6883805edb9171d0387b8af0e3"
+    "mtime": 1790604370822.013,
+    "hash": "c63695a2d20e7408b2cec83cb551dcba"
   },
   "components/map/ConnectionMap.tsx": {
     "mtime": 1790514665421.0098,
@@ -556,8 +556,8 @@
     "hash": "b4afef1fa9a0b9ead4f62f7fca1c97ba"
   },
   "components/watchlist/WatchlistClient.tsx": {
-    "mtime": 1790586472307.3987,
-    "hash": "dfbf13a0b58cc38257380111fa44a2d7"
+    "mtime": 1790604282692.9963,
+    "hash": "82650b1b137a67c4985cb5112abd9517"
   },
   "config/__tests__/chain.test.ts": {
     "mtime": 1790378781617.2007,
@@ -712,8 +712,8 @@
     "hash": "73791dc971767e4aa13cfd087a0aeb1e"
   },
   "lib/dossier/fetch.ts": {
-    "mtime": 1790402680131.5176,
-    "hash": "5837656fec26c5d59fd344d55039bcc9"
+    "mtime": 1790607809292.04,
+    "hash": "df97e6d0f718d42aba536b0dee7181b8"
   },
   "lib/feed/__tests__/polling.test.ts": {
     "mtime": 1790403103499.6084,
@@ -740,12 +740,12 @@
     "hash": "8e7f051ca7c26659c9d69f3ebc9e49e7"
   },
   "lib/score/__tests__/calculate.test.ts": {
-    "mtime": 1790382492139.2102,
-    "hash": "c070d2faeb9b0f73ac1c2674a9fc3ece"
+    "mtime": 1790605799079.6108,
+    "hash": "2ba63742cb9775d6173b33c505a13bfc"
   },
   "lib/score/calculate.ts": {
-    "mtime": 1790382284231.1846,
-    "hash": "0f6cdbeb103e85c823fbbb4c753f1760"
+    "mtime": 1790605736083.4219,
+    "hash": "47fb00acbaa732697067213a87193aae"
   },
   "lib/security/ratelimit.ts": {
     "mtime": 1790395153897.414,
@@ -768,8 +768,8 @@
     "hash": "a2eeab3db2e20a4e07367652e02103a3"
   },
   "middleware.ts": {
-    "mtime": 1790406675580.306,
-    "hash": "7f741cf7f3f1c25eb72adddeaab0e9bc"
+    "mtime": 1790605787158.6797,
+    "hash": "897693f530dd83d521f6f25962f84743"
   },
   "scripts/__tests__/census.test.ts": {
     "mtime": 1790405004243.1428,
@@ -884,8 +884,8 @@
     "hash": "8663b88b8301446ecc7c24c1fb052108"
   },
   ".graphify/GRAPH_REPORT.md": {
-    "mtime": 1790602574185.2505,
-    "hash": "6c583eab3d7500a5c4cbe697f107c1f0"
+    "mtime": 1790605867739.1511,
+    "hash": "c644f5b582a99dd8a43584488bfe8117"
   },
   ".graphify/description-instructions/batch-000.md": {
     "mtime": 1790382691932.5452,
@@ -996,8 +996,8 @@
     "hash": "1b05dd2df9c51ceba89f7d89aaf522d2"
   },
   "components/layout/__tests__/ChromaHeader.test.tsx": {
-    "mtime": 1790428332625.5437,
-    "hash": "543a9eca027bb1ffc87abd73e1607580"
+    "mtime": 1790605808712.5117,
+    "hash": "0f571cc7ac0a6adb03e6384e6385cce2"
   },
   "components/library/__tests__/ChromaLibrary.test.tsx": {
     "mtime": 1790428478848.2869,
@@ -1052,19 +1052,19 @@
     "hash": "351ced210e3ae888d57135a06f4dadbb"
   },
   "components/docs/DocsClient.tsx": {
-    "mtime": 1790599107368.1887,
-    "hash": "d544baf65f0e0b44efbe34ab9c8a04d1"
+    "mtime": 1790604735703.608,
+    "hash": "2db12e7eefc8e1553b54e2aa8649bda5"
   },
   "components/how/HowClient.tsx": {
     "mtime": 1790588696844.8606,
     "hash": "d5b54a421ce5bbc3adc22a09c0b623e6"
   },
   "components/icons/Vectors.tsx": {
-    "mtime": 1790588590435.5505,
-    "hash": "a3b80fa7127ec6caebfa1b13c35860af"
+    "mtime": 1790604186190.8137,
+    "hash": "5562b5527a7b561b15ea729b54e567c0"
   },
   "components/map/MapClient.tsx": {
-    "mtime": 1790602495692.564,
-    "hash": "23eec04884141d6d3305eeed3e719390"
+    "mtime": 1790604301442.152,
+    "hash": "db1fb7283f1c55094c243c881370037f"
   }
 }

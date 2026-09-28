@@ -8,7 +8,7 @@ import {
   deployerLaunches,
   deployerWatchlist,
 } from "@/lib/db/schema";
-import { calculateScore } from "@/lib/score/calculate";
+import { calculateScore, buildSignalsFromRecord } from "@/lib/score/calculate";
 import {
   DeployerProfileView,
   type DeployerLaunchItem,
@@ -99,13 +99,7 @@ export default async function DeployerPage({ params }: PageProps) {
         score = row.score;
         label = row.label;
         band = row.band;
-        signals = {
-          grad_rate: (row.graduatedCount + 1) / (row.totalLaunches + 2),
-          doa_rate: row.deadOnArrivalCount / Math.max(row.totalLaunches, 1),
-          burst_rate: row.burstLaunches / Math.max(row.totalLaunches, 1),
-          total_launches: row.totalLaunches,
-          graduated_count: row.graduatedCount,
-        };
+        signals = buildSignalsFromRecord(row);
       } else {
         const launchInputs = launches.map((l) => ({
           token: l.tokenAddress,

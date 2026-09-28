@@ -10,7 +10,7 @@ export function middleware(request: NextRequest) {
       request.headers.get("cf-connecting-ip") ||
       "127.0.0.1";
 
-    const rateResult = checkRateLimit(`mw_${clientIp}`, 30, 60000);
+    const rateResult = checkRateLimit(clientIp, 30, 60000);
     if (rateResult.limited) {
       return NextResponse.json(
         { ok: false, error: "Rate limit exceeded" },

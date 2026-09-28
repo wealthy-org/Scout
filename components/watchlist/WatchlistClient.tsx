@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { IconArrowRight } from "@/components/icons/Vectors";
+import { useWallet } from "@/components/wallet/WalletContext";
 
 export interface WatchlistItem {
   id: string;
@@ -31,6 +32,7 @@ export function WatchlistClient({
   isAuthenticated,
   userAddress,
 }: WatchlistClientProps) {
+  const { openModal } = useWallet();
   const [entries, setEntries] = useState<WatchlistItem[]>(initialEntries);
   const [newAddress, setNewAddress] = useState("");
   const [adding, setAdding] = useState(false);
@@ -150,12 +152,13 @@ export function WatchlistClient({
               Connect your Ethereum wallet via SIWE to save custom deployers to your watchlist, monitor launcher behavior, and track new tokens.
             </p>
             <div className="pt-3">
-              <Link
-                href="/"
-                className="inline-block px-5 py-2.5 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider transition-all"
+              <button
+                type="button"
+                onClick={openModal}
+                className="inline-block px-5 py-2.5 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider transition-all cursor-pointer"
               >
                 Connect Wallet
-              </Link>
+              </button>
             </div>
           </div>
         ) : entries.length === 0 ? (

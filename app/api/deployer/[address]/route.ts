@@ -8,7 +8,7 @@ import {
   type DeployerScore,
   type DeployerLaunch,
 } from "@/lib/db/schema";
-import { calculateScore } from "@/lib/score/calculate";
+import { calculateScore, buildSignalsFromRecord } from "@/lib/score/calculate";
 import { checkRateLimit } from "@/lib/security/ratelimit";
 import type {
   GetDeployerResponseBody,
@@ -97,17 +97,7 @@ export async function handleGetDeployer(
       Date.now() - new Date(scoreRecord.updatedAt).getTime() < CACHE_TTL_MS;
 
     if (isFresh && scoreRecord) {
-      const signals: DeployerScoreSignals = {
-        grad_rate:
-          (scoreRecord.graduatedCount + 1) / (scoreRecord.totalLaunches + 2),
-        doa_rate:
-          scoreRecord.deadOnArrivalCount /
-          Math.max(scoreRecord.totalLaunches, 1),
-        burst_rate:
-          scoreRecord.burstLaunches / Math.max(scoreRecord.totalLaunches, 1),
-        total_launches: scoreRecord.totalLaunches,
-        graduated_count: scoreRecord.graduatedCount,
-      };
+      const signals = buildSignalsFromRecord(scoreRecord);
 
       const deployerProfile: DeployerProfileData = {
         deployerAddress: scoreRecord.deployerAddress,

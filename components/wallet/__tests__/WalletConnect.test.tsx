@@ -1,0 +1,135 @@
+import { test, describe } from "node:test";
+import assert from "node:assert/strict";
+import React from "react";
+import { renderToString } from "react-dom/server";
+import { ConnectWalletModal } from "../ConnectWalletModal";
+import {
+  getEthereumProvider,
+  checkWalletAvailability,
+} from "@/lib/auth/wallet";
+
+describe("Phantom & EVM Wallet Connection (TICKET-106)", () => {
+  test("ConnectWalletModal returns null when closed", () => {
+    const html = renderToString(
+      <ConnectWalletModal
+        isOpen={false}
+        isConnecting={false}
+        connectingWallet={null}
+        progressStep={null}
+        error={null}
+        onClose={() => {}}
+        onSelectWallet={() => {}}
+        onClearError={() => {}}
+      />
+    );
+    assert.equal(html, "");
+  });
+
+  test("ConnectWalletModal renders Phantom (recommended), MetaMask, and Injected options when open", () => {
+    const html = renderToString(
+      <ConnectWalletModal
+        isOpen={true}
+        isConnecting={false}
+        connectingWallet={null}
+        progressStep={null}
+        error={null}
+        onClose={() => {}}
+        onSelectWallet={() => {}}
+        onClearError={() => {}}
+      />
+    );
+    assert.ok(html.includes("Connect Wallet"));
+    assert.ok(html.includes("Phantom Wallet"));
+    assert.ok(html.includes("RECOMMENDED"));
+    assert.ok(html.includes("MetaMask"));
+    assert.ok(html.includes("Browser Injected Wallet"));
+    assert.ok(html.includes("Sign in with Ethereum (SIWE)"));
+  });
+
+  test("ConnectWalletModal renders connection progress and spinner when isConnecting is true", () => {
+    const html = renderToString(
+      <ConnectWalletModal
+        isOpen={true}
+        isConnecting={true}
+        connectingWallet="phantom"
+        progressStep="Please sign the message in your wallet..."
+        error={null}
+        onClose={() => {}}
+        onSelectWallet={() => {}}
+        onClearError={() => {}}
+      />
+    );
+    assert.ok(html.includes("Connecting Phantom..."));
+    assert.ok(html.includes("Please sign the message in your wallet..."));
+    assert.ok(html.includes("Please check your wallet extension popup"));
+  });
+
+  test("ConnectWalletModal renders error message and dismiss action when error is provided", () => {
+    const html = renderToString(
+      <ConnectWalletModal
+        isOpen={true}
+        isConnecting={false}
+        connectingWallet={null}
+        progressStep={null}
+        error="Signature request was cancelled by user."
+        onClose={() => {}}
+        onSelectWallet={() => {}}
+        onClearError={() => {}}
+      />
+    );
+    assert.ok(html.includes("Signature request was cancelled by user."));
+    assert.ok(html.includes("Dismiss"));
+  });
+
+  test("getEthereumProvider detects phantom provider from window hierarchy", () => {
+    const mockPhantomProvider = { request: async () => [] };
+    const globalWithPhantom = global as unknown as {
+      window: {
+        phantom?: { ethereum?: typeof mockPhantomProvider };
+        ethereum?: { isPhantom?: boolean };
+      };
+    };
+
+    const previousWindow = globalWithPhantom.window;
+
+    globalWithPhantom.window = {
+      phantom: { ethereum: mockPhantomProvider },
+    };
+    assert.equal(getEthereumProvider("phantom"), mockPhantomProvider);
+
+    const mockInjectedPhantom = { isPhantom: true, request: async () => [] };
+    globalWithPhantom.window = {
+      ethereum: mockInjectedPhantom,
+    };
+    assert.equal(getEthereumProvider("phantom"), mockInjectedPhantom);
+
+    globalWithPhantom.window = {
+      ethereum: { isPhantom: false },
+    };
+    assert.equal(getEthereumProvider("phantom"), null);
+
+    globalWithPhantom.window = previousWindow;
+  });
+
+  test("checkWalletAvailability detects presence of phantom and metamask", () => {
+    const globalWithWindow = global as unknown as {
+      window: {
+        phantom?: { ethereum?: { request: () => void } };
+        ethereum?: { isMetaMask?: boolean };
+      };
+    };
+    const previousWindow = globalWithWindow.window;
+
+    globalWithWindow.window = {
+      phantom: { ethereum: { request: () => {} } },
+      ethereum: { isMetaMask: true },
+    };
+
+    const avail = checkWalletAvailability();
+    assert.equal(avail.phantom, true);
+    assert.equal(avail.metamask, true);
+    assert.equal(avail.injected, true);
+
+    globalWithWindow.window = previousWindow;
+  });
+});

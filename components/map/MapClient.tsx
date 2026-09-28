@@ -4,7 +4,8 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { ConnectionMap, type MapNode, type MapEdge } from "@/components/map/ConnectionMap";
-import { IconLock, IconArrowRight, IconGraph } from "@/components/icons/Vectors";
+import { IconLock, IconArrowRight, IconGraph, IconWallet } from "@/components/icons/Vectors";
+import { useWallet } from "@/components/wallet/WalletContext";
 
 export interface MapClientProps {
   isAuthenticated?: boolean;
@@ -19,6 +20,7 @@ export function MapClient({
   initialNodes = [],
   initialEdges = [],
 }: MapClientProps) {
+  const { openModal } = useWallet();
   const [nodes] = useState<MapNode[]>(initialNodes);
   const [edges] = useState<MapEdge[]>(initialEdges);
 
@@ -61,10 +63,18 @@ export function MapClient({
               <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
                 Connect your Ethereum wallet using Sign-In with Ethereum (SIWE) to generate and explore your relational constellation map across researched token dossiers.
               </p>
-              <div className="pt-3">
+              <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
+                <button
+                  type="button"
+                  onClick={openModal}
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all cursor-pointer"
+                >
+                  <IconWallet size={14} />
+                  <span>Connect Wallet</span>
+                </button>
                 <Link
                   href="/feed"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 text-[#99F6E4] hover:text-[#FFFDF7] border border-[rgba(153,246,228,0.25)] font-bold text-xs uppercase tracking-wider transition-all"
                 >
                   <span>Browse Public Launch Feed</span>
                   <IconArrowRight size={14} />

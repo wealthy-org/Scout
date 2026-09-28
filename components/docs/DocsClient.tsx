@@ -608,7 +608,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 SECTION 02 // REST INTERFACES
               </span>
               <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                Section 02 // Public API Reference
+                Public API Reference
               </h2>
             </div>
             <span className="px-3 py-1 rounded-full bg-[#042F2E] border border-[#FFD166]/40 text-xs font-mono font-bold text-[#FFD166]">

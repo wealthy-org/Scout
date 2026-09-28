@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useWallet } from "@/components/wallet/WalletContext";
 
 export interface HeaderProps {
   isAuthenticated?: boolean;
@@ -13,16 +14,63 @@ export interface HeaderProps {
 }
 
 export function Header({
-  isAuthenticated = false,
-  walletAddress = null,
+  isAuthenticated,
+  walletAddress,
   initialBlockHeight = 21845120,
   onConnectWallet,
   onDisconnect,
 }: HeaderProps) {
   const pathname = usePathname();
+  const wallet = useWallet();
   const [searchQuery, setSearchQuery] = useState("");
-  const [blockHeight] = useState(initialBlockHeight);
+  const [blockHeight, setBlockHeight] = useState(initialBlockHeight);
+  const [isLiveBlock, setIsLiveBlock] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchBlock = async () => {
+      try {
+        const res = await fetch("/api/block");
+        if (res.ok) {
+          const data = await res.json();
+          if (data.ok && typeof data.blockNumber === "number" && isMounted) {
+            setBlockHeight(data.blockNumber);
+            setIsLiveBlock(data.source === "rpc");
+          }
+        }
+      } catch {
+      }
+    };
+
+    fetchBlock();
+    const interval = setInterval(fetchBlock, 10000);
+
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, []);
+
+  const isAuthed = isAuthenticated !== undefined ? isAuthenticated : wallet.isAuthenticated;
+  const activeAddress = walletAddress !== undefined ? walletAddress : wallet.userAddress;
+
+  const handleConnect = () => {
+    if (onConnectWallet) {
+      onConnectWallet();
+    } else {
+      wallet.openModal();
+    }
+  };
+
+  const handleDisconnect = () => {
+    if (onDisconnect) {
+      onDisconnect();
+    } else {
+      wallet.disconnect();
+    }
+  };
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
@@ -42,12 +90,12 @@ export function Header({
     setMobileMenuOpen(false);
   };
 
-  const truncatedAddress = walletAddress
-    ? `${walletAddress.slice(0, 6)}...${walletAddress.slice(-4)}`
+  const truncatedAddress = activeAddress
+    ? `${activeAddress.slice(0, 6)}...${activeAddress.slice(-4)}`
     : "";
 
   const navLinks = [
-    { href: "/", label: "Launch Feed" },
+    { href: "/feed", label: "Launch Feed" },
     { href: "/library", label: "Library" },
     { href: "/map", label: "Map" },
     { href: "/watchlist", label: "Watchlist" },
@@ -118,22 +166,28 @@ export function Header({
           </form>
 
           <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-[#042F2E]/80 border border-[rgba(153,246,228,0.25)] rounded-full font-mono text-[11px] text-[#A7F3D0]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#FFD166]" />
+            <span className={`w-1.5 h-1.5 rounded-full ${isLiveBlock ? "bg-[#14B8A6] animate-pulse" : "bg-[#FFD166]"}`} />
             <span className="text-[#A7F3D0]/80">Block</span>
             <span className="font-bold text-[#FFFDF7]">#{blockHeight.toLocaleString()}</span>
-            <span className="text-[9px] font-bold uppercase bg-[#FFD166]/20 text-[#FFD166] px-1.5 py-0.5 rounded border border-[#FFD166]/30">DEMO</span>
+            <span className={`text-[9px] font-bold uppercase px-1.5 py-0.5 rounded border ${
+              isLiveBlock 
+                ? "bg-[#14B8A6]/20 text-[#99F6E4] border-[#14B8A6]/30" 
+                : "bg-[#FFD166]/20 text-[#FFD166] border-[#FFD166]/30"
+            }`}>
+              {isLiveBlock ? "LIVE" : "DEMO"}
+            </span>
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2">
-            {isAuthenticated ? (
+            {isAuthed ? (
               <div className="flex items-center gap-1.5 sm:gap-2">
                 <span className="font-mono text-[11px] sm:text-xs px-3 py-1.5 bg-[#042F2E] border border-[#99F6E4]/30 text-[#99F6E4] rounded-full font-semibold truncate max-w-[110px] sm:max-w-none shadow-sm">
                   {truncatedAddress}
                 </span>
                 <button
                   type="button"
-                  onClick={onDisconnect}
-                  className="font-sans text-[11px] sm:text-xs px-3 py-1.5 bg-[#FFFDF7]/10 hover:bg-[#FFFDF7]/20 text-[#A7F3D0] hover:text-[#FFFDF7] rounded-full transition-colors border border-[rgba(153,246,228,0.2)]"
+                  onClick={handleDisconnect}
+                  className="font-sans text-[11px] sm:text-xs px-3 py-1.5 bg-[#FFFDF7]/10 hover:bg-[#FFFDF7]/20 text-[#A7F3D0] hover:text-[#FFFDF7] rounded-full transition-colors border border-[rgba(153,246,228,0.2)] cursor-pointer"
                 >
                   Logout
                 </button>
@@ -141,8 +195,8 @@ export function Header({
             ) : (
               <button
                 type="button"
-                onClick={onConnectWallet}
-                className="group relative flex items-center gap-1.5 font-sans text-xs px-4 py-2 bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-[1.5px] border-[#042F2E] font-extrabold rounded-full shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200 whitespace-nowrap"
+                onClick={handleConnect}
+                className="group relative flex items-center gap-1.5 font-sans text-xs px-4 py-2 bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-[1.5px] border-[#042F2E] font-extrabold rounded-full shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200 whitespace-nowrap cursor-pointer"
               >
                 <span>Connect Wallet</span>
                 <span className="group-hover:translate-x-0.5 transition-transform duration-200">&rarr;</span>

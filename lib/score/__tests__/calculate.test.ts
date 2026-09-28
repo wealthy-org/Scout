@@ -2,7 +2,7 @@ import { test, describe } from 'node:test';
 import assert from 'node:assert';
 import path from 'node:path';
 import fs from 'node:fs';
-import { calculateScore } from '@/lib/score/calculate';
+import { calculateScore, buildSignalsFromRecord } from '@/lib/score/calculate';
 import type { DeployerLaunchInput } from '@/types/score';
 
 describe('Deployer Score Calculation Formula (TICKET-17)', () => {
@@ -13,8 +13,24 @@ describe('Deployer Score Calculation Formula (TICKET-17)', () => {
     assert.strictEqual(fs.existsSync(calculatePath), true, 'lib/score/calculate.ts must exist');
   });
 
-  test('exports calculateScore function', () => {
+  test('exports calculateScore and buildSignalsFromRecord functions', () => {
     assert.strictEqual(typeof calculateScore, 'function');
+    assert.strictEqual(typeof buildSignalsFromRecord, 'function');
+  });
+
+  test('buildSignalsFromRecord calculates signals using GRAD_DENOMINATOR_ADD (+3)', () => {
+    const signals = buildSignalsFromRecord({
+      totalLaunches: 8,
+      graduatedCount: 5,
+      deadOnArrivalCount: 1,
+      burstLaunches: 2,
+    });
+
+    assert.strictEqual(signals.total_launches, 8);
+    assert.strictEqual(signals.graduated_count, 5);
+    assert.strictEqual(signals.grad_rate, (5 + 1) / (8 + 3));
+    assert.strictEqual(signals.doa_rate, 1 / 8);
+    assert.strictEqual(signals.burst_rate, 2 / 8);
   });
 
   test('calculates score for a fresh deployer with 0 or 1 launch correctly', () => {
