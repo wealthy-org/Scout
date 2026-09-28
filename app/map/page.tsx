@@ -4,79 +4,34 @@ import React, { useState, useEffect } from "react";
 import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { ConnectionMap, type MapNode, type MapEdge } from "@/components/map/ConnectionMap";
 
-const defaultMockNodes: MapNode[] = [
-  {
-    contractAddress: "0x1111111111111111111111111111111111111111",
-    symbol: "SCOUT",
-    name: "Scout Intelligence",
-    status: "active",
-  },
-  {
-    contractAddress: "0x2222222222222222222222222222222222222222",
-    symbol: "CYBER",
-    name: "Cyber Doge",
-    status: "active",
-  },
-  {
-    contractAddress: "0x3333333333333333333333333333333333333333",
-    symbol: "ALPHA",
-    name: "Alpha Matrix",
-    status: "hold",
-  },
-  {
-    contractAddress: "0x4444444444444444444444444444444444444444",
-    symbol: "RUGME",
-    name: "Serial Test",
-    status: "rugged",
-  },
-];
-
-const defaultMockEdges: MapEdge[] = [
-  {
-    source: "0x1111111111111111111111111111111111111111",
-    target: "0x2222222222222222222222222222222222222222",
-    type: "confirmed",
-    reason: "same_deployer",
-  },
-  {
-    source: "0x1111111111111111111111111111111111111111",
-    target: "0x3333333333333333333333333333333333333333",
-    type: "hypothesis",
-    reason: "note_mention",
-  },
-  {
-    source: "0x3333333333333333333333333333333333333333",
-    target: "0x4444444444444444444444444444444444444444",
-    type: "confirmed",
-    reason: "same_fee_recipient",
-  },
-];
-
 export default function MapPage() {
-  const [nodes, setNodes] = useState<MapNode[]>(defaultMockNodes);
-  const [edges, setEdges] = useState<MapEdge[]>(defaultMockEdges);
-  const [loading, setLoading] = useState(false);
+  const [nodes, setNodes] = useState<MapNode[]>([]);
+  const [edges, setEdges] = useState<MapEdge[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function loadConnections() {
       try {
         setLoading(true);
+        setError(null);
         const res = await fetch("/api/connections");
         if (res.ok) {
           const data = await res.json();
-          if (data.nodes && data.nodes.length > 0) {
-            setNodes(data.nodes);
-            setEdges(
-              (data.links || []).map((l: { sourceAddress: string; targetAddress: string; type: "confirmed" | "hypothesis"; reason?: string }) => ({
-                source: l.sourceAddress,
-                target: l.targetAddress,
-                type: l.type,
-                reason: l.reason,
-              }))
-            );
-          }
+          setNodes(data.nodes || []);
+          setEdges(
+            (data.links || []).map((l: { sourceAddress: string; targetAddress: string; type: "confirmed" | "hypothesis"; reason?: string }) => ({
+              source: l.sourceAddress,
+              target: l.targetAddress,
+              type: l.type,
+              reason: l.reason,
+            }))
+          );
+        } else {
+          setError("Failed to fetch connection map data");
         }
       } catch {
+        setError("Network error loading connection map");
       } finally {
         setLoading(false);
       }
@@ -119,6 +74,24 @@ export default function MapPage() {
                 Calculating dossier force graph layout...
               </div>
             </div>
+          ) : error ? (
+            <div className="w-full h-[650px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl flex flex-col items-center justify-center p-6 text-center space-y-3">
+              <div className="text-sm text-[#FFD166] font-bold">
+                Unable to Load Relational Graph
+              </div>
+              <div className="text-xs text-[#A7F3D0] max-w-md font-mono">
+                {error}
+              </div>
+            </div>
+          ) : nodes.length === 0 ? (
+            <div className="w-full h-[650px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl flex flex-col items-center justify-center p-6 text-center space-y-3">
+              <div className="text-sm font-bold text-[#FFFDF7]">
+                No Dossier Connections Found
+              </div>
+              <div className="text-xs text-[#A7F3D0] max-w-md">
+                Add dossiers to your library or link tokens through deployer investigations to generate graph nodes.
+              </div>
+            </div>
           ) : (
             <ConnectionMap nodes={nodes} edges={edges} />
           )}
@@ -127,3 +100,4 @@ export default function MapPage() {
     </div>
   );
 }
+

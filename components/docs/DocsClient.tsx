@@ -800,14 +800,14 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 disabled={isSimulating}
                 className="w-full py-3 rounded-2xl bg-[#FFD166] hover:bg-[#FFD166]/90 text-[#042F2E] font-black text-xs font-mono tracking-wider uppercase transition-all shadow-[0_4px_14px_rgba(255,209,102,0.4)] disabled:opacity-50"
               >
-                {isSimulating ? "Executing Request..." : "Run Test Query"}
+                {isSimulating ? "Loading Preview..." : "Preview Sample Response"}
               </button>
             </div>
 
             <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-3 font-mono text-xs">
               <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-2 text-[11px]">
                 <span className="text-[#99F6E4] font-bold">RESPONSE INSPECTOR</span>
-                <span className="text-[#A7F3D0]">{sandboxResponse ? "HTTP 200 OK • 42ms" : "Awaiting Query"}</span>
+                <span className="text-[#A7F3D0]">{sandboxResponse ? "SAMPLE PAYLOAD" : "Awaiting Preview"}</span>
               </div>
 
               <div className="flex-1 max-h-56 overflow-y-auto">
@@ -818,7 +818,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 ) : (
                   <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#A7F3D0]/60 space-y-2">
                     <IconCpu size={24} className="text-[#99F6E4]/40" />
-                    <span>Click &quot;Run Test Query&quot; to execute call and view live formatted JSON payload.</span>
+                    <span>Click &quot;Preview Sample Response&quot; to inspect formatted sample JSON payload.</span>
                   </div>
                 )}
               </div>

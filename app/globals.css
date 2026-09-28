@@ -28,38 +28,13 @@
   --color-pop-pink-tint: #FCE7F3;
 
   --color-ink-light: #FFFDF7;
-  --color-ink-muted: #A7F3D0;
+  --color-ink-muted: #C3F8E3;
   --color-ink-dark: #042F2E;
 
   --color-status-success: #4ADE80;
   --color-status-warning: #FFD166;
   --color-status-danger: #FB7185;
   --color-status-info: #38BDF8;
-
-  --color-canvas: #0D746E;
-  --color-surface: #064E4A;
-  --color-subtle: #14B8A6;
-  --color-ink: #0D1117;
-  --color-ink-muted: #57606A;
-  --color-signal-blue: #0047FF;
-  --color-signal-mint: #00E599;
-  --color-signal-amber: #FFB800;
-  --color-signal-coral: #FF2E4D;
-  --color-signal-orchid: #D946EF;
-  --color-signal-cyan: #00F0FF;
-
-  --color-chroma-bg: #0D746E;
-  --color-chroma-surface: #064E4A;
-  --color-chroma-card: #083835;
-  --color-chroma-card-hover: #0a4743;
-  --color-chroma-mint: #4ADE80;
-  --color-chroma-cyan: #99F6E4;
-  --color-chroma-blue: #38BDF8;
-  --color-chroma-amber: #FFD166;
-  --color-chroma-coral: #FB7185;
-  --color-chroma-orchid: #C084FC;
-  --color-chroma-cream: #FFFDF7;
-  --color-chroma-muted: #A7F3D0;
 
   --shadow-pop-soft: 0 10px 25px -5px rgba(4, 47, 46, 0.5);
   --shadow-pop-hard: 4px 4px 0px #042F2E;
@@ -68,10 +43,6 @@
   --shadow-neo: 3px 3px 0px #042F2E;
   --shadow-neo-lg: 5px 5px 0px #042F2E;
   --shadow-neo-hover: 4px 4px 0px #042F2E;
-  --shadow-chroma-mint: 0 0 25px -5px rgba(74, 222, 128, 0.4);
-  --shadow-chroma-cyan: 0 0 25px -5px rgba(153, 246, 228, 0.4);
-  --shadow-chroma-blue: 0 0 25px -5px rgba(56, 189, 248, 0.4);
-  --shadow-chroma-glow: 0 8px 32px 0 rgba(4, 47, 46, 0.37);
 
   --font-sans: var(--font-geist-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;

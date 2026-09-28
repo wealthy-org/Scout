@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -21,15 +21,8 @@ export function Header({
 }: HeaderProps) {
   const pathname = usePathname();
   const [searchQuery, setSearchQuery] = useState("");
-  const [blockHeight, setBlockHeight] = useState(initialBlockHeight);
+  const [blockHeight] = useState(initialBlockHeight);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBlockHeight((prev) => prev + 1);
-    }, 10000);
-    return () => clearInterval(interval);
-  }, []);
 
   const [prevPathname, setPrevPathname] = useState(pathname);
   if (prevPathname !== pathname) {
@@ -125,9 +118,10 @@ export function Header({
           </form>
 
           <div className="hidden xl:flex items-center gap-2 px-3 py-1.5 bg-[#042F2E]/80 border border-[rgba(153,246,228,0.25)] rounded-full font-mono text-[11px] text-[#A7F3D0]">
-            <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse-glow" />
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FFD166]" />
             <span className="text-[#A7F3D0]/80">Block</span>
             <span className="font-bold text-[#FFFDF7]">#{blockHeight.toLocaleString()}</span>
+            <span className="text-[9px] font-bold uppercase bg-[#FFD166]/20 text-[#FFD166] px-1.5 py-0.5 rounded border border-[#FFD166]/30">DEMO</span>
           </div>
 
           <div className="flex items-center gap-1.5 sm:gap-2">

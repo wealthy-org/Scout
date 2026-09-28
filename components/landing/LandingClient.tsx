@@ -106,7 +106,7 @@ export function LandingClient({
 
               <form
                 onSubmit={handleSearchSubmit}
-                className="max-w-xl rounded-2xl sm:rounded-full bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] p-2 shadow-[0_10px_35px_rgba(4,47,46,0.6)] backdrop-blur-xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2 focus-within:border-[#FFD166] focus-within:ring-2 focus-within:ring-[#FFD166]/30 transition-all"
+                className="max-w-xl rounded-2xl sm:rounded-full bg-[#064E4A] border-2 border-[#042F2E] p-2 shadow-[4px_4px_0px_#042F2E] flex flex-col sm:flex-row items-stretch sm:items-center gap-2 focus-within:border-[#FFD166] transition-all"
               >
                 <input
                   type="text"
@@ -154,13 +154,11 @@ export function LandingClient({
 
             <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0">
               <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
-                <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-[#FFD166]/20 via-[#14B8A6]/25 to-[#C084FC]/25 blur-3xl animate-aura-drift pointer-events-none" />
-
                 <div className="absolute inset-2 sm:inset-4 rounded-full border border-[#99F6E4]/25 animate-spin-3d-slow pointer-events-none" />
                 <div className="absolute inset-8 sm:inset-12 rounded-full border border-dashed border-[#FFD166]/30 animate-spin-3d-reverse pointer-events-none" />
                 <div className="absolute inset-16 sm:inset-20 rounded-full border border-[#C084FC]/25 animate-spin-3d-slow pointer-events-none" />
 
-                <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-br from-[#064E4A] to-[#042F2E] border-2 border-[#99F6E4]/40 shadow-[0_0_50px_rgba(153,246,228,0.3)] flex items-center justify-center overflow-hidden z-10">
+                <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-br from-[#064E4A] to-[#042F2E] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] flex items-center justify-center overflow-hidden z-10">
                   <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(153,246,228,0.2),transparent_70%)]" />
                   <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-[#99F6E4] to-transparent animate-pulse" />
                   <div className="text-center space-y-1 z-10 px-4">
@@ -176,7 +174,7 @@ export function LandingClient({
                   </div>
                 </div>
 
-                <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-6 z-20 px-3.5 py-2.5 rounded-2xl bg-[#064E4A]/95 border border-[#99F6E4]/40 shadow-[0_12px_30px_rgba(4,47,46,0.8)] backdrop-blur-xl flex items-center gap-2.5 animate-float-1">
+                <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-6 z-20 px-3.5 py-2.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex items-center gap-2.5 animate-float-1">
                   <div className="w-7 h-7 rounded-xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4]">
                     <IconShield size={16} />
                   </div>
@@ -186,7 +184,7 @@ export function LandingClient({
                   </div>
                 </div>
 
-                <div className="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-4 z-20 px-4 py-3 rounded-2xl bg-[#064E4A]/95 border border-[#4ADE80]/40 shadow-[0_12px_30px_rgba(4,47,46,0.8)] backdrop-blur-xl flex items-center gap-3 animate-float-2">
+                <div className="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-4 z-20 px-4 py-3 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex items-center gap-3 animate-float-2">
                   <div className="w-3 h-3 rounded-full bg-[#4ADE80] animate-ping" />
                   <div>
                     <div className="text-[10px] uppercase font-bold text-[#4ADE80]">GREEN BAND</div>
@@ -194,7 +192,7 @@ export function LandingClient({
                   </div>
                 </div>
 
-                <div className="absolute top-1/2 -left-4 sm:-left-8 -translate-y-1/2 z-20 px-3.5 py-2.5 rounded-2xl bg-[#064E4A]/95 border border-[#FFD166]/40 shadow-[0_12px_30px_rgba(4,47,46,0.8)] backdrop-blur-xl flex items-center gap-2.5 animate-float-3">
+                <div className="absolute top-1/2 -left-4 sm:-left-8 -translate-y-1/2 z-20 px-3.5 py-2.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex items-center gap-2.5 animate-float-3">
                   <div className="w-7 h-7 rounded-xl bg-[#FFD166]/20 border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166]">
                     <IconBolt size={16} />
                   </div>
@@ -208,7 +206,7 @@ export function LandingClient({
           </div>
         </section>
 
-        <section className="relative rounded-3xl p-6 sm:p-8 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] shadow-[0_15px_45px_rgba(4,47,46,0.6)] backdrop-blur-xl space-y-6 sm:space-y-8">
+        <section className="relative rounded-3xl p-6 sm:p-8 bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] space-y-6 sm:space-y-8">
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="space-y-2.5 max-w-2xl">
               <div className="inline-flex items-center gap-2">
@@ -307,7 +305,7 @@ export function LandingClient({
               Built For Advanced On-Chain Surveillance
             </h2>
             <p className="text-sm sm:text-base text-[#A7F3D0]">
-              State-of-the-art forensic tools designed to inspect bonding curves and creator reputation.
+              Forensic tools designed to inspect bonding curves and creator reputation.
             </p>
           </div>
 

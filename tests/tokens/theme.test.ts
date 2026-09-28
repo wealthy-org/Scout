@@ -19,17 +19,23 @@ describe('Dossier.OS Design System & Tailwind v4 Tokens (TICKET-01)', () => {
     assert.match(content, /@theme\s*\{/, 'globals.css must define a @theme block');
 
     const requiredColors = [
-      '--color-canvas',
-      '--color-surface',
-      '--color-subtle',
-      '--color-ink',
+      '--color-canvas-main',
+      '--color-canvas-bright',
+      '--color-surface-deep',
+      '--color-surface-mint',
+      '--color-surface-cream',
+      '--color-pop-yellow',
+      '--color-pop-coral',
+      '--color-pop-tangerine',
+      '--color-pop-lavender',
+      '--color-pop-pink',
+      '--color-ink-light',
       '--color-ink-muted',
-      '--color-signal-blue',
-      '--color-signal-mint',
-      '--color-signal-amber',
-      '--color-signal-coral',
-      '--color-signal-orchid',
-      '--color-signal-cyan'
+      '--color-ink-dark',
+      '--color-status-success',
+      '--color-status-warning',
+      '--color-status-danger',
+      '--color-status-info'
     ];
 
     for (const color of requiredColors) {

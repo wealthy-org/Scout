@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { publishedDossiers } from "@/lib/db/schema";
@@ -48,31 +49,28 @@ export async function generateMetadata({
 export default async function PublicDossierPage({ params }: PageProps) {
   const { slug } = await params;
 
-  let authorHandle: string | null = null;
-  let revoked = false;
-  let payload: PublicDossierPayload = {
-    symbol: "TOKEN",
-    name: "Sample Public Dossier",
-    contractAddress: "0x0000000000000000000000000000000000000000",
-    thesis: "Public research case file loaded on Scout.",
-  };
-
-  try {
-    if (db) {
-      const records = await db
-        .select()
-        .from(publishedDossiers)
-        .where(eq(publishedDossiers.slug, slug));
-
-      if (records && records.length > 0) {
-        const item = records[0];
-        authorHandle = item.authorHandle;
-        revoked = item.revokedAt !== null;
-        payload = (item.payloadJson as PublicDossierPayload) || payload;
-      }
-    }
-  } catch {
+  if (!db) {
+    notFound();
   }
+
+  let item;
+  try {
+    const records = await db
+      .select()
+      .from(publishedDossiers)
+      .where(eq(publishedDossiers.slug, slug));
+
+    if (!records || records.length === 0) {
+      notFound();
+    }
+    item = records[0];
+  } catch {
+    notFound();
+  }
+
+  const authorHandle = item.authorHandle;
+  const revoked = item.revokedAt !== null;
+  const payload = item.payloadJson as PublicDossierPayload;
 
   return (
     <PublicDossierClient

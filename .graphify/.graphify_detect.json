@@ -94,6 +94,7 @@
       "components/census/__tests__/ChromaCensus.test.tsx",
       "components/deployer/DeployerProfileView.tsx",
       "components/dialogs/__tests__/PublishDialog.test.tsx",
+      "components/docs/DocsClient.tsx",
       "components/dossier/ConnectionsTimeline.tsx",
       "components/dossier/ConstellationGraph.tsx",
       "components/dossier/DeployerHistory.tsx",
@@ -136,6 +137,8 @@
       "components/feed/__tests__/FeedTiles.test.tsx",
       "components/feed/__tests__/TickerTape.test.tsx",
       "components/feed/__tests__/TradeInspector.test.tsx",
+      "components/how/HowClient.tsx",
+      "components/icons/Vectors.tsx",
       "components/landing/LandingClient.tsx",
       "components/landing/__tests__/ChromaLanding.test.tsx",
       "components/layout/GlobalHeader.tsx",
@@ -270,8 +273,8 @@
     ],
     "video": []
   },
-  "total_files": 261,
-  "total_words": 181212,
+  "total_files": 264,
+  "total_words": 188784,
   "needs_graph": true,
   "warning": null,
   "skipped_sensitive": [
@@ -280,7 +283,7 @@
   "graphifyignore_patterns": 27,
   "git": {
     "source_owner": "git",
-    "source_hash": "b55c1b8ee1dab4d94ec14b51d6f81e96eae37204",
+    "source_hash": "21c5bb24845188417dd85cdd87943b3a5fecbfa3",
     "branches": [
       "main"
     ],
@@ -293,11 +296,11 @@
     "source": "default-auto",
     "root": ".",
     "git_root": ".",
-    "head": "b55c1b8ee1dab4d94ec14b51d6f81e96eae37204",
-    "candidate_count": 355,
-    "included_count": 261,
+    "head": "21c5bb24845188417dd85cdd87943b3a5fecbfa3",
+    "candidate_count": 358,
+    "included_count": 264,
     "excluded_untracked_count": 0,
-    "excluded_ignored_count": 44189,
+    "excluded_ignored_count": 44213,
     "excluded_sensitive_count": 1,
     "missing_committed_count": 0,
     "warnings": [],
