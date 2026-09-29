@@ -15,7 +15,7 @@ describe("GET /api/block Route (TICKET-144)", () => {
   test("returns block number and ok: true with status 200 when RPC succeeds", async () => {
     const originalGetBlockNumber = publicClient.getBlockNumber;
     try {
-      publicClient.getBlockNumber = async () => BigInt(28123456) as any;
+      publicClient.getBlockNumber = (async () => BigInt(28123456)) as unknown as typeof publicClient.getBlockNumber;
       const res = await GET();
       assert.strictEqual(res.status, 200);
       const body = await res.json();

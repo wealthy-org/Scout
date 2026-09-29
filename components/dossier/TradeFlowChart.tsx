@@ -1,13 +1,4 @@
-"use client";
-
 import React, { useState, useMemo, useRef, useCallback } from "react";
-import {
-  IconGraph,
-  IconBolt,
-  IconLayers,
-  IconFilter,
-  IconRadar,
-} from "@/components/icons/Vectors";
 
 export interface TradeCandleData {
   index: number;
@@ -426,6 +417,17 @@ export function TradeFlowChart({
             }`}
           >
             LOG
+          </button>
+
+          <button
+            onClick={() => setDrawingTool(drawingTool === "cursor" ? "trendline" : "cursor")}
+            className={`px-2 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer border ${
+              drawingTool === "trendline"
+                ? "bg-[#FF9F43] text-[#042F2E] border-[#FF9F43]"
+                : "bg-[#064E4A]/60 border-[rgba(153,246,228,0.2)] text-[#A7F3D0]"
+            }`}
+          >
+            {drawingTool === "trendline" ? "DRAW: ON" : "DRAW"}
           </button>
 
           <button

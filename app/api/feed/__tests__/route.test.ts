@@ -25,7 +25,7 @@ describe("GET /api/feed Route Data Integrity (TICKET-141)", () => {
           }),
           where: async () => [],
         }),
-      })) as any;
+      })) as unknown as typeof db.select;
     }
 
     try {
@@ -51,8 +51,8 @@ describe("GET /api/feed Route Data Integrity (TICKET-141)", () => {
   test("maps real launch rows with null progress for curve and 100 for graduated without formula data", async () => {
     const originalSelect = db?.select;
     if (db) {
-      db.select = ((...args: any[]) => ({
-        from: (table: any) => ({
+      db.select = (() => ({
+        from: () => ({
           orderBy: () => ({
             limit: async () => [
               {
@@ -71,7 +71,7 @@ describe("GET /api/feed Route Data Integrity (TICKET-141)", () => {
           }),
           where: async () => [],
         }),
-      })) as any;
+      })) as unknown as typeof db.select;
     }
 
     try {
@@ -83,14 +83,16 @@ describe("GET /api/feed Route Data Integrity (TICKET-141)", () => {
       assert.strictEqual(body.trades.length, 0);
 
       const curveItem = body.items.find(
-        (i: any) => i.contractAddress === "0x2222222222222222222222222222222222222222"
+        (i: { contractAddress: string; progressPct: number | null; phase: string }) =>
+          i.contractAddress === "0x2222222222222222222222222222222222222222"
       );
       assert.ok(curveItem);
       assert.strictEqual(curveItem.progressPct, null);
       assert.strictEqual(curveItem.phase, "curve");
 
       const gradItem = body.items.find(
-        (i: any) => i.contractAddress === "0x4444444444444444444444444444444444444444"
+        (i: { contractAddress: string; progressPct: number | null; phase: string }) =>
+          i.contractAddress === "0x4444444444444444444444444444444444444444"
       );
       assert.ok(gradItem);
       assert.strictEqual(gradItem.progressPct, 100);

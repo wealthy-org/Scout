@@ -15,6 +15,8 @@ export interface HeaderProps {
   onDisconnect?: () => void | Promise<void>;
 }
 
+const emptySubscribe = () => () => {};
+
 export function Header({
   isAuthenticated,
   walletAddress,
@@ -27,14 +29,14 @@ export function Header({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const [mounted, setMounted] = useState(false);
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   const isAuthed = Boolean(isAuthenticated || wallet.isAuthenticated);
   const activeAddress = walletAddress || wallet.userAddress;
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

@@ -10,12 +10,7 @@ import {
   IconCheck,
   IconClipboard,
   IconGraph,
-  IconBolt,
-  IconShield,
   IconCpu,
-  IconAlert,
-  IconCode,
-  IconDiamond,
 } from "@/components/icons/Vectors";
 
 interface HowClientProps {

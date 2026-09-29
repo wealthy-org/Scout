@@ -129,12 +129,39 @@ export default function FeedPage() {
         }
       }
     } catch {
+      // ignore
     }
   }, []);
 
   useEffect(() => {
-    fetchFeedData();
-  }, [fetchFeedData]);
+    let isSubscribed = true;
+    async function loadFeed() {
+      try {
+        const res = await fetch("/api/feed");
+        if (!res.ok || !isSubscribed) return;
+        const data = await res.json();
+        if (!isSubscribed) return;
+        if (data.ok && Array.isArray(data.items) && data.items.length > 0) {
+          setFeedItems(data.items);
+          if (data.stats) {
+            setStats(data.stats);
+          }
+          if (Array.isArray(data.trades) && data.trades.length > 0) {
+            setTrades(data.trades);
+          }
+          if (Array.isArray(data.graduations) && data.graduations.length > 0) {
+            setGraduations(data.graduations);
+          }
+        }
+      } catch {
+        // ignore fetch error
+      }
+    }
+    void loadFeed();
+    return () => {
+      isSubscribed = false;
+    };
+  }, []);
 
   const handleRowClick = (row: FeedTableRowData) => {
     setSelectedToken({

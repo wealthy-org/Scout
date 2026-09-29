@@ -100,7 +100,7 @@ export async function handleGetWatchlist(
       .where(eq(deployerWatchlist.walletAddress, wallet))
       .orderBy(desc(deployerWatchlist.lastSeenAt));
 
-    let launchesByDeployer: Map<string, { token: string; graduated: boolean }[]> = new Map();
+    const launchesByDeployer: Map<string, { token: string; graduated: boolean }[]> = new Map();
     try {
       const launches = await customDb.select().from(deployerLaunches);
       if (Array.isArray(launches)) {

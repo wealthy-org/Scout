@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { transformDossierPageData } from "@/lib/dossier/transform";
 import type { RawDossierQueryResult } from "@/lib/dossier/query";
+import type { Snapshot } from "@/lib/db/schema";
 
 describe("Dossier Transform Data Integrity & Zero Fabrication (TICKET-142)", () => {
   it("ensures transform.ts does not contain seed calculations, sisterHex, synthetic logs, or fake tickers", () => {
@@ -122,7 +123,7 @@ describe("Dossier Transform Data Integrity & Zero Fabrication (TICKET-142)", () 
             fee_recipient: "0xfee111",
             pool_address: "0xpool111",
           },
-        } as any,
+        } as unknown as Snapshot,
       ],
       logs: [
         {

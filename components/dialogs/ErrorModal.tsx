@@ -17,6 +17,8 @@ export interface ErrorModalProps {
   onAction?: () => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export function ErrorModal({
   isOpen,
   onClose,
@@ -29,13 +31,13 @@ export function ErrorModal({
   actionLabel,
   onAction,
 }: ErrorModalProps) {
-  const [mounted, setMounted] = useState(false);
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
   const [copied, setCopied] = useState(false);
   const [isRetrying, setIsRetrying] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {

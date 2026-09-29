@@ -1,7 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback } from "react";
-import { ErrorModal, type ErrorModalProps } from "@/components/dialogs/ErrorModal";
+import { ErrorModal } from "@/components/dialogs/ErrorModal";
 
 export interface ErrorModalOptions {
   title?: string;

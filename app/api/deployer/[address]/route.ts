@@ -15,7 +15,6 @@ import { fetchTokenLaunched } from "@/lib/chain/events";
 import type {
   GetDeployerResponseBody,
   DeployerProfileData,
-  DeployerScoreSignals,
 } from "@/types/score";
 
 const addressSchema = z

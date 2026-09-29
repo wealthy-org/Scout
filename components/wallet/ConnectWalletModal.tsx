@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 import {
   IconPhantom,
@@ -28,6 +28,8 @@ export interface ConnectWalletModalProps {
   onClearError: () => void;
 }
 
+const emptySubscribe = () => () => {};
+
 export function ConnectWalletModal({
   isOpen,
   isConnecting,
@@ -38,11 +40,11 @@ export function ConnectWalletModal({
   onSelectWallet,
   onClearError,
 }: ConnectWalletModalProps) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
+  const mounted = React.useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  );
 
   const availability: WalletAvailability = useMemo(() => {
     if (!isOpen || typeof window === "undefined") {

@@ -2,6 +2,7 @@ import { test, describe } from "node:test";
 import assert from "node:assert/strict";
 import { transformDossierPageData } from "@/lib/dossier/transform";
 import { fetchDossierPageData } from "@/lib/dossier/fetch";
+import { type Snapshot } from "@/lib/db/schema";
 
 describe("Dossier Query & Transform Pipeline (REFACTOR-2 & SPEC-3)", () => {
   test("transformDossierPageData transforms raw query result into structured props with dynamic top wallets and bubbles", () => {
@@ -62,7 +63,7 @@ describe("Dossier Query & Transform Pipeline (REFACTOR-2 & SPEC-3)", () => {
             ],
           },
           chainJson: {},
-        } as any,
+        } as unknown as Snapshot,
       ],
       logs: [],
       items: [],
