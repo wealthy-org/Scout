@@ -315,135 +315,144 @@ export function LandingClient({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <Link
               href="/census"
-              className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer space-y-6"
+              className="group relative rounded-3xl bg-[#064E4A]/75 backdrop-blur-md border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-6 sm:p-7 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer min-h-[420px] sm:min-h-[450px]"
             >
-              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] bg-[#042F2E]">
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <Image
                   src="/images/card-reputation-shield.jpg"
                   alt="Scout Reputation Scoring Engine"
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-20"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#99F6E4] text-[#042F2E] border border-[#042F2E] font-black text-[10px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
-                  <IconShield size={12} />
-                  <span>REPUTATION CORE</span>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#042F2E] via-[#064E4A]/60 to-transparent" />
               </div>
 
-              <div className="space-y-3 flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#99F6E4] tracking-widest bg-[#99F6E4]/15 px-2.5 py-1 rounded-md border border-[#99F6E4]/30">
-                    BAYESIAN ENGINE
-                  </span>
-                  <div className="w-8 h-8 rounded-xl bg-[#99F6E4] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
-                    <IconShield size={16} />
+              <div className="relative z-10 flex flex-col justify-between h-full space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="px-3 py-1 rounded-full bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] font-black text-[10px] sm:text-[11px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
+                      <IconShield size={13} />
+                      <span>REPUTATION CORE</span>
+                    </span>
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#99F6E4] tracking-widest bg-[#042F2E]/80 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-[#99F6E4]/40">
+                      BAYESIAN ENGINE
+                    </span>
+                  </div>
+
+                  <div className="space-y-3 pt-2">
+                    <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#99F6E4] transition-colors leading-tight">
+                      What Deployer Scoring Unlocks
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                      Identify repeat ruggers before you swap. Laplace-smoothed Bayesian reputation engines audit creator launch histories and graduation rates.
+                    </p>
                   </div>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#99F6E4] transition-colors leading-snug">
-                  What Deployer Scoring Unlocks
-                </h3>
-                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
-                  Identify repeat ruggers before you swap. Laplace-smoothed Bayesian reputation engines audit creator launch histories and graduation rates.
-                </p>
-              </div>
 
-              <div className="pt-2">
-                <div className="w-full py-2.5 px-4 rounded-full bg-[#99F6E4] hover:bg-[#5EEAD4] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
-                  <span>Explore Scoring Engine</span>
-                  <span className="w-5 h-5 rounded-full bg-[#042F2E] text-[#99F6E4] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                    <IconArrowRight size={10} />
-                  </span>
+                <div className="pt-4 border-t border-[#042F2E]/60">
+                  <div className="w-full py-3 px-5 rounded-full bg-[#99F6E4] group-hover:bg-[#5EEAD4] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs sm:text-sm shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
+                    <span>Explore Scoring Engine</span>
+                    <span className="w-6 h-6 rounded-full bg-[#042F2E] text-[#99F6E4] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                      <IconArrowRight size={12} />
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/feed"
-              className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer space-y-6"
+              className="group relative rounded-3xl bg-[#064E4A]/75 backdrop-blur-md border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-6 sm:p-7 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer min-h-[420px] sm:min-h-[450px]"
             >
-              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] bg-[#042F2E]">
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <Image
                   src="/images/card-surveillance-radar.jpg"
                   alt="Scout Surveillance Stream"
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-20"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-black text-[10px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
-                  <IconRadar size={12} />
-                  <span>LIVE RADAR</span>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#042F2E] via-[#064E4A]/60 to-transparent" />
               </div>
 
-              <div className="space-y-3 flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#FFD166] tracking-widest bg-[#FFD166]/15 px-2.5 py-1 rounded-md border border-[#FFD166]/30">
-                    SUB-SECOND RPC
-                  </span>
-                  <div className="w-8 h-8 rounded-xl bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
-                    <IconRadar size={16} />
+              <div className="relative z-10 flex flex-col justify-between h-full space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="px-3 py-1 rounded-full bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] font-black text-[10px] sm:text-[11px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
+                      <IconRadar size={13} />
+                      <span>LIVE RADAR</span>
+                    </span>
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#FFD166] tracking-widest bg-[#042F2E]/80 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-[#FFD166]/40">
+                      SUB-SECOND RPC
+                    </span>
+                  </div>
+
+                  <div className="space-y-3 pt-2">
+                    <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#FFD166] transition-colors leading-tight">
+                      Sub-Second Surveillance Stream
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                      Stream every token creation and swap with zero lag. Monitor graduation velocity, bonding curve progress, and high-frequency trade tape in real time.
+                    </p>
                   </div>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#FFD166] transition-colors leading-snug">
-                  Sub-Second Surveillance Stream
-                </h3>
-                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
-                  Stream every token creation and swap with zero lag. Monitor graduation velocity, bonding curve progress, and high-frequency trade tape in real time.
-                </p>
-              </div>
 
-              <div className="pt-2">
-                <div className="w-full py-2.5 px-4 rounded-full bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
-                  <span>Open Surveillance Feed</span>
-                  <span className="w-5 h-5 rounded-full bg-[#042F2E] text-[#FFD166] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                    <IconArrowRight size={10} />
-                  </span>
+                <div className="pt-4 border-t border-[#042F2E]/60">
+                  <div className="w-full py-3 px-5 rounded-full bg-[#FFD166] group-hover:bg-[#FBBF24] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs sm:text-sm shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
+                    <span>Open Surveillance Feed</span>
+                    <span className="w-6 h-6 rounded-full bg-[#042F2E] text-[#FFD166] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                      <IconArrowRight size={12} />
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/map"
-              className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer space-y-6"
+              className="group relative rounded-3xl bg-[#064E4A]/75 backdrop-blur-md border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-6 sm:p-7 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer min-h-[420px] sm:min-h-[450px]"
             >
-              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] bg-[#042F2E]">
+              <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <Image
                   src="/images/card-constellation-graph.jpg"
                   alt="Scout Constellation Graph"
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-20"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#C084FC] text-[#042F2E] border border-[#042F2E] font-black text-[10px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
-                  <IconGraph size={12} />
-                  <span>NETWORK GRAPH</span>
-                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#042F2E] via-[#064E4A]/60 to-transparent" />
               </div>
 
-              <div className="space-y-3 flex-1">
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] font-mono font-bold uppercase text-[#C084FC] tracking-widest bg-[#C084FC]/15 px-2.5 py-1 rounded-md border border-[#C084FC]/30">
-                    TOPOLOGY MAP
-                  </span>
-                  <div className="w-8 h-8 rounded-xl bg-[#C084FC] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
-                    <IconGraph size={16} />
+              <div className="relative z-10 flex flex-col justify-between h-full space-y-6">
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className="px-3 py-1 rounded-full bg-[#C084FC] text-[#042F2E] border-2 border-[#042F2E] font-black text-[10px] sm:text-[11px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
+                      <IconGraph size={13} />
+                      <span>NETWORK GRAPH</span>
+                    </span>
+                    <span className="text-[10px] font-mono font-bold uppercase text-[#C084FC] tracking-widest bg-[#042F2E]/80 backdrop-blur-sm px-2.5 py-1 rounded-lg border border-[#C084FC]/40">
+                      TOPOLOGY MAP
+                    </span>
+                  </div>
+
+                  <div className="space-y-3 pt-2">
+                    <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#C084FC] transition-colors leading-tight">
+                      Constellation Network Topology
+                    </h3>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                      Map shared funding sources and deployer constellations. Uncover hidden co-developer relationships and multi-wallet clusters with visual graph topology.
+                    </p>
                   </div>
                 </div>
-                <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#C084FC] transition-colors leading-snug">
-                  Constellation Network Topology
-                </h3>
-                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
-                  Map shared funding sources and deployer constellations. Uncover hidden co-developer relationships and multi-wallet clusters with visual graph topology.
-                </p>
-              </div>
 
-              <div className="pt-2">
-                <div className="w-full py-2.5 px-4 rounded-full bg-[#C084FC] hover:bg-[#A855F7] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
-                  <span>View Interactive Graph</span>
-                  <span className="w-5 h-5 rounded-full bg-[#042F2E] text-[#C084FC] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
-                    <IconArrowRight size={10} />
-                  </span>
+                <div className="pt-4 border-t border-[#042F2E]/60">
+                  <div className="w-full py-3 px-5 rounded-full bg-[#C084FC] group-hover:bg-[#A855F7] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs sm:text-sm shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
+                    <span>View Interactive Graph</span>
+                    <span className="w-6 h-6 rounded-full bg-[#042F2E] text-[#C084FC] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                      <IconArrowRight size={12} />
+                    </span>
+                  </div>
                 </div>
               </div>
             </Link>
