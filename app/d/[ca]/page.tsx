@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
 import { DossierHeader } from "@/components/dossier/DossierHeader";
 import { MarketFlowBlock } from "@/components/dossier/MarketFlowBlock";
 import { TradeFlowChart } from "@/components/dossier/TradeFlowChart";
@@ -24,42 +25,54 @@ export type { DossierPagePropsData };
 export function DossierPageView({ data }: { data: DossierPagePropsData }) {
   if (data.notPonsV2Token) {
     return (
-      <main className="min-h-screen bg-[#0D746E] text-[#FFFDF7] p-6 flex flex-col items-center justify-center font-sans relative overflow-hidden">
+      <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden flex flex-col">
         <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-gradient-to-b from-[#14B8A6]/20 to-transparent blur-[140px] pointer-events-none -z-10" />
 
-        <div className="max-w-lg w-full bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-8 text-center shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl space-y-4">
-          <div className="w-16 h-16 bg-[#FFD166] border-[1.5px] border-[#042F2E] text-[#042F2E] rounded-2xl flex items-center justify-center mx-auto text-2xl font-black shadow-[3px_3px_0px_#042F2E]">
-            !
+        <GlobalHeader
+          isAuthenticated={!data.isAnonymous}
+          walletAddress={data.dossier?.walletAddress}
+        />
+
+        <main className="flex-1 flex flex-col items-center justify-center p-6 relative z-10">
+          <div className="max-w-lg w-full bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-8 text-center shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl space-y-4">
+            <div className="w-16 h-16 bg-[#FFD166] border-[1.5px] border-[#042F2E] text-[#042F2E] rounded-2xl flex items-center justify-center mx-auto text-2xl font-black shadow-[3px_3px_0px_#042F2E]">
+              !
+            </div>
+            <h1 className="text-2xl font-black text-[#FFFDF7]">
+              Not a Pons V2 Token
+            </h1>
+            <p className="text-xs text-[#A7F3D0] font-mono break-all bg-[#042F2E] p-3 rounded-xl border border-[rgba(153,246,228,0.2)]">
+              {data.contractAddress}
+            </p>
+            <p className="text-xs sm:text-sm text-[#FFFDF7] leading-relaxed font-normal">
+              The provided address is not recognized as a registered Pons V2 token contract. Scout only tracks tokens, bonding curves, and deployers active on Pons V2 protocol infrastructure.
+            </p>
+            <div className="pt-2 flex justify-center">
+              <Link
+                href="/"
+                className="px-6 py-3 pop-btn-yellow font-bold rounded-xl text-xs uppercase tracking-wider transition-all"
+              >
+                Back to Launch Feed
+              </Link>
+            </div>
           </div>
-          <h1 className="text-2xl font-black text-[#FFFDF7]">
-            Not a Pons V2 Token
-          </h1>
-          <p className="text-xs text-[#A7F3D0] font-mono break-all bg-[#042F2E] p-3 rounded-xl border border-[rgba(153,246,228,0.2)]">
-            {data.contractAddress}
-          </p>
-          <p className="text-xs sm:text-sm text-[#FFFDF7] leading-relaxed font-normal">
-            The provided address is not recognized as a registered Pons V2 token contract. Scout only tracks tokens, bonding curves, and deployers active on Pons V2 protocol infrastructure.
-          </p>
-          <div className="pt-2 flex justify-center">
-            <Link
-              href="/"
-              className="px-6 py-3 pop-btn-yellow font-bold rounded-xl text-xs uppercase tracking-wider transition-all"
-            >
-              Back to Launch Feed
-            </Link>
-          </div>
-        </div>
-      </main>
+        </main>
+      </div>
     );
   }
 
   const tokenPhase = data.phase || (data.curveProgressPct && data.curveProgressPct >= 100 ? "graduated" : "curve");
 
   return (
-    <main className="min-h-screen bg-[#0D746E] text-[#FFFDF7] p-3 sm:p-5 lg:p-6 font-sans relative overflow-hidden pb-16">
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16">
       <div className="absolute top-0 left-1/4 w-[800px] h-[500px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
 
-      <div className="max-w-[1520px] mx-auto relative z-10">
+      <GlobalHeader
+        isAuthenticated={!data.isAnonymous}
+        walletAddress={data.dossier?.walletAddress}
+      />
+
+      <main className="max-w-[1520px] mx-auto p-3 sm:p-5 lg:p-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-5 items-start">
           <aside className="w-full lg:w-[360px] xl:w-[390px] shrink-0 space-y-4">
             <DossierHeader
@@ -185,8 +198,8 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
             </div>
           </section>
         </div>
-      </div>
-    </main>
+      </main>
+    </div>
   );
 }
 
