@@ -18,15 +18,24 @@ interface HowClientProps {
   userAddress?: string;
 }
 
+interface GlossaryVariable {
+  symbol: string;
+  meaning: string;
+}
+
 interface GlossaryItem {
   id: string;
   term: string;
   category: "math" | "lifecycle" | "heuristics" | "auth";
   categoryLabel: string;
   formula?: string;
+  variables?: GlossaryVariable[];
   definition: string;
   implication: string;
   badge: string;
+  severity: "STANDARD" | "PENALTY HEURISTIC" | "CRITICAL CLAMP" | "SECURITY PROTOCOL";
+  severityColor: string;
+  relatedIds: string[];
 }
 
 const GLOSSARY_DATA: GlossaryItem[] = [
@@ -36,11 +45,19 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "lifecycle",
     categoryLabel: "Protocol Lifecycle",
     formula: "P(x) = k · x^γ (Pons V2 Standard)",
+    variables: [
+      { symbol: "P(x)", meaning: "Token price at circulating supply x" },
+      { symbol: "k", meaning: "Factory invariant pricing constant" },
+      { symbol: "γ", meaning: "Exponential curvature power factor" },
+    ],
     definition:
       "An algorithmic smart contract mechanism that determines token price dynamically as tokens are purchased or sold along a deterministic mathematical curve prior to DEX graduation.",
     implication:
       "Guarantees continuous on-chain liquidity from genesis without requiring pre-funded Uniswap pools.",
     badge: "Pons V2",
+    severity: "STANDARD",
+    severityColor: "bg-[#99F6E4] text-[#042F2E]",
+    relatedIds: ["graduated-phase", "bonding-velocity", "swept-phase"],
   },
   {
     id: "graduated-phase",
@@ -48,11 +65,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "lifecycle",
     categoryLabel: "Protocol Lifecycle",
     formula: "Curve_Progress == 100% → Pool_Migrate()",
+    variables: [
+      { symbol: "Curve_Progress", meaning: "Current total volume deposited / threshold required" },
+      { symbol: "Pool_Migrate()", meaning: "Atomic contract call locking Uniswap V3 liquidity" },
+    ],
     definition:
       "The milestone reached when 100% of a token's bonding curve threshold is reached, migrating liquidity and unlocking automated Uniswap V3 liquidity pool creation.",
     implication:
       "Transitions the token from factory bonding curve to free secondary market trading.",
     badge: "DEX Migration",
+    severity: "STANDARD",
+    severityColor: "bg-[#99F6E4] text-[#042F2E]",
+    relatedIds: ["bonding-curve", "swept-phase", "laplace-smoothing"],
   },
   {
     id: "swept-phase",
@@ -60,11 +84,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "lifecycle",
     categoryLabel: "Protocol Lifecycle",
     formula: "Treasury_Sweep(fees, recipient_addr)",
+    variables: [
+      { symbol: "fees", meaning: "Accrued protocol fee balance in ETH" },
+      { symbol: "recipient_addr", meaning: "Authorized beneficiary or treasury contract address" },
+    ],
     definition:
       "State where fee recipient or factory treasury has swept collected bonding curve protocol fees into designated recipient addresses.",
     implication:
       "Triggers automated fee routing verification in Scout Constellation engine.",
     badge: "Treasury",
+    severity: "STANDARD",
+    severityColor: "bg-[#99F6E4] text-[#042F2E]",
+    relatedIds: ["sybil-cluster-ratio", "bonding-curve", "graduated-phase"],
   },
   {
     id: "laplace-smoothing",
@@ -72,11 +103,19 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "math",
     categoryLabel: "Mathematical Models",
     formula: "P_prior = (Graduated + 1) / (Total + 2)",
+    variables: [
+      { symbol: "Graduated (k)", meaning: "Number of successfully migrated tokens by creator" },
+      { symbol: "Total (n)", meaning: "Total token contracts deployed by creator" },
+      { symbol: "+1 / +2", meaning: "Laplace uniform pseudocount prior parameters (α=1, β=2)" },
+    ],
     definition:
       "Bayesian probability technique defined as (Graduated + 1) / (Total + 2), preventing artificial 100% perfection scores on small sample sizes (e.g. 1/1 launches).",
     implication:
       "Ensures deployers with 1 launch cannot outrank established creators with dozens of proven graduations.",
     badge: "Bayesian Prior",
+    severity: "STANDARD",
+    severityColor: "bg-[#FFD166] text-[#042F2E]",
+    relatedIds: ["doa", "burst-rate", "serial-penalty-cap"],
   },
   {
     id: "doa",
@@ -84,11 +123,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "heuristics",
     categoryLabel: "Forensic Heuristics",
     formula: "Loss > 95% ∧ Δt ≤ 600s",
+    variables: [
+      { symbol: "Loss", meaning: "Percentage decline from genesis opening price" },
+      { symbol: "Δt", meaning: "Elapsed time since deployment transaction (10 minutes window)" },
+    ],
     definition:
       "A token launch whose trading volume halts or loses >95% value within 10 minutes of genesis. High DOA frequency heavily penalizes creator score.",
     implication:
       "Docks deployer score by 8 to 15 points per abandoned deployment.",
     badge: "Penalty Signal",
+    severity: "PENALTY HEURISTIC",
+    severityColor: "bg-[#FF6B6B] text-[#042F2E]",
+    relatedIds: ["laplace-smoothing", "burst-rate", "serial-penalty-cap"],
   },
   {
     id: "burst-rate",
@@ -96,11 +142,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "heuristics",
     categoryLabel: "Forensic Heuristics",
     formula: "Burst% = N(Δt_deploy ≤ 1800s) / N_total",
+    variables: [
+      { symbol: "N(Δt ≤ 1800s)", meaning: "Count of genesis deployments spaced < 30 minutes apart" },
+      { symbol: "N_total", meaning: "Total deployments recorded for the creator address" },
+    ],
     definition:
       "The proportion of genesis deployments initiated within 30 minutes of a previous token by the same deployer, signaling automated token spam or rapid-fire rug activity.",
     implication:
       "Flags automated deployment bots and multi-contract pump-and-dump syndicates.",
     badge: "Velocity Clamp",
+    severity: "PENALTY HEURISTIC",
+    severityColor: "bg-[#FF9F43] text-[#042F2E]",
+    relatedIds: ["doa", "serial-penalty-cap", "sybil-cluster-ratio"],
   },
   {
     id: "serial-penalty-cap",
@@ -108,11 +161,19 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "heuristics",
     categoryLabel: "Forensic Heuristics",
     formula: "If (N_total ≥ 6 ∧ N_grad == 0) → Score ≤ 25",
+    variables: [
+      { symbol: "N_total ≥ 6", meaning: "High volume deployment threshold" },
+      { symbol: "N_grad == 0", meaning: "Complete absence of liquidity graduation" },
+      { symbol: "Score ≤ 25", meaning: "Hard quarantine in Hostile Red Band" },
+    ],
     definition:
       "A strict mathematical ceiling clamping deployer reputation to a maximum of 25 (Red Band) whenever total launches >= 6 and graduated count equals 0.",
     implication:
       "Guarantees that serial deployers with 0 successful graduations are quarantined in the hostile zone.",
     badge: "Hard Quarantine",
+    severity: "CRITICAL CLAMP",
+    severityColor: "bg-[#EF4444] text-[#FFFDF7]",
+    relatedIds: ["doa", "burst-rate", "laplace-smoothing"],
   },
   {
     id: "siwe",
@@ -120,11 +181,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "auth",
     categoryLabel: "Network & Auth",
     formula: "EIP-4361 / EIP-191 Personal_Sign",
+    variables: [
+      { symbol: "EIP-4361", meaning: "Standardized human-readable authentication message schema" },
+      { symbol: "EIP-191", meaning: "Signed data prefix: '\\x19Ethereum Signed Message:\\n' + len" },
+    ],
     definition:
       "EIP-4361 standard cryptographic authentication proving private key ownership via an EIP-191 personal sign message, establishing encrypted stateless sessions without passwords.",
     implication:
       "Secures private watchlists, dossier bookmarks, and case file publishing authority.",
     badge: "EIP-4361",
+    severity: "SECURITY PROTOCOL",
+    severityColor: "bg-[#C084FC] text-[#042F2E]",
+    relatedIds: ["immutability-proof", "multicall3"],
   },
   {
     id: "multicall3",
@@ -132,11 +200,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "auth",
     categoryLabel: "Network & Auth",
     formula: "MultiCall3.aggregate3(call_payloads[50])",
+    variables: [
+      { symbol: "aggregate3", meaning: "Atomic batch execution function with individual try-catch flags" },
+      { symbol: "call_payloads", meaning: "Array of target contracts and encoded calldata" },
+    ],
     definition:
       "Batching up to 50 smart contract read operations into a single RPC JSON-RPC payload to achieve sub-100ms dossier hydration while avoiding RPC rate limit throttling.",
     implication:
       "Drastically reduces HTTP overhead and provides atomic on-chain state inspection.",
     badge: "Sub-100ms RPC",
+    severity: "SECURITY PROTOCOL",
+    severityColor: "bg-[#C084FC] text-[#042F2E]",
+    relatedIds: ["siwe", "immutability-proof"],
   },
   {
     id: "sybil-cluster-ratio",
@@ -144,11 +219,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "heuristics",
     categoryLabel: "Forensic Heuristics",
     formula: "S_ratio = Wallets_routed / Unique_Recipients",
+    variables: [
+      { symbol: "Wallets_routed", meaning: "Count of burner creator addresses sharing fee sinks" },
+      { symbol: "Unique_Recipients", meaning: "Distinct fund collection addresses" },
+    ],
     definition:
       "Heuristic metric calculating the degree of fund consolidation between supposedly independent deployers sharing downstream liquidity addresses.",
     implication:
       "Reveals stealth dev operations operating across multiple burner addresses.",
     badge: "Graph Topology",
+    severity: "PENALTY HEURISTIC",
+    severityColor: "bg-[#FF9F43] text-[#042F2E]",
+    relatedIds: ["burst-rate", "swept-phase", "doa"],
   },
   {
     id: "bonding-velocity",
@@ -156,11 +238,18 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "math",
     categoryLabel: "Mathematical Models",
     formula: "V_bc = d(Curve%) / dt",
+    variables: [
+      { symbol: "d(Curve%)", meaning: "Incremental change in bonding curve completion percentage" },
+      { symbol: "dt", meaning: "Time delta in seconds or block intervals" },
+    ],
     definition:
       "First derivative of bonding curve progress with respect to time, measuring buy pressure acceleration and graduation trajectory.",
     implication:
       "Helps distinguish organic accumulation surges from wash-trading spikes.",
     badge: "Derivative Rate",
+    severity: "STANDARD",
+    severityColor: "bg-[#FFD166] text-[#042F2E]",
+    relatedIds: ["bonding-curve", "graduated-phase"],
   },
   {
     id: "immutability-proof",
@@ -168,11 +257,19 @@ const GLOSSARY_DATA: GlossaryItem[] = [
     category: "auth",
     categoryLabel: "Network & Auth",
     formula: "Hash(State_t || Author_Addr || Nonce)",
+    variables: [
+      { symbol: "State_t", meaning: "Serialized JSON snapshot of all dossier metrics" },
+      { symbol: "Author_Addr", meaning: "Checksummed Ethereum address of publishing researcher" },
+      { symbol: "Nonce", meaning: "Cryptographic single-use entropy seed" },
+    ],
     definition:
       "Cryptographic digest generated when a researcher publishes a public dossier case file, locking the thesis, notes, and delta metrics permanently.",
     implication:
       "Guarantees that public case files cannot be tampered with or retroactively falsified.",
     badge: "Cryptographic Hash",
+    severity: "SECURITY PROTOCOL",
+    severityColor: "bg-[#C084FC] text-[#042F2E]",
+    relatedIds: ["siwe", "multicall3"],
   },
 ];
 
@@ -251,6 +348,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeWorkflowTab, setActiveWorkflowTab] = useState<number>(0);
   const [selectedDeltaRow, setSelectedDeltaRow] = useState<string>("DELTA-01");
+  const [selectedGlossaryId, setSelectedGlossaryId] = useState<string>("bonding-curve");
 
   // Simulator State
   const [simGraduated, setSimGraduated] = useState<number>(4);
@@ -324,6 +422,11 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
       return matchesCategory && matchesSearch;
     });
   }, [selectedCategory, searchQuery]);
+
+  const activeGlossaryItem = useMemo(() => {
+    const found = filteredGlossary.find((item) => item.id === selectedGlossaryId);
+    return found || filteredGlossary[0] || GLOSSARY_DATA[0];
+  }, [filteredGlossary, selectedGlossaryId]);
 
   return (
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-20 selection:bg-[#FFD166] selection:text-[#042F2E] overflow-x-hidden">
@@ -1150,103 +1253,217 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
 
 
         {/* ========================================================================= */}
-        {/* 6. SECTION 5: ON-CHAIN GLOSSARY & RESEARCH LEXICON (DIRECTORY LEDGER) */}
+        {/* 6. SECTION 5: ON-CHAIN GLOSSARY & FORENSIC CODEX WORKBENCH (TWO-PANE SPLIT) */}
         {/* ========================================================================= */}
         <section id="glossary-math" className="space-y-6 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-black">
-                SECTION 05 // RESEARCH LEXICON
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFD166] font-black">
+                SECTION 05 // ON-CHAIN GLOSSARY &amp; CODEX
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
-                On-Chain Glossary &amp; Taxonomy Directory
+                Forensic Research Codex &amp; Taxonomy
               </h2>
             </div>
-            <div className="text-xs font-mono font-black text-[#A7F3D0] bg-[#042F2E] px-3.5 py-1.5 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-              {filteredGlossary.length} OF {GLOSSARY_DATA.length} TERMS
+            <div className="text-xs font-mono font-black text-[#FFD166] bg-[#042F2E] px-3.5 py-1.5 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+              {filteredGlossary.length} OF {GLOSSARY_DATA.length} CONCEPTS
             </div>
           </div>
 
-          {/* Search & Filter Bar */}
-          <div className="flex flex-col sm:flex-row gap-3 items-stretch">
-            <div className="relative flex-1">
-              <IconSearch size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#99F6E4]" />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search terms, mathematical formulas, or keywords..."
-                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] text-xs font-mono text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-none focus:shadow-[6px_6px_0px_#042F2E]"
-              />
+          {/* Interactive Two-Pane Split Codex Workbench */}
+          <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-5 sm:p-7 shadow-[8px_8px_0px_#042F2E] space-y-6">
+            
+            {/* Top Toolbar: Search & Category Filter Pills */}
+            <div className="flex flex-col md:flex-row gap-3 items-stretch">
+              <div className="relative flex-1">
+                <IconSearch size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#99F6E4]" />
+                <input
+                  type="text"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Filter by keyword, mathematical formula, or vector..."
+                  className="w-full pl-11 pr-4 py-2.5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] text-xs font-mono text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-none focus:shadow-[4px_4px_0px_#042F2E]"
+                />
+              </div>
+
+              <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
+                {[
+                  { id: "all", label: "All (12)" },
+                  { id: "math", label: "Math (3)" },
+                  { id: "lifecycle", label: "Lifecycle (3)" },
+                  { id: "heuristics", label: "Heuristics (3)" },
+                  { id: "auth", label: "Auth (3)" },
+                ].map((cat) => (
+                  <button
+                    key={cat.id}
+                    onClick={() => setSelectedCategory(cat.id)}
+                    className={`px-3 py-2 rounded-xl text-xs font-bold font-mono whitespace-nowrap transition-all cursor-pointer border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] ${
+                      selectedCategory === cat.id
+                        ? "bg-[#FFD166] text-[#042F2E]"
+                        : "bg-[#042F2E] text-[#A7F3D0] hover:text-[#FFFDF7]"
+                    }`}
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
             </div>
 
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-0.5">
-              {[
-                { id: "all", label: "All" },
-                { id: "math", label: "Math Models" },
-                { id: "lifecycle", label: "Lifecycle" },
-                { id: "heuristics", label: "Heuristics" },
-                { id: "auth", label: "Network/Auth" },
-              ].map((cat) => (
-                <button
-                  key={cat.id}
-                  onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-3.5 py-2.5 rounded-xl text-xs font-bold font-mono whitespace-nowrap transition-all cursor-pointer border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] ${
-                    selectedCategory === cat.id
-                      ? "bg-[#FFD166] text-[#042F2E]"
-                      : "bg-[#064E4A] text-[#A7F3D0] hover:text-[#FFFDF7]"
-                  }`}
-                >
-                  {cat.label}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          {/* Directory Ledger Entries */}
-          <div className="space-y-4">
-            {filteredGlossary.map((item) => (
-              <div
-                key={item.term}
-                className="p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all space-y-3.5"
-              >
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#042F2E] pb-2.5">
-                  <div className="flex items-center gap-2.5">
-                    <span className="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-lg bg-[#042F2E] text-[#99F6E4] border border-[#042F2E]">
-                      {item.badge}
-                    </span>
-                    <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-                      {item.term}
-                    </h3>
-                  </div>
-                  <span className="text-[10px] font-mono font-bold text-[#A7F3D0] uppercase tracking-wider">
-                    {item.categoryLabel}
-                  </span>
+            {/* Two-Pane Master-Detail Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              
+              {/* Left Pane: Interactive Navigator Ledger Index (5 cols) */}
+              <div className="lg:col-span-5 space-y-2 bg-[#042F2E] p-3 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] max-h-[580px] overflow-y-auto">
+                <div className="flex items-center justify-between px-2 py-1.5 text-[10px] font-mono font-black text-[#99F6E4] border-b border-[#064E4A]">
+                  <span>INDEXED ENTRIES ({filteredGlossary.length})</span>
+                  <span>CATEGORY</span>
                 </div>
 
-                {item.formula && (
-                  <div className="p-2.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-between text-xs font-mono text-[#FFD166]">
-                    <span className="truncate">{item.formula}</span>
-                    <button
-                      onClick={() => handleCopy(item.formula!, item.id)}
-                      className="p-1 hover:text-[#FFFDF7] text-[#99F6E4] transition-colors cursor-pointer shrink-0 ml-2 bg-[#064E4A] rounded-lg border border-[#042F2E]"
-                      title="Copy formula"
-                    >
-                      {copiedKey === item.id ? <IconCheck size={12} /> : <IconClipboard size={12} />}
-                    </button>
+                {filteredGlossary.length === 0 ? (
+                  <div className="p-8 text-center text-xs font-mono text-[#A7F3D0]">
+                    No matching glossary concepts found.
+                  </div>
+                ) : (
+                  filteredGlossary.map((item, index) => {
+                    const isSelected = activeGlossaryItem.id === item.id;
+                    const indexStr = String(index + 1).padStart(2, "0");
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => setSelectedGlossaryId(item.id)}
+                        className={`w-full text-left p-3 rounded-xl border-2 transition-all cursor-pointer flex items-center justify-between gap-2.5 ${
+                          isSelected
+                            ? "bg-[#064E4A] border-[#FFD166] shadow-[3px_3px_0px_#042F2E] -translate-x-[1px]"
+                            : "bg-[#042F2E] border-transparent hover:border-[#064E4A] hover:bg-[#064E4A]/40 text-[#A7F3D0]"
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 min-w-0">
+                          <span className={`font-mono text-[11px] font-black shrink-0 ${isSelected ? "text-[#FFD166]" : "text-[#99F6E4]"}`}>
+                            #{indexStr}
+                          </span>
+                          <span className={`font-black text-xs truncate ${isSelected ? "text-[#FFFDF7]" : "text-[#A7F3D0]"}`}>
+                            {item.term}
+                          </span>
+                        </div>
+
+                        <span className={`text-[9px] font-mono font-bold px-2 py-0.5 rounded-md shrink-0 border border-[#042F2E] ${
+                          isSelected ? "bg-[#FFD166] text-[#042F2E]" : "bg-[#031E1D] text-[#A7F3D0]"
+                        }`}>
+                          {item.badge}
+                        </span>
+                      </button>
+                    );
+                  })
+                )}
+              </div>
+
+              {/* Right Pane: Active Deep-Dive Dossier Specification Sheet (7 cols) */}
+              <div className="lg:col-span-7 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] space-y-5">
+                
+                {/* Dossier Header */}
+                <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 border-b-2 border-[#064E4A] pb-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-lg bg-[#064E4A] text-[#99F6E4] border border-[#042F2E]">
+                        {activeGlossaryItem.badge}
+                      </span>
+                      <span className={`text-[9px] font-mono font-black px-2 py-0.5 rounded-md border border-[#042F2E] ${activeGlossaryItem.severityColor}`}>
+                        {activeGlossaryItem.severity}
+                      </span>
+                    </div>
+                    <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
+                      {activeGlossaryItem.term}
+                    </h3>
+                  </div>
+
+                  <div className="text-[10px] font-mono font-bold text-[#A7F3D0] uppercase bg-[#064E4A] px-3 py-1 rounded-xl border border-[#042F2E] self-start">
+                    {activeGlossaryItem.categoryLabel}
+                  </div>
+                </div>
+
+                {/* Mathematical Formulation Slate (if formula exists) */}
+                {activeGlossaryItem.formula && (
+                  <div className="bg-[#031E1D] border-2 border-[#042F2E] rounded-2xl p-4 shadow-[3px_3px_0px_#042F2E] space-y-3">
+                    <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 text-[10px] font-mono">
+                      <span className="text-[#99F6E4] font-black uppercase">MATHEMATICAL FORMULATION</span>
+                      <button
+                        onClick={() => handleCopy(activeGlossaryItem.formula!, `f-${activeGlossaryItem.id}`)}
+                        className="text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#064E4A] px-2 py-0.5 rounded-md border border-[#042F2E] flex items-center gap-1 cursor-pointer active:translate-x-[1px]"
+                      >
+                        {copiedKey === `f-${activeGlossaryItem.id}` ? (
+                          <IconCheck size={10} className="text-[#99F6E4]" />
+                        ) : (
+                          <IconClipboard size={10} />
+                        )}
+                        <span>Copy Formula</span>
+                      </button>
+                    </div>
+
+                    <div className="text-sm sm:text-base font-mono font-black text-[#FFD166] tracking-wide">
+                      {activeGlossaryItem.formula}
+                    </div>
+
+                    {activeGlossaryItem.variables && activeGlossaryItem.variables.length > 0 && (
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 pt-2 border-t border-[#064E4A] text-[11px] font-mono">
+                        {activeGlossaryItem.variables.map((v, i) => (
+                          <div key={i} className="flex items-start gap-1.5 text-[#A7F3D0]">
+                            <span className="font-bold text-[#99F6E4] shrink-0">{v.symbol}:</span>
+                            <span className="text-[#FFFDF7]/80 text-[10px]">{v.meaning}</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
-                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                  {item.definition}
-                </p>
-
-                <div className="p-3 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono flex flex-col sm:flex-row sm:items-center gap-1.5">
-                  <span className="font-black text-[#FFD166] shrink-0">IMPLICATION:</span>
-                  <span className="text-[#A7F3D0] leading-snug">{item.implication}</span>
+                {/* Formal Definition */}
+                <div className="space-y-2">
+                  <div className="text-xs font-mono font-black text-[#99F6E4] uppercase">
+                    FORMAL SPECIFICATION &amp; MECHANICS:
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal bg-[#064E4A] p-4 rounded-2xl border border-[#042F2E]">
+                    {activeGlossaryItem.definition}
+                  </p>
                 </div>
+
+                {/* Strategic Implication Alert Callout */}
+                <div className="p-4 rounded-2xl bg-[#064E4A] border-2 border-[#FFD166] shadow-[3px_3px_0px_#042F2E] space-y-1.5">
+                  <div className="flex items-center gap-2 text-xs font-mono font-black text-[#FFD166]">
+                    <span>⚡ RESEARCHER &amp; TRADER IMPLICATION</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-[#FFFDF7] leading-snug">
+                    {activeGlossaryItem.implication}
+                  </p>
+                </div>
+
+                {/* Cross-Referenced Related Concepts */}
+                {activeGlossaryItem.relatedIds.length > 0 && (
+                  <div className="pt-2 border-t border-[#064E4A] space-y-2">
+                    <div className="text-[10px] font-mono font-bold text-[#A7F3D0] uppercase">
+                      RELATED FORENSIC VECTORS:
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {activeGlossaryItem.relatedIds.map((relId) => {
+                        const target = GLOSSARY_DATA.find((g) => g.id === relId);
+                        if (!target) return null;
+                        return (
+                          <button
+                            key={relId}
+                            onClick={() => {
+                              setSelectedCategory("all");
+                              setSelectedGlossaryId(relId);
+                            }}
+                            className="px-2.5 py-1 rounded-lg bg-[#064E4A] hover:bg-[#FFD166] text-[#99F6E4] hover:text-[#042F2E] text-[11px] font-mono font-bold border border-[#042F2E] transition-colors cursor-pointer"
+                          >
+                            → {target.term}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
+            </div>
           </div>
         </section>
 

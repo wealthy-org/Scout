@@ -172,36 +172,60 @@ export default function HowLoading() {
           </div>
         </section>
 
-        {/* 6. SECTION 05: GLOSSARY DIRECTORY SKELETON */}
+        {/* 6. SECTION 05: GLOSSARY CODEX TWO-PANE SKELETON */}
         <section className="space-y-6">
           <div className="flex justify-between items-end border-b-2 border-[#042F2E] pb-3">
             <div className="space-y-1.5">
-              <div className="h-3 w-36 bg-[#064E4A] rounded" />
-              <div className="h-7 w-64 bg-[#042F2E] rounded-xl" />
+              <div className="h-3 w-40 bg-[#064E4A] rounded" />
+              <div className="h-7 w-72 bg-[#042F2E] rounded-xl" />
             </div>
-            <div className="h-6 w-28 bg-[#042F2E] rounded-xl" />
+            <div className="h-6 w-32 bg-[#042F2E] rounded-xl" />
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-3">
-            <div className="h-12 flex-1 bg-[#064E4A] rounded-2xl" />
-            <div className="flex gap-2">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <div key={i} className="h-12 w-20 bg-[#064E4A] rounded-xl" />
-              ))}
+          <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-5 sm:p-7 shadow-[8px_8px_0px_#042F2E] space-y-6">
+            <div className="flex flex-col md:flex-row gap-3">
+              <div className="h-11 flex-1 bg-[#042F2E] rounded-2xl" />
+              <div className="flex gap-1.5">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <div key={i} className="h-11 w-20 bg-[#042F2E] rounded-xl" />
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-4">
-            {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] space-y-3 h-36" />
-            ))}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              {/* Left Pane Index Skeleton */}
+              <div className="lg:col-span-5 space-y-2 bg-[#042F2E] p-3 rounded-2xl border-2 border-[#042F2E]">
+                {[1, 2, 3, 4, 5, 6].map((i) => (
+                  <div key={i} className="h-12 bg-[#064E4A] rounded-xl" />
+                ))}
+              </div>
+
+              {/* Right Pane Dossier Sheet Skeleton */}
+              <div className="lg:col-span-7 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl p-5 sm:p-6 space-y-5">
+                <div className="flex justify-between items-start border-b-2 border-[#064E4A] pb-4">
+                  <div className="space-y-2">
+                    <div className="flex gap-2">
+                      <div className="h-5 w-20 bg-[#064E4A] rounded-lg" />
+                      <div className="h-5 w-24 bg-[#064E4A] rounded-md" />
+                    </div>
+                    <div className="h-8 w-56 bg-[#064E4A] rounded-xl" />
+                  </div>
+                  <div className="h-6 w-28 bg-[#064E4A] rounded-xl" />
+                </div>
+
+                <div className="h-28 bg-[#031E1D] rounded-2xl" />
+                <div className="h-20 bg-[#064E4A] rounded-2xl" />
+                <div className="h-16 bg-[#064E4A] rounded-2xl" />
+                <div className="h-8 w-3/4 bg-[#064E4A] rounded-xl" />
+              </div>
+            </div>
           </div>
         </section>
 
         {/* 7. FOOTER SKELETON */}
         <footer className="pt-6 flex flex-col sm:flex-row justify-between gap-4">
           <div className="h-12 w-56 bg-[#064E4A] rounded-2xl" />
-          <div className="h-12 w-56 bg-[#042F2E] rounded-2xl" />
+          <div className="h-12 w-56 bg-[#FFD166] rounded-2xl" />
         </footer>
       </main>
     </div>
