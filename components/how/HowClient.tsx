@@ -176,81 +176,83 @@ const GLOSSARY_DATA: GlossaryItem[] = [
   },
 ];
 
-const DELTA_METRICS = [
+const DELTA_TELEMETRY = [
   {
     code: "DELTA-01",
     name: "FDV Fluctuation",
-    category: "VOLATILITY",
+    vector: "MARKET DYNAMICS",
     condition: "|FDV_t - FDV_0| / FDV_0 ≥ 20%",
     status: "ACTIVE TRIGGER",
-    statusColor: "bg-[#99F6E4] text-[#042F2E]",
-    rationale: "Triggers when market capitalization shifts by ±20% or more since previous inspection.",
-    accentColor: "#99F6E4",
-    threshold: "±20.0%",
+    statusBadge: "bg-[#99F6E4] text-[#042F2E]",
+    threshold: "±20.0% Band",
+    sensitivity: "High",
+    rationale: "Triggers on-chain alert whenever market capitalization shifts by ±20% or more since previous inspection snapshot.",
   },
   {
     code: "DELTA-02",
     name: "Liquidity Shift",
-    category: "RESERVES",
+    vector: "RESERVE BALANCES",
     condition: "|Liq_t - Liq_0| / Liq_0 ≥ 20%",
     status: "ACTIVE TRIGGER",
-    statusColor: "bg-[#99F6E4] text-[#042F2E]",
-    rationale: "Monitors pool drainage or sudden liquidity injection on DEX pairs.",
-    accentColor: "#99F6E4",
-    threshold: "±20.0%",
+    statusBadge: "bg-[#99F6E4] text-[#042F2E]",
+    threshold: "±20.0% Band",
+    sensitivity: "High",
+    rationale: "Detects sudden pool drainage or abrupt liquidity injection on DEX pairs indicating whale accumulation or rug prep.",
   },
   {
     code: "DELTA-03",
     name: "Phase Progression",
-    category: "MILESTONE",
+    vector: "LIFECYCLE STATE",
     condition: "Phase_t ≠ Phase_0 (Curve → Graduated)",
     status: "CRITICAL EVENT",
-    statusColor: "bg-[#FFD166] text-[#042F2E]",
-    rationale: "Triggers instantly upon graduation migration or protocol fee sweep events.",
-    accentColor: "#FFD166",
-    threshold: "STATE SHIFT",
+    statusBadge: "bg-[#FFD166] text-[#042F2E]",
+    threshold: "State Transition",
+    sensitivity: "Real-Time",
+    rationale: "Fires instantaneous notification upon bonding curve graduation migration or protocol fee sweep events.",
   },
   {
     code: "DELTA-04",
     name: "Fee Recipient Routing",
-    category: "FORENSIC",
+    vector: "SYBIL FORENSICS",
     condition: "Recipient_addr_t ≠ Recipient_addr_0",
     status: "SYBIL ALERT",
-    statusColor: "bg-[#FF6B6B] text-[#042F2E]",
-    rationale: "Flags any modification in the recipient address receiving creator trading fees.",
-    accentColor: "#FF6B6B",
-    threshold: "REROUTE DETECTED",
+    statusBadge: "bg-[#FF6B6B] text-[#042F2E]",
+    threshold: "Reroute Event",
+    sensitivity: "Instant",
+    rationale: "Flags any modification in the recipient address receiving creator trading fees to detect hidden Sybil fund sinks.",
   },
   {
     code: "DELTA-05",
     name: "GitHub Activity",
-    category: "CODEBASE",
+    vector: "CODE REPOSITORY",
     condition: "Commit_SHA_t ≠ Commit_SHA_0",
     status: "REPO UPDATE",
-    statusColor: "bg-[#C084FC] text-[#042F2E]",
-    rationale: "Alerts researcher when fresh code is pushed to associated public repositories.",
-    accentColor: "#C084FC",
-    threshold: "FRESH COMMIT",
+    statusBadge: "bg-[#C084FC] text-[#042F2E]",
+    threshold: "Fresh Commit",
+    sensitivity: "Batch Sync",
+    rationale: "Alerts researcher when fresh code commits are pushed to associated public repositories.",
   },
   {
     code: "DELTA-06",
     name: "Deployer Genesis",
-    category: "CREATOR",
+    vector: "CREATOR VELOCITY",
     condition: "Total_Deployments_t > Total_0",
     status: "NEW LAUNCH",
-    statusColor: "bg-[#FF9F43] text-[#042F2E]",
-    rationale: "Notifies when creator wallet deploys a subsequent token elsewhere in the factory.",
-    accentColor: "#FF9F43",
-    threshold: "ΔN ≥ +1",
+    statusBadge: "bg-[#FF9F43] text-[#042F2E]",
+    threshold: "ΔN ≥ +1 Token",
+    sensitivity: "Mempool / RPC",
+    rationale: "Notifies when creator wallet deploys a subsequent token elsewhere across Robinhood Chain factories.",
   },
 ];
 
 export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("" );
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeWorkflowTab, setActiveWorkflowTab] = useState<number>(0);
+  const [selectedDeltaRow, setSelectedDeltaRow] = useState<string>("DELTA-01");
 
+  // Simulator State
   const [simGraduated, setSimGraduated] = useState<number>(4);
   const [simTotal, setSimTotal] = useState<number>(10);
   const [simDoa, setSimDoa] = useState<number>(1);
@@ -274,7 +276,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
         label: "RELIABLE (GREEN)",
         badgeBg: "bg-[#99F6E4] text-[#042F2E]",
         color: "text-[#99F6E4]",
-        desc: "Low risk. Organic graduation track record with verifiable liquidity permanence.",
+        desc: "Low risk profile. High graduation frequency with verified liquidity permanence.",
       };
     if (calculatedScore >= 40)
       return {
@@ -287,7 +289,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
       label: "HOSTILE (RED)",
       badgeBg: "bg-[#FF6B6B] text-[#042F2E]",
       color: "text-[#FF6B6B]",
-      desc: "Severe risk. High DOA abandonment frequency or serial failure cap enforced.",
+      desc: "High risk. Severe DOA abandonment rate or serial failure penalty enforced.",
     };
   }, [calculatedScore]);
 
@@ -335,7 +337,6 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
         {/* 1. HERO: TACTICAL COMMAND BRIEFING HUD */}
         {/* ========================================================================= */}
         <header className="relative bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#042F2E] overflow-hidden">
-          {/* Subtle grid pattern background */}
           <div className="absolute inset-0 bg-[radial-gradient(#99F6E4_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
           <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
@@ -722,7 +723,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            {/* Left 4 Formulas */}
+            {/* Left 4 Formulas Drafting Table */}
             <div className="lg:col-span-7 bg-[#042F2E] rounded-3xl border-2 border-[#042F2E] p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] space-y-5 flex flex-col justify-between">
               <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-[#064E4A] pb-2">
@@ -767,7 +768,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                     </div>
                     <div className="text-sm font-black text-[#FF6B6B]">min(8 × d, 30)</div>
                     <p className="font-sans text-xs text-[#A7F3D0] leading-snug">
-                      Dead on Arrival penalty docking 8 points per abandoned launch within 10m of genesis.
+                      Dead on Arrival (DOA) penalty docking 8 points per abandoned launch within 10m of genesis.
                     </p>
                   </div>
 
@@ -803,7 +804,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                     </div>
                     <div className="text-sm font-black text-[#C084FC]">If n≥6 ∧ k=0 → ≤25</div>
                     <p className="font-sans text-xs text-[#A7F3D0] leading-snug">
-                      Serial penalty cap ceiling quarantining persistent zero-graduation creators into Hostile Red.
+                      Serial Penalty Cap ceiling quarantining persistent zero-graduation creators into Hostile Red.
                     </p>
                   </div>
                 </div>
@@ -917,7 +918,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
 
 
         {/* ========================================================================= */}
-        {/* 4. SECTION 3: REAL-TIME SURVEILLANCE & DELTA SENSOR MATRIX */}
+        {/* 4. SECTION 3: REAL-TIME SURVEILLANCE & DELTA TELEMETRY MONITOR (TABLE LAYOUT) */}
         {/* ========================================================================= */}
         <section id="delta-engine" className="space-y-6 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
@@ -926,7 +927,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                 SECTION 03 // REAL-TIME SURVEILLANCE
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
-                Since Last Check Delta Methodology
+                Since Last Check Delta Telemetry Monitor
               </h2>
             </div>
             <div className="px-3.5 py-1.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono font-black text-[#99F6E4] shadow-[2px_2px_0px_#042F2E] self-start sm:self-auto">
@@ -934,48 +935,96 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {DELTA_METRICS.map((item) => (
-              <div
-                key={item.code}
-                className="p-5 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all flex flex-col justify-between space-y-4"
-              >
-                <div className="space-y-2.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-mono font-black px-2.5 py-1 rounded-xl bg-[#042F2E] text-[#FFD166] border border-[#042F2E]">
-                      {item.code}
-                    </span>
-                    <span className={`text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] ${item.statusColor}`}>
-                      {item.status}
-                    </span>
-                  </div>
-
-                  <h3 className="text-lg font-black text-[#FFFDF7]">
-                    {item.name}
-                  </h3>
-
-                  <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
-                    {item.rationale}
-                  </p>
-                </div>
-
-                <div className="space-y-2 pt-3 border-t-2 border-[#042F2E]">
-                  <div className="flex items-center justify-between text-[11px] font-mono">
-                    <span className="text-[#A7F3D0]">Sensitivity Threshold:</span>
-                    <span className="font-black text-[#FFD166]">{item.threshold}</span>
-                  </div>
-                  <div className="p-2.5 rounded-xl bg-[#042F2E] border border-[#042F2E] text-xs font-mono text-[#99F6E4] truncate">
-                    {item.condition}
-                  </div>
-                </div>
+          {/* Telemetry Monitor Table Container */}
+          <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-5 sm:p-7 shadow-[8px_8px_0px_#042F2E] space-y-5">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#042F2E] pb-3 text-xs font-mono">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#14B8A6] animate-ping" />
+                <span className="font-black text-[#99F6E4]">SURVEILLANCE SENSOR ARRAY ARMED</span>
               </div>
-            ))}
+              <span className="text-[#A7F3D0]">SELECT A VECTOR TO INSPECT LIVE LOGIC</span>
+            </div>
+
+            {/* Structured Sensor Table */}
+            <div className="overflow-x-auto rounded-2xl border-2 border-[#042F2E] bg-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
+              <table className="w-full text-left font-mono text-xs border-collapse">
+                <thead>
+                  <tr className="bg-[#031E1D] text-[#99F6E4] border-b-2 border-[#042F2E] text-[11px] font-black uppercase">
+                    <th className="py-3 px-4">SENSOR ID</th>
+                    <th className="py-3 px-4">VECTOR</th>
+                    <th className="py-3 px-4">TRIGGER CONDITION</th>
+                    <th className="py-3 px-4">THRESHOLD</th>
+                    <th className="py-3 px-4">SEVERITY</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-[#064E4A]">
+                  {DELTA_TELEMETRY.map((item) => (
+                    <tr
+                      key={item.code}
+                      onClick={() => setSelectedDeltaRow(item.code)}
+                      className={`transition-colors cursor-pointer ${
+                        selectedDeltaRow === item.code
+                          ? "bg-[#064E4A] text-[#FFFDF7]"
+                          : "hover:bg-[#064E4A]/50 text-[#A7F3D0]"
+                      }`}
+                    >
+                      <td className="py-3.5 px-4 font-black text-[#FFD166]">
+                        {item.code}
+                      </td>
+                      <td className="py-3.5 px-4 font-bold text-[#FFFDF7]">
+                        {item.name}
+                        <div className="text-[10px] text-[#A7F3D0] font-normal">{item.vector}</div>
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <span className="bg-[#031E1D] px-2 py-1 rounded-md text-[#99F6E4] border border-[#042F2E]">
+                          {item.condition}
+                        </span>
+                      </td>
+                      <td className="py-3.5 px-4 text-[#FFD166] font-bold">
+                        {item.threshold}
+                      </td>
+                      <td className="py-3.5 px-4">
+                        <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-black border border-[#042F2E] ${item.statusBadge}`}>
+                          {item.status}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* Active Telemetry Detail Banner */}
+            {(() => {
+              const activeSensor = DELTA_TELEMETRY.find((d) => d.code === selectedDeltaRow) || DELTA_TELEMETRY[0];
+              return (
+                <div className="bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl p-4 sm:p-5 shadow-[4px_4px_0px_#042F2E] flex flex-col md:flex-row md:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-mono font-black text-[#FFD166] bg-[#064E4A] px-2 py-0.5 rounded-lg border border-[#042F2E]">
+                        {`${activeSensor.code} // ${activeSensor.name}`}
+                      </span>
+                      <span className="text-[10px] font-mono font-bold text-[#99F6E4]">
+                        SENSITIVITY: {activeSensor.sensitivity}
+                      </span>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                      {activeSensor.rationale}
+                    </p>
+                  </div>
+
+                  <div className="shrink-0 bg-[#064E4A] p-3 rounded-xl border border-[#042F2E] font-mono text-xs text-[#FFD166] font-bold">
+                    Condition: {activeSensor.condition}
+                  </div>
+                </div>
+              );
+            })()}
           </div>
         </section>
 
 
         {/* ========================================================================= */}
-        {/* 5. SECTION 4: CONSTELLATION GRAPH RELATIONAL TOPOLOGY (SYBIL BLUEPRINT) */}
+        {/* 5. SECTION 4: CONSTELLATION GRAPH RELATIONAL TOPOLOGY (BLUEPRINT CANVAS) */}
         {/* ========================================================================= */}
         <section id="graph-topology" className="space-y-6 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
@@ -984,7 +1033,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                 SECTION 04 // SYBIL DETECTION ENGINE
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
-                Constellation Graph Relational Logic
+                Constellation Graph Relational Topology Canvas
               </h2>
             </div>
             <div className="flex items-center gap-2 text-xs font-mono font-black text-[#FFD166] self-start sm:self-auto bg-[#042F2E] px-3.5 py-1.5 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
@@ -993,67 +1042,107 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-            {/* Tier 1 */}
-            <div className="p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all flex flex-col justify-between space-y-4">
+          <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#042F2E] grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* Left 3 Rails */}
+            <div className="lg:col-span-6 space-y-3.5 flex flex-col justify-between">
               <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-black px-3 py-1 rounded-xl bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-                    TIER 1 // 1.00 WEIGHT
+                <div className="flex items-center justify-between border-b border-[#042F2E] pb-2">
+                  <span className="text-xs font-mono font-black text-[#99F6E4] uppercase">
+                    HEURISTIC WEIGHT MATRIX
                   </span>
-                  <span className="text-xs font-mono font-black text-[#99F6E4]">100% CONFIDENCE</span>
+                  <span className="text-[10px] font-mono text-[#A7F3D0]">CONFIDENCE RATIO</span>
                 </div>
-                <h3 className="text-lg font-black text-[#FFFDF7]">01. Deployer Origin Link</h3>
-                <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                  Direct deterministic cryptographic link connecting all token contracts deployed by the exact same Ethereum origin wallet.
-                </p>
-              </div>
 
-              <div className="pt-3 border-t-2 border-[#042F2E] bg-[#042F2E] p-3 rounded-2xl text-xs font-mono text-[#99F6E4] font-black flex items-center justify-between">
-                <span>FORMULA:</span>
-                <span>E_origin(T_i, T_j) = 1.00</span>
+                {/* Tier 1 */}
+                <div className="p-4 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-black text-[#99F6E4]">01. Deployer Origin Link</span>
+                    <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-md bg-[#99F6E4] text-[#042F2E]">
+                      1.00 WEIGHT // 100%
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-snug">
+                    Direct cryptographic link connecting token contracts created by the exact same Ethereum origin address.
+                  </p>
+                </div>
+
+                {/* Tier 2 */}
+                <div className="p-4 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-black text-[#FFD166]">02. Shared Fee Sink</span>
+                    <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-md bg-[#FFD166] text-[#042F2E]">
+                      0.85 WEIGHT // 85%
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-snug">
+                    Uncovers Sybil rings where distinct deployer wallets funnel collected trading fees into a shared recipient address.
+                  </p>
+                </div>
+
+                {/* Tier 3 */}
+                <div className="p-4 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <span className="text-xs font-mono font-black text-[#C084FC]">03. Upstream Dev Funder</span>
+                    <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-md bg-[#C084FC] text-[#042F2E]">
+                      0.70 WEIGHT // 70%
+                    </span>
+                  </div>
+                  <p className="text-xs text-[#A7F3D0] leading-snug">
+                    Traces burner deployers seeded with initial deployment gas from common upstream funding relays.
+                  </p>
+                </div>
               </div>
             </div>
 
-            {/* Tier 2 */}
-            <div className="p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all flex flex-col justify-between space-y-4">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-black px-3 py-1 rounded-xl bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-                    TIER 2 // 0.85 WEIGHT
-                  </span>
-                  <span className="text-xs font-mono font-black text-[#FFD166]">85% CONFIDENCE</span>
+            {/* Right Topology Blueprint Visual Canvas */}
+            <div className="lg:col-span-6 bg-[#031E1D] border-2 border-[#042F2E] rounded-2xl p-5 shadow-[4px_4px_0px_#042F2E] flex flex-col justify-between space-y-4">
+              <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 text-[11px] font-mono">
+                <span className="font-black text-[#99F6E4]">CONSTELLATION TOPOLOGY SIMULATOR</span>
+                <span className="text-[#FFD166]">GRAPH ENGINE ACTIVE</span>
+              </div>
+
+              {/* Node Schematic Canvas */}
+              <div className="relative h-44 sm:h-48 rounded-xl bg-[#042F2E]/60 border border-[#064E4A] flex items-center justify-around px-4">
+                {/* Node 1 */}
+                <div className="text-center space-y-1">
+                  <div className="w-10 h-10 rounded-xl bg-[#99F6E4] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] text-[#042F2E] font-mono font-black text-xs flex items-center justify-center mx-auto">
+                    D1
+                  </div>
+                  <div className="text-[10px] font-mono text-[#99F6E4]">Deployer A</div>
                 </div>
-                <h3 className="text-lg font-black text-[#FFFDF7]">02. Shared Fee Sink</h3>
-                <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                  Detects Sybil clusters where seemingly separate deployer wallets funnel collected trading fees into a common recipient sink address.
-                </p>
-              </div>
 
-              <div className="pt-3 border-t-2 border-[#042F2E] bg-[#042F2E] p-3 rounded-2xl text-xs font-mono text-[#FFD166] font-black flex items-center justify-between">
-                <span>FORMULA:</span>
-                <span>E_fee(D_a, D_b) = 0.85</span>
-              </div>
-            </div>
-
-            {/* Tier 3 */}
-            <div className="p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all flex flex-col justify-between space-y-4">
-              <div className="space-y-3">
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-mono font-black px-3 py-1 rounded-xl bg-[#C084FC] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-                    TIER 3 // 0.70 WEIGHT
-                  </span>
-                  <span className="text-xs font-mono font-black text-[#C084FC]">70% CONFIDENCE</span>
+                {/* Arrow 1 */}
+                <div className="text-center font-mono text-[10px] text-[#FFD166]">
+                  <span className="block border-t-2 border-dashed border-[#FFD166] w-12 sm:w-16 my-1" />
+                  <span>Fee Sink</span>
                 </div>
-                <h3 className="text-lg font-black text-[#FFFDF7]">03. Upstream Dev Funder</h3>
-                <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                  Traces burner deployers seeded with initial deployment gas from a common upstream deposit wallet or funding relay.
-                </p>
+
+                {/* Center Hub */}
+                <div className="text-center space-y-1">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FFD166] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] text-[#042F2E] font-mono font-black text-xs flex items-center justify-center mx-auto">
+                    0x89e
+                  </div>
+                  <div className="text-[10px] font-mono text-[#FFD166] font-bold">Sink Hub</div>
+                </div>
+
+                {/* Arrow 2 */}
+                <div className="text-center font-mono text-[10px] text-[#C084FC]">
+                  <span className="block border-t-2 border-dashed border-[#C084FC] w-12 sm:w-16 my-1" />
+                  <span>Sybil Link</span>
+                </div>
+
+                {/* Node 2 */}
+                <div className="text-center space-y-1">
+                  <div className="w-10 h-10 rounded-xl bg-[#C084FC] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] text-[#042F2E] font-mono font-black text-xs flex items-center justify-center mx-auto">
+                    D2
+                  </div>
+                  <div className="text-[10px] font-mono text-[#C084FC]">Deployer B</div>
+                </div>
               </div>
 
-              <div className="pt-3 border-t-2 border-[#042F2E] bg-[#042F2E] p-3 rounded-2xl text-xs font-mono text-[#C084FC] font-black flex items-center justify-between">
-                <span>FORMULA:</span>
-                <span>E_funder(W_1, W_2) = 0.70</span>
+              <div className="text-[11px] font-mono text-[#A7F3D0] bg-[#042F2E] p-2.5 rounded-xl border border-[#064E4A] flex items-center justify-between">
+                <span>DETECTED CLUSTERS:</span>
+                <span className="text-[#FFD166] font-bold">1 SYBIL RING (85% SIMILARITY)</span>
               </div>
             </div>
           </div>
@@ -1061,7 +1150,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
 
 
         {/* ========================================================================= */}
-        {/* 6. SECTION 5: ON-CHAIN GLOSSARY & RESEARCH LEXICON */}
+        {/* 6. SECTION 5: ON-CHAIN GLOSSARY & RESEARCH LEXICON (DIRECTORY LEDGER) */}
         {/* ========================================================================= */}
         <section id="glossary-math" className="space-y-6 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
@@ -1070,7 +1159,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                 SECTION 05 // RESEARCH LEXICON
               </span>
               <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
-                On-Chain Glossary &amp; Taxonomy
+                On-Chain Glossary &amp; Taxonomy Directory
               </h2>
             </div>
             <div className="text-xs font-mono font-black text-[#A7F3D0] bg-[#042F2E] px-3.5 py-1.5 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
@@ -1114,44 +1203,43 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             </div>
           </div>
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
+          {/* Directory Ledger Entries */}
+          <div className="space-y-4">
             {filteredGlossary.map((item) => (
               <div
                 key={item.term}
-                className="p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all flex flex-col justify-between space-y-4"
+                className="p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all space-y-3.5"
               >
-                <div className="space-y-3">
-                  <div className="flex items-center justify-between gap-2">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#042F2E] pb-2.5">
+                  <div className="flex items-center gap-2.5">
                     <span className="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-lg bg-[#042F2E] text-[#99F6E4] border border-[#042F2E]">
                       {item.badge}
                     </span>
-                    <span className="text-[10px] font-mono font-bold text-[#A7F3D0] uppercase tracking-wider truncate">
-                      {item.categoryLabel}
-                    </span>
+                    <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
+                      {item.term}
+                    </h3>
                   </div>
-
-                  <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-                    {item.term}
-                  </h3>
-
-                  {item.formula && (
-                    <div className="p-2.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-between text-xs font-mono text-[#FFD166]">
-                      <span className="truncate">{item.formula}</span>
-                      <button
-                        onClick={() => handleCopy(item.formula!, item.id)}
-                        className="p-1 hover:text-[#FFFDF7] text-[#99F6E4] transition-colors cursor-pointer shrink-0 ml-2 bg-[#064E4A] rounded-lg border border-[#042F2E]"
-                        title="Copy formula"
-                      >
-                        {copiedKey === item.id ? <IconCheck size={12} /> : <IconClipboard size={12} />}
-                      </button>
-                    </div>
-                  )}
-
-                  <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                    {item.definition}
-                  </p>
+                  <span className="text-[10px] font-mono font-bold text-[#A7F3D0] uppercase tracking-wider">
+                    {item.categoryLabel}
+                  </span>
                 </div>
+
+                {item.formula && (
+                  <div className="p-2.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-between text-xs font-mono text-[#FFD166]">
+                    <span className="truncate">{item.formula}</span>
+                    <button
+                      onClick={() => handleCopy(item.formula!, item.id)}
+                      className="p-1 hover:text-[#FFFDF7] text-[#99F6E4] transition-colors cursor-pointer shrink-0 ml-2 bg-[#064E4A] rounded-lg border border-[#042F2E]"
+                      title="Copy formula"
+                    >
+                      {copiedKey === item.id ? <IconCheck size={12} /> : <IconClipboard size={12} />}
+                    </button>
+                  </div>
+                )}
+
+                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
+                  {item.definition}
+                </p>
 
                 <div className="p-3 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono flex flex-col sm:flex-row sm:items-center gap-1.5">
                   <span className="font-black text-[#FFD166] shrink-0">IMPLICATION:</span>
