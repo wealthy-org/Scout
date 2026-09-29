@@ -301,10 +301,10 @@ export function LandingClient({
 
         <section className="space-y-6 sm:space-y-8">
           <div className="text-center space-y-3 max-w-2xl mx-auto px-2">
-            <span className="px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#99F6E4]/20 border border-[#99F6E4]/40 text-[#99F6E4]">
+            <span className="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] inline-block">
               Ecosystem Modules
             </span>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#FFFDF7] tracking-tight">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#FFFDF7] tracking-tight leading-tight">
               Built For Advanced On-Chain Surveillance
             </h2>
             <p className="text-sm sm:text-base text-[#A7F3D0]">
@@ -315,106 +315,145 @@ export function LandingClient({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
             <Link
               href="/census"
-              className="relative rounded-[36px] bg-gradient-to-b from-[#064E4A] via-[#083835] to-[#042F2E] border border-[rgba(153,246,228,0.25)] shadow-[0_20px_50px_rgba(4,47,46,0.6)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(6,78,74,0.6)] transition-all duration-300 group"
+              className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer space-y-6"
             >
-              <div className="absolute inset-0 overflow-hidden">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] bg-[#042F2E]">
                 <Image
                   src="/images/card-reputation-shield.jpg"
                   alt="Scout Reputation Scoring Engine"
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-35"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#042F2E] via-[#064E4A]/80 to-transparent" />
+                <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#99F6E4] text-[#042F2E] border border-[#042F2E] font-black text-[10px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
+                  <IconShield size={12} />
+                  <span>REPUTATION CORE</span>
+                </div>
               </div>
 
-              <div className="relative z-10 space-y-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4]">
-                  <IconShield size={20} />
+              <div className="space-y-3 flex-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#99F6E4] tracking-widest bg-[#99F6E4]/15 px-2.5 py-1 rounded-md border border-[#99F6E4]/30">
+                    BAYESIAN ENGINE
+                  </span>
+                  <div className="w-8 h-8 rounded-xl bg-[#99F6E4] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
+                    <IconShield size={16} />
+                  </div>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#99F6E4] transition-colors">
+                <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#99F6E4] transition-colors leading-snug">
                   What Deployer Scoring Unlocks
                 </h3>
                 <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
                   Identify repeat ruggers before you swap. Laplace-smoothed Bayesian reputation engines audit creator launch histories and graduation rates.
                 </p>
-                <div className="pt-2 flex items-center gap-2 text-xs font-bold text-[#FFD166] group-hover:translate-x-1 transition-transform">
+              </div>
+
+              <div className="pt-2">
+                <div className="w-full py-2.5 px-4 rounded-full bg-[#99F6E4] hover:bg-[#5EEAD4] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
                   <span>Explore Scoring Engine</span>
-                  <IconArrowRight size={14} />
+                  <span className="w-5 h-5 rounded-full bg-[#042F2E] text-[#99F6E4] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                    <IconArrowRight size={10} />
+                  </span>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/feed"
-              className="relative rounded-[36px] bg-gradient-to-b from-[#064E4A] via-[#083835] to-[#042F2E] border border-[rgba(153,246,228,0.25)] shadow-[0_20px_50px_rgba(4,47,46,0.6)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(6,78,74,0.6)] transition-all duration-300 group"
+              className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer space-y-6"
             >
-              <div className="absolute inset-0 overflow-hidden">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] bg-[#042F2E]">
                 <Image
                   src="/images/card-surveillance-radar.jpg"
                   alt="Scout Surveillance Stream"
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-35"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#042F2E] via-[#064E4A]/80 to-transparent" />
+                <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-black text-[10px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
+                  <IconRadar size={12} />
+                  <span>LIVE RADAR</span>
+                </div>
               </div>
 
-              <div className="relative z-10 space-y-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#FFD166]/20 border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166]">
-                  <IconRadar size={20} />
+              <div className="space-y-3 flex-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#FFD166] tracking-widest bg-[#FFD166]/15 px-2.5 py-1 rounded-md border border-[#FFD166]/30">
+                    SUB-SECOND RPC
+                  </span>
+                  <div className="w-8 h-8 rounded-xl bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
+                    <IconRadar size={16} />
+                  </div>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#FFD166] transition-colors">
+                <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#FFD166] transition-colors leading-snug">
                   Sub-Second Surveillance Stream
                 </h3>
                 <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
                   Stream every token creation and swap with zero lag. Monitor graduation velocity, bonding curve progress, and high-frequency trade tape in real time.
                 </p>
-                <div className="pt-2 flex items-center gap-2 text-xs font-bold text-[#FFD166] group-hover:translate-x-1 transition-transform">
+              </div>
+
+              <div className="pt-2">
+                <div className="w-full py-2.5 px-4 rounded-full bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
                   <span>Open Surveillance Feed</span>
-                  <IconArrowRight size={14} />
+                  <span className="w-5 h-5 rounded-full bg-[#042F2E] text-[#FFD166] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                    <IconArrowRight size={10} />
+                  </span>
                 </div>
               </div>
             </Link>
 
             <Link
               href="/map"
-              className="relative rounded-[36px] bg-gradient-to-b from-[#064E4A] via-[#083835] to-[#042F2E] border border-[rgba(153,246,228,0.25)] shadow-[0_20px_50px_rgba(4,47,46,0.6)] p-7 sm:p-8 flex flex-col justify-end overflow-hidden min-h-[480px] sm:min-h-[520px] hover:-translate-y-2 hover:shadow-[0_25px_60px_rgba(6,78,74,0.6)] transition-all duration-300 group"
+              className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-5 sm:p-6 flex flex-col justify-between overflow-hidden transition-all duration-200 cursor-pointer space-y-6"
             >
-              <div className="absolute inset-0 overflow-hidden">
+              <div className="relative w-full aspect-[16/10] rounded-2xl overflow-hidden border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] bg-[#042F2E]">
                 <Image
                   src="/images/card-constellation-graph.jpg"
                   alt="Scout Constellation Graph"
                   fill
-                  className="object-cover object-center group-hover:scale-105 transition-transform duration-700 opacity-35"
+                  className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
                   sizes="(max-width: 768px) 100vw, 33vw"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#042F2E] via-[#064E4A]/80 to-transparent" />
+                <div className="absolute top-2.5 left-2.5 px-2.5 py-1 rounded-full bg-[#C084FC] text-[#042F2E] border border-[#042F2E] font-black text-[10px] tracking-wider uppercase shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
+                  <IconGraph size={12} />
+                  <span>NETWORK GRAPH</span>
+                </div>
               </div>
 
-              <div className="relative z-10 space-y-3">
-                <div className="w-10 h-10 rounded-2xl bg-[#C084FC]/20 border border-[#C084FC]/40 flex items-center justify-center text-[#C084FC]">
-                  <IconGraph size={20} />
+              <div className="space-y-3 flex-1">
+                <div className="flex items-center justify-between">
+                  <span className="text-[10px] font-mono font-bold uppercase text-[#C084FC] tracking-widest bg-[#C084FC]/15 px-2.5 py-1 rounded-md border border-[#C084FC]/30">
+                    TOPOLOGY MAP
+                  </span>
+                  <div className="w-8 h-8 rounded-xl bg-[#C084FC] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
+                    <IconGraph size={16} />
+                  </div>
                 </div>
-                <h3 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#C084FC] transition-colors">
+                <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight group-hover:text-[#C084FC] transition-colors leading-snug">
                   Constellation Network Topology
                 </h3>
                 <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
                   Map shared funding sources and deployer constellations. Uncover hidden co-developer relationships and multi-wallet clusters with visual graph topology.
                 </p>
-                <div className="pt-2 flex items-center gap-2 text-xs font-bold text-[#FFD166] group-hover:translate-x-1 transition-transform">
+              </div>
+
+              <div className="pt-2">
+                <div className="w-full py-2.5 px-4 rounded-full bg-[#C084FC] hover:bg-[#A855F7] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shadow-[3px_3px_0px_#042F2E] flex items-center justify-between transition-colors">
                   <span>View Interactive Graph</span>
-                  <IconArrowRight size={14} />
+                  <span className="w-5 h-5 rounded-full bg-[#042F2E] text-[#C084FC] flex items-center justify-center group-hover:translate-x-0.5 transition-transform">
+                    <IconArrowRight size={10} />
+                  </span>
                 </div>
               </div>
             </Link>
           </div>
         </section>
 
-        <section className="relative rounded-[36px] sm:rounded-[44px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] shadow-[0_25px_60px_rgba(4,47,46,0.7)] p-8 sm:p-12 lg:p-14 overflow-hidden">
+        <section className="relative rounded-3xl sm:rounded-[36px] bg-[#064E4A] border-2 border-[#042F2E] shadow-[8px_8px_0px_#042F2E] p-6 sm:p-10 lg:p-12 overflow-hidden space-y-8">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-10 lg:gap-14">
             <div className="space-y-6 max-w-xl text-left z-10">
-              <span className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-widest bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] inline-block">
+              <span className="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] inline-block">
                 Autonomous Intelligence Core
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#FFFDF7] tracking-tight leading-tight">
@@ -437,7 +476,7 @@ export function LandingClient({
             </div>
 
             <div className="relative w-full max-w-[340px] sm:max-w-[420px] aspect-square flex items-center justify-center shrink-0">
-              <div className="relative w-full h-full rounded-3xl overflow-hidden border border-[rgba(153,246,228,0.3)] shadow-[0_20px_50px_rgba(0,0,0,0.4)]">
+              <div className="relative w-full h-full rounded-2xl overflow-hidden border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] bg-[#042F2E]">
                 <Image
                   src="/images/banner-intelligence-core.jpg"
                   alt="Scout Protocol 3D Intelligence Core Terminal"
@@ -449,28 +488,39 @@ export function LandingClient({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-10 mt-10 border-t border-[rgba(153,246,228,0.2)]">
-            <div className="space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
-                Scout Indexed Launches
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6 pt-6 border-t-2 border-[#042F2E]">
+            <div className="bg-[#042F2E] p-4 sm:p-5 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2 hover:border-[#4ADE80] transition-all">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80] shadow-[0_0_8px_#4ADE80]" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#4ADE80]">
+                  Scout Indexed Launches
+                </span>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-[#FFFDF7]">
+              <div className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
                 {stats.total_launches > 0 ? stats.total_launches.toLocaleString() : "1,420"}
               </div>
             </div>
-            <div className="space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
-                Tracked Creators
+
+            <div className="bg-[#042F2E] p-4 sm:p-5 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2 hover:border-[#38BDF8] transition-all">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#38BDF8] shadow-[0_0_8px_#38BDF8]" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#38BDF8]">
+                  Tracked Creators
+                </span>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-[#99F6E4]">
+              <div className="text-2xl sm:text-3xl font-black text-[#99F6E4] tracking-tight">
                 {stats.unique_deployers > 0 ? stats.unique_deployers.toLocaleString() : "864"}
               </div>
             </div>
-            <div className="space-y-1">
-              <div className="text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
-                Repeat Share Rate
+
+            <div className="bg-[#042F2E] p-4 sm:p-5 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2 hover:border-[#FFD166] transition-all">
+              <div className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-[#FFD166] shadow-[0_0_8px_#FFD166]" />
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#FFD166]">
+                  Repeat Share Rate
+                </span>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-[#FFD166]">
+              <div className="text-2xl sm:text-3xl font-black text-[#FFD166] tracking-tight">
                 {`${stats.repeat_share > 0 ? stats.repeat_share : 28.5}%`}
               </div>
             </div>
@@ -479,7 +529,7 @@ export function LandingClient({
 
         <section className="space-y-8">
           <div className="text-center space-y-3 max-w-2xl mx-auto px-2">
-            <span className="px-3.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] inline-block">
+            <span className="px-4 py-1.5 rounded-full text-xs font-black uppercase tracking-widest bg-[#FF6B6B] text-[#FFFDF7] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] inline-block">
               Investigation Workflow
             </span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-[#FFFDF7] tracking-tight">
@@ -490,100 +540,136 @@ export function LandingClient({
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-            <div className="tosca-surface-deep rounded-3xl p-6 sm:p-7 space-y-4 hover:-translate-y-1.5 transition-all shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
+            <div className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-6 sm:p-7 flex flex-col justify-between space-y-5 transition-all duration-200">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-[#042F2E] px-2.5 py-1 rounded-full bg-[#99F6E4] border border-[#042F2E]">
+                <span className="text-xs font-black text-[#042F2E] px-3 py-1 rounded-full bg-[#99F6E4] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
                   01
                 </span>
-                <div className="w-8 h-8 rounded-xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4]">
-                  <IconSearch size={16} />
+                <div className="w-9 h-9 rounded-xl bg-[#99F6E4] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
+                  <IconSearch size={18} />
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-[#FFFDF7]">Investigate</h3>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                Paste any token contract address to pull instant Laplace reputation score and historical launch data.
-              </p>
+              <div className="space-y-2">
+                <h3 className="text-xl font-black text-[#FFFDF7] group-hover:text-[#99F6E4] transition-colors">
+                  Investigate
+                </h3>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Paste any token contract address to pull instant Laplace reputation score and historical launch data.
+                </p>
+              </div>
+              <div className="pt-2">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#99F6E4]/15 text-[#99F6E4] border border-[#99F6E4]/30">
+                  <span>01 // Omnisearch CA</span>
+                </span>
+              </div>
             </div>
 
-            <div className="tosca-surface-deep rounded-3xl p-6 sm:p-7 space-y-4 hover:-translate-y-1.5 transition-all shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)]">
+            <div className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-6 sm:p-7 flex flex-col justify-between space-y-5 transition-all duration-200">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-[#042F2E] px-2.5 py-1 rounded-full bg-[#FFD166] border border-[#042F2E]">
+                <span className="text-xs font-black text-[#042F2E] px-3 py-1 rounded-full bg-[#FFD166] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
                   02
                 </span>
-                <div className="w-8 h-8 rounded-xl bg-[#FFD166]/20 border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166]">
-                  <IconCensus size={16} />
+                <div className="w-9 h-9 rounded-xl bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
+                  <IconCensus size={18} />
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-[#FFFDF7]">Score</h3>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                Review automated Bayesian risk bands (Green, Yellow, Red) and serial creator history.
-              </p>
+              <div className="space-y-2">
+                <h3 className="text-xl font-black text-[#FFFDF7] group-hover:text-[#FFD166] transition-colors">
+                  Score
+                </h3>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Review automated Bayesian risk bands (Green, Yellow, Red) and serial creator history.
+                </p>
+              </div>
+              <div className="pt-2">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#FFD166]/15 text-[#FFD166] border border-[#FFD166]/30">
+                  <span>02 // Laplace 0-100</span>
+                </span>
+              </div>
             </div>
 
-            <div className="tosca-surface-deep rounded-3xl p-6 sm:p-7 space-y-4 hover:-translate-y-1.5 transition-all shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)]">
+            <div className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-6 sm:p-7 flex flex-col justify-between space-y-5 transition-all duration-200">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-[#042F2E] px-2.5 py-1 rounded-full bg-[#C084FC] border border-[#042F2E]">
+                <span className="text-xs font-black text-[#042F2E] px-3 py-1 rounded-full bg-[#C084FC] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
                   03
                 </span>
-                <div className="w-8 h-8 rounded-xl bg-[#C084FC]/20 border border-[#C084FC]/40 flex items-center justify-center text-[#C084FC]">
-                  <IconTarget size={16} />
+                <div className="w-9 h-9 rounded-xl bg-[#C084FC] text-[#042F2E] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
+                  <IconTarget size={18} />
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-[#FFFDF7]">Track</h3>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                Add suspicious or trusted deployers to your watchlist for automated surveillance and alert pings.
-              </p>
+              <div className="space-y-2">
+                <h3 className="text-xl font-black text-[#FFFDF7] group-hover:text-[#C084FC] transition-colors">
+                  Track
+                </h3>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Add suspicious or trusted deployers to your watchlist for automated surveillance and alert pings.
+                </p>
+              </div>
+              <div className="pt-2">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#C084FC]/15 text-[#C084FC] border border-[#C084FC]/30">
+                  <span>03 // Live Watchlist</span>
+                </span>
+              </div>
             </div>
 
-            <div className="tosca-surface-deep rounded-3xl p-6 sm:p-7 space-y-4 hover:-translate-y-1.5 transition-all shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)]">
+            <div className="group relative rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] p-6 sm:p-7 flex flex-col justify-between space-y-5 transition-all duration-200">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-[#042F2E] px-2.5 py-1 rounded-full bg-[#99F6E4] border border-[#042F2E]">
+                <span className="text-xs font-black text-[#FFFDF7] px-3 py-1 rounded-full bg-[#FF6B6B] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
                   04
                 </span>
-                <div className="w-8 h-8 rounded-xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4]">
-                  <IconLink size={16} />
+                <div className="w-9 h-9 rounded-xl bg-[#FF6B6B] text-[#FFFDF7] border border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center">
+                  <IconLink size={18} />
                 </div>
               </div>
-              <h3 className="text-lg font-bold text-[#FFFDF7]">Publish</h3>
-              <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                Generate permanent, shareable case file snapshots with author attribution and instant link revocation.
-              </p>
+              <div className="space-y-2">
+                <h3 className="text-xl font-black text-[#FFFDF7] group-hover:text-[#FF6B6B] transition-colors">
+                  Publish
+                </h3>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Generate permanent, shareable case file snapshots with author attribution and instant link revocation.
+                </p>
+              </div>
+              <div className="pt-2">
+                <span className="inline-flex items-center gap-1.5 text-[10px] font-mono font-bold px-2.5 py-1 rounded-full bg-[#FF6B6B]/15 text-[#FF6B6B] border border-[#FF6B6B]/30">
+                  <span>04 // Public Snapshot</span>
+                </span>
+              </div>
             </div>
           </div>
         </section>
 
-        <footer className="border-t border-[rgba(153,246,228,0.25)] pt-10 sm:pt-14 pb-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#A7F3D0]">
+        <footer className="border-t-2 border-[#042F2E] pt-10 sm:pt-14 pb-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-[#A7F3D0]">
           <div className="space-y-2 text-center md:text-left">
             <div className="flex items-center justify-center md:justify-start gap-2">
-              <div className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse" />
-              <span className="font-bold uppercase tracking-wider text-[#FFFDF7]">
+              <div className="w-2.5 h-2.5 rounded-full bg-[#4ADE80] shadow-[0_0_8px_#4ADE80] animate-pulse" />
+              <span className="font-black uppercase tracking-wider text-[#FFFDF7]">
                 Scout // Dossier.OS
               </span>
             </div>
             <div className="text-[#A7F3D0]">Autonomous On-Chain Intelligence Architecture for Robinhood Chain.</div>
           </div>
 
-          <div className="flex flex-wrap justify-center items-center gap-4 sm:gap-6 font-semibold uppercase text-xs">
-            <Link href="/feed" className="hover:text-[#FFD166] transition-colors">
+          <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3 font-bold uppercase text-xs">
+            <Link href="/feed" className="px-3 py-1.5 rounded-full bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#042F2E] hover:shadow-[2px_2px_0px_#042F2E] transition-all">
               Feed
             </Link>
-            <Link href="/library" className="hover:text-[#FFD166] transition-colors">
+            <Link href="/library" className="px-3 py-1.5 rounded-full bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#042F2E] hover:shadow-[2px_2px_0px_#042F2E] transition-all">
               Library
             </Link>
-            <Link href="/map" className="hover:text-[#FFD166] transition-colors">
+            <Link href="/map" className="px-3 py-1.5 rounded-full bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#042F2E] hover:shadow-[2px_2px_0px_#042F2E] transition-all">
               Map
             </Link>
-            <Link href="/watchlist" className="hover:text-[#FFD166] transition-colors">
+            <Link href="/watchlist" className="px-3 py-1.5 rounded-full bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#042F2E] hover:shadow-[2px_2px_0px_#042F2E] transition-all">
               Watchlist
             </Link>
-            <Link href="/census" className="hover:text-[#FFD166] transition-colors">
+            <Link href="/census" className="px-3 py-1.5 rounded-full bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#042F2E] hover:shadow-[2px_2px_0px_#042F2E] transition-all">
               Census
             </Link>
-            <Link href="/how" className="hover:text-[#FFD166] transition-colors">
+            <Link href="/how" className="px-3 py-1.5 rounded-full bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#042F2E] hover:shadow-[2px_2px_0px_#042F2E] transition-all">
               How
             </Link>
-            <Link href="/docs" className="hover:text-[#FFD166] transition-colors">
+            <Link href="/docs" className="px-3 py-1.5 rounded-full bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border border-[rgba(153,246,228,0.2)] hover:border-[#042F2E] hover:shadow-[2px_2px_0px_#042F2E] transition-all">
               Docs
             </Link>
           </div>
@@ -592,3 +678,4 @@ export function LandingClient({
     </div>
   );
 }
+
