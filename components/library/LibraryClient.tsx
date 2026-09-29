@@ -168,11 +168,11 @@ export function LibraryClient({
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 relative z-10 space-y-6 sm:space-y-8">
-        <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.25)] pb-6">
+        <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#042F2E] pb-6">
           <div>
             <div className="flex flex-wrap items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold text-[#FFFDF7] tracking-tight">Case Files Library</h1>
-              <span className="text-[11px] px-3 py-1 rounded-full bg-[#99F6E4]/20 border border-[#99F6E4]/40 text-[#99F6E4] font-semibold tracking-wide">
+              <h1 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">Case Files Library</h1>
+              <span className="text-[11px] px-3 py-1 rounded-full bg-[#99F6E4] border-2 border-[#042F2E] text-[#042F2E] font-black tracking-wide shadow-[2px_2px_0px_#042F2E]">
                 {`${filteredDossiers.length} of ${dossiers.length} CASE FILES`}
               </span>
             </div>
@@ -186,7 +186,7 @@ export function LibraryClient({
               <button
                 type="button"
                 onClick={() => setIsImportModalOpen(true)}
-                className="px-4 py-2 rounded-xl bg-[#064E4A] text-[#FFFDF7] font-semibold text-xs border border-[rgba(153,246,228,0.25)] hover:bg-[#083835] transition-all duration-200"
+                className="px-4 py-2.5 rounded-xl bg-[#064E4A] text-[#FFFDF7] font-bold text-xs border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] hover:bg-[#083835] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
               >
                 Import JSON
               </button>
@@ -194,7 +194,7 @@ export function LibraryClient({
               <a
                 href="/api/library/export"
                 download
-                className="px-4 py-2 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] font-bold text-xs uppercase tracking-wider border-[1.5px] border-[#042F2E] shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200"
+                className="px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] font-black text-xs uppercase tracking-wider border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200"
               >
                 Export All
               </a>
@@ -203,62 +203,62 @@ export function LibraryClient({
         </div>
 
         {!isAuthenticated ? (
-          <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-8 sm:p-14 text-center space-y-4 shadow-[0_20px_50px_rgba(4,47,46,0.5)] backdrop-blur-xl max-w-xl mx-auto my-8 sm:my-16">
-            <div className="w-14 h-14 rounded-2xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center mx-auto text-[#99F6E4] shadow-[0_0_20px_rgba(153,246,228,0.3)]">
+          <div className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-8 sm:p-14 text-center space-y-4 shadow-[6px_6px_0px_#042F2E] max-w-xl mx-auto my-8 sm:my-16">
+            <div className="w-14 h-14 rounded-2xl bg-[#99F6E4] border-2 border-[#042F2E] flex items-center justify-center mx-auto text-[#042F2E] shadow-[3px_3px_0px_#042F2E]">
               <IconLock size={26} />
             </div>
-            <h2 className="text-lg sm:text-xl font-bold text-[#FFFDF7] tracking-tight">Authentication Required</h2>
+            <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">Authentication Required</h2>
             <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
               Connect your Ethereum wallet using Sign-In with Ethereum (SIWE) to access, manage, and research private case files in your personal library.
             </p>
-              <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
-                <button
-                  type="button"
-                  onClick={openModal}
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all cursor-pointer"
-                >
-                  <IconWallet size={14} />
-                  <span>Connect Wallet</span>
-                </button>
-                <Link
-                  href="/feed"
-                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 text-[#99F6E4] hover:text-[#FFFDF7] border border-[rgba(153,246,228,0.25)] font-bold text-xs uppercase tracking-wider transition-all"
-                >
-                  <span>Browse Public Launch Feed</span>
-                  <IconArrowRight size={14} />
-                </Link>
-              </div>
+            <div className="pt-3 flex flex-wrap items-center justify-center gap-3">
+              <button
+                type="button"
+                onClick={openModal}
+                className="inline-flex items-center gap-1.5 px-6 py-3 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
+              >
+                <IconWallet size={14} />
+                <span>Connect Wallet</span>
+              </button>
+              <Link
+                href="/feed"
+                className="inline-flex items-center gap-1.5 px-5 py-3 rounded-xl bg-[#042F2E] hover:bg-[#083835] text-[#99F6E4] hover:text-[#FFFDF7] border-2 border-[#042F2E] font-black text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] transition-all"
+              >
+                <span>Browse Public Launch Feed</span>
+                <IconArrowRight size={14} />
+              </Link>
+            </div>
           </div>
         ) : (
           <div className="space-y-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5">
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#FFD166]/30 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-[#FFD166] uppercase tracking-wider mb-1">Watching</div>
-                <div className="text-2xl sm:text-3xl font-black text-[#FFD166]">{statsCount.watching}</div>
+              <div className="rounded-3xl p-5 sm:p-6 bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
+                <div className="text-[11px] font-black text-[#FFD166] uppercase tracking-wider mb-1">Watching</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#FFD166] font-mono">{statsCount.watching}</div>
               </div>
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#38BDF8]/30 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-[#38BDF8] uppercase tracking-wider mb-1">Researching</div>
-                <div className="text-2xl sm:text-3xl font-black text-[#99F6E4]">{statsCount.researching}</div>
+              <div className="rounded-3xl p-5 sm:p-6 bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
+                <div className="text-[11px] font-black text-[#38BDF8] uppercase tracking-wider mb-1">Researching</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#99F6E4] font-mono">{statsCount.researching}</div>
               </div>
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#4ADE80]/30 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-[#4ADE80] uppercase tracking-wider mb-1">In Position</div>
-                <div className="text-2xl sm:text-3xl font-black text-[#4ADE80]">{statsCount.inPosition}</div>
+              <div className="rounded-3xl p-5 sm:p-6 bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
+                <div className="text-[11px] font-black text-[#4ADE80] uppercase tracking-wider mb-1">In Position</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#4ADE80] font-mono">{statsCount.inPosition}</div>
               </div>
-              <div className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[#FB7185]/30 shadow-sm backdrop-blur-xl">
-                <div className="text-[11px] font-semibold text-[#FB7185] uppercase tracking-wider mb-1">Passed</div>
-                <div className="text-2xl sm:text-3xl font-black text-[#FB7185]">{statsCount.passed}</div>
+              <div className="rounded-3xl p-5 sm:p-6 bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all">
+                <div className="text-[11px] font-black text-[#FB7185] uppercase tracking-wider mb-1">Passed</div>
+                <div className="text-2xl sm:text-3xl font-black text-[#FB7185] font-mono">{statsCount.passed}</div>
               </div>
             </div>
 
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] p-3 sm:p-4 rounded-2xl shadow-md backdrop-blur-xl">
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 bg-[#064E4A] border-2 border-[#042F2E] p-4 sm:p-5 rounded-3xl shadow-[6px_6px_0px_#042F2E]">
               <div className="flex flex-wrap items-center gap-2">
                 <button
                   type="button"
                   onClick={() => setSelectedStatus("ALL")}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-200 cursor-pointer ${
                     selectedStatus === "ALL"
-                      ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
-                      : "bg-[#042F2E]/60 text-[#A7F3D0] border border-[rgba(153,246,228,0.2)] hover:text-[#FFFDF7]"
+                      ? "bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
+                      : "bg-[#042F2E] text-[#A7F3D0] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:text-[#FFFDF7]"
                   }`}
                 >
                   All ({dossiers.length})
@@ -271,10 +271,10 @@ export function LibraryClient({
                       key={st}
                       type="button"
                       onClick={() => setSelectedStatus(st)}
-                      className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-all duration-200 ${
+                      className={`px-4 py-2 rounded-full text-xs font-black transition-all duration-200 cursor-pointer ${
                         isActive
-                          ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold shadow-[2px_2px_0px_#042F2E]"
-                          : "bg-[#042F2E]/60 text-[#A7F3D0] border border-[rgba(153,246,228,0.2)] hover:text-[#FFFDF7]"
+                          ? "bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
+                          : "bg-[#042F2E] text-[#A7F3D0] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:text-[#FFFDF7]"
                       }`}
                     >
                       {st}
@@ -289,15 +289,15 @@ export function LibraryClient({
                   placeholder="Filter symbol, name, CA..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-xl px-3.5 py-2 text-xs text-[#FFFDF7] placeholder-[#A7F3D0]/50 focus:outline-hidden focus:border-[#FFD166] transition-colors"
+                  className="w-full bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] rounded-xl px-4 py-2 text-xs text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-hidden focus:border-[#FFD166] transition-colors font-mono"
                 />
               </div>
             </div>
 
             {filteredDossiers.length === 0 ? (
-              <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/80 p-8 sm:p-12 text-center space-y-3 backdrop-blur-xl">
-                <div className="text-sm font-bold uppercase text-[#A7F3D0]">No Case Files Found</div>
-                <p className="text-xs text-[#A7F3D0]/80 max-w-md mx-auto">
+              <div className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-8 sm:p-14 text-center space-y-3 shadow-[6px_6px_0px_#042F2E]">
+                <div className="text-sm font-black uppercase text-[#FFFDF7]">No Case Files Found</div>
+                <p className="text-xs text-[#A7F3D0] max-w-md mx-auto">
                   {searchQuery || selectedStatus !== "ALL"
                     ? "No dossier matches your search filter criteria. Try selecting another status or clearing the search text."
                     : "You haven't opened any research dossiers yet. Search a token contract address above to open your first case file."}
@@ -305,7 +305,7 @@ export function LibraryClient({
                 {dossiers.length === 0 && (
                   <Link
                     href="/feed"
-                    className="inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-bold text-xs shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] transition-all"
+                    className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                   >
                     <span>Browse Launch Feed</span>
                     <IconArrowRight size={13} />
@@ -322,60 +322,60 @@ export function LibraryClient({
 
                   const statusColor =
                     item.status === "In position"
-                      ? "bg-[#064E4A] border-[#86EFAC] text-[#4ADE80]"
+                      ? "bg-[#4ADE80] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                       : item.status === "Passed"
-                      ? "bg-[#881337] border-[#FFE4E6] text-[#FB7185]"
+                      ? "bg-[#FF6B6B] text-[#FFFDF7] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                       : item.status === "Researching"
-                      ? "bg-[#0C4A6E] border-[#7DD3FC] text-[#38BDF8]"
-                      : "bg-[#78350F] border-[#FCD34D] text-[#FFD166]";
+                      ? "bg-[#38BDF8] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
+                      : "bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]";
 
                   return (
                     <div
                       key={item.id}
-                      className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] flex flex-col justify-between space-y-4 hover:-translate-y-1 transition-all duration-300"
+                      className="group bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] flex flex-col justify-between space-y-4 transition-all duration-200"
                     >
                       <div className="space-y-3">
-                        <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-3">
+                        <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
                           <div className="flex items-center gap-2.5 truncate">
-                            <div className="w-8 h-8 rounded-xl bg-[#FFD166] flex items-center justify-center text-[#042F2E] border border-[#042F2E] font-black text-xs shrink-0 shadow-md">
+                            <div className="w-8 h-8 rounded-xl bg-[#FFD166] flex items-center justify-center text-[#042F2E] border-2 border-[#042F2E] font-black text-xs shrink-0 shadow-[2px_2px_0px_#042F2E]">
                               {(item.symbol || "T")[0]}
                             </div>
-                            <span className="text-base font-extrabold text-[#FFFDF7]">{`$${item.symbol || "UNKNOWN"}`}</span>
+                            <span className="text-base font-black text-[#FFFDF7] group-hover:text-[#FFD166] transition-colors">{`$${item.symbol || "UNKNOWN"}`}</span>
                             <span className="text-xs font-semibold text-[#A7F3D0] truncate max-w-[100px]">
                               {item.name || "Token"}
                             </span>
                           </div>
 
                           <span
-                            className={`text-[10px] font-bold uppercase px-3 py-1 rounded-full border shrink-0 ${statusColor}`}
+                            className={`text-[10px] font-black uppercase px-3 py-1 rounded-full shrink-0 ${statusColor}`}
                           >
                             {item.status || "Draft"}
                           </span>
                         </div>
 
                         <div>
-                          <div className="text-[10px] text-[#A7F3D0] uppercase tracking-wider">Contract Address</div>
-                          <div className="text-xs font-mono font-medium text-[#FFFDF7] truncate bg-[#042F2E] px-2.5 py-1 rounded-lg border border-[rgba(153,246,228,0.2)] mt-1">
+                          <div className="text-[10px] text-[#A7F3D0] uppercase tracking-wider font-bold">Contract Address</div>
+                          <div className="text-xs font-mono font-bold text-[#FFFDF7] truncate bg-[#042F2E] px-3 py-1.5 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] mt-1">
                             {item.contractAddress}
                           </div>
                         </div>
 
                         {item.thesis && (
-                          <div className="p-3.5 rounded-2xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)] text-xs text-[#FFFDF7] line-clamp-2 leading-relaxed font-normal">
-                            <span className="font-bold text-[#FFD166]">Thesis: </span>
+                          <div className="p-3.5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] text-xs text-[#FFFDF7] line-clamp-2 leading-relaxed font-normal">
+                            <span className="font-black text-[#FFD166]">Thesis: </span>
                             {item.thesis}
                           </div>
                         )}
 
-                        <div className="text-[10px] text-[#A7F3D0] font-mono">
+                        <div className="text-[10px] text-[#A7F3D0] font-mono font-semibold">
                           Last Updated: {updatedStr}
                         </div>
                       </div>
 
-                      <div className="flex items-center justify-between pt-3 border-t border-[rgba(153,246,228,0.2)] text-xs">
+                      <div className="flex items-center justify-between pt-3 border-t-2 border-[#042F2E] text-xs">
                         <Link
                           href={`/d/${item.contractAddress}`}
-                          className="font-bold text-[#FFD166] hover:text-[#FFFDF7] flex items-center gap-1.5 text-xs transition-colors"
+                          className="font-black text-[#FFD166] hover:text-[#FFFDF7] flex items-center gap-1.5 text-xs transition-colors"
                         >
                           <span>Open Dossier</span>
                           <IconArrowRight size={13} />
@@ -384,7 +384,7 @@ export function LibraryClient({
                         <a
                           href={`/api/dossier/${item.contractAddress}/export`}
                           download
-                          className="text-[11px] font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] transition-colors px-2.5 py-1 rounded-lg bg-[#042F2E] border border-[rgba(153,246,228,0.2)]"
+                          className="text-[11px] font-bold text-[#A7F3D0] hover:text-[#FFFDF7] transition-colors px-3 py-1.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px]"
                         >
                           Export MD
                         </a>
@@ -399,9 +399,9 @@ export function LibraryClient({
 
         {isImportModalOpen && (
           <div className="fixed inset-0 z-50 bg-[#042F2E]/80 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.3)] rounded-3xl p-5 sm:p-7 max-w-lg w-full shadow-2xl space-y-4">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.25)] pb-3">
-                <h3 className="text-base font-bold text-[#FFFDF7] tracking-tight">Import Dossiers Library</h3>
+            <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 max-w-lg w-full shadow-[8px_8px_0px_#042F2E] space-y-4">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
+                <h3 className="text-base font-black text-[#FFFDF7] tracking-tight">Import Dossiers Library</h3>
                 <button
                   type="button"
                   onClick={() => {
@@ -409,7 +409,7 @@ export function LibraryClient({
                     setImportError(null);
                     setImportSuccess(null);
                   }}
-                  className="text-xs font-semibold text-[#A7F3D0] hover:text-[#FFFDF7] p-1 rounded-full hover:bg-[#14B8A6]/20 transition-colors"
+                  className="text-xs font-bold text-[#A7F3D0] hover:text-[#FFFDF7] p-1.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] transition-colors cursor-pointer"
                   aria-label="Close modal"
                 >
                   <IconClose size={14} />
@@ -425,18 +425,18 @@ export function LibraryClient({
                   ref={fileInputRef}
                   type="file"
                   accept=".json,application/json"
-                  className="w-full text-xs font-mono text-[#FFFDF7] file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border file:border-[rgba(153,246,228,0.3)] file:text-xs file:font-semibold file:bg-[#042F2E] file:text-[#FFFDF7] hover:file:bg-[#083835]"
+                  className="w-full text-xs font-mono text-[#FFFDF7] file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-2 file:border-[#042F2E] file:shadow-[2px_2px_0px_#042F2E] file:text-xs file:font-black file:bg-[#042F2E] file:text-[#FFFDF7] hover:file:bg-[#083835]"
                 />
 
                 {importError && (
-                  <p className="text-xs text-[#FB7185] font-medium">{importError}</p>
+                  <p className="text-xs text-[#FF6B6B] font-bold">{importError}</p>
                 )}
 
                 {importSuccess && (
-                  <p className="text-xs text-[#4ADE80] font-medium">{importSuccess}</p>
+                  <p className="text-xs text-[#4ADE80] font-bold">{importSuccess}</p>
                 )}
 
-                <div className="flex justify-end gap-2.5 pt-3 border-t border-[rgba(153,246,228,0.25)]">
+                <div className="flex justify-end gap-2.5 pt-3 border-t-2 border-[#042F2E]">
                   <button
                     type="button"
                     onClick={() => {
@@ -444,7 +444,7 @@ export function LibraryClient({
                       setImportError(null);
                       setImportSuccess(null);
                     }}
-                    className="px-4 py-2 rounded-xl border border-[rgba(153,246,228,0.25)] text-[#A7F3D0] text-xs font-semibold hover:bg-[#042F2E] transition-colors"
+                    className="px-4 py-2 rounded-xl border-2 border-[#042F2E] text-[#A7F3D0] text-xs font-bold hover:bg-[#042F2E] transition-colors cursor-pointer"
                   >
                     Cancel
                   </button>
@@ -452,7 +452,7 @@ export function LibraryClient({
                   <button
                     type="submit"
                     disabled={importLoading}
-                    className="px-5 py-2 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border border-[#042F2E] font-bold text-xs uppercase tracking-wider shadow-[2px_2px_0px_#042F2E] disabled:opacity-50 transition-all"
+                    className="px-5 py-2 rounded-xl bg-[#FFD166] hover:bg-[#FBBF24] text-[#042F2E] border-2 border-[#042F2E] font-black text-xs uppercase tracking-wider shadow-[3px_3px_0px_#042F2E] disabled:opacity-50 transition-all cursor-pointer"
                   >
                     {importLoading ? "Importing..." : "Run Import"}
                   </button>

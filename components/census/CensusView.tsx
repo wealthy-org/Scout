@@ -102,13 +102,13 @@ export function CensusView({
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-8 relative z-10">
-        <div className="border-b border-[rgba(153,246,228,0.2)] pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="border-b-2 border-[#042F2E] pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="space-y-1.5">
             <div className="flex flex-wrap items-center gap-3">
               <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-[#FFFDF7]">
                 Launch Census &amp; Macro Radar
               </h1>
-              <span className="text-[10px] sm:text-[11px] px-3 py-1 rounded-full bg-[#FFD166] border-[1.5px] border-[#042F2E] text-[#042F2E] font-black uppercase tracking-wider shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
+              <span className="text-[10px] sm:text-[11px] px-3.5 py-1.5 rounded-full bg-[#FFD166] border-2 border-[#042F2E] text-[#042F2E] font-black uppercase tracking-wider shadow-[2px_2px_0px_#042F2E] flex items-center gap-1.5">
                 <IconRadar size={12} />
                 <span>ROBINHOOD 4663</span>
               </span>
@@ -119,21 +119,21 @@ export function CensusView({
           </div>
 
           <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-            <div className="px-3.5 py-1.5 rounded-full bg-[#064E4A] border border-[rgba(153,246,228,0.25)] flex items-center gap-2 text-xs font-mono text-[#99F6E4] shadow-sm">
-              <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-pulse" />
+            <div className="px-4 py-2 rounded-full bg-[#064E4A] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] flex items-center gap-2 text-xs font-mono font-bold text-[#99F6E4]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80] animate-pulse" />
               <span>Block #{headBlockNum.toLocaleString()}</span>
             </div>
           </div>
         </div>
 
         <section className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5">
-          <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 p-5 sm:p-6 shadow-[0_10px_30px_rgba(4,47,46,0.5)] backdrop-blur-xl flex flex-col justify-between space-y-4 hover:-translate-y-1 transition-all group">
+          <div className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] flex flex-col justify-between space-y-4 transition-all duration-200 group">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#A7F3D0]">
+              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-[#A7F3D0]">
                 Total Launches
               </span>
-              <div className="w-7 h-7 rounded-xl bg-[#99F6E4]/15 border border-[#99F6E4]/30 flex items-center justify-center text-[#99F6E4] group-hover:scale-110 transition-transform">
-                <IconBolt size={15} />
+              <div className="w-9 h-9 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center text-[#99F6E4] group-hover:scale-110 transition-transform">
+                <IconBolt size={16} />
               </div>
             </div>
             <div>
@@ -146,13 +146,13 @@ export function CensusView({
             </div>
           </div>
 
-          <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 p-5 sm:p-6 shadow-[0_10px_30px_rgba(4,47,46,0.5)] backdrop-blur-xl flex flex-col justify-between space-y-4 hover:-translate-y-1 transition-all group">
+          <div className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] flex flex-col justify-between space-y-4 transition-all duration-200 group">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#99F6E4]">
+              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-[#99F6E4]">
                 Unique Deployers
               </span>
-              <div className="w-7 h-7 rounded-xl bg-[#99F6E4]/15 border border-[#99F6E4]/30 flex items-center justify-center text-[#99F6E4] group-hover:scale-110 transition-transform">
-                <IconUsers size={15} />
+              <div className="w-9 h-9 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center text-[#99F6E4] group-hover:scale-110 transition-transform">
+                <IconUsers size={16} />
               </div>
             </div>
             <div>
@@ -165,13 +165,13 @@ export function CensusView({
             </div>
           </div>
 
-          <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 p-5 sm:p-6 shadow-[0_10px_30px_rgba(4,47,46,0.5)] backdrop-blur-xl flex flex-col justify-between space-y-4 hover:-translate-y-1 transition-all group">
+          <div className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] flex flex-col justify-between space-y-4 transition-all duration-200 group">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#FFD166]">
+              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-[#FFD166]">
                 Repeat Share
               </span>
-              <div className="w-7 h-7 rounded-xl bg-[#FFD166]/15 border border-[#FFD166]/30 flex items-center justify-center text-[#FFD166] group-hover:scale-110 transition-transform">
-                <IconRepeat size={15} />
+              <div className="w-9 h-9 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center text-[#FFD166] group-hover:scale-110 transition-transform">
+                <IconRepeat size={16} />
               </div>
             </div>
             <div>
@@ -184,13 +184,13 @@ export function CensusView({
             </div>
           </div>
 
-          <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/90 p-5 sm:p-6 shadow-[0_10px_30px_rgba(4,47,46,0.5)] backdrop-blur-xl flex flex-col justify-between space-y-4 hover:-translate-y-1 transition-all group">
+          <div className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:translate-x-[-2px] hover:translate-y-[-2px] active:translate-x-[1px] active:translate-y-[1px] flex flex-col justify-between space-y-4 transition-all duration-200 group">
             <div className="flex items-center justify-between">
-              <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-[#FF6B6B]">
+              <span className="text-[11px] font-mono font-black uppercase tracking-wider text-[#FF6B6B]">
                 Serial Ruggers
               </span>
-              <div className="w-7 h-7 rounded-xl bg-[#FF6B6B]/15 border border-[#FF6B6B]/30 flex items-center justify-center text-[#FF6B6B] group-hover:scale-110 transition-transform">
-                <IconAlert size={15} />
+              <div className="w-9 h-9 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center text-[#FF6B6B] group-hover:scale-110 transition-transform">
+                <IconAlert size={16} />
               </div>
             </div>
             <div>
@@ -204,10 +204,10 @@ export function CensusView({
           </div>
         </section>
 
-        <section className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/95 p-6 sm:p-8 shadow-[0_15px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(153,246,228,0.2)] pb-4">
+        <section className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#042F2E] pb-4">
             <div>
-              <h2 className="text-lg sm:text-xl font-extrabold text-[#FFFDF7] tracking-tight flex items-center gap-2">
+              <h2 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight flex items-center gap-2">
                 <IconFlame size={18} className="text-[#FFD166]" />
                 <span>Launch Density by Block Range</span>
               </h2>
@@ -215,7 +215,7 @@ export function CensusView({
                 Temporal distribution of token deployments indexed across Robinhood Chain height intervals.
               </p>
             </div>
-            <div className="text-xs font-mono text-[#99F6E4] px-3 py-1 rounded-full bg-[#042F2E] border border-[rgba(153,246,228,0.2)] shrink-0 self-start sm:self-auto">
+            <div className="text-xs font-mono font-bold text-[#99F6E4] px-3.5 py-1.5 rounded-full bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] shrink-0 self-start sm:self-auto">
               Sample Block Intervals
             </div>
           </div>
@@ -237,8 +237,8 @@ export function CensusView({
               <line x1="40" y1="120" x2="780" y2="120" stroke="rgba(153,246,228,0.15)" strokeWidth="1" strokeDasharray="4 4" />
               <line x1="40" y1="60" x2="780" y2="60" stroke="rgba(153,246,228,0.1)" strokeWidth="1" strokeDasharray="4 4" />
 
-              <line x1="40" y1="180" x2="780" y2="180" stroke="rgba(153,246,228,0.35)" strokeWidth="1.5" />
-              <line x1="40" y1="20" x2="40" y2="180" stroke="rgba(153,246,228,0.35)" strokeWidth="1.5" />
+              <line x1="40" y1="180" x2="780" y2="180" stroke="#042F2E" strokeWidth="2.5" />
+              <line x1="40" y1="20" x2="40" y2="180" stroke="#042F2E" strokeWidth="2.5" />
 
               {launchesByBlock.map((block, idx) => {
                 const barWidth = 90;
@@ -256,13 +256,15 @@ export function CensusView({
                       height={barHeight}
                       rx="10"
                       fill="url(#censusBarGrad)"
+                      stroke="#042F2E"
+                      strokeWidth="2"
                       className="transition-all duration-300 group-hover:fill-[url(#censusBarHoverGrad)] filter drop-shadow-[0_4px_12px_rgba(153,246,228,0.25)]"
                     />
                     <text
                       x={x + barWidth / 2}
                       y={Math.max(y - 10, 20)}
                       textAnchor="middle"
-                      className="text-[12px] font-bold fill-[#FFFDF7] font-mono group-hover:fill-[#FFD166] transition-colors"
+                      className="text-[12px] font-black fill-[#FFFDF7] font-mono group-hover:fill-[#FFD166] transition-colors"
                     >
                       {block.count.toLocaleString()}
                     </text>
@@ -270,7 +272,7 @@ export function CensusView({
                       x={x + barWidth / 2}
                       y={202}
                       textAnchor="middle"
-                      className="text-[11px] font-bold fill-[#A7F3D0] font-mono"
+                      className="text-[11px] font-black fill-[#A7F3D0] font-mono"
                     >
                       {block.blockRange}
                     </text>
@@ -281,10 +283,10 @@ export function CensusView({
           </div>
         </section>
 
-        <section className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/95 p-6 sm:p-8 shadow-[0_15px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
-          <div className="border-b border-[rgba(153,246,228,0.2)] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        <section className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-6">
+          <div className="border-b-2 border-[#042F2E] pb-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
-              <h2 className="text-lg sm:text-xl font-extrabold text-[#FFFDF7] tracking-tight flex items-center gap-2">
+              <h2 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight flex items-center gap-2">
                 <IconTrophy size={18} className="text-[#FFD166]" />
                 <span>Repeat Launchers</span>
               </h2>
@@ -292,7 +294,7 @@ export function CensusView({
                 Creators with the highest deployment frequencies indexed in the current epoch, audited for Bayesian Laplace reputation.
               </p>
             </div>
-            <span className="text-xs font-mono text-[#A7F3D0] px-3 py-1 rounded-full bg-[#042F2E] border border-[rgba(153,246,228,0.2)] shrink-0 self-start sm:self-auto">
+            <span className="text-xs font-mono font-bold text-[#A7F3D0] px-3.5 py-1.5 rounded-full bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] shrink-0 self-start sm:self-auto">
               {`${repeatLaunchers.length} Creators Ranked`}
             </span>
           </div>
@@ -300,7 +302,7 @@ export function CensusView({
           <div className="overflow-x-auto">
             <table className="w-full text-left text-xs">
               <thead>
-                <tr className="border-b border-[rgba(153,246,228,0.2)] text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0] bg-[#042F2E]/60">
+                <tr className="border-b-2 border-[#042F2E] text-[11px] font-black uppercase tracking-wider text-[#A7F3D0] bg-[#042F2E]">
                   <th className="py-3.5 px-4 rounded-l-xl">Rank &amp; Deployer</th>
                   <th className="py-3.5 px-4">Total Launches</th>
                   <th className="py-3.5 px-4">Graduated</th>
@@ -308,24 +310,24 @@ export function CensusView({
                   <th className="py-3.5 px-4 text-right rounded-r-xl">Action</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[rgba(153,246,228,0.1)]">
+              <tbody className="divide-y divide-[#042F2E]/60 bg-[#064E4A]">
                 {repeatLaunchers.length > 0 ? (
                   repeatLaunchers.map((d, idx) => {
                     const bandBadge =
                       d.band === "green"
-                        ? "bg-[#99F6E4] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
+                        ? "bg-[#99F6E4] border-2 border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                         : d.band === "red"
-                        ? "bg-[#FF6B6B] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
-                        : "bg-[#FFD166] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]";
+                        ? "bg-[#FF6B6B] border-2 border-[#042F2E] text-[#FFFDF7] shadow-[2px_2px_0px_#042F2E]"
+                        : "bg-[#FFD166] border-2 border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]";
 
                     const rankStyle =
                       idx === 0
-                        ? "bg-[#FFD166] text-[#042F2E]"
+                        ? "bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]"
                         : idx === 1
-                        ? "bg-[#99F6E4] text-[#042F2E]"
+                        ? "bg-[#99F6E4] text-[#042F2E] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]"
                         : idx === 2
-                        ? "bg-[#C084FC] text-[#042F2E]"
-                        : "bg-[#042F2E] text-[#A7F3D0]";
+                        ? "bg-[#C084FC] text-[#042F2E] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]"
+                        : "bg-[#042F2E] text-[#A7F3D0] border border-[#042F2E]";
 
                     const isCopied = copiedAddr === d.deployerAddress;
 
@@ -333,13 +335,13 @@ export function CensusView({
                       <tr key={d.deployerAddress} className="hover:bg-[#042F2E]/60 transition-colors group">
                         <td className="py-4 px-4 font-bold font-mono">
                           <div className="flex items-center gap-3">
-                            <span className={`w-6 h-6 rounded-lg text-[10px] font-black flex items-center justify-center shrink-0 ${rankStyle}`}>
+                            <span className={`w-7 h-7 rounded-xl text-[10px] font-black flex items-center justify-center shrink-0 ${rankStyle}`}>
                               #{idx + 1}
                             </span>
                             <div className="flex items-center gap-2">
                               <Link
                                 href={`/deployer/${d.deployerAddress}`}
-                                className="text-[#99F6E4] group-hover:text-[#FFFDF7] hover:underline transition-colors"
+                                className="text-[#99F6E4] font-bold group-hover:text-[#FFD166] hover:underline transition-colors"
                               >
                                 {d.deployerAddress.slice(0, 8)}...{d.deployerAddress.slice(-6)}
                               </Link>
@@ -347,15 +349,15 @@ export function CensusView({
                                 type="button"
                                 onClick={(e) => handleCopy(d.deployerAddress, e)}
                                 title="Copy Address"
-                                className="text-[#A7F3D0]/60 hover:text-[#FFD166] transition-colors p-1"
+                                className="text-[#A7F3D0]/60 hover:text-[#FFD166] transition-colors p-1 cursor-pointer"
                               >
                                 {isCopied ? <IconCheck size={13} className="text-[#4ADE80]" /> : <IconClipboard size={13} />}
                               </button>
                             </div>
                           </div>
                         </td>
-                        <td className="py-4 px-4 font-bold text-[#FFFDF7] font-mono">{d.totalLaunches}</td>
-                        <td className="py-4 px-4 font-bold text-[#99F6E4] font-mono">
+                        <td className="py-4 px-4 font-black text-[#FFFDF7] font-mono">{d.totalLaunches}</td>
+                        <td className="py-4 px-4 font-black text-[#99F6E4] font-mono">
                           <span className="inline-flex items-center gap-1">
                             <IconGraduation size={13} className="text-[#99F6E4]" />
                             <span>{d.graduatedCount}</span>
@@ -369,7 +371,7 @@ export function CensusView({
                         <td className="py-4 px-4 text-right">
                           <Link
                             href={`/deployer/${d.deployerAddress}`}
-                            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-[#042F2E] hover:bg-[#14B8A6]/20 border border-[rgba(153,246,228,0.25)] hover:border-[#99F6E4] text-xs font-bold text-[#99F6E4] hover:text-[#FFFDF7] transition-all"
+                            className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#99F6E4] hover:bg-[#5EEAD4] border-2 border-[#042F2E] text-xs font-black text-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all"
                           >
                             <span>View Profile</span>
                             <IconArrowRight size={13} />
@@ -390,32 +392,32 @@ export function CensusView({
           </div>
         </section>
 
-        <section className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/95 p-6 sm:p-8 shadow-[0_15px_35px_rgba(4,47,46,0.6)] backdrop-blur-2xl space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.2)] pb-4">
+        <section className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b-2 border-[#042F2E] pb-4">
             <div className="flex items-center gap-2.5">
-              <div className="w-8 h-8 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.3)] flex items-center justify-center text-[#FFD166]">
+              <div className="w-9 h-9 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-center text-[#FFD166]">
                 <IconShield size={18} />
               </div>
               <div>
-                <h2 className="text-base sm:text-lg font-bold text-[#FFFDF7] tracking-tight">
+                <h2 className="text-base sm:text-lg font-black text-[#FFFDF7] tracking-tight">
                   Methodology &amp; Mathematical Architecture
                 </h2>
-                <p className="text-[11px] sm:text-xs text-[#A7F3D0]/80">
+                <p className="text-[11px] sm:text-xs text-[#A7F3D0]">
                   Bayesian inference parameters, empirical risk matrices, and statistical pipeline proofs
                 </p>
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-1.5 p-1 bg-[#042F2E] rounded-2xl border border-[rgba(153,246,228,0.25)]" role="tablist">
+            <div className="flex flex-wrap items-center gap-1.5 p-1.5 bg-[#042F2E] rounded-2xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]" role="tablist">
               <button
                 type="button"
                 role="tab"
                 aria-selected={methodologyTab === "laplace"}
                 onClick={() => setMethodologyTab("laplace")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                   methodologyTab === "laplace"
-                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
-                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border-2 border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#064E4A]"
                 }`}
               >
                 <IconCpu size={13} />
@@ -426,10 +428,10 @@ export function CensusView({
                 role="tab"
                 aria-selected={methodologyTab === "epoch"}
                 onClick={() => setMethodologyTab("epoch")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                   methodologyTab === "epoch"
-                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
-                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border-2 border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#064E4A]"
                 }`}
               >
                 <IconGraph size={13} />
@@ -440,10 +442,10 @@ export function CensusView({
                 role="tab"
                 aria-selected={methodologyTab === "matrix"}
                 onClick={() => setMethodologyTab("matrix")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                   methodologyTab === "matrix"
-                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
-                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                    ? "bg-[#99F6E4] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border-2 border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#064E4A]"
                 }`}
               >
                 <IconAlert size={13} />
@@ -454,10 +456,10 @@ export function CensusView({
                 role="tab"
                 aria-selected={methodologyTab === "simulator"}
                 onClick={() => setMethodologyTab("simulator")}
-                className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                className={`px-3.5 py-1.5 rounded-xl text-xs font-black transition-all flex items-center gap-1.5 cursor-pointer ${
                   methodologyTab === "simulator"
-                    ? "bg-[#FFD166] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border border-[#042F2E]"
-                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#14B8A6]/20"
+                    ? "bg-[#FFD166] text-[#042F2E] shadow-[2px_2px_0px_#042F2E] border-2 border-[#042F2E]"
+                    : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#064E4A]"
                 }`}
               >
                 <IconTarget size={13} />
@@ -469,22 +471,22 @@ export function CensusView({
           {methodologyTab === "laplace" && (
             <div className="space-y-6 animate-fadeIn">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">
+                    <span className="text-xs font-black uppercase tracking-wider text-[#99F6E4]">
                       1. Laplace Smoothing Prior
                     </span>
                     <button
                       type="button"
                       onClick={() => handleCopyFormula("S_Laplace(k, n) = ((k + 1) / (n + 2)) * 100", "laplace")}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#99F6E4] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#064E4A] hover:bg-[#083835] text-[10px] font-mono font-bold text-[#99F6E4] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] transition-colors cursor-pointer"
                       title="Copy formula"
                     >
                       {copiedFormula === "laplace" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
                       <span>{copiedFormula === "laplace" ? "Copied" : "Copy"}</span>
                     </button>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#FFFDF7] text-center">
+                  <div className="p-3.5 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] font-mono text-xs sm:text-sm font-black text-[#FFFDF7] text-center">
                     S<sub>Laplace</sub>(k, n) = [(k + 1) / (n + 2)] × 100
                   </div>
                   <p className="text-xs text-[#A7F3D0] leading-relaxed">
@@ -492,22 +494,22 @@ export function CensusView({
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#FFD166]">
+                    <span className="text-xs font-black uppercase tracking-wider text-[#FFD166]">
                       2. Serial Rugger Hard-Clamp
                     </span>
                     <button
                       type="button"
                       onClick={() => handleCopyFormula("n >= 6 && k == 0 => S_final <= 25", "clamp")}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#FFD166] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#064E4A] hover:bg-[#083835] text-[10px] font-mono font-bold text-[#FFD166] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] transition-colors cursor-pointer"
                       title="Copy formula"
                     >
                       {copiedFormula === "clamp" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
                       <span>{copiedFormula === "clamp" ? "Copied" : "Copy"}</span>
                     </button>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#FFD166] text-center">
+                  <div className="p-3.5 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] font-mono text-xs sm:text-sm font-black text-[#FFD166] text-center">
                     ∀ n ≥ 6 ∧ k = 0 ⟹ S<sub>final</sub> ≤ 25 (Red Band)
                   </div>
                   <p className="text-xs text-[#A7F3D0] leading-relaxed">
@@ -515,22 +517,22 @@ export function CensusView({
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#F87171]">
+                    <span className="text-xs font-black uppercase tracking-wider text-[#FF6B6B]">
                       3. Dead-On-Arrival (DOA) Penalty
                     </span>
                     <button
                       type="button"
                       onClick={() => handleCopyFormula("P_DOA = min(20 * (d / n), 30)", "doa")}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#F87171] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#064E4A] hover:bg-[#083835] text-[10px] font-mono font-bold text-[#FF6B6B] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] transition-colors cursor-pointer"
                       title="Copy formula"
                     >
                       {copiedFormula === "doa" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
                       <span>{copiedFormula === "doa" ? "Copied" : "Copy"}</span>
                     </button>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#F87171] text-center">
+                  <div className="p-3.5 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] font-mono text-xs sm:text-sm font-black text-[#FF6B6B] text-center">
                     P<sub>DOA</sub> = min(20 × [d / n], 30)
                   </div>
                   <p className="text-xs text-[#A7F3D0] leading-relaxed">
@@ -538,22 +540,22 @@ export function CensusView({
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-3">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold uppercase tracking-wider text-[#C084FC]">
+                    <span className="text-xs font-black uppercase tracking-wider text-[#C084FC]">
                       4. Rapid-Fire Burst Penalty
                     </span>
                     <button
                       type="button"
                       onClick={() => handleCopyFormula("P_Burst = min(15 * (b / n), 20)", "burst")}
-                      className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#C084FC] border border-[rgba(153,246,228,0.2)] transition-colors"
+                      className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#064E4A] hover:bg-[#083835] text-[10px] font-mono font-bold text-[#C084FC] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] transition-colors cursor-pointer"
                       title="Copy formula"
                     >
                       {copiedFormula === "burst" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
                       <span>{copiedFormula === "burst" ? "Copied" : "Copy"}</span>
                     </button>
                   </div>
-                  <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#C084FC] text-center">
+                  <div className="p-3.5 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] font-mono text-xs sm:text-sm font-black text-[#C084FC] text-center">
                     P<sub>Burst</sub> = min(15 × [b / n], 20)
                   </div>
                   <p className="text-xs text-[#A7F3D0] leading-relaxed">
@@ -562,18 +564,18 @@ export function CensusView({
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+              <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  <IconShield size={16} className="text-[#99F6E4]" />
-                  <span className="text-xs font-bold text-[#FFFDF7]">Final Reputation Formulation:</span>
-                  <code className="text-xs font-mono text-[#99F6E4] bg-[#064E4A] px-2 py-0.5 rounded border border-[rgba(153,246,228,0.2)]">
+                  <IconShield size={18} className="text-[#99F6E4]" />
+                  <span className="text-xs font-black text-[#FFFDF7]">Final Reputation Formulation:</span>
+                  <code className="text-xs font-mono font-bold text-[#99F6E4] bg-[#064E4A] px-2.5 py-1 rounded-lg border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E]">
                     S_final = clamp[0, 100]( S_Laplace - P_DOA - P_Burst )
                   </code>
                 </div>
                 <button
                   type="button"
                   onClick={() => setMethodologyTab("simulator")}
-                  className="inline-flex items-center gap-1 text-xs font-bold text-[#FFD166] hover:underline"
+                  className="inline-flex items-center gap-1.5 text-xs font-black text-[#FFD166] hover:underline cursor-pointer"
                 >
                   <span>Test with live simulator</span>
                   <IconArrowRight size={12} />
@@ -585,62 +587,62 @@ export function CensusView({
           {methodologyTab === "epoch" && (
             <div className="space-y-6 animate-fadeIn">
               <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#99F6E4]">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] flex items-center justify-center text-xs font-black text-[#99F6E4]">
                     01
                   </div>
-                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">Bytecode Ingestion</div>
+                  <div className="text-xs font-black uppercase text-[#FFFDF7]">Bytecode Ingestion</div>
                   <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
                     Continuously scans token creation traces and log topics across the 2,000,000 block Robinhood chain sliding window.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#FFD166]">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] flex items-center justify-center text-xs font-black text-[#FFD166]">
                     02
                   </div>
-                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">Creator Graphing</div>
+                  <div className="text-xs font-black uppercase text-[#FFFDF7]">Creator Graphing</div>
                   <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
                     Aggregates deployer addresses by nonce sequence, origin funding tree roots, and contract factory proxy patterns.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#4ADE80]">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] flex items-center justify-center text-xs font-black text-[#4ADE80]">
                     03
                   </div>
-                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">AMM Migration Audit</div>
+                  <div className="text-xs font-black uppercase text-[#FFFDF7]">AMM Migration Audit</div>
                   <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
                     Listens for pool creation and liquidity lock events to certify genuine graduation onto Robinhood Swap AMM.
                   </p>
                 </div>
 
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
-                  <div className="w-7 h-7 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-xs font-black text-[#F87171]">
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                  <div className="w-8 h-8 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] flex items-center justify-center text-xs font-black text-[#FF6B6B]">
                     04
                   </div>
-                  <div className="text-xs font-bold uppercase text-[#FFFDF7]">Macro Aggregation</div>
+                  <div className="text-xs font-black uppercase text-[#FFFDF7]">Macro Aggregation</div>
                   <p className="text-[11px] text-[#A7F3D0] leading-relaxed">
                     Computes global metrics: Repeat deployer share, serial rugger density, and real-time network survival percentages.
                   </p>
                 </div>
               </div>
 
-              <div className="p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-3">
+              <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-3">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                  <span className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">
+                  <span className="text-xs font-black uppercase tracking-wider text-[#99F6E4]">
                     Repeat Launcher Share Metric Formulation
                   </span>
                   <button
                     type="button"
                     onClick={() => handleCopyFormula("RepeatShare = (Sum(Launches from Repeat Deployers) / Total Launches) * 100", "repeatshare")}
-                    className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[10px] font-mono text-[#99F6E4] border border-[rgba(153,246,228,0.2)] transition-colors self-start sm:self-auto"
+                    className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-[#064E4A] hover:bg-[#083835] text-[10px] font-mono font-bold text-[#99F6E4] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] transition-colors self-start sm:self-auto cursor-pointer"
                   >
                     {copiedFormula === "repeatshare" ? <IconCheck size={11} className="text-[#4ADE80]" /> : <IconClipboard size={11} />}
                     <span>{copiedFormula === "repeatshare" ? "Copied" : "Copy"}</span>
                   </button>
                 </div>
-                <div className="p-3.5 rounded-xl bg-[#064E4A]/80 border border-[rgba(153,246,228,0.15)] font-mono text-xs sm:text-sm text-[#FFFDF7] text-center">
+                <div className="p-3.5 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] font-mono text-xs sm:text-sm font-black text-[#FFFDF7] text-center">
                   Repeat Share (%) = [ ∑<sub>i ∈ Repeat</sub> (Total Launches<sub>i</sub>) / Total Network Launches ] × 100
                 </div>
                 <p className="text-xs text-[#A7F3D0] leading-relaxed">
@@ -652,69 +654,69 @@ export function CensusView({
 
           {methodologyTab === "matrix" && (
             <div className="space-y-6 animate-fadeIn">
-              <div className="overflow-x-auto rounded-2xl border border-[rgba(153,246,228,0.25)]">
+              <div className="overflow-x-auto rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
                 <table className="w-full text-left text-xs">
-                  <thead className="bg-[#042F2E] text-[#99F6E4] uppercase tracking-wider font-bold border-b border-[rgba(153,246,228,0.2)]">
+                  <thead className="bg-[#042F2E] text-[#99F6E4] uppercase tracking-wider font-black border-b-2 border-[#042F2E]">
                     <tr>
-                      <th className="py-3 px-4">Risk Band</th>
-                      <th className="py-3 px-4">Score Range</th>
-                      <th className="py-3 px-4">Cohort Label</th>
-                      <th className="py-3 px-4">Mathematical Conditions</th>
-                      <th className="py-3 px-4">Action / Protocol Status</th>
+                      <th className="py-3.5 px-4">Risk Band</th>
+                      <th className="py-3.5 px-4">Score Range</th>
+                      <th className="py-3.5 px-4">Cohort Label</th>
+                      <th className="py-3.5 px-4">Mathematical Conditions</th>
+                      <th className="py-3.5 px-4">Action / Protocol Status</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[rgba(153,246,228,0.1)] bg-[#042F2E]/60">
-                    <tr className="hover:bg-[#064E4A]/40 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-[#4ADE80] flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#4ADE80]" />
+                  <tbody className="divide-y divide-[#042F2E]/60 bg-[#042F2E]/80">
+                    <tr className="hover:bg-[#064E4A] transition-colors">
+                      <td className="py-3.5 px-4 font-black text-[#4ADE80] flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[#4ADE80] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]" />
                         <span>Green Band</span>
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-[#FFFDF7]">65 – 100</td>
+                      <td className="py-3.5 px-4 font-mono font-black text-[#FFFDF7]">65 – 100</td>
                       <td className="py-3.5 px-4">
-                        <span className="px-2 py-0.5 rounded-md bg-[#4ADE80]/20 text-[#4ADE80] font-mono text-[10px] font-bold">
+                        <span className="px-2.5 py-1 rounded-md bg-[#4ADE80] text-[#042F2E] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] font-mono text-[10px] font-black">
                           repeat / fresh
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-[#A7F3D0] font-mono text-[11px]">
+                      <td className="py-3.5 px-4 text-[#A7F3D0] font-mono text-[11px] font-bold">
                         k / n ≥ 0.5 ∧ P_DOA = 0
                       </td>
-                      <td className="py-3.5 px-4 text-[#C3F8E3]">
+                      <td className="py-3.5 px-4 text-[#FFFDF7] font-semibold">
                         Verified track record. Low hazard classification.
                       </td>
                     </tr>
-                    <tr className="hover:bg-[#064E4A]/40 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-[#FBBF24] flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#FBBF24]" />
+                    <tr className="hover:bg-[#064E4A] transition-colors">
+                      <td className="py-3.5 px-4 font-black text-[#FFD166] flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[#FFD166] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]" />
                         <span>Yellow Band</span>
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-[#FFFDF7]">35 – 64</td>
+                      <td className="py-3.5 px-4 font-mono font-black text-[#FFFDF7]">35 – 64</td>
                       <td className="py-3.5 px-4">
-                        <span className="px-2 py-0.5 rounded-md bg-[#FBBF24]/20 text-[#FBBF24] font-mono text-[10px] font-bold">
+                        <span className="px-2.5 py-1 rounded-md bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] font-mono text-[10px] font-black">
                           fresh / repeat
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-[#A7F3D0] font-mono text-[11px]">
+                      <td className="py-3.5 px-4 text-[#A7F3D0] font-mono text-[11px] font-bold">
                         n ≤ 5 ∨ (k / n &lt; 0.5 ∧ k &gt; 0)
                       </td>
-                      <td className="py-3.5 px-4 text-[#C3F8E3]">
+                      <td className="py-3.5 px-4 text-[#FFFDF7] font-semibold">
                         Inconclusive sample size or mixed graduation history.
                       </td>
                     </tr>
-                    <tr className="hover:bg-[#064E4A]/40 transition-colors">
-                      <td className="py-3.5 px-4 font-bold text-[#F87171] flex items-center gap-1.5">
-                        <span className="w-2.5 h-2.5 rounded-full bg-[#F87171]" />
+                    <tr className="hover:bg-[#064E4A] transition-colors">
+                      <td className="py-3.5 px-4 font-black text-[#FF6B6B] flex items-center gap-2">
+                        <span className="w-3 h-3 rounded-full bg-[#FF6B6B] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]" />
                         <span>Red Band</span>
                       </td>
-                      <td className="py-3.5 px-4 font-mono font-bold text-[#FFFDF7]">0 – 34</td>
+                      <td className="py-3.5 px-4 font-mono font-black text-[#FFFDF7]">0 – 34</td>
                       <td className="py-3.5 px-4">
-                        <span className="px-2 py-0.5 rounded-md bg-[#F87171]/20 text-[#F87171] font-mono text-[10px] font-bold">
+                        <span className="px-2.5 py-1 rounded-md bg-[#FF6B6B] text-[#FFFDF7] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] font-mono text-[10px] font-black">
                           serial
                         </span>
                       </td>
-                      <td className="py-3.5 px-4 text-[#F87171] font-mono text-[11px]">
+                      <td className="py-3.5 px-4 text-[#FF6B6B] font-mono text-[11px] font-bold">
                         (n ≥ 6 ∧ k = 0) ∨ P_DOA ≥ 20
                       </td>
-                      <td className="py-3.5 px-4 text-[#FCA5A5] font-semibold">
+                      <td className="py-3.5 px-4 text-[#FCA5A5] font-black">
                         Quarantine active. High rug probability warning flag.
                       </td>
                     </tr>
@@ -723,20 +725,20 @@ export function CensusView({
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5">
-                  <div className="text-xs font-bold uppercase text-[#99F6E4]">Fresh Deployers (n ≤ 1)</div>
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                  <div className="text-xs font-black uppercase text-[#99F6E4]">Fresh Deployers (n ≤ 1)</div>
                   <p className="text-xs text-[#A7F3D0] leading-relaxed">
                     First-time creators with no historical record. Bayesian score initializes at 50.0 prior to eliminate false-negative penalties.
                   </p>
                 </div>
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5">
-                  <div className="text-xs font-bold uppercase text-[#FFD166]">Repeat Deployers (2 ≤ n ≤ 5)</div>
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                  <div className="text-xs font-black uppercase text-[#FFD166]">Repeat Deployers (2 ≤ n ≤ 5)</div>
                   <p className="text-xs text-[#A7F3D0] leading-relaxed">
                     Intermediate creators accumulating empirical record. Prior weighting gradually diminishes as n increases.
                   </p>
                 </div>
-                <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.2)] space-y-1.5">
-                  <div className="text-xs font-bold uppercase text-[#F87171]">Serial Deployers (n ≥ 6)</div>
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                  <div className="text-xs font-black uppercase text-[#FF6B6B]">Serial Deployers (n ≥ 6)</div>
                   <p className="text-xs text-[#A7F3D0] leading-relaxed">
                     High-volume deployers. If graduation count remains 0, the hard-clamp restricts reputation to &le;25 unconditionally.
                   </p>
@@ -748,11 +750,11 @@ export function CensusView({
           {methodologyTab === "simulator" && (
             <div className="space-y-6 animate-fadeIn">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div className="lg:col-span-7 p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-5">
-                  <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-3">
+                <div className="lg:col-span-7 p-6 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-5">
+                  <div className="flex items-center justify-between border-b-2 border-[#042F2E]/80 pb-3">
                     <div className="flex items-center gap-2">
                       <IconTarget size={16} className="text-[#FFD166]" />
-                      <span className="text-xs font-bold text-[#FFFDF7] uppercase tracking-wider">
+                      <span className="text-xs font-black text-[#FFFDF7] uppercase tracking-wider">
                         Interactive Parameter Controls
                       </span>
                     </div>
@@ -764,7 +766,7 @@ export function CensusView({
                         setSimDoa(1);
                         setSimBurst(2);
                       }}
-                      className="text-[10px] font-mono text-[#99F6E4] hover:text-[#FFD166] transition-colors"
+                      className="text-[10px] font-mono font-bold text-[#99F6E4] hover:text-[#FFD166] transition-colors cursor-pointer"
                     >
                       Reset Defaults
                     </button>
@@ -773,8 +775,8 @@ export function CensusView({
                   <div className="space-y-4">
                     <div className="space-y-1.5">
                       <div className="flex justify-between text-xs">
-                        <span className="font-bold text-[#C3F8E3]">Total Deployments (n):</span>
-                        <span className="font-mono font-bold text-[#FFD166]">{simLaunches}</span>
+                        <span className="font-bold text-[#FFFDF7]">Total Deployments (n):</span>
+                        <span className="font-mono font-black text-[#FFD166]">{simLaunches}</span>
                       </div>
                       <input
                         type="range"
@@ -794,8 +796,8 @@ export function CensusView({
 
                     <div className="space-y-1.5">
                       <div className="flex justify-between text-xs">
-                        <span className="font-bold text-[#C3F8E3]">Graduated to AMM (k):</span>
-                        <span className="font-mono font-bold text-[#4ADE80]">{safeSimGraduated}</span>
+                        <span className="font-bold text-[#FFFDF7]">Graduated to AMM (k):</span>
+                        <span className="font-mono font-black text-[#4ADE80]">{safeSimGraduated}</span>
                       </div>
                       <input
                         type="range"
@@ -809,8 +811,8 @@ export function CensusView({
 
                     <div className="space-y-1.5">
                       <div className="flex justify-between text-xs">
-                        <span className="font-bold text-[#C3F8E3]">Dead-On-Arrival Drains (d):</span>
-                        <span className="font-mono font-bold text-[#F87171]">{safeSimDoa}</span>
+                        <span className="font-bold text-[#FFFDF7]">Dead-On-Arrival Drains (d):</span>
+                        <span className="font-mono font-black text-[#FF6B6B]">{safeSimDoa}</span>
                       </div>
                       <input
                         type="range"
@@ -818,14 +820,14 @@ export function CensusView({
                         max={simLaunches}
                         value={safeSimDoa}
                         onChange={(e) => setSimDoa(Number(e.target.value))}
-                        className="w-full accent-[#F87171] cursor-pointer"
+                        className="w-full accent-[#FF6B6B] cursor-pointer"
                       />
                     </div>
 
                     <div className="space-y-1.5">
                       <div className="flex justify-between text-xs">
-                        <span className="font-bold text-[#C3F8E3]">Rapid-Fire Spams (b):</span>
-                        <span className="font-mono font-bold text-[#C084FC]">{safeSimBurst}</span>
+                        <span className="font-bold text-[#FFFDF7]">Rapid-Fire Spams (b):</span>
+                        <span className="font-mono font-black text-[#C084FC]">{safeSimBurst}</span>
                       </div>
                       <input
                         type="range"
@@ -839,67 +841,67 @@ export function CensusView({
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 p-5 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-4">
+                <div className="lg:col-span-5 p-6 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex flex-col justify-between space-y-4">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold uppercase tracking-wider text-[#99F6E4]">
+                      <span className="text-xs font-black uppercase tracking-wider text-[#99F6E4]">
                         Simulated Output
                       </span>
                       <span
-                        className={`px-2.5 py-0.5 text-[10px] font-black uppercase rounded-full ${
+                        className={`px-3 py-1 text-[10px] font-black uppercase rounded-full border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] ${
                           simBand === "green"
-                            ? "bg-[#4ADE80]/20 text-[#4ADE80] border border-[#4ADE80]/40"
+                            ? "bg-[#4ADE80] text-[#042F2E]"
                             : simBand === "yellow"
-                            ? "bg-[#FBBF24]/20 text-[#FBBF24] border border-[#FBBF24]/40"
-                            : "bg-[#F87171]/20 text-[#F87171] border border-[#F87171]/40"
+                            ? "bg-[#FFD166] text-[#042F2E]"
+                            : "bg-[#FF6B6B] text-[#FFFDF7]"
                         }`}
                       >
                         {simBand.toUpperCase()} BAND
                       </span>
                     </div>
 
-                    <div className="p-4 rounded-xl bg-[#064E4A] border border-[rgba(153,246,228,0.2)] text-center space-y-1">
-                      <div className="text-[10px] uppercase font-bold text-[#A7F3D0] tracking-wider">
+                    <div className="p-5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] text-center space-y-1.5">
+                      <div className="text-[10px] uppercase font-black text-[#A7F3D0] tracking-wider">
                         Final Bayesian Score
                       </div>
                       <div
-                        className={`text-4xl font-black font-mono ${
+                        className={`text-5xl font-black font-mono ${
                           simBand === "green"
                             ? "text-[#4ADE80]"
                             : simBand === "yellow"
                             ? "text-[#FFD166]"
-                            : "text-[#F87171]"
+                            : "text-[#FF6B6B]"
                         }`}
                       >
-                        {simFinalScore} <span className="text-base font-normal text-[#A7F3D0]/60">/ 100</span>
+                        {simFinalScore} <span className="text-lg font-normal text-[#A7F3D0]/60">/ 100</span>
                       </div>
-                      <div className="text-xs font-bold text-[#C3F8E3] capitalize">
-                        Classification: <span className="text-[#FFD166]">{simLabel}</span>
+                      <div className="text-xs font-bold text-[#FFFDF7] capitalize">
+                        Classification: <span className="text-[#FFD166] font-black">{simLabel}</span>
                       </div>
                     </div>
 
                     {isSerialClamp && (
-                      <div className="p-2.5 rounded-xl bg-[#EF4444]/20 border border-[#EF4444]/50 flex items-center gap-2 text-xs text-[#FCA5A5] font-bold animate-pulse">
-                        <IconAlert size={14} className="text-[#EF4444] shrink-0" />
+                      <div className="p-3 rounded-xl bg-[#FF6B6B] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center gap-2 text-xs font-black animate-pulse">
+                        <IconAlert size={14} className="text-[#042F2E] shrink-0" />
                         <span>Serial Rugger Hard-Clamp Active (Clamped &le; 25)</span>
                       </div>
                     )}
                   </div>
 
-                  <div className="p-3 rounded-xl bg-[#064E4A]/60 border border-[rgba(153,246,228,0.15)] space-y-1.5 text-xs">
+                  <div className="p-4 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] space-y-2 text-xs">
                     <div className="flex justify-between text-[#A7F3D0]">
-                      <span>Raw Laplace:</span>
-                      <span className="font-mono font-bold text-[#FFFDF7]">{simRawLaplace} pts</span>
+                      <span className="font-bold">Raw Laplace:</span>
+                      <span className="font-mono font-black text-[#FFFDF7]">{simRawLaplace} pts</span>
                     </div>
-                    <div className="flex justify-between text-[#F87171]">
-                      <span>DOA Penalty:</span>
-                      <span className="font-mono font-bold">-{simDoaPenalty} pts</span>
+                    <div className="flex justify-between text-[#FF6B6B]">
+                      <span className="font-bold">DOA Penalty:</span>
+                      <span className="font-mono font-black">-{simDoaPenalty} pts</span>
                     </div>
                     <div className="flex justify-between text-[#C084FC]">
-                      <span>Burst Penalty:</span>
-                      <span className="font-mono font-bold">-{simBurstPenalty} pts</span>
+                      <span className="font-bold">Burst Penalty:</span>
+                      <span className="font-mono font-black">-{simBurstPenalty} pts</span>
                     </div>
-                    <div className="border-t border-[rgba(153,246,228,0.15)] pt-1.5 flex justify-between font-bold text-[#99F6E4]">
+                    <div className="border-t-2 border-[#042F2E] pt-2 flex justify-between font-black text-[#99F6E4]">
                       <span>Computed Score:</span>
                       <span className="font-mono">{simFinalScore} pts</span>
                     </div>

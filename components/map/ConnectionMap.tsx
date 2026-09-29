@@ -182,14 +182,14 @@ export function ConnectionMap({
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
-      className="relative w-full h-[700px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl overflow-hidden cursor-grab active:cursor-grabbing select-none shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] font-sans"
+      className="relative w-full h-[700px] bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl overflow-hidden cursor-grab active:cursor-grabbing select-none shadow-[6px_6px_0px_#042F2E] font-sans"
     >
-      <div className="absolute top-4 right-4 z-20 flex flex-col gap-1.5 bg-[#042F2E]/90 backdrop-blur-md p-1.5 rounded-2xl border border-[rgba(153,246,228,0.25)] shadow-lg">
+      <div className="absolute top-4 right-4 z-20 flex flex-col gap-2 bg-[#042F2E] p-2 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
         <button
           type="button"
           data-testid="zoom-in-btn"
           onClick={() => setZoom((z) => Math.min(2.5, z + 0.2))}
-          className="w-8 h-8 rounded-xl bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[#FFFDF7] font-bold text-base flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-xl bg-[#064E4A] hover:bg-[#083835] border-2 border-[#042F2E] text-[#FFFDF7] font-black text-base flex items-center justify-center shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
           aria-label="Zoom In"
         >
           +
@@ -198,7 +198,7 @@ export function ConnectionMap({
           type="button"
           data-testid="zoom-out-btn"
           onClick={() => setZoom((z) => Math.max(0.4, z - 0.2))}
-          className="w-8 h-8 rounded-xl bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[#FFFDF7] font-bold text-base flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-xl bg-[#064E4A] hover:bg-[#083835] border-2 border-[#042F2E] text-[#FFFDF7] font-black text-base flex items-center justify-center shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
           aria-label="Zoom Out"
         >
           -
@@ -210,50 +210,50 @@ export function ConnectionMap({
             setZoom(1);
             setPan({ x: 0, y: 0 });
           }}
-          className="w-8 h-8 rounded-xl bg-[#064E4A] hover:bg-[#14B8A6]/30 text-[#FFD166] font-bold text-xs flex items-center justify-center transition-colors"
+          className="w-9 h-9 rounded-xl bg-[#064E4A] hover:bg-[#083835] border-2 border-[#042F2E] text-[#FFD166] font-black text-xs flex items-center justify-center shadow-[2px_2px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all cursor-pointer"
           aria-label="Reset View"
         >
           1x
         </button>
       </div>
 
-      <div className="absolute bottom-4 left-4 z-20 bg-[#042F2E]/90 backdrop-blur-md p-4 rounded-2xl border border-[rgba(153,246,228,0.25)] shadow-xl space-y-3 text-xs">
+      <div className="absolute bottom-4 left-4 z-20 bg-[#042F2E] p-4 sm:p-5 rounded-2xl border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] space-y-3.5 text-xs">
         <div>
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#A7F3D0] mb-2">
+          <div className="text-[10px] font-black uppercase tracking-wider text-[#A7F3D0] mb-2">
             Status Legend
           </div>
           <div className="grid grid-cols-2 gap-2 text-[11px]">
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#99F6E4]" />
-              <span className="text-[#FFFDF7]">Active</span>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-[#99F6E4] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]" />
+              <span className="text-[#FFFDF7] font-bold">Active</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FFD166]" />
-              <span className="text-[#FFFDF7]">Hold</span>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-[#FFD166] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]" />
+              <span className="text-[#FFFDF7] font-bold">Hold</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B6B]" />
-              <span className="text-[#FFFDF7]">Rugged</span>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-[#FF6B6B] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]" />
+              <span className="text-[#FFFDF7] font-bold">Rugged</span>
             </div>
-            <div className="flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#A7F3D0]" />
-              <span className="text-[#FFFDF7]">Passed</span>
+            <div className="flex items-center gap-2">
+              <span className="w-3 h-3 rounded-full bg-[#A7F3D0] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]" />
+              <span className="text-[#FFFDF7] font-bold">Passed</span>
             </div>
           </div>
         </div>
 
-        <div className="pt-2.5 border-t border-[rgba(153,246,228,0.2)]">
-          <div className="text-[10px] font-bold uppercase tracking-wider text-[#A7F3D0] mb-2">
+        <div className="pt-2.5 border-t-2 border-[#042F2E]">
+          <div className="text-[10px] font-black uppercase tracking-wider text-[#A7F3D0] mb-2">
             Connection Links
           </div>
           <div className="space-y-1.5 text-[11px]">
             <div className="flex items-center gap-2">
-              <div className="w-5 h-0.5 bg-[#99F6E4]" />
-              <span className="text-[#99F6E4] font-medium">Confirmed (On-Chain / Repo)</span>
+              <div className="w-6 h-1 bg-[#99F6E4] rounded-full" />
+              <span className="text-[#99F6E4] font-bold">Confirmed (On-Chain / Repo)</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-5 h-0.5 border-b-2 border-dashed border-[#C084FC]" />
-              <span className="text-[#C084FC] font-medium">Hypothesis (Note Mentions)</span>
+              <div className="w-6 h-0.5 border-b-2 border-dashed border-[#C084FC]" />
+              <span className="text-[#C084FC] font-bold">Hypothesis (Note Mentions)</span>
             </div>
           </div>
         </div>
@@ -281,9 +281,9 @@ export function ConnectionMap({
                 x2={tgt.cx}
                 y2={tgt.cy}
                 stroke={isConfirmed ? "#99F6E4" : "#C084FC"}
-                strokeWidth={isConfirmed ? "2" : "1.5"}
-                strokeDasharray={isConfirmed ? "none" : "5 4"}
-                opacity={0.8}
+                strokeWidth={isConfirmed ? "2.5" : "2"}
+                strokeDasharray={isConfirmed ? "none" : "6 4"}
+                opacity={0.9}
               />
             );
           })}
@@ -304,22 +304,22 @@ export function ConnectionMap({
               <circle
                 r={node.r + 5}
                 fill={node.color}
-                opacity={0.25}
+                opacity={0.3}
                 className="animate-pulse"
               />
               <circle
                 r={node.r}
                 fill="#042F2E"
                 stroke={node.color}
-                strokeWidth="2.5"
+                strokeWidth="3"
               />
               <text
                 dy="4"
                 textAnchor="middle"
                 fill="#FFFDF7"
                 fontSize="10"
-                fontWeight="bold"
-                className="pointer-events-none select-none font-sans"
+                fontWeight="900"
+                className="pointer-events-none select-none font-sans font-black"
               >
                 {node.symbol.slice(0, 5)}
               </text>
@@ -333,7 +333,7 @@ export function ConnectionMap({
               >
                 <Link
                   href={`/d/${node.contractAddress}`}
-                  className="block text-center text-[10px] font-bold text-[#99F6E4] hover:underline truncate font-sans"
+                  className="block text-center text-[10px] font-black text-[#99F6E4] hover:text-[#FFD166] hover:underline truncate font-sans"
                 >
                   {`$${node.symbol}`}
                 </Link>
@@ -350,11 +350,11 @@ export function ConnectionMap({
             left: hoveredNode.cx * zoom + pan.x + 20,
             top: hoveredNode.cy * zoom + pan.y - 20,
           }}
-          className="z-30 pointer-events-none bg-[#042F2E]/95 border border-[rgba(153,246,228,0.3)] px-3.5 py-2.5 rounded-2xl shadow-2xl text-xs text-[#FFFDF7] backdrop-blur-md font-sans"
+          className="z-30 pointer-events-none bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] px-4 py-3 rounded-2xl text-xs text-[#FFFDF7] font-sans"
         >
-          <div className="font-bold text-[#99F6E4]">{`$${hoveredNode.symbol}`}</div>
-          {hoveredNode.name && <div className="text-[#A7F3D0] text-[10px]">{hoveredNode.name}</div>}
-          <div className="text-[10px] uppercase font-bold text-[#A7F3D0] mt-1">
+          <div className="font-black text-[#99F6E4] text-sm">{`$${hoveredNode.symbol}`}</div>
+          {hoveredNode.name && <div className="text-[#A7F3D0] text-[11px] font-medium">{hoveredNode.name}</div>}
+          <div className="text-[10px] uppercase font-black text-[#FFD166] mt-1.5 pt-1.5 border-t border-[#064E4A]">
             {`Status: ${hoveredNode.status || "active"}`}
           </div>
         </div>

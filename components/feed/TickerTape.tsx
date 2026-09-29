@@ -143,15 +143,15 @@ export function TickerTape({
 
   return (
     <div
-      className="w-full h-10 bg-[#064E4A]/90 border-b border-[rgba(153,246,228,0.2)] overflow-hidden font-mono text-xs select-none relative backdrop-blur-md z-20 group marquee-container flex items-center"
+      className="w-full h-11 bg-[#064E4A] border-b-2 border-[#042F2E] overflow-hidden font-mono text-xs select-none relative z-20 group marquee-container flex items-center"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => {
         if (isVisibleRef.current) setIsPaused(false);
       }}
     >
       <div className="flex items-center w-full">
-        <div className="hidden sm:flex items-center gap-2 pl-4 pr-3 py-0.5 border-r border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-[10px] font-bold text-[#99F6E4] uppercase tracking-wider shrink-0 z-10 shadow-[2px_0_10px_rgba(0,0,0,0.3)]">
-          <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-pulse" />
+        <div className="hidden sm:flex items-center gap-2 pl-4 pr-3 py-1 border-r-2 border-[#042F2E] bg-[#042F2E] text-[10px] font-black text-[#99F6E4] uppercase tracking-wider shrink-0 z-10">
+          <span className="w-2 h-2 rounded-full bg-[#4ADE80] animate-pulse" />
           <span>Stream</span>
         </div>
 
@@ -172,14 +172,14 @@ export function TickerTape({
                 <Link
                   key={`${item.contractAddress}-${idx}`}
                   href={`/d/${item.contractAddress}`}
-                  className="inline-flex items-center gap-2 px-3 py-1 bg-[#042F2E]/90 hover:bg-[#083835] border border-[rgba(153,246,228,0.2)] hover:border-[#99F6E4] rounded-full transition-all group shrink-0 shadow-sm hover:shadow-[0_0_12px_rgba(153,246,228,0.25)] hover:scale-[1.02]"
+                  className="inline-flex items-center gap-2 px-3.5 py-1 bg-[#042F2E] hover:bg-[#083835] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] rounded-full transition-all group shrink-0"
                 >
-                  <span className="font-extrabold text-[#FFFDF7] group-hover:text-[#99F6E4] transition-colors">
+                  <span className="font-black text-[#FFFDF7] group-hover:text-[#FFD166] transition-colors">
                     ${item.symbol}
                   </span>
 
                   {item.badge && (
-                    <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase px-1.5 py-0.5 rounded bg-[#FFD166] text-[#042F2E] border border-[#042F2E]">
+                    <span className="inline-flex items-center gap-1 text-[9px] font-black uppercase px-2 py-0.5 rounded-full bg-[#FFD166] text-[#042F2E] border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]">
                       {item.badge.includes("SURGE") ? (
                         <IconFlame size={10} />
                       ) : item.badge.includes("GRAD") ? (
@@ -193,16 +193,16 @@ export function TickerTape({
                     </span>
                   )}
 
-                  <span className="text-[#A7F3D0] text-[11px] font-medium">
+                  <span className="text-[#A7F3D0] text-[11px] font-bold">
                     {formatMC(item.marketCapUsd)}
                   </span>
 
                   <span
-                    className={`text-[10px] font-bold px-1.5 py-0.5 rounded-full ${
+                    className={`text-[10px] font-black px-2 py-0.5 rounded-full border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] ${
                       isPos
-                        ? "bg-[#99F6E4]/20 text-[#99F6E4] border border-[#99F6E4]/30"
+                        ? "bg-[#99F6E4] text-[#042F2E]"
                         : isNeg
-                        ? "bg-[#FF6B6B]/20 text-[#FF6B6B] border border-[#FF6B6B]/30"
+                        ? "bg-[#FF6B6B] text-[#FFFDF7]"
                         : "bg-[#0D746E] text-[#A7F3D0]"
                     }`}
                   >

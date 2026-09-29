@@ -104,10 +104,10 @@ export function TradeInspector({
 
   const bandBadge =
     token.band === "green"
-      ? "bg-[#99F6E4] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
+      ? "bg-[#99F6E4] border-2 border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
       : token.band === "red"
-      ? "bg-[#FF6B6B] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
-      : "bg-[#FFD166] border-[1.5px] border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]";
+      ? "bg-[#FF6B6B] border-2 border-[#042F2E] text-[#FFFDF7] shadow-[2px_2px_0px_#042F2E]"
+      : "bg-[#FFD166] border-2 border-[#042F2E] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]";
 
   return (
     <div
@@ -124,17 +124,17 @@ export function TradeInspector({
 
       <div
         data-testid="trade-inspector-panel"
-        className="relative w-full max-w-md h-full bg-[#064E4A] border-l border-[rgba(153,246,228,0.25)] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col z-10 overflow-hidden animate-in slide-in-from-right duration-200"
+        className="relative w-full max-w-md h-full bg-[#064E4A] border-l-2 border-[#042F2E] shadow-[0_20px_50px_rgba(0,0,0,0.5)] flex flex-col z-10 overflow-hidden animate-in slide-in-from-right duration-200"
       >
-        <div className="p-5 border-b border-[rgba(153,246,228,0.2)] flex items-center justify-between bg-[#042F2E]/80">
+        <div className="p-5 border-b-2 border-[#042F2E] flex items-center justify-between bg-[#042F2E]">
           <div>
             <div className="flex items-center gap-2.5">
-              <h2 className="text-xl font-extrabold text-[#FFFDF7] tracking-tight">
+              <h2 className="text-xl font-black text-[#FFFDF7] tracking-tight">
                 {`$${token.symbol}`}
               </h2>
               {token.band && (
                 <span
-                  className={`text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase ${bandBadge}`}
+                  className={`text-[10px] px-2.5 py-0.5 rounded-full font-black uppercase ${bandBadge}`}
                 >
                   {`${token.score ?? 50} Score`}
                 </span>
@@ -150,7 +150,7 @@ export function TradeInspector({
             data-testid="close-inspector-btn"
             onClick={onClose}
             aria-label="Close Inspector"
-            className="text-[#A7F3D0] hover:text-[#FFFDF7] p-2 rounded-xl hover:bg-[#14B8A6]/20 transition-colors"
+            className="text-[#A7F3D0] hover:text-[#FFFDF7] p-2 rounded-xl bg-[#064E4A] hover:bg-[#083835] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] transition-all cursor-pointer"
           >
             <svg
               className="w-5 h-5"
@@ -161,7 +161,7 @@ export function TradeInspector({
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                strokeWidth={2}
+                strokeWidth={2.5}
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
@@ -169,25 +169,25 @@ export function TradeInspector({
         </div>
 
         <div className="flex-1 overflow-y-auto p-5 space-y-5">
-          <div className="grid grid-cols-2 gap-3 bg-[#042F2E] p-4 rounded-2xl border border-[rgba(153,246,228,0.2)]">
+          <div className="grid grid-cols-2 gap-3 bg-[#042F2E] p-4 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
             <div>
-              <div className="text-[11px] text-[#A7F3D0] font-medium">Market Cap</div>
-              <div className="text-base font-extrabold text-[#FFFDF7]">
+              <div className="text-[11px] text-[#A7F3D0] font-bold uppercase tracking-wider">Market Cap</div>
+              <div className="text-base font-black text-[#FFFDF7]">
                 {formatCurrency(token.marketCapUsd)}
               </div>
             </div>
             <div>
-              <div className="text-[11px] text-[#A7F3D0] font-medium">Token Price</div>
-              <div className="text-base font-extrabold text-[#99F6E4] font-mono">
+              <div className="text-[11px] text-[#A7F3D0] font-bold uppercase tracking-wider">Token Price</div>
+              <div className="text-base font-black text-[#99F6E4] font-mono">
                 {formatPrice(token.priceUsd)}
               </div>
             </div>
             {token.deployerAddress && (
-              <div className="col-span-2 pt-3 border-t border-[rgba(153,246,228,0.2)] flex items-center justify-between text-xs">
-                <span className="text-[#A7F3D0] font-medium">Deployer:</span>
+              <div className="col-span-2 pt-3 border-t-2 border-[#042F2E]/80 flex items-center justify-between text-xs">
+                <span className="text-[#A7F3D0] font-bold">Deployer:</span>
                 <Link
                   href={`/deployer/${token.deployerAddress}`}
-                  className="font-mono text-[#99F6E4] hover:underline"
+                  className="font-mono font-bold text-[#99F6E4] hover:text-[#FFD166] hover:underline"
                 >
                   {truncateAddress(token.deployerAddress)}
                 </Link>
@@ -195,12 +195,12 @@ export function TradeInspector({
             )}
           </div>
 
-          <div className="bg-[#042F2E] p-4 rounded-2xl border border-[rgba(153,246,228,0.2)] space-y-2">
+          <div className="bg-[#042F2E] p-4 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#FFFDF7]">
+              <span className="text-xs font-black uppercase tracking-wider text-[#FFFDF7]">
                 Price Sparkline
               </span>
-              <span className="text-[10px] text-[#99F6E4] font-medium">Recent Activity</span>
+              <span className="text-[10px] text-[#99F6E4] font-bold uppercase tracking-wider">Recent Activity</span>
             </div>
             <div className="w-full h-16 flex items-center justify-center">
               <svg
@@ -221,16 +221,16 @@ export function TradeInspector({
 
           <div>
             <div className="flex items-center justify-between mb-3">
-              <h3 className="text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
+              <h3 className="text-xs font-black uppercase tracking-wider text-[#A7F3D0]">
                 Recent Trades (Last 10)
               </h3>
-              <span className="text-[10px] text-[#A7F3D0]/80 font-medium">
+              <span className="text-[10px] text-[#A7F3D0] font-bold font-mono">
                 {`${recentTrades.length} trades`}
               </span>
             </div>
 
             {recentTrades.length === 0 ? (
-              <div className="p-6 text-center text-xs text-[#A7F3D0]/70 bg-[#042F2E] rounded-2xl border border-[rgba(153,246,228,0.2)]">
+              <div className="p-6 text-center text-xs text-[#A7F3D0]/70 bg-[#042F2E] rounded-2xl border-2 border-[#042F2E] font-bold">
                 No recent trades recorded for this launch.
               </div>
             ) : (
@@ -240,32 +240,32 @@ export function TradeInspector({
                   return (
                     <div
                       key={trade.id}
-                      className="flex items-center justify-between p-2.5 bg-[#042F2E] hover:bg-[#14B8A6]/20 rounded-xl border border-[rgba(153,246,228,0.2)] text-xs transition-colors"
+                      className="flex items-center justify-between p-3 bg-[#042F2E] hover:bg-[#083835] rounded-2xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] text-xs transition-all"
                     >
                       <div className="flex items-center gap-2.5">
                         <span
-                          className={`text-[10px] font-bold px-2 py-0.5 rounded-full uppercase border-[1.5px] border-[#042F2E] ${
+                          className={`text-[10px] font-black px-2 py-0.5 rounded-md uppercase border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] ${
                             isBuy
                               ? "bg-[#99F6E4] text-[#042F2E]"
-                              : "bg-[#FF6B6B] text-[#042F2E]"
+                              : "bg-[#FF6B6B] text-[#FFFDF7]"
                           }`}
                         >
                           {trade.type}
                         </span>
-                        <span className="font-mono text-[#FFFDF7]">
+                        <span className="font-mono font-bold text-[#FFFDF7]">
                           {truncateAddress(trade.trader)}
                         </span>
                       </div>
 
                       <div className="text-right">
                         <div
-                          className={`font-semibold ${
+                          className={`font-black font-mono ${
                             isBuy ? "text-[#99F6E4]" : "text-[#FF6B6B]"
                           }`}
                         >
                           {`${trade.amountEth.toFixed(4)} ETH`}
                         </div>
-                        <div className="text-[10px] text-[#A7F3D0]">
+                        <div className="text-[10px] text-[#A7F3D0]/80 font-mono font-semibold">
                           {`${trade.amountToken.toLocaleString()} $${token.symbol}`}
                         </div>
                       </div>
@@ -277,11 +277,11 @@ export function TradeInspector({
           </div>
         </div>
 
-        <div className="p-4 border-t border-[rgba(153,246,228,0.2)] bg-[#042F2E]">
+        <div className="p-4 border-t-2 border-[#042F2E] bg-[#042F2E]">
           <Link
             href={`/d/${token.contractAddress}`}
             data-testid="open-dossier-btn"
-            className="w-full py-3 px-4 rounded-xl pop-btn-yellow font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all"
+            className="w-full py-3 px-4 rounded-xl pop-btn-yellow font-black text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-[3px_3px_0px_#042F2E]"
           >
             <span>Open Full Dossier</span>
             <IconArrowRight size={14} />

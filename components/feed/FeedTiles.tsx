@@ -41,35 +41,35 @@ export function FeedTiles({ stats }: FeedTilesProps) {
   const isToxicityMed = repeatDeployerPct > 25;
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 font-sans select-none">
-      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[112px] shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-0.5 hover:border-[#99F6E4]/50 transition-all group backdrop-blur-md">
+    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 font-sans select-none">
+      <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[116px] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all group cursor-default">
         <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider">
           <span>Launches (10m)</span>
-          <div className="w-5 h-5 rounded-md bg-[#99F6E4]/15 border border-[#99F6E4]/30 flex items-center justify-center text-[#99F6E4]">
-            <IconBolt size={12} />
+          <div className="w-6 h-6 rounded-lg bg-[#99F6E4]/20 border border-[#042F2E] flex items-center justify-center text-[#99F6E4] shadow-[1.5px_1.5px_0px_#042F2E]">
+            <IconBolt size={13} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
           <div className="text-xl sm:text-2xl font-black tracking-tight text-[#99F6E4] drop-shadow-sm font-mono">
             {totalLaunches10m.toLocaleString()}
           </div>
-          <div className="flex items-end gap-0.5 h-3.5 opacity-75">
-            <div className="w-1 h-1.5 bg-[#99F6E4]/40 rounded-full" />
-            <div className="w-1 h-2.5 bg-[#99F6E4]/70 rounded-full" />
+          <div className="flex items-end gap-1 h-3.5 opacity-80">
+            <div className="w-1 h-1.5 bg-[#99F6E4]/50 rounded-full" />
+            <div className="w-1 h-2.5 bg-[#99F6E4]/80 rounded-full" />
             <div className="w-1 h-3.5 bg-[#99F6E4] rounded-full" />
           </div>
         </div>
-        <div className="text-[10px] text-[#A7F3D0]/70 font-mono flex items-center justify-between">
+        <div className="text-[10px] text-[#A7F3D0] font-mono flex items-center justify-between">
           <span>Velocity</span>
-          <span className="text-[#99F6E4] font-semibold">Active Surge</span>
+          <span className="text-[#99F6E4] font-bold uppercase">Active Surge</span>
         </div>
       </div>
 
-      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[112px] shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-0.5 hover:border-[#FFD166]/50 transition-all group backdrop-blur-md">
+      <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[116px] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all group cursor-default">
         <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider">
           <span>Total Volume</span>
-          <div className="w-5 h-5 rounded-md bg-[#FFD166]/15 border border-[#FFD166]/30 flex items-center justify-center text-[#FFD166]">
-            <IconDiamond size={12} />
+          <div className="w-6 h-6 rounded-lg bg-[#FFD166]/20 border border-[#042F2E] flex items-center justify-center text-[#FFD166] shadow-[1.5px_1.5px_0px_#042F2E]">
+            <IconDiamond size={13} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
@@ -77,17 +77,17 @@ export function FeedTiles({ stats }: FeedTilesProps) {
             {formatVolume(totalVolumeUsd)}
           </div>
         </div>
-        <div className="text-[10px] text-[#A7F3D0]/70 font-mono flex items-center justify-between">
+        <div className="text-[10px] text-[#A7F3D0] font-mono flex items-center justify-between">
           <span>24h Liquidity</span>
-          <span className="text-[#FFD166] font-semibold">Bonding Flow</span>
+          <span className="text-[#FFD166] font-bold uppercase">Bonding Flow</span>
         </div>
       </div>
 
-      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[112px] shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-0.5 hover:border-[#C084FC]/50 transition-all group backdrop-blur-md">
+      <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[116px] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all group cursor-default">
         <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider">
           <span>Unique Wallets</span>
-          <div className="w-5 h-5 rounded-md bg-[#C084FC]/15 border border-[#C084FC]/30 flex items-center justify-center text-[#C084FC]">
-            <IconUsers size={12} />
+          <div className="w-6 h-6 rounded-lg bg-[#C084FC]/20 border border-[#042F2E] flex items-center justify-center text-[#C084FC] shadow-[1.5px_1.5px_0px_#042F2E]">
+            <IconUsers size={13} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
@@ -95,38 +95,38 @@ export function FeedTiles({ stats }: FeedTilesProps) {
             {uniqueWallets.toLocaleString()}
           </div>
         </div>
-        <div className="text-[10px] text-[#A7F3D0]/70 font-mono flex items-center justify-between">
+        <div className="text-[10px] text-[#A7F3D0] font-mono flex items-center justify-between">
           <span>Traders</span>
-          <span className="text-[#C084FC] font-semibold">Verified</span>
+          <span className="text-[#C084FC] font-bold uppercase">Verified</span>
         </div>
       </div>
 
-      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[112px] shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-0.5 hover:border-[#99F6E4]/50 transition-all group backdrop-blur-md">
+      <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[116px] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all group cursor-default">
         <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider">
           <span>Graduated (24h)</span>
-          <div className="w-5 h-5 rounded-md bg-[#99F6E4]/15 border border-[#99F6E4]/30 flex items-center justify-center text-[#99F6E4]">
-            <IconGraduation size={12} />
+          <div className="w-6 h-6 rounded-lg bg-[#99F6E4]/20 border border-[#042F2E] flex items-center justify-center text-[#99F6E4] shadow-[1.5px_1.5px_0px_#042F2E]">
+            <IconGraduation size={13} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
           <div className="text-xl sm:text-2xl font-black tracking-tight text-[#99F6E4] drop-shadow-sm font-mono">
             {graduatedCount.toLocaleString()}
           </div>
-          <span className="text-[10px] font-bold text-[#FFD166] bg-[#042F2E] px-1.5 py-0.5 rounded border border-[#042F2E]">
+          <span className="text-[10px] font-black text-[#042F2E] bg-[#FFD166] px-2 py-0.5 rounded-full border border-[#042F2E] shadow-[1px_1px_0px_#042F2E]">
             100% DEX
           </span>
         </div>
-        <div className="text-[10px] text-[#A7F3D0]/70 font-mono flex items-center justify-between">
+        <div className="text-[10px] text-[#A7F3D0] font-mono flex items-center justify-between">
           <span>Swept Curve</span>
-          <span className="text-[#99F6E4] font-semibold">DEX Ready</span>
+          <span className="text-[#99F6E4] font-bold uppercase">DEX Ready</span>
         </div>
       </div>
 
-      <div className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[112px] shadow-[0_8px_20px_-4px_rgba(4,47,46,0.5)] hover:-translate-y-0.5 transition-all group backdrop-blur-md col-span-2 sm:col-span-1">
+      <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[116px] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all group cursor-default col-span-2 sm:col-span-1">
         <div className="flex items-center justify-between text-[10px] sm:text-[11px] font-bold text-[#A7F3D0] uppercase tracking-wider">
           <span>Repeat Deployers</span>
-          <div className="w-5 h-5 rounded-md bg-[#FF6B6B]/15 border border-[#FF6B6B]/30 flex items-center justify-center text-[#FF6B6B]">
-            <IconRepeat size={12} />
+          <div className="w-6 h-6 rounded-lg bg-[#FF6B6B]/20 border border-[#042F2E] flex items-center justify-center text-[#FF6B6B] shadow-[1.5px_1.5px_0px_#042F2E]">
+            <IconRepeat size={13} />
           </div>
         </div>
         <div className="flex items-baseline justify-between gap-2">
@@ -142,10 +142,10 @@ export function FeedTiles({ stats }: FeedTilesProps) {
             {`${repeatDeployerPct.toFixed(1)}%`}
           </div>
         </div>
-        <div className="text-[10px] text-[#A7F3D0]/70 font-mono flex items-center justify-between">
+        <div className="text-[10px] text-[#A7F3D0] font-mono flex items-center justify-between">
           <span>Toxicity Index</span>
           <span
-            className={`font-semibold ${
+            className={`font-bold uppercase ${
               isToxicityHigh
                 ? "text-[#FF6B6B]"
                 : isToxicityMed

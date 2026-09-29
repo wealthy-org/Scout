@@ -58,15 +58,15 @@ export function GraduationTape({
 
   return (
     <div
-      className="bg-[#064E4A]/90 border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 flex flex-col shadow-lg backdrop-blur-xl font-sans"
+      className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-4 sm:p-5 flex flex-col shadow-[6px_6px_0px_#042F2E] font-sans"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <div className="flex items-center justify-between pb-2.5 mb-2.5 border-b border-[rgba(153,246,228,0.18)] min-h-[26px]">
+      <div className="flex items-center justify-between pb-3 mb-3 border-b-2 border-[#042F2E] min-h-[28px]">
         <div className="flex items-center gap-2">
-          <span className="relative flex h-2 w-2">
+          <span className="relative flex h-2.5 w-2.5">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#FFD166] opacity-75" />
-            <span className="relative inline-flex rounded-full h-2 w-2 bg-[#FFD166]" />
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#FFD166]" />
           </span>
           <h3 className="text-xs font-black uppercase tracking-wider text-[#FFFDF7]">
             Graduation Stream
@@ -74,52 +74,54 @@ export function GraduationTape({
         </div>
         <div className="flex items-center gap-2 text-[11px] text-[#A7F3D0] h-5">
           <span
-            className={`px-1.5 py-0.5 rounded-md bg-[#FFD166] text-[#042F2E] border border-[#042F2E] font-black text-[9px] uppercase leading-none transition-all duration-150 ${
+            className={`px-2 py-0.5 rounded-md bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] font-black text-[9px] uppercase leading-none transition-all duration-150 ${
               isPaused ? "opacity-100 scale-100" : "opacity-0 scale-95 pointer-events-none"
             }`}
           >
             PAUSED
           </span>
-          <span className="font-mono text-[10px] text-[#A7F3D0]/80">{`${items.length} Graduated`}</span>
+          <span className="font-mono text-[10px] font-bold text-[#A7F3D0]">{`${items.length} Graduated`}</span>
         </div>
       </div>
 
-      <div className="max-h-[240px] overflow-y-auto space-y-1.5 pr-0.5 custom-scrollbar">
+      <div className="max-h-[250px] overflow-y-auto space-y-2 pr-0.5 custom-scrollbar">
         {items.length === 0 ? (
-          <div className="py-6 flex flex-col items-center justify-center text-xs text-[#A7F3D0]/70 gap-1.5">
-            <IconGraduation size={22} className="text-[#FFD166]/40" />
-            <span className="text-[11px]">No recent graduations available.</span>
+          <div className="py-8 flex flex-col items-center justify-center text-xs text-[#A7F3D0]/70 gap-2">
+            <div className="w-8 h-8 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] flex items-center justify-center text-[#FFD166]">
+              <IconGraduation size={18} />
+            </div>
+            <span className="text-[11px] font-bold">No recent graduations available.</span>
           </div>
         ) : (
           items.map((g) => {
             const bandBadge =
               g.deployerBand === "green"
-                ? "bg-[#99F6E4] border border-[#042F2E] text-[#042F2E]"
+                ? "bg-[#99F6E4] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] text-[#042F2E]"
                 : g.deployerBand === "red"
-                ? "bg-[#FF6B6B] border border-[#042F2E] text-[#042F2E]"
-                : "bg-[#FFD166] border border-[#042F2E] text-[#042F2E]";
+                ? "bg-[#FF6B6B] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] text-[#FFFDF7]"
+                : "bg-[#FFD166] border-2 border-[#042F2E] shadow-[1px_1px_0px_#042F2E] text-[#042F2E]";
 
             return (
               <div
                 key={g.id}
                 onClick={() => onSelectGraduation?.(g)}
-                className="p-2.5 bg-[#042F2E]/90 hover:bg-[#083835] rounded-xl border border-[rgba(153,246,228,0.15)] hover:border-[#FFD166]/40 transition-all flex items-center justify-between cursor-pointer group shadow-xs"
+                className="p-3 bg-[#042F2E] hover:bg-[#083835] rounded-2xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:shadow-[4px_4px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] transition-all flex items-center justify-between cursor-pointer group"
               >
-                <div className="space-y-0.5">
-                  <div className="flex items-center gap-1.5">
-                    <div className="w-4.5 h-4.5 rounded bg-[#FFD166]/20 border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166]">
-                      <IconTrophy size={10} />
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <div className="w-5 h-5 rounded-lg bg-[#FFD166] border-2 border-[#042F2E] flex items-center justify-center text-[#042F2E] shadow-[1px_1px_0px_#042F2E]">
+                      <IconTrophy size={11} />
                     </div>
                     <Link
                       href={`/d/${g.contractAddress}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="font-extrabold text-[#FFFDF7] group-hover:text-[#99F6E4] text-xs transition-colors"
+                      className="font-black text-[#FFFDF7] group-hover:text-[#FFD166] text-xs transition-colors"
                     >
                       {`$${g.symbol}`}
                     </Link>
                     {g.deployerBand && (
                       <span
-                        className={`text-[8px] px-1.5 py-0.5 rounded font-black uppercase ${bandBadge}`}
+                        className={`text-[8px] px-2 py-0.5 rounded-full font-black uppercase ${bandBadge}`}
                       >
                         {`${g.deployerScore ?? 50} Score`}
                       </span>
@@ -130,7 +132,7 @@ export function GraduationTape({
                     <Link
                       href={`/deployer/${g.deployerAddress}`}
                       onClick={(e) => e.stopPropagation()}
-                      className="hover:text-[#99F6E4] hover:underline"
+                      className="hover:text-[#99F6E4] hover:underline font-bold"
                     >
                       {truncateAddress(g.deployerAddress)}
                     </Link>
@@ -141,7 +143,7 @@ export function GraduationTape({
                   <div className="text-xs font-black text-[#FFD166]">
                     {formatCurrency(g.marketCapUsd)}
                   </div>
-                  <div className="text-[9px] text-[#A7F3D0]/70">
+                  <div className="text-[9px] font-semibold text-[#A7F3D0]/80">
                     {formatTimeAgo(g.graduatedAt)}
                   </div>
                 </div>
