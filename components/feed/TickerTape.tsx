@@ -13,11 +13,11 @@ export interface TickerItemData {
   contractAddress: string;
   symbol: string;
   name?: string;
-  marketCapUsd?: number;
+  marketCapUsd?: number | null;
   deltaPct?: number;
-  volume10mUsd?: number;
+  volume10mUsd?: number | null;
   badge?: string;
-  score?: number;
+  score?: number | null;
 }
 
 export interface TickerTapeProps {
@@ -28,18 +28,18 @@ export interface TickerTapeProps {
 
 const DEFAULT_FALLBACK_ITEMS: TickerItemData[] = [
   {
-    contractAddress: "0x1111111111111111111111111111111111111111",
+    contractAddress: "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
     symbol: "SCOUT",
-    name: "Scout Protocol",
+    name: "Scout Terminal",
     marketCapUsd: 185000,
     deltaPct: 18.4,
     badge: "SURGE",
     score: 95,
   },
   {
-    contractAddress: "0x2222222222222222222222222222222222222222",
-    symbol: "CYBER",
-    name: "Cyber Doge",
+    contractAddress: "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    symbol: "ROBIN",
+    name: "Robinhood Pepe",
     marketCapUsd: 320000,
     deltaPct: 8.2,
     badge: "GRADUATED",
@@ -54,13 +54,13 @@ const DEFAULT_FALLBACK_ITEMS: TickerItemData[] = [
     badge: "FAST VOL",
   },
   {
-    contractAddress: "0x3333333333333333333333333333333333333333",
-    symbol: "ALPHA",
-    name: "Alpha Matrix",
+    contractAddress: "0xcccccccccccccccccccccccccccccccccccccccc",
+    symbol: "RUGPULL",
+    name: "Fast Rug",
     marketCapUsd: 45000,
     deltaPct: -4.5,
-    badge: "84 SCORE",
-    score: 84,
+    badge: "SCORE 15",
+    score: 15,
   },
   {
     contractAddress: "0xcbb7c0000ab88b473b1f5afd9ef808440eed33bf",
@@ -127,16 +127,16 @@ export function TickerTape({
 
   const loopedItems = [...activeItems, ...activeItems, ...activeItems, ...activeItems];
 
-  const formatMC = (val?: number) => {
-    if (val === undefined || isNaN(val)) return "-";
+  const formatMC = (val?: number | null) => {
+    if (val === undefined || val === null || isNaN(val)) return "-";
     if (val >= 1_000_000_000) return `$${(val / 1_000_000_000).toFixed(1)}B`;
     if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(1)}M`;
     if (val >= 1_000) return `$${(val / 1_000).toFixed(0)}K`;
     return `$${val.toLocaleString()}`;
   };
 
-  const formatDelta = (val?: number) => {
-    if (val === undefined || isNaN(val)) return "0.0%";
+  const formatDelta = (val?: number | null) => {
+    if (val === undefined || val === null || isNaN(val)) return "0.0%";
     const sign = val > 0 ? "+" : "";
     return `${sign}${val.toFixed(1)}%`;
   };

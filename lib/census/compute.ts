@@ -71,21 +71,53 @@ export async function computeCensusStats(
 
   try {
     const rawLaunches = customDb.select().from(deployerLaunches);
-    const launches = (await rawLaunches) as Array<{ deployerAddress: string }> | undefined;
+    const launches = (await rawLaunches) as
+      | Array<{ deployerAddress: string; block: number | null }>
+      | undefined;
 
     if (!launches || launches.length === 0) {
-      return defaultPayload;
+      return {
+        total_launches: 0,
+        unique_deployers: 0,
+        repeat_share: 0,
+        head_block: customHeadBlock,
+        repeat_launchers: [],
+        launches_by_block: [],
+        computed_at: new Date().toISOString(),
+      };
     }
 
     const totalLaunches = launches.length;
     const deployerMap = new Map<string, number>();
+    const bucketMap = new Map<string, { startBlock: number; count: number }>();
 
     for (const l of launches) {
       const addr = (l.deployerAddress || "").toLowerCase();
       if (addr) {
         deployerMap.set(addr, (deployerMap.get(addr) || 0) + 1);
       }
+
+      if (typeof l.block === "number" && !isNaN(l.block)) {
+        const startBlock = Math.floor(l.block / 100_000) * 100_000;
+        const endBlock = startBlock + 100_000;
+        const startM = (startBlock / 1_000_000).toFixed(1);
+        const endM = (endBlock / 1_000_000).toFixed(1);
+        const rangeLabel = `${startM}M - ${endM}M`;
+        const existing = bucketMap.get(rangeLabel);
+        if (existing) {
+          existing.count++;
+        } else {
+          bucketMap.set(rangeLabel, { startBlock, count: 1 });
+        }
+      }
     }
+
+    const launchesByBlock = Array.from(bucketMap.entries())
+      .sort((a, b) => a[1].startBlock - b[1].startBlock)
+      .map(([blockRange, data]) => ({
+        blockRange,
+        count: data.count,
+      }));
 
     const uniqueDeployers = deployerMap.size || 1;
     let repeatDeployersCount = 0;
@@ -154,11 +186,8 @@ export async function computeCensusStats(
       unique_deployers: uniqueDeployers,
       repeat_share: repeatShare,
       head_block: customHeadBlock,
-      repeat_launchers:
-        repeatLaunchers.length > 0
-          ? repeatLaunchers
-          : defaultPayload.repeat_launchers,
-      launches_by_block: defaultPayload.launches_by_block,
+      repeat_launchers: repeatLaunchers,
+      launches_by_block: launchesByBlock,
       computed_at: new Date().toISOString(),
     };
   } catch {

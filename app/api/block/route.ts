@@ -11,11 +11,12 @@ export async function GET() {
       source: "rpc",
     });
   } catch {
-    return NextResponse.json({
-      ok: true,
-      blockNumber: 21845120,
-      timestamp: Date.now(),
-      source: "fallback",
-    });
+    return NextResponse.json(
+      {
+        ok: false,
+        error: "RPC unavailable",
+      },
+      { status: 503 }
+    );
   }
 }

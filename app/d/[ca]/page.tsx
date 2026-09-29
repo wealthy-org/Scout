@@ -74,7 +74,7 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
 
       <main className="max-w-[1520px] mx-auto p-3 sm:p-5 lg:p-6 relative z-10">
         <div className="flex flex-col lg:flex-row gap-5 items-start">
-          <aside className="w-full lg:w-[360px] xl:w-[390px] shrink-0 space-y-4">
+          <aside className="w-full lg:w-[360px] xl:w-[390px] shrink-0 space-y-4 relative z-20">
             <DossierHeader
               symbol={data.symbol || "UNKNOWN"}
               name={data.name || "Unknown Token"}
@@ -90,7 +90,9 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
               tradeCount={data.tradeCount}
               uniqueWallets={data.uniqueWallets}
             />
+          </aside>
 
+          <section className="flex-1 min-w-0 w-full space-y-5">
             <ResearchPanel
               contractAddress={data.contractAddress}
               isAuthenticated={!data.isAnonymous}
@@ -100,9 +102,7 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
               initialNotes={data.dossier?.notes}
               initialDecisionReason={data.dossier?.decisionReason}
             />
-          </aside>
 
-          <section className="flex-1 min-w-0 w-full space-y-5">
             <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#064E4A]/80 backdrop-blur-xl overflow-hidden shadow-lg">
               <div className="bg-[#042F2E] px-4 py-2.5 border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between">
                 <div className="flex items-center gap-2">

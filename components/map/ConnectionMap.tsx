@@ -66,7 +66,8 @@ export function computeMapLayout(
     const st = (node.status || "active").toLowerCase();
     if (st === "passed") color = "#A7F3D0";
     else if (st === "rugged") color = "#FF6B6B";
-    else if (st === "hold") color = "#FFD166";
+    else if (st === "hold" || st === "watching" || st === "researching") color = "#FFD166";
+    else if (st === "active" || st === "in position") color = "#99F6E4";
 
     return {
       ...node,

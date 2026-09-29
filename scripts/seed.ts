@@ -221,9 +221,93 @@ export const mockData = {
       phase: 'swept'
     },
     {
+      deployerAddress: '0xd111111111111111111111111111111111111111',
+      tokenAddress: '0xaaaa111111111111111111111111111111111111',
+      block: 27025000,
+      phase: 'graduated'
+    },
+    {
+      deployerAddress: '0xd111111111111111111111111111111111111111',
+      tokenAddress: '0xaaaa222222222222222222222222222222222222',
+      block: 27023400,
+      phase: 'graduated'
+    },
+    {
+      deployerAddress: '0xd111111111111111111111111111111111111111',
+      tokenAddress: '0xaaaa333333333333333333333333333333333333',
+      block: 27021100,
+      phase: 'graduated'
+    },
+    {
+      deployerAddress: '0xd111111111111111111111111111111111111111',
+      tokenAddress: '0xaaaa444444444444444444444444444444444444',
+      block: 27019500,
+      phase: 'curve'
+    },
+    {
       deployerAddress: '0xd222222222222222222222222222222222222222',
       tokenAddress: '0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb',
       block: 27028100,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccccccccccccccccccccccccccccccccccccccc',
+      block: 27029000,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc111111111111111111111111111111111111',
+      block: 27028900,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc222222222222222222222222222222222222',
+      block: 27028800,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc333333333333333333333333333333333333',
+      block: 27028700,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc444444444444444444444444444444444444',
+      block: 27028500,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc555555555555555555555555555555555555',
+      block: 27028400,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc666666666666666666666666666666666666',
+      block: 27028300,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc777777777777777777777777777777777777',
+      block: 27027500,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc888888888888888888888888888888888888',
+      block: 27026500,
+      phase: 'curve'
+    },
+    {
+      deployerAddress: '0xd333333333333333333333333333333333333333',
+      tokenAddress: '0xcccc999999999999999999999999999999999999',
+      block: 27025500,
       phase: 'curve'
     }
   ],

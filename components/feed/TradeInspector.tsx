@@ -18,13 +18,13 @@ export interface InspectorToken {
   contractAddress: string;
   symbol: string;
   name?: string;
-  marketCapUsd?: number;
-  priceUsd?: number;
+  marketCapUsd?: number | null;
+  priceUsd?: number | null;
   deployerAddress?: string;
-  score?: number;
-  band?: "green" | "yellow" | "red" | string;
-  label?: string;
-  progressPct?: number;
+  score?: number | null;
+  band?: "green" | "yellow" | "red" | string | null;
+  label?: string | null;
+  progressPct?: number | null;
 }
 
 export interface TradeInspectorProps {
@@ -40,14 +40,14 @@ function truncateAddress(addr: string): string {
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 }
 
-function formatCurrency(val?: number): string {
+function formatCurrency(val?: number | null): string {
   if (val === undefined || val === null || isNaN(val)) return "$0";
   if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(2)}M`;
   if (val >= 1_000) return `$${(val / 1_000).toFixed(1)}k`;
   return `$${val.toLocaleString()}`;
 }
 
-function formatPrice(val?: number): string {
+function formatPrice(val?: number | null): string {
   if (val === undefined || val === null || isNaN(val)) return "$0.00";
   if (val < 0.00001) return `$${val.toExponential(2)}`;
   if (val < 1) return `$${val.toFixed(6)}`;

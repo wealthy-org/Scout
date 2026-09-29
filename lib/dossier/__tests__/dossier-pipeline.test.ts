@@ -36,7 +36,34 @@ describe("Dossier Query & Transform Pipeline (REFACTOR-2 & SPEC-3)", () => {
           phase: "graduated",
         },
       ],
-      latestSnapshots: [],
+      latestSnapshots: [
+        {
+          id: "snap-1",
+          dossierId: "d-1",
+          at: new Date(),
+          marketJson: {
+            fdv: 120000,
+            volume24h: 45000,
+            tradeCount: 200,
+            uniqueWallets: 60,
+          },
+          curveJson: {
+            progress: 100,
+            buyVolume: 25000,
+            sellVolume: 20000,
+            topWallets: [
+              {
+                address: "0xdeployer1111111111111111111111111111111111",
+                volume: 15000,
+                netFlow: 8000,
+                tradeCount: 12,
+                isDeployer: true,
+              },
+            ],
+          },
+          chainJson: {},
+        } as any,
+      ],
       logs: [],
       items: [],
       questions: [],
@@ -72,6 +99,6 @@ describe("Dossier Query & Transform Pipeline (REFACTOR-2 & SPEC-3)", () => {
     const result = await fetchDossierPageData("0x0000000000000000000000000000000000000000");
     assert.ok(result);
     assert.strictEqual(result.contractAddress, "0x0000000000000000000000000000000000000000");
-    assert.strictEqual(typeof result.marketCapUsd, "number");
+    assert.strictEqual(result.marketCapUsd, undefined);
   });
 });

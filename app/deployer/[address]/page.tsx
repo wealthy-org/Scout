@@ -9,6 +9,8 @@ import {
   deployerWatchlist,
 } from "@/lib/db/schema";
 import { calculateScore, buildSignalsFromRecord } from "@/lib/score/calculate";
+import { publicClient } from "@/lib/chain/client";
+import { fetchTokenLaunched } from "@/lib/chain/events";
 import {
   DeployerProfileView,
   type DeployerLaunchItem,
@@ -101,13 +103,37 @@ export default async function DeployerPage({ params }: PageProps) {
         band = row.band;
         signals = buildSignalsFromRecord(row);
       } else {
+        let isContract = false;
+        if (launches.length === 0) {
+          try {
+            const code = await publicClient.getBytecode({
+              address: cleanAddress as `0x${string}`,
+            });
+            if (code && code !== "0x") {
+              isContract = true;
+            } else {
+              const logs = await fetchTokenLaunched({
+                deployer: cleanAddress as `0x${string}`,
+              });
+              if (logs.length > 0) {
+                launches = logs.map((l) => ({
+                  tokenAddress: l.token.toLowerCase(),
+                  block: Number(l.blockNumber),
+                  phase: "curve",
+                }));
+              }
+            }
+          } catch {
+          }
+        }
+
         const launchInputs = launches.map((l) => ({
           token: l.tokenAddress,
-          graduated: l.phase === "graduated",
+          graduated: l.phase === "graduated" || l.phase === "swept",
           isDoa: false,
           isBurst: false,
         }));
-        const calculated = calculateScore(launchInputs);
+        const calculated = calculateScore(launchInputs, { isContract });
         score = calculated.score;
         label = calculated.label;
         band = calculated.band;

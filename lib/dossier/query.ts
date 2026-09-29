@@ -16,6 +16,7 @@ import {
   type DossierQuestion,
 } from "@/lib/db/schema";
 import { eq, desc } from "drizzle-orm";
+import { publicClient } from "@/lib/chain/client";
 
 export interface RawDossierQueryResult {
   existingDossierRecords: Dossier[];
@@ -29,7 +30,8 @@ export interface RawDossierQueryResult {
   logs: DossierLog[];
   items: DossierItem[];
   questions: DossierQuestion[];
-  resolvedDeployerAddress: string;
+  resolvedDeployerAddress: string | null;
+  isBytecodeContract?: boolean;
 }
 
 export async function queryDossierRawData(
@@ -111,26 +113,38 @@ export async function queryDossierRawData(
     }
   }
 
-  let seed = 0;
-  for (let i = 2; i < normalizedCA.length; i++) {
-    seed = (seed * 31 + normalizedCA.charCodeAt(i)) >>> 0;
+  const resolvedDeployerAddress = tokenDeployer ?? null;
+
+  let deployerScoreRecord: DeployerScore | null = null;
+  let deployerLaunchesList: DeployerLaunch[] = [];
+
+  if (resolvedDeployerAddress) {
+    const dScores = await db
+      .select()
+      .from(deployerScores)
+      .where(eq(deployerScores.deployerAddress, resolvedDeployerAddress))
+      .limit(1);
+
+    deployerScoreRecord = dScores[0] ?? null;
+
+    deployerLaunchesList = await db
+      .select()
+      .from(deployerLaunches)
+      .where(eq(deployerLaunches.deployerAddress, resolvedDeployerAddress))
+      .limit(40);
   }
-  const defaultDeployerHex = (seed.toString(16) + "0000000000000000000000000000000000000000").slice(0, 40);
-  const resolvedDeployerAddress = tokenDeployer || `0x${defaultDeployerHex}`;
 
-  const dScores = await db
-    .select()
-    .from(deployerScores)
-    .where(eq(deployerScores.deployerAddress, resolvedDeployerAddress))
-    .limit(1);
-
-  const deployerScoreRecord = dScores[0] ?? null;
-
-  const deployerLaunchesList = await db
-    .select()
-    .from(deployerLaunches)
-    .where(eq(deployerLaunches.deployerAddress, resolvedDeployerAddress))
-    .limit(40);
+  let isBytecodeContract: boolean | undefined = undefined;
+  if (!tokenLaunchRecord && existingDossierRecords.length === 0 && /^0x[0-9a-fA-F]{40}$/.test(normalizedCA)) {
+    try {
+      const code = await publicClient.getBytecode({
+        address: normalizedCA as `0x${string}`,
+      });
+      isBytecodeContract = !!(code && code !== "0x");
+    } catch {
+      isBytecodeContract = undefined;
+    }
+  }
 
   return {
     existingDossierRecords,
@@ -145,5 +159,6 @@ export async function queryDossierRawData(
     items,
     questions,
     resolvedDeployerAddress,
+    isBytecodeContract,
   };
 }

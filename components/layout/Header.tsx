@@ -10,7 +10,7 @@ import { IconAlert, IconClose } from "@/components/icons/Vectors";
 export interface HeaderProps {
   isAuthenticated?: boolean;
   walletAddress?: string | null;
-  initialBlockHeight?: number;
+  initialBlockHeight?: number | null;
   onConnectWallet?: () => void | Promise<void>;
   onDisconnect?: () => void | Promise<void>;
 }
@@ -29,8 +29,8 @@ export function Header({
   const [isLoggingOut, setIsLoggingOut] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const isAuthed = isAuthenticated !== undefined ? isAuthenticated : wallet.isAuthenticated;
-  const activeAddress = walletAddress !== undefined ? walletAddress : wallet.userAddress;
+  const isAuthed = Boolean(isAuthenticated || wallet.isAuthenticated);
+  const activeAddress = walletAddress || wallet.userAddress;
 
   useEffect(() => {
     setMounted(true);

@@ -44,7 +44,7 @@ export function DossierHeader({
   const isGraduated = phase === "graduated" || phase === "swept";
 
   return (
-    <header className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-5 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl font-sans space-y-3.5">
+    <header className="relative z-30 overflow-visible rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-5 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl font-sans space-y-3.5">
       <div className="flex items-center gap-3 min-w-0">
         <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl border-2 border-[#042F2E] bg-gradient-to-br from-[#99F6E4] to-[#14B8A6] text-sm font-black text-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
           {(symbol || "TK").slice(0, 3).toUpperCase()}
@@ -119,7 +119,7 @@ export function DossierHeader({
         </button>
       </div>
 
-      <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[rgba(153,246,228,0.15)]">
+      <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[rgba(153,246,228,0.15)] relative z-30">
         <button
           type="button"
           onClick={onRefresh}
@@ -159,7 +159,7 @@ export function DossierHeader({
           <span>{isPublishing ? "Publishing..." : "Publish"}</span>
         </button>
 
-        <div className="relative">
+        <div className="relative z-40">
           <button
             type="button"
             onClick={() => setIsExportOpen(!isExportOpen)}
@@ -180,7 +180,7 @@ export function DossierHeader({
           </button>
 
           {isExportOpen && (
-            <div className="absolute left-0 right-0 z-50 mt-1 w-full rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-1.5 shadow-2xl space-y-1">
+            <div className="absolute left-0 right-0 z-50 mt-1.5 w-full min-w-[180px] rounded-2xl border-2 border-[#042F2E] bg-[#042F2E] p-1.5 shadow-[0_15px_35px_rgba(0,0,0,0.85)] space-y-1">
               <a
                 href={`/api/dossier/${contractAddress}/export.md`}
                 download={`dossier-${symbol.toLowerCase()}.md`}

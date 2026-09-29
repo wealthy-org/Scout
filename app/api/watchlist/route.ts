@@ -3,9 +3,10 @@ import { z } from "zod";
 import { eq, desc } from "drizzle-orm";
 import { getSession } from "@/lib/auth/session";
 import { db, type Database } from "@/lib/db";
-import { deployerWatchlist, deployerScores } from "@/lib/db/schema";
+import { deployerWatchlist, deployerScores, deployerLaunches } from "@/lib/db/schema";
 import type { CookieStoreLike } from "@/types/auth";
 import { ethAddressSchema } from "@/lib/validation/sanitize";
+import { calculateScore } from "@/lib/score/calculate";
 
 export interface WatchlistEntryResult {
   id: string;
@@ -99,22 +100,61 @@ export async function handleGetWatchlist(
       .where(eq(deployerWatchlist.walletAddress, wallet))
       .orderBy(desc(deployerWatchlist.lastSeenAt));
 
-    const result: WatchlistEntryResult[] = rows.map((row) => ({
-      id: row.id,
-      deployerAddress: row.deployerAddress,
-      createdAt: row.createdAt,
-      lastSeenAt: row.lastSeenAt,
-      score:
-        typeof row.scoreValue === "number"
-          ? {
-              score: row.scoreValue,
-              label: row.label || "fresh",
-              band: row.band || "yellow",
-              totalLaunches: row.totalLaunches || 0,
-              graduatedCount: row.graduatedCount || 0,
-            }
-          : null,
-    }));
+    let launchesByDeployer: Map<string, { token: string; graduated: boolean }[]> = new Map();
+    try {
+      const launches = await customDb.select().from(deployerLaunches);
+      if (Array.isArray(launches)) {
+        launches.forEach((l) => {
+          const dep = l.deployerAddress.toLowerCase();
+          if (!launchesByDeployer.has(dep)) {
+            launchesByDeployer.set(dep, []);
+          }
+          const isGraduated = l.phase === "graduated" || l.phase === "swept";
+          launchesByDeployer.get(dep)!.push({
+            token: l.tokenAddress,
+            graduated: isGraduated,
+          });
+        });
+      }
+    } catch {}
+
+    const result: WatchlistEntryResult[] = rows.map((row) => {
+      let scoreData = null;
+      if (typeof row.scoreValue === "number") {
+        scoreData = {
+          score: row.scoreValue,
+          label: (row.label || "fresh") as "fresh" | "repeat" | "serial",
+          band: (row.band || "yellow") as "green" | "yellow" | "red",
+          totalLaunches: row.totalLaunches || 0,
+          graduatedCount: row.graduatedCount || 0,
+        };
+      } else {
+        const dLaunches = launchesByDeployer.get(row.deployerAddress.toLowerCase()) || [];
+        const calculated = calculateScore(
+          dLaunches.map((l) => ({
+            token: l.token,
+            graduated: l.graduated,
+            isDoa: false,
+            isBurst: false,
+          }))
+        );
+        scoreData = {
+          score: calculated.score,
+          label: calculated.label,
+          band: calculated.band,
+          totalLaunches: calculated.signals.total_launches,
+          graduatedCount: calculated.signals.graduated_count,
+        };
+      }
+
+      return {
+        id: row.id,
+        deployerAddress: row.deployerAddress,
+        createdAt: row.createdAt,
+        lastSeenAt: row.lastSeenAt,
+        score: scoreData,
+      };
+    });
 
     return NextResponse.json(
       {
@@ -213,13 +253,25 @@ export async function handlePostWatchlist(
       );
     }
 
+    let resolvedAddress = deployerAddress;
+    try {
+      const tokenMatch = await customDb
+        .select({ deployerAddress: deployerLaunches.deployerAddress })
+        .from(deployerLaunches)
+        .where(eq(deployerLaunches.tokenAddress, deployerAddress))
+        .limit(1);
+      if (tokenMatch.length > 0 && tokenMatch[0]?.deployerAddress) {
+        resolvedAddress = tokenMatch[0].deployerAddress.toLowerCase();
+      }
+    } catch {}
+
     const currentEntries = await customDb
       .select({ id: deployerWatchlist.id, deployerAddress: deployerWatchlist.deployerAddress })
       .from(deployerWatchlist)
       .where(eq(deployerWatchlist.walletAddress, wallet));
 
     const existingMatch = currentEntries.find(
-      (e) => e.deployerAddress.toLowerCase() === deployerAddress
+      (e) => e.deployerAddress.toLowerCase() === resolvedAddress
     );
 
     if (existingMatch) {
@@ -227,7 +279,7 @@ export async function handlePostWatchlist(
         {
           ok: true,
           created: false,
-          deployer_address: deployerAddress,
+          deployer_address: resolvedAddress,
         },
         { status: 200 }
       );
@@ -245,7 +297,7 @@ export async function handlePostWatchlist(
 
     await customDb.insert(deployerWatchlist).values({
       walletAddress: wallet,
-      deployerAddress,
+      deployerAddress: resolvedAddress,
       createdAt: new Date(),
       lastSeenAt: new Date(),
     });
@@ -254,7 +306,7 @@ export async function handlePostWatchlist(
       {
         ok: true,
         created: true,
-        deployer_address: deployerAddress,
+        deployer_address: resolvedAddress,
       },
       { status: 201 }
     );

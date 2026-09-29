@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
+import { createPortal } from "react-dom";
 import {
   IconPhantom,
   IconMetaMask,
@@ -37,6 +38,12 @@ export function ConnectWalletModal({
   onSelectWallet,
   onClearError,
 }: ConnectWalletModalProps) {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   const availability: WalletAvailability = useMemo(() => {
     if (!isOpen || typeof window === "undefined") {
       return { phantom: false, metamask: false, injected: false };
@@ -56,12 +63,12 @@ export function ConnectWalletModal({
 
   if (!isOpen) return null;
 
-  return (
+  const modalContent = (
     <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="connect-wallet-title"
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#042F2E]/80 backdrop-blur-md animate-in fade-in duration-200"
+      className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-[#042F2E]/80 backdrop-blur-md animate-in fade-in duration-200"
       onClick={(e) => {
         if (e.target === e.currentTarget && !isConnecting) {
           onClose();
@@ -237,4 +244,10 @@ export function ConnectWalletModal({
       </div>
     </div>
   );
+
+  if (mounted && typeof document !== "undefined") {
+    return createPortal(modalContent, document.body);
+  }
+
+  return modalContent;
 }

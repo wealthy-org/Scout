@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import type { DossierStatus } from "@/lib/db/schema";
 import { IconClose } from "@/components/icons/Vectors";
+import { useWallet } from "@/components/wallet/WalletContext";
 import type {
   PutDossierRequestBody,
   PutDossierItemInput,
@@ -34,6 +35,8 @@ export function ResearchPanel({
   initialQuestions = [],
   onSave,
 }: ResearchPanelProps) {
+  const wallet = useWallet();
+  const isAuthed = isAuthenticated || wallet.isAuthenticated;
   const [thesis, setThesis] = useState(initialThesis ?? "");
   const [status, setStatus] = useState<DossierStatus>(
     initialStatus ?? "Watching"
@@ -87,7 +90,7 @@ export function ResearchPanel({
       return;
     }
 
-    if (!isAuthenticated) return;
+    if (!isAuthed) return;
 
     if (saveTimeoutRef.current) {
       clearTimeout(saveTimeoutRef.current);
@@ -119,11 +122,11 @@ export function ResearchPanel({
     notes,
     items,
     questions,
-    isAuthenticated,
+    isAuthed,
     executeSave,
   ]);
 
-  if (!isAuthenticated) {
+  if (!isAuthed) {
     return (
       <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-6 sm:p-8 text-center shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl font-sans">
         <div className="mx-auto max-w-md">
@@ -134,8 +137,14 @@ export function ResearchPanel({
             Connect your wallet to record and auto-save case file research,
             thesis, notes, and checklist questions.
           </p>
-          <div className="mt-4 inline-block rounded-xl pop-btn-yellow px-5 py-2.5 text-xs font-bold uppercase tracking-wider">
-            Connect Wallet
+          <div className="mt-4">
+            <button
+              type="button"
+              onClick={() => wallet.openModal()}
+              className="inline-block rounded-xl pop-btn-yellow px-5 py-2.5 text-xs font-bold uppercase tracking-wider cursor-pointer shadow-[2px_2px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+            >
+              Connect Wallet
+            </button>
           </div>
         </div>
       </div>
@@ -171,57 +180,71 @@ export function ResearchPanel({
   const sources = items.filter((i) => i.kind === "source");
 
   return (
-    <div className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl font-sans text-xs">
-      <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-4">
-        <span className="text-sm font-extrabold uppercase tracking-wider text-[#FFFDF7]">
-          Case File Research
-        </span>
+    <div className="rounded-2xl sm:rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-6 lg:p-8 shadow-[0_10px_30px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl font-sans text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[rgba(153,246,228,0.2)] pb-4 sm:pb-5">
+        <div className="flex items-center gap-2.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#99F6E4] shadow-[0_0_8px_#99F6E4]" />
+          <div>
+            <h2 className="text-sm sm:text-base font-black uppercase tracking-wider text-[#FFFDF7]">
+              Case File Research Workspace
+            </h2>
+            <p className="text-[11px] text-[#A7F3D0] mt-0.5">
+              Structured thesis, risk evaluation, and investment decision journal
+            </p>
+          </div>
+        </div>
+
         <div className="flex items-center gap-2">
           {saveStatus === "saving" && (
-            <span className="flex items-center gap-1.5 text-xs text-[#FFD166] font-semibold">
-              <span className="h-2 w-2 animate-ping rounded-full bg-[#FFD166]" />
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FFD166]/20 border border-[#FFD166]/40 text-xs text-[#FFD166] font-semibold animate-pulse">
+              <span className="h-2 w-2 rounded-full bg-[#FFD166]" />
               Saving...
             </span>
           )}
           {saveStatus === "saved" && (
-            <span className="flex items-center gap-1.5 text-xs text-[#99F6E4] font-semibold">
-              <span className="h-2 w-2 rounded-full bg-[#99F6E4] shadow-[0_0_6px_rgba(153,246,228,0.6)]" />
+            <span className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#99F6E4]/20 border border-[#99F6E4]/40 text-xs text-[#99F6E4] font-semibold">
+              <span className="h-2 w-2 rounded-full bg-[#99F6E4] shadow-[0_0_6px_rgba(153,246,228,0.8)]" />
               Saved
             </span>
           )}
           {saveStatus === "error" && (
-            <span className="text-xs font-bold text-[#FF6B6B]">
+            <span className="px-3 py-1 rounded-full bg-[#FF6B6B]/20 border border-[#FF6B6B]/40 text-xs font-bold text-[#FF6B6B]">
               Error saving
             </span>
           )}
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 gap-5 md:grid-cols-2">
-        <div className="space-y-4">
+      <div className="mt-5 sm:mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8">
+        <div className="lg:col-span-7 space-y-5">
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]">
-              Thesis (Investment Case)
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
+                Thesis (Investment Case)
+              </label>
+              <span className="text-[10px] text-[#A7F3D0]/70 font-mono">
+                {`${thesis.length} / 4000`}
+              </span>
+            </div>
             <textarea
               value={thesis}
               onChange={(e) => setThesis(e.target.value)}
-              placeholder="State your primary thesis for this token..."
+              placeholder="State your primary thesis, core catalyst, and conviction for this token..."
               maxLength={4000}
-              rows={3}
-              className="mt-1.5 w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3 text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#99F6E4] focus:outline-hidden"
+              rows={4}
+              className="w-full rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3.5 sm:p-4 text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#99F6E4] focus:outline-hidden transition-colors resize-y min-h-[110px]"
             />
           </div>
 
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]">
+              <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#A7F3D0] mb-1.5">
                 Status
               </label>
               <select
                 value={status}
                 onChange={(e) => setStatus(e.target.value as DossierStatus)}
-                className="mt-1.5 w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-2.5 text-[#FFFDF7] focus:border-[#99F6E4] focus:outline-hidden"
+                className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3 text-sm text-[#FFFDF7] font-semibold focus:border-[#99F6E4] focus:outline-hidden transition-colors cursor-pointer"
               >
                 <option value="Watching">Watching</option>
                 <option value="Researching">Researching</option>
@@ -231,78 +254,95 @@ export function ResearchPanel({
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]">
+              <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#A7F3D0] mb-1.5">
                 Reason
               </label>
               <input
                 type="text"
                 value={reason}
                 onChange={(e) => setReason(e.target.value)}
-                placeholder="Key catalyst or reason"
+                placeholder="Key catalyst or trigger"
                 maxLength={4000}
-                className="mt-1.5 w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-2.5 text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#99F6E4] focus:outline-hidden"
+                className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3 text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#99F6E4] focus:outline-hidden transition-colors"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]">
-              Decision Reason
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
+                Decision Reason
+              </label>
+              <span className="text-[10px] text-[#A7F3D0]/70 font-mono">
+                {`${decisionReason.length} / 4000`}
+              </span>
+            </div>
             <textarea
               value={decisionReason}
               onChange={(e) => setDecisionReason(e.target.value)}
-              placeholder="Why did you take this decision / pass / buy?"
+              placeholder="Why did you enter this position, place on watch, or pass?"
               maxLength={4000}
-              rows={2}
-              className="mt-1.5 w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3 text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#99F6E4] focus:outline-hidden"
+              rows={3}
+              className="w-full rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3.5 sm:p-4 text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#99F6E4] focus:outline-hidden transition-colors resize-y min-h-[90px]"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]">
-              Notes (Markdown Supported)
-            </label>
+            <div className="flex items-center justify-between mb-1.5">
+              <label className="block text-[11px] sm:text-xs font-bold uppercase tracking-wider text-[#A7F3D0]">
+                Notes (Markdown Supported)
+              </label>
+              <span className="text-[10px] text-[#A7F3D0]/70 font-mono">
+                {`${notes.length} / 20000`}
+              </span>
+            </div>
             <textarea
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
-              placeholder="Enter markdown research notes, on-chain findings..."
+              placeholder="Enter comprehensive markdown research notes, on-chain contract audits, dev background, and observations..."
               maxLength={20000}
-              rows={6}
-              className="mt-1.5 w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3 font-mono text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#99F6E4] focus:outline-hidden"
+              rows={8}
+              className="w-full rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-3.5 sm:p-4 font-mono text-xs sm:text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#99F6E4] focus:outline-hidden transition-colors resize-y min-h-[160px]"
             />
           </div>
         </div>
 
-        <div className="space-y-4">
-          <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#99F6E4]">
-              For (Bull Case Points)
-            </label>
-            <div className="mt-1.5 space-y-1.5">
+        <div className="lg:col-span-5 space-y-5">
+          <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E]/80 p-4 sm:p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#99F6E4]">
+                For (Bull Case Points)
+              </label>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#99F6E4]/20 text-[#99F6E4] font-bold">
+                {pros.length}
+              </span>
+            </div>
+            <div className="space-y-2">
               {pros.map((p, idx) => (
                 <div
                   key={`pro-${idx}`}
-                  className="flex items-center justify-between rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] px-3 py-1.5"
+                  className="flex items-start justify-between gap-2 rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-2.5 sm:p-3"
                 >
-                  <span className="text-[#FFFDF7] font-medium">{p.text}</span>
+                  <span className="text-[#FFFDF7] font-medium text-xs sm:text-sm leading-snug break-words flex-1">
+                    {p.text}
+                  </span>
                   <button
                     type="button"
                     onClick={() => handleRemoveItem(items.indexOf(p))}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors shrink-0"
                     aria-label="Remove item"
                   >
-                    <IconClose size={12} />
+                    <IconClose size={14} />
                   </button>
                 </div>
               ))}
-              <div className="flex gap-2">
+              <div className="flex gap-2 pt-1">
                 <input
                   type="text"
                   value={newPro}
                   onChange={(e) => setNewPro(e.target.value)}
-                  placeholder="Add positive factor..."
-                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-2 text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#99F6E4] focus:outline-hidden"
+                  placeholder="Add positive bull case factor..."
+                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-2.5 text-xs sm:text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#99F6E4] focus:outline-hidden"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleAddItem("pro", newPro);
@@ -316,42 +356,49 @@ export function ResearchPanel({
                     handleAddItem("pro", newPro);
                     setNewPro("");
                   }}
-                  className="rounded-xl border-[1.5px] border-[#042F2E] bg-[#99F6E4] px-3.5 font-bold text-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:brightness-110 transition-all"
+                  className="rounded-xl border-[1.5px] border-[#042F2E] bg-[#99F6E4] px-4 font-black text-sm text-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:brightness-110 active:translate-x-[1px] active:translate-y-[1px] transition-all shrink-0 cursor-pointer"
                 >
-                  +
+                  + Add
                 </button>
               </div>
             </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#FF6B6B]">
-              Against (Bear Case / Risks)
-            </label>
-            <div className="mt-1.5 space-y-1.5">
+          <div className="rounded-2xl border border-[rgba(255,107,107,0.25)] bg-[#042F2E]/80 p-4 sm:p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#FF6B6B]">
+                Against (Bear Case / Risks)
+              </label>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF6B6B]/20 text-[#FF6B6B] font-bold">
+                {cons.length}
+              </span>
+            </div>
+            <div className="space-y-2">
               {cons.map((c, idx) => (
                 <div
                   key={`con-${idx}`}
-                  className="flex items-center justify-between rounded-xl border border-[#FF6B6B]/30 bg-[#042F2E] px-3 py-1.5"
+                  className="flex items-start justify-between gap-2 rounded-xl border border-[#FF6B6B]/30 bg-[#064E4A] p-2.5 sm:p-3"
                 >
-                  <span className="text-[#FFFDF7] font-medium">{c.text}</span>
+                  <span className="text-[#FFFDF7] font-medium text-xs sm:text-sm leading-snug break-words flex-1">
+                    {c.text}
+                  </span>
                   <button
                     type="button"
                     onClick={() => handleRemoveItem(items.indexOf(c))}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors shrink-0"
                     aria-label="Remove item"
                   >
-                    <IconClose size={12} />
+                    <IconClose size={14} />
                   </button>
                 </div>
               ))}
-              <div className="flex gap-2">
+              <div className="flex gap-2 pt-1">
                 <input
                   type="text"
                   value={newCon}
                   onChange={(e) => setNewCon(e.target.value)}
-                  placeholder="Add risk factor..."
-                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-2 text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#FF6B6B] focus:outline-hidden"
+                  placeholder="Add risk or bear case factor..."
+                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-2.5 text-xs sm:text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#FF6B6B] focus:outline-hidden"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleAddItem("con", newCon);
@@ -365,35 +412,40 @@ export function ResearchPanel({
                     handleAddItem("con", newCon);
                     setNewCon("");
                   }}
-                  className="rounded-xl border-[1.5px] border-[#042F2E] bg-[#FF6B6B] px-3.5 font-bold text-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:bg-[#FA5252] transition-colors"
+                  className="rounded-xl border-[1.5px] border-[#042F2E] bg-[#FF6B6B] px-4 font-black text-sm text-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:bg-[#FA5252] active:translate-x-[1px] active:translate-y-[1px] transition-all shrink-0 cursor-pointer"
                 >
-                  +
+                  + Add
                 </button>
               </div>
             </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#FFD166]">
-              Open Questions (Checklist)
-            </label>
-            <div className="mt-1.5 space-y-1.5">
+          <div className="rounded-2xl border border-[rgba(255,209,102,0.25)] bg-[#042F2E]/80 p-4 sm:p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#FFD166]">
+                Open Questions (Checklist)
+              </label>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FFD166]/20 text-[#FFD166] font-bold">
+                {`${questions.filter((q) => q.done).length} / ${questions.length} DONE`}
+              </span>
+            </div>
+            <div className="space-y-2">
               {questions.map((q, idx) => (
                 <div
                   key={`q-${idx}`}
-                  className="flex items-center justify-between rounded-xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] px-3 py-1.5"
+                  className="flex items-start justify-between gap-2.5 rounded-xl border border-[rgba(153,246,228,0.2)] bg-[#064E4A] p-2.5 sm:p-3"
                 >
-                  <label className="flex items-center gap-2.5 cursor-pointer">
+                  <label className="flex items-start gap-2.5 cursor-pointer flex-1 min-w-0">
                     <input
                       type="checkbox"
                       checked={q.done ?? false}
                       onChange={() => handleToggleQuestion(idx)}
-                      className="accent-[#FFD166]"
+                      className="mt-0.5 h-4 w-4 rounded-sm border-gray-300 accent-[#FFD166] cursor-pointer"
                     />
                     <span
-                      className={
-                        q.done ? "line-through text-[#A7F3D0]/50" : "text-[#FFFDF7]"
-                      }
+                      className={`text-xs sm:text-sm leading-snug break-words ${
+                        q.done ? "line-through text-[#A7F3D0]/50" : "text-[#FFFDF7] font-medium"
+                      }`}
                     >
                       {q.text}
                     </span>
@@ -401,20 +453,20 @@ export function ResearchPanel({
                   <button
                     type="button"
                     onClick={() => handleRemoveQuestion(idx)}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors shrink-0"
                     aria-label="Remove question"
                   >
-                    <IconClose size={12} />
+                    <IconClose size={14} />
                   </button>
                 </div>
               ))}
-              <div className="flex gap-2">
+              <div className="flex gap-2 pt-1">
                 <input
                   type="text"
                   value={newQuestion}
                   onChange={(e) => setNewQuestion(e.target.value)}
                   placeholder="Add question to investigate..."
-                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-2 text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#99F6E4] focus:outline-hidden"
+                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-2.5 text-xs sm:text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#FFD166] focus:outline-hidden"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleAddQuestion(newQuestion);
@@ -428,49 +480,54 @@ export function ResearchPanel({
                     handleAddQuestion(newQuestion);
                     setNewQuestion("");
                   }}
-                  className="rounded-xl border-[1.5px] border-[#042F2E] bg-[#FFD166] px-3.5 font-bold text-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:brightness-110 transition-all"
+                  className="rounded-xl border-[1.5px] border-[#042F2E] bg-[#FFD166] px-4 font-black text-sm text-[#042F2E] shadow-[2px_2px_0px_#042F2E] hover:brightness-110 active:translate-x-[1px] active:translate-y-[1px] transition-all shrink-0 cursor-pointer"
                 >
-                  +
+                  + Add
                 </button>
               </div>
             </div>
           </div>
 
-          <div>
-            <label className="block text-[11px] font-bold uppercase tracking-wider text-[#99F6E4]">
-              Sources &amp; URLs
-            </label>
-            <div className="mt-1.5 space-y-1.5">
+          <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E]/80 p-4 sm:p-5 space-y-3">
+            <div className="flex items-center justify-between">
+              <label className="block text-[11px] sm:text-xs font-black uppercase tracking-wider text-[#99F6E4]">
+                Sources &amp; URLs
+              </label>
+              <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#99F6E4]/20 text-[#99F6E4] font-bold">
+                {sources.length}
+              </span>
+            </div>
+            <div className="space-y-2">
               {sources.map((s, idx) => (
                 <div
                   key={`src-${idx}`}
-                  className="flex items-center justify-between rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] px-3 py-1.5"
+                  className="flex items-center justify-between gap-2 rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-2.5 sm:p-3"
                 >
                   <a
                     href={s.text}
                     target="_blank"
                     rel="noreferrer"
-                    className="truncate text-[#99F6E4] underline hover:text-[#FFFDF7] font-mono text-xs"
+                    className="truncate text-[#99F6E4] underline hover:text-[#FFFDF7] font-mono text-xs sm:text-sm"
                   >
                     {s.text}
                   </a>
                   <button
                     type="button"
                     onClick={() => handleRemoveItem(items.indexOf(s))}
-                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors"
+                    className="text-[#A7F3D0] hover:text-[#FF6B6B] p-1 rounded-md transition-colors shrink-0"
                     aria-label="Remove source"
                   >
-                    <IconClose size={12} />
+                    <IconClose size={14} />
                   </button>
                 </div>
               ))}
-              <div className="flex gap-2">
+              <div className="flex gap-2 pt-1">
                 <input
                   type="text"
                   value={newSource}
                   onChange={(e) => setNewSource(e.target.value)}
                   placeholder="https://..."
-                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] p-2 text-[#FFFDF7] placeholder:text-[#A7F3D0]/50 focus:border-[#99F6E4] focus:outline-hidden"
+                  className="w-full rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-2.5 text-xs sm:text-sm text-[#FFFDF7] placeholder:text-[#A7F3D0]/40 focus:border-[#99F6E4] focus:outline-hidden"
                   onKeyDown={(e) => {
                     if (e.key === "Enter") {
                       handleAddItem("source", newSource);
@@ -484,9 +541,9 @@ export function ResearchPanel({
                     handleAddItem("source", newSource);
                     setNewSource("");
                   }}
-                  className="rounded-xl border border-[rgba(153,246,228,0.3)] bg-[#042F2E] px-3.5 font-bold text-[#99F6E4] hover:bg-[#14B8A6]/30 transition-colors"
+                  className="rounded-xl border border-[rgba(153,246,228,0.3)] bg-[#064E4A] px-4 font-bold text-xs sm:text-sm text-[#99F6E4] hover:bg-[#14B8A6]/30 active:translate-x-[1px] active:translate-y-[1px] transition-all shrink-0 cursor-pointer"
                 >
-                  +
+                  + Add
                 </button>
               </div>
             </div>

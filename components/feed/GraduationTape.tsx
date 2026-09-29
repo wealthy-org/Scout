@@ -10,10 +10,10 @@ export interface GraduationTapeItem {
   symbol: string;
   name?: string;
   deployerAddress: string;
-  deployerScore?: number;
-  deployerBand?: "green" | "yellow" | "red" | string;
-  marketCapUsd?: number;
-  graduatedAt?: string | number | Date;
+  deployerScore?: number | null;
+  deployerBand?: "green" | "yellow" | "red" | string | null;
+  marketCapUsd?: number | null;
+  graduatedAt?: string | number | Date | null;
 }
 
 export interface GraduationTapeProps {
@@ -27,14 +27,14 @@ function truncateAddress(addr: string): string {
   return `${addr.slice(0, 6)}...${addr.slice(-4)}`;
 }
 
-function formatCurrency(val?: number): string {
+function formatCurrency(val?: number | null): string {
   if (val === undefined || val === null || isNaN(val)) return "$0";
   if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(2)}M`;
   if (val >= 1_000) return `$${(val / 1_000).toFixed(1)}k`;
   return `$${val.toLocaleString()}`;
 }
 
-function formatTimeAgo(ts?: string | number | Date): string {
+function formatTimeAgo(ts?: string | number | Date | null): string {
   if (!ts) return "recently";
   const now = typeof Date.now === "function" ? Date.now() : 0;
   const target = new Date(ts).getTime();

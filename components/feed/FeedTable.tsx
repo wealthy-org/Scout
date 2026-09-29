@@ -25,15 +25,15 @@ export interface FeedTableRowData {
   symbol: string;
   name?: string;
   deployerAddress: string;
-  score?: number;
-  label?: "fresh" | "repeat" | "serial" | string;
-  band?: "green" | "yellow" | "red" | string;
-  progressPct?: number;
-  marketCapUsd?: number;
-  volume24hUsd?: number;
-  phase?: "curve" | "graduated" | "swept" | string;
-  block?: number;
-  timestamp?: string | Date;
+  score?: number | null;
+  label?: "fresh" | "repeat" | "serial" | string | null;
+  band?: "green" | "yellow" | "red" | string | null;
+  progressPct?: number | null;
+  marketCapUsd?: number | null;
+  volume24hUsd?: number | null;
+  phase?: "curve" | "graduated" | "swept" | string | null;
+  block?: number | null;
+  timestamp?: string | Date | null;
 }
 
 export interface FeedTableProps {
@@ -84,7 +84,7 @@ export function filterFeedItems(
           (item) =>
             item.label === "repeat" ||
             item.label === "serial" ||
-            (item.score !== undefined && item.score <= 50)
+            (item.score !== undefined && item.score !== null && item.score <= 50)
         )
         .sort((a, b) => (a.score ?? 0) - (b.score ?? 0));
       break;
@@ -122,14 +122,14 @@ export function FeedTable({
     }
   };
 
-  const formatCurrency = (val?: number) => {
-    if (val === undefined || isNaN(val)) return "-";
+  const formatCurrency = (val?: number | null) => {
+    if (val === undefined || val === null || isNaN(val)) return "-";
     if (val >= 1_000_000) return `$${(val / 1_000_000).toFixed(2)}M`;
     if (val >= 1_000) return `$${(val / 1_000).toFixed(1)}K`;
     return `$${val.toLocaleString()}`;
   };
 
-  const formatTimeAgo = (timeVal?: string | Date) => {
+  const formatTimeAgo = (timeVal?: string | Date | null) => {
     if (!timeVal) return "-";
     const date = typeof timeVal === "string" ? new Date(timeVal) : timeVal;
     if (isNaN(date.getTime())) return "-";

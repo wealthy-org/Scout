@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { eq } from "drizzle-orm";
 import { getSession } from "@/lib/auth/session";
 import { db } from "@/lib/db";
-import { dossiers } from "@/lib/db/schema";
+import { dossiers, deployerLaunches, deployerScores } from "@/lib/db/schema";
 import {
   detectConnections,
   type DossierWithSources,
@@ -37,21 +37,38 @@ export default async function MapPage() {
         .from(dossiers)
         .where(eq(dossiers.walletAddress, userAddress));
 
-      const dossierInputs: DossierWithSources[] = userDossiers.map((d) => ({
-        id: d.id,
-        contractAddress: d.contractAddress,
-        symbol: d.symbol || "UNKNOWN",
-        name: d.name || undefined,
-        thesis: d.thesis || undefined,
-        notes: d.notes || undefined,
-      }));
+      const launches = await db.select().from(deployerLaunches);
+      const scores = await db.select().from(deployerScores);
+      const scoreMap = new Map(scores.map((s) => [s.deployerAddress.toLowerCase(), s]));
+      const launchMap = new Map(launches.map((l) => [l.tokenAddress.toLowerCase(), l.deployerAddress.toLowerCase()]));
 
-      initialNodes = userDossiers.map((d) => ({
-        contractAddress: d.contractAddress,
-        symbol: d.symbol || "UNKNOWN",
-        name: d.name || undefined,
-        status: d.status || "active",
-      }));
+      const dossierInputs: DossierWithSources[] = userDossiers.map((d) => {
+        const depAddr = launchMap.get(d.contractAddress.toLowerCase());
+        return {
+          id: d.id,
+          contractAddress: d.contractAddress,
+          symbol: d.symbol || "UNKNOWN",
+          name: d.name || undefined,
+          deployerAddress: depAddr,
+          thesis: d.thesis || undefined,
+          notes: d.notes || undefined,
+        };
+      });
+
+      initialNodes = userDossiers.map((d) => {
+        let nodeStatus = (d.status || "active").toLowerCase();
+        const depAddr = launchMap.get(d.contractAddress.toLowerCase());
+        const depScore = depAddr ? scoreMap.get(depAddr) : null;
+        if (depScore?.band === "red" || (d.notes && d.notes.toLowerCase().includes("rugged"))) {
+          nodeStatus = "rugged";
+        }
+        return {
+          contractAddress: d.contractAddress,
+          symbol: d.symbol || "UNKNOWN",
+          name: d.name || undefined,
+          status: nodeStatus,
+        };
+      });
 
       const links = detectConnections(dossierInputs);
       initialEdges = links.map((l) => ({
