@@ -35,58 +35,51 @@ export function MarketFlowBlock({
   const isCompleted = (curveProgressPct ?? 0) >= 100;
 
   return (
-    <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-5 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl font-sans select-none">
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-        <div className="flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-4 hover:border-[#99F6E4]/40 transition-all">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#A7F3D0]/80">
-            <span>Market Cap</span>
-            <span className="h-2 w-2 rounded-full bg-[#99F6E4]" />
-          </div>
-          <div className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-[#FFFDF7]">
+    <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A]/80 backdrop-blur-xl p-4 sm:p-5 shadow-lg font-sans select-none">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-y-4 gap-x-5 sm:gap-x-7">
+        <div className="flex flex-col min-w-0">
+          <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-[#A7F3D0]/70">
+            Market Cap
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-mono font-bold tracking-tight text-[#FFFDF7]">
             {formatCurrency(marketCapUsd)}
-          </div>
+          </span>
         </div>
 
-        <div className="flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-4 hover:border-[#99F6E4]/40 transition-all">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#A7F3D0]/80">
-            <span>All-Time High (ATH)</span>
-            <span className="h-2 w-2 rounded-full bg-[#C084FC]" />
-          </div>
-          <div className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-[#FFFDF7]">
+        <div className="flex flex-col min-w-0">
+          <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-[#A7F3D0]/70">
+            All-Time High (ATH)
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-mono font-bold tracking-tight text-[#FFFDF7]">
             {formatCurrency(athUsd)}
-          </div>
+          </span>
         </div>
 
-        <div className="flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-4 hover:border-[#99F6E4]/40 transition-all">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#A7F3D0]/80">
-            <span>24h Volume</span>
-            <span className="h-2 w-2 rounded-full bg-[#FFD166]" />
-          </div>
-          <div className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-[#FFFDF7]">
+        <div className="flex flex-col min-w-0">
+          <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-[#A7F3D0]/70">
+            24h Volume
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-mono font-bold tracking-tight text-[#FFFDF7]">
             {formatCurrency(volume24hUsd)}
-          </div>
+          </span>
         </div>
 
-        <div className="flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-4 hover:border-[#99F6E4]/40 transition-all">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#A7F3D0]/80">
-            <span>Curve Progress</span>
-            <span
-              className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider border ${
-                isCompleted
-                  ? "bg-[#99F6E4]/20 text-[#99F6E4] border-[#99F6E4]/40"
-                  : "bg-[#FFD166]/20 text-[#FFD166] border-[#FFD166]/40"
-              }`}
-            >
+        <div className="flex flex-col min-w-0">
+          <div className="flex items-center justify-between gap-1">
+            <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-[#A7F3D0]/70">
+              Curve Progress
+            </span>
+            <span className="text-[10px] font-mono font-bold uppercase text-[#99F6E4]/80">
               {isCompleted ? "Graduated" : "Bonding"}
             </span>
           </div>
-          <div className="mt-2 flex flex-col gap-2">
-            <div className="text-xl sm:text-2xl font-black tracking-tight text-[#99F6E4]">
+          <div className="mt-1 flex flex-col gap-1.5">
+            <span className="text-lg sm:text-xl font-mono font-bold tracking-tight text-[#99F6E4]">
               {curveProgressPct !== null && curveProgressPct !== undefined
                 ? `${curveProgressPct.toFixed(1)}%`
                 : "N/A"}
-            </div>
-            <div className="h-2 w-full rounded-full bg-[#042F2E] overflow-hidden border border-[rgba(153,246,228,0.2)]">
+            </span>
+            <div className="h-1.5 w-full rounded-full bg-[#042F2E] overflow-hidden">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
                   isCompleted
@@ -99,24 +92,22 @@ export function MarketFlowBlock({
           </div>
         </div>
 
-        <div className="flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-4 hover:border-[#99F6E4]/40 transition-all">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#A7F3D0]/80">
-            <span>Total Trades</span>
-            <span className="h-2 w-2 rounded-full bg-[#99F6E4]" />
-          </div>
-          <div className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-[#FFFDF7]">
+        <div className="flex flex-col min-w-0">
+          <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-[#A7F3D0]/70">
+            Total Trades
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-mono font-bold tracking-tight text-[#FFFDF7]">
             {formatNumber(tradeCount)}
-          </div>
+          </span>
         </div>
 
-        <div className="flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-4 hover:border-[#99F6E4]/40 transition-all">
-          <div className="flex items-center justify-between text-xs font-bold uppercase tracking-wider text-[#A7F3D0]/80">
-            <span>Unique Wallets</span>
-            <span className="h-2 w-2 rounded-full bg-[#A7F3D0]" />
-          </div>
-          <div className="mt-2 text-xl sm:text-2xl font-black tracking-tight text-[#FFFDF7]">
+        <div className="flex flex-col min-w-0">
+          <span className="text-[11px] font-mono font-medium uppercase tracking-wider text-[#A7F3D0]/70">
+            Unique Wallets
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-mono font-bold tracking-tight text-[#FFFDF7]">
             {formatNumber(uniqueWallets)}
-          </div>
+          </span>
         </div>
       </div>
     </div>
