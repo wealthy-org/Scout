@@ -9,91 +9,91 @@ export default function FeedLoading() {
 
       <div className="w-full h-9 bg-[#042F2E] border-b border-[rgba(153,246,228,0.2)] animate-pulse" />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 relative z-10 animate-pulse">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 py-5 sm:py-6 space-y-4 sm:space-y-5 relative z-10 animate-pulse">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div>
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-44 bg-[#064E4A] rounded-full" />
-              <div className="h-7 w-28 bg-[#064E4A] rounded-full" />
+            <div className="flex items-center gap-2.5">
+              <div className="h-7 w-40 bg-[#064E4A] rounded-full" />
+              <div className="h-6 w-24 bg-[#064E4A] rounded-full" />
             </div>
-            <div className="h-4 w-96 max-w-full bg-[#064E4A]/80 rounded-full mt-2" />
+            <div className="h-3.5 w-80 max-w-full bg-[#064E4A]/80 rounded-full mt-1.5" />
           </div>
         </div>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4 font-sans select-none">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5 font-sans select-none">
           {[1, 2, 3, 4, 5].map((i) => (
             <div
               key={i}
-              className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-2xl p-4 sm:p-5 flex flex-col justify-between h-28 shadow-md"
+              className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 flex flex-col justify-between h-[112px] shadow-md"
             >
               <div className="flex items-center justify-between">
-                <div className="h-3 w-20 bg-[#042F2E] rounded-full" />
-                <div className="h-3 w-4 bg-[#042F2E] rounded-full" />
+                <div className="h-2.5 w-18 bg-[#042F2E] rounded-full" />
+                <div className="h-3 w-3 bg-[#042F2E] rounded-full" />
               </div>
-              <div className="h-7 w-16 bg-[#042F2E] rounded-lg" />
-              <div className="h-2 w-24 bg-[#042F2E]/60 rounded-full" />
+              <div className="h-6 w-16 bg-[#042F2E] rounded-lg" />
+              <div className="h-2 w-20 bg-[#042F2E]/60 rounded-full" />
             </div>
           ))}
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <div className="lg:col-span-8 space-y-6">
-            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl overflow-hidden shadow-xl">
-              <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3.5 sm:p-5 gap-3.5">
-                <div className="flex flex-wrap items-center gap-2">
-                  <div className="h-8 w-28 bg-[#064E4A] rounded-full" />
-                  <div className="h-8 w-32 bg-[#064E4A] rounded-full" />
-                  <div className="h-8 w-36 bg-[#064E4A] rounded-full" />
-                  <div className="h-8 w-36 bg-[#064E4A] rounded-full" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-start">
+          <div className="lg:col-span-8 space-y-4">
+            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-2xl overflow-hidden shadow-lg">
+              <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between border-b border-[rgba(153,246,228,0.15)] bg-[#042F2E]/70 p-3 sm:p-3.5 gap-3">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <div className="h-7 w-24 bg-[#064E4A] rounded-full" />
+                  <div className="h-7 w-28 bg-[#064E4A] rounded-full" />
+                  <div className="h-7 w-32 bg-[#064E4A] rounded-full" />
+                  <div className="h-7 w-32 bg-[#064E4A] rounded-full" />
                 </div>
-                <div className="h-8 w-full md:w-64 bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-full" />
+                <div className="h-7 w-full md:w-56 bg-[#042F2E] border border-[rgba(153,246,228,0.25)] rounded-full" />
               </div>
 
-              <div className="h-11 bg-[#042F2E]/90 border-b border-[rgba(153,246,228,0.15)]" />
+              <div className="h-10 bg-[#042F2E]/90 border-b border-[rgba(153,246,228,0.15)]" />
 
               <div className="divide-y divide-[rgba(153,246,228,0.08)]">
                 {[1, 2, 3, 4, 5, 6].map((row) => (
-                  <div key={row} className="h-16 px-5 py-4 flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-9 h-9 rounded-xl bg-[#042F2E]" />
+                  <div key={row} className="h-14 px-4 py-3 flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-xl bg-[#042F2E]" />
                       <div className="space-y-1">
-                        <div className="h-4 w-20 bg-[#042F2E] rounded-full" />
-                        <div className="h-3 w-16 bg-[#042F2E]/60 rounded-full" />
+                        <div className="h-3.5 w-16 bg-[#042F2E] rounded-full" />
+                        <div className="h-2.5 w-14 bg-[#042F2E]/60 rounded-full" />
                       </div>
                     </div>
-                    <div className="h-5 w-24 bg-[#042F2E] rounded-full" />
-                    <div className="h-4 w-28 bg-[#042F2E] rounded-full" />
-                    <div className="h-5 w-16 bg-[#042F2E] rounded-full" />
-                    <div className="h-5 w-16 bg-[#042F2E] rounded-full" />
-                    <div className="h-4 w-12 bg-[#042F2E] rounded-full" />
-                    <div className="h-7 w-16 bg-[#042F2E] rounded-full" />
+                    <div className="h-4 w-20 bg-[#042F2E] rounded-full" />
+                    <div className="h-3.5 w-24 bg-[#042F2E] rounded-full" />
+                    <div className="h-4 w-14 bg-[#042F2E] rounded-full" />
+                    <div className="h-4 w-14 bg-[#042F2E] rounded-full" />
+                    <div className="h-3.5 w-12 bg-[#042F2E] rounded-full" />
+                    <div className="h-6 w-14 bg-[#042F2E] rounded-full" />
                   </div>
                 ))}
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-4 space-y-6">
-            <div className="h-[480px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-5 space-y-3">
-              <div className="flex justify-between items-center border-b border-[rgba(153,246,228,0.2)] pb-3">
-                <div className="h-4 w-28 bg-[#042F2E] rounded-full" />
-                <div className="h-4 w-12 bg-[#042F2E] rounded-full" />
+          <div className="lg:col-span-4 space-y-4">
+            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 space-y-2.5 shadow-lg">
+              <div className="flex justify-between items-center border-b border-[rgba(153,246,228,0.2)] pb-2.5">
+                <div className="h-3.5 w-24 bg-[#042F2E] rounded-full" />
+                <div className="h-3.5 w-10 bg-[#042F2E] rounded-full" />
               </div>
-              <div className="space-y-2 pt-1">
-                {[1, 2, 3, 4, 5].map((t) => (
-                  <div key={t} className="h-14 bg-[#042F2E] rounded-2xl p-3" />
+              <div className="space-y-1.5">
+                {[1, 2, 3].map((t) => (
+                  <div key={t} className="h-11 bg-[#042F2E] rounded-xl p-2.5" />
                 ))}
               </div>
             </div>
 
-            <div className="h-[480px] bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-5 space-y-3">
-              <div className="flex justify-between items-center border-b border-[rgba(153,246,228,0.2)] pb-3">
-                <div className="h-4 w-32 bg-[#042F2E] rounded-full" />
-                <div className="h-4 w-12 bg-[#042F2E] rounded-full" />
+            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-2xl p-3.5 sm:p-4 space-y-2.5 shadow-lg">
+              <div className="flex justify-between items-center border-b border-[rgba(153,246,228,0.2)] pb-2.5">
+                <div className="h-3.5 w-28 bg-[#042F2E] rounded-full" />
+                <div className="h-3.5 w-10 bg-[#042F2E] rounded-full" />
               </div>
-              <div className="space-y-2 pt-1">
-                {[1, 2, 3, 4, 5].map((g) => (
-                  <div key={g} className="h-14 bg-[#042F2E] rounded-2xl p-3" />
+              <div className="space-y-1.5">
+                {[1, 2].map((g) => (
+                  <div key={g} className="h-11 bg-[#042F2E] rounded-xl p-2.5" />
                 ))}
               </div>
             </div>

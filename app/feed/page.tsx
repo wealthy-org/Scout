@@ -173,11 +173,11 @@ export default function FeedPage() {
       <GlobalHeader />
       <TickerTape />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-3.5 sm:px-6 py-5 sm:py-6 space-y-4 sm:space-y-5 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
           <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#FFFDF7]">
+            <div className="flex items-center gap-2.5">
+              <h1 className="text-xl sm:text-2xl font-black tracking-tight text-[#FFFDF7]">
                 Live Launches
               </h1>
               <FeedPoller
@@ -187,7 +187,7 @@ export default function FeedPage() {
                 pollingIntervalMs={2000}
               />
             </div>
-            <p className="text-xs sm:text-sm text-[#A7F3D0] mt-1 font-normal">
+            <p className="text-[11px] sm:text-xs text-[#A7F3D0] mt-0.5 font-normal">
               Sub-second live streaming launch radar, bonding curve telemetries, and deployer Bayesian reputation tracking.
             </p>
           </div>
@@ -195,8 +195,8 @@ export default function FeedPage() {
 
         <FeedTiles stats={stats} />
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          <div className="lg:col-span-8 space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-5 items-start">
+          <div className="lg:col-span-8 space-y-4">
             <FeedTable
               items={feedItems}
               watchedDeployers={watchedDeployers}
@@ -204,7 +204,7 @@ export default function FeedPage() {
             />
           </div>
 
-          <div className="lg:col-span-4 space-y-6">
+          <div className="lg:col-span-4 space-y-4">
             <TradeTape
               trades={trades}
               onSelectTrade={(t) => {
