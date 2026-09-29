@@ -56,23 +56,21 @@ export function MarketFlowBlock({
         </div>
 
         <div className="flex flex-col justify-center px-4 py-3 sm:px-5 sm:py-3.5 hover:bg-[#042F2E]/40 transition-colors">
-          <div className="flex items-center justify-between gap-2">
-            <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
-              Curve Progress
-            </span>
-            {isCompleted && (
-              <span className="rounded-full bg-[#99F6E4]/20 border border-[#99F6E4]/40 px-2 py-0.5 text-[9px] font-bold uppercase text-[#99F6E4]">
-                Graduated
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
+            Curve Progress
+          </span>
+          <div className="mt-1 flex flex-col gap-1.5">
+            <div className="flex items-center justify-between gap-1">
+              <span className="text-lg sm:text-xl font-black tracking-tight text-[#99F6E4]">
+                {curveProgressPct !== null && curveProgressPct !== undefined
+                  ? `${curveProgressPct.toFixed(1)}%`
+                  : "N/A"}
               </span>
-            )}
-          </div>
-          <div className="mt-1 flex items-center gap-3">
-            <span className="text-lg sm:text-xl font-black tracking-tight text-[#99F6E4]">
-              {curveProgressPct !== null && curveProgressPct !== undefined
-                ? `${curveProgressPct.toFixed(1)}%`
-                : "N/A"}
-            </span>
-            <div className="h-2 flex-1 rounded-full bg-[#042F2E] overflow-hidden border border-[rgba(153,246,228,0.2)]">
+              <span className="text-[10px] font-bold uppercase text-[#A7F3D0]/70">
+                {isCompleted ? "Graduated" : "Bonding"}
+              </span>
+            </div>
+            <div className="h-1.5 w-full rounded-full bg-[#042F2E] overflow-hidden border border-[rgba(153,246,228,0.2)]">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
                   isCompleted
