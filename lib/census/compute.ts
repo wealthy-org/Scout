@@ -94,7 +94,8 @@ export async function computeCensusStats(
     for (const l of launches) {
       const addr = (l.deployerAddress || "").toLowerCase();
       if (addr) {
-        deployerMap.set(addr, (deployerMap.get(addr) || 0) + 1);
+        const currentCount = deployerMap.get(addr);
+        deployerMap.set(addr, typeof currentCount === "number" ? currentCount + 1 : 1);
       }
 
       if (typeof l.block === "number" && !isNaN(l.block)) {
@@ -132,11 +133,13 @@ export async function computeCensusStats(
       ((repeatDeployersCount / uniqueDeployers) * 100).toFixed(2)
     );
 
-    let scores = (preloadedScores as RepeatLauncherInfo[]) || [];
+    let scores: RepeatLauncherInfo[] = Array.isArray(preloadedScores)
+      ? (preloadedScores as RepeatLauncherInfo[])
+      : [];
     if (!preloadedScores || preloadedScores.length === 0) {
       try {
         const q = customDb.select().from(deployerScores);
-        const dbScores = (
+        const resultScores = (
           typeof (q as { orderBy?: unknown }).orderBy === "function"
             ? await (
                 q as {
@@ -162,7 +165,9 @@ export async function computeCensusStats(
                   label: "fresh" | "repeat" | "serial";
                 }>
               >)
-        ) || [];
+        );
+
+        const dbScores = Array.isArray(resultScores) ? resultScores : [];
 
         scores = dbScores.map((s) => ({
           deployerAddress: s.deployerAddress,

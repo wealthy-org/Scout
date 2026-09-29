@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import type { DossierStatus } from "@/lib/db/schema";
 import { IconClose } from "@/components/icons/Vectors";
 import { useWallet } from "@/components/wallet/WalletContext";
+import { ErrorModal } from "@/components/dialogs/ErrorModal";
 import type {
   PutDossierRequestBody,
   PutDossierItemInput,
@@ -59,12 +60,15 @@ export function ResearchPanel({
   const [saveStatus, setSaveStatus] = useState<
     "idle" | "saving" | "saved" | "error"
   >("saved");
+  const [saveErrorMessage, setSaveErrorMessage] = useState<string | null>(null);
+  const [showErrorModal, setShowErrorModal] = useState(false);
   const isFirstRender = useRef(true);
   const saveTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const executeSave = useCallback(
     async (payload: PutDossierRequestBody) => {
       setSaveStatus("saving");
+      setSaveErrorMessage(null);
       try {
         if (onSave) {
           await onSave(payload);
@@ -74,11 +78,15 @@ export function ResearchPanel({
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
           });
-          if (!res.ok) throw new Error("Auto-save failed");
+          if (!res.ok) {
+            const errBody = await res.json().catch(() => ({}));
+            throw new Error(errBody.error || "Auto-save endpoint returned non-200 status");
+          }
         }
         setSaveStatus("saved");
-      } catch {
+      } catch (err) {
         setSaveStatus("error");
+        setSaveErrorMessage(err instanceof Error ? err.message : String(err));
       }
     },
     [contractAddress, onSave]
@@ -208,9 +216,14 @@ export function ResearchPanel({
             </span>
           )}
           {saveStatus === "error" && (
-            <span className="px-3 py-1 rounded-full bg-[#FF6B6B]/20 border border-[#FF6B6B]/40 text-xs font-bold text-[#FF6B6B]">
-              Error saving
-            </span>
+            <button
+              type="button"
+              onClick={() => setShowErrorModal(true)}
+              className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF6B6B]/20 border border-[#FF6B6B]/40 text-xs font-bold text-[#FF6B6B] hover:bg-[#FF6B6B]/30 transition-colors cursor-pointer"
+            >
+              <span className="h-2 w-2 rounded-full bg-[#FF6B6B]" />
+              <span>Error saving (View Details)</span>
+            </button>
           )}
         </div>
       </div>
@@ -550,6 +563,30 @@ export function ResearchPanel({
           </div>
         </div>
       </div>
+
+      {showErrorModal && (
+        <ErrorModal
+          isOpen={showErrorModal}
+          onClose={() => setShowErrorModal(false)}
+          title="Case File Auto-Save Error"
+          message="Failed to persist your research case file changes to the backend database."
+          code="ERR_DOSSIER_AUTOSAVE_FAILED"
+          details={saveErrorMessage || "An unknown network or database validation error occurred."}
+          retryLabel="Retry Save"
+          onRetry={async () => {
+            const payload: PutDossierRequestBody = {
+              thesis: thesis || null,
+              status: status || null,
+              reason: reason || null,
+              decision_reason: decisionReason || null,
+              notes: notes || null,
+              items,
+              questions,
+            };
+            await executeSave(payload);
+          }}
+        />
+      )}
     </div>
   );
 }

@@ -71,8 +71,8 @@ export default async function WatchlistPage() {
             score: row.scoreValue,
             label: (row.label || "fresh") as "fresh" | "repeat" | "serial",
             band: (row.band || "yellow") as "green" | "yellow" | "red",
-            totalLaunches: row.totalLaunches || 0,
-            graduatedCount: row.graduatedCount || 0,
+            totalLaunches: typeof row.totalLaunches === "number" ? row.totalLaunches : 0,
+            graduatedCount: typeof row.graduatedCount === "number" ? row.graduatedCount : 0,
           };
         } else {
           const dLaunches = launchesByDeployer.get(row.deployerAddress.toLowerCase()) || [];

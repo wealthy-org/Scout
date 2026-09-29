@@ -63,7 +63,11 @@ export function filterFeedItems(
 
   switch (tab) {
     case "most_traded":
-      result.sort((a, b) => (b.volume24hUsd ?? 0) - (a.volume24hUsd ?? 0));
+      result.sort((a, b) => {
+        const volB = typeof b.volume24hUsd === "number" ? b.volume24hUsd : 0;
+        const volA = typeof a.volume24hUsd === "number" ? a.volume24hUsd : 0;
+        return volB - volA;
+      });
       break;
     case "new_launches":
       result.sort((a, b) => {
@@ -75,8 +79,17 @@ export function filterFeedItems(
       break;
     case "near_graduation":
       result = result
-        .filter((item) => (item.progressPct ?? 0) >= 80 && item.phase !== "graduated")
-        .sort((a, b) => (b.progressPct ?? 0) - (a.progressPct ?? 0));
+        .filter(
+          (item) =>
+            typeof item.progressPct === "number" &&
+            item.progressPct >= 80 &&
+            item.phase !== "graduated"
+        )
+        .sort((a, b) => {
+          const progB = typeof b.progressPct === "number" ? b.progressPct : 0;
+          const progA = typeof a.progressPct === "number" ? a.progressPct : 0;
+          return progB - progA;
+        });
       break;
     case "repeat_deployers":
       result = result
@@ -84,9 +97,13 @@ export function filterFeedItems(
           (item) =>
             item.label === "repeat" ||
             item.label === "serial" ||
-            (item.score !== undefined && item.score !== null && item.score <= 50)
+            (typeof item.score === "number" && item.score <= 50)
         )
-        .sort((a, b) => (a.score ?? 0) - (b.score ?? 0));
+        .sort((a, b) => {
+          const scoreA = typeof a.score === "number" ? a.score : 50;
+          const scoreB = typeof b.score === "number" ? b.score : 50;
+          return scoreA - scoreB;
+        });
       break;
   }
 
@@ -255,8 +272,12 @@ export function FeedTable({
             ) : (
               filteredItems.map((row) => {
                 const isGrad =
-                  row.phase === "graduated" || (row.progressPct ?? 0) >= 100;
-                const progress = Math.min(row.progressPct ?? 0, 100);
+                  row.phase === "graduated" ||
+                  (typeof row.progressPct === "number" && row.progressPct >= 100);
+                const progress =
+                  typeof row.progressPct === "number"
+                    ? Math.min(row.progressPct, 100)
+                    : 0;
                 const isWatched = watchedSet.has(row.deployerAddress.toLowerCase());
 
                 const bandColor =

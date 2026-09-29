@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { siteMetadata } from "@/config/metadata";
 import { TopProgressBar } from "@/components/layout/TopProgressBar";
 import { WalletProvider } from "@/components/wallet/WalletContext";
+import { ErrorProvider } from "@/components/dialogs/ErrorContext";
 import { getSession } from "@/lib/auth/session";
 import "./globals.css";
 
@@ -44,12 +45,14 @@ export default async function RootLayout({
         <Suspense fallback={null}>
           <TopProgressBar />
         </Suspense>
-        <WalletProvider
-          initialAuthenticated={isAuthenticated}
-          initialUserAddress={userAddress}
-        >
-          {children}
-        </WalletProvider>
+        <ErrorProvider>
+          <WalletProvider
+            initialAuthenticated={isAuthenticated}
+            initialUserAddress={userAddress}
+          >
+            {children}
+          </WalletProvider>
+        </ErrorProvider>
       </body>
     </html>
   );

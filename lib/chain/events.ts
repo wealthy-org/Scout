@@ -58,6 +58,34 @@ function isRangeSplittableError(error: unknown): boolean {
   );
 }
 
+export class ChainEventParseError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "ChainEventParseError";
+  }
+}
+
+function parseRequiredBlockNumber(val: bigint | number | string | null | undefined, ctx: string): bigint {
+  if (val === null || val === undefined) {
+    throw new ChainEventParseError(`RPC log missing required blockNumber in context: ${ctx}`);
+  }
+  return BigInt(val);
+}
+
+function parseRequiredLogIndex(val: number | string | null | undefined, ctx: string): number {
+  if (val === null || val === undefined) {
+    throw new ChainEventParseError(`RPC log missing required logIndex in context: ${ctx}`);
+  }
+  return Number(val);
+}
+
+function parseRequiredTxHash(val: `0x${string}` | string | null | undefined, ctx: string): `0x${string}` {
+  if (!val || typeof val !== "string" || !val.startsWith("0x")) {
+    throw new ChainEventParseError(`RPC log missing required transactionHash in context: ${ctx}`);
+  }
+  return val as `0x${string}`;
+}
+
 export async function getLogsWithSplitting(params: SplitLogParams): Promise<Log[]> {
   const { client, event, args, fromBlock, toBlock } = params;
 
@@ -90,13 +118,13 @@ export async function getLogsWithSplitting(params: SplitLogParams): Promise<Log[
 
       const combined = [...leftLogs, ...rightLogs];
       combined.sort((a, b) => {
-        const blockA = BigInt(a.blockNumber ?? 0);
-        const blockB = BigInt(b.blockNumber ?? 0);
+        const blockA = parseRequiredBlockNumber(a.blockNumber, "sort-a");
+        const blockB = parseRequiredBlockNumber(b.blockNumber, "sort-b");
         if (blockA !== blockB) {
           return blockA < blockB ? -1 : 1;
         }
-        const indexA = Number(a.logIndex ?? 0);
-        const indexB = Number(b.logIndex ?? 0);
+        const indexA = parseRequiredLogIndex(a.logIndex, "sort-a");
+        const indexB = parseRequiredLogIndex(b.logIndex, "sort-b");
         return indexA - indexB;
       });
 
@@ -140,9 +168,9 @@ export async function fetchTokenLaunched(
       name: logArgs.name,
       symbol: logArgs.symbol,
       blockTimestamp: BigInt(logArgs.blockTimestamp),
-      blockNumber: BigInt(log.blockNumber ?? 0),
-      transactionHash: (log.transactionHash ?? "0x") as `0x${string}`,
-      logIndex: Number(log.logIndex ?? 0),
+      blockNumber: parseRequiredBlockNumber(log.blockNumber, "token-launched"),
+      transactionHash: parseRequiredTxHash(log.transactionHash, "token-launched"),
+      logIndex: parseRequiredLogIndex(log.logIndex, "token-launched"),
     };
   });
 }
@@ -180,9 +208,9 @@ export async function fetchCurveBuy(
       amountIn: BigInt(logArgs.amountIn),
       amountOut: BigInt(logArgs.amountOut),
       fee: BigInt(logArgs.fee),
-      blockNumber: BigInt(log.blockNumber ?? 0),
-      transactionHash: (log.transactionHash ?? "0x") as `0x${string}`,
-      logIndex: Number(log.logIndex ?? 0),
+      blockNumber: parseRequiredBlockNumber(log.blockNumber, "curve-buy"),
+      transactionHash: parseRequiredTxHash(log.transactionHash, "curve-buy"),
+      logIndex: parseRequiredLogIndex(log.logIndex, "curve-buy"),
     };
   });
 }
@@ -220,9 +248,9 @@ export async function fetchCurveSell(
       amountIn: BigInt(logArgs.amountIn),
       amountOut: BigInt(logArgs.amountOut),
       fee: BigInt(logArgs.fee),
-      blockNumber: BigInt(log.blockNumber ?? 0),
-      transactionHash: (log.transactionHash ?? "0x") as `0x${string}`,
-      logIndex: Number(log.logIndex ?? 0),
+      blockNumber: parseRequiredBlockNumber(log.blockNumber, "curve-sell"),
+      transactionHash: parseRequiredTxHash(log.transactionHash, "curve-sell"),
+      logIndex: parseRequiredLogIndex(log.logIndex, "curve-sell"),
     };
   });
 }
@@ -258,9 +286,9 @@ export async function fetchPoolGraduated(
       pool: logArgs.pool,
       reserveToken: BigInt(logArgs.reserveToken),
       reserveEth: BigInt(logArgs.reserveEth),
-      blockNumber: BigInt(log.blockNumber ?? 0),
-      transactionHash: (log.transactionHash ?? "0x") as `0x${string}`,
-      logIndex: Number(log.logIndex ?? 0),
+      blockNumber: parseRequiredBlockNumber(log.blockNumber, "pool-graduated"),
+      transactionHash: parseRequiredTxHash(log.transactionHash, "pool-graduated"),
+      logIndex: parseRequiredLogIndex(log.logIndex, "pool-graduated"),
     };
   });
 }

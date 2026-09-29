@@ -78,11 +78,11 @@ export function CensusView({
   }, [stats]);
 
   const maxBlockCount = Math.max(...launchesByBlock.map((b) => b.count), 1);
-  const headBlockNum = stats.head_block ?? 27195000;
+  const headBlockNum = typeof stats.head_block === "number" ? stats.head_block : 27195000;
 
-  const repeatLaunchers = stats.repeat_launchers || [];
+  const repeatLaunchers = Array.isArray(stats.repeat_launchers) ? stats.repeat_launchers : [];
   const serialRuggersCount = repeatLaunchers.filter(
-    (d) => d.label === "serial" || (d.score !== undefined && d.score <= 25)
+    (d) => d.label === "serial" || (typeof d.score === "number" && d.score <= 25)
   ).length;
 
   const handleCopy = (addr: string, e: React.MouseEvent) => {

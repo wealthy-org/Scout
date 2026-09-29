@@ -7,6 +7,8 @@ import { DOSSIER_STATUSES, type DossierStatus } from "@/lib/db/schema";
 import { IconLock, IconClose, IconArrowRight, IconWallet } from "@/components/icons/Vectors";
 import { useWallet } from "@/components/wallet/WalletContext";
 
+import { ErrorModal } from "@/components/dialogs/ErrorModal";
+
 export interface LibraryDossierCard {
   id: string;
   walletAddress: string;
@@ -44,6 +46,17 @@ export function LibraryClient({
   const [importLoading, setImportLoading] = useState(false);
   const [importError, setImportError] = useState<string | null>(null);
   const [importSuccess, setImportSuccess] = useState<string | null>(null);
+  const [errorModalState, setErrorModalState] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    code?: string;
+    details?: string;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const filteredDossiers = useMemo(() => {
@@ -53,10 +66,10 @@ export function LibraryClient({
       }
       if (searchQuery.trim()) {
         const q = searchQuery.trim().toLowerCase();
-        const symbolMatch = item.symbol?.toLowerCase().includes(q) ?? false;
-        const nameMatch = item.name?.toLowerCase().includes(q) ?? false;
+        const symbolMatch = Boolean(item.symbol && item.symbol.toLowerCase().includes(q));
+        const nameMatch = Boolean(item.name && item.name.toLowerCase().includes(q));
         const caMatch = item.contractAddress.toLowerCase().includes(q);
-        const thesisMatch = item.thesis?.toLowerCase().includes(q) ?? false;
+        const thesisMatch = Boolean(item.thesis && item.thesis.toLowerCase().includes(q));
         return symbolMatch || nameMatch || caMatch || thesisMatch;
       }
       return true;
@@ -76,7 +89,12 @@ export function LibraryClient({
     e.preventDefault();
     const files = fileInputRef.current?.files;
     if (!files || files.length === 0) {
-      setImportError("Please select a valid JSON export file to import.");
+      setErrorModalState({
+        isOpen: true,
+        title: "File Selection Missing",
+        message: "Please select a valid JSON export file from your local disk to import dossiers.",
+        code: "ERR_FILE_NOT_SELECTED",
+      });
       return;
     }
 
@@ -87,9 +105,19 @@ export function LibraryClient({
 
     try {
       const text = await file.text();
-      const parsed = JSON.parse(text) as {
-        dossiers?: LibraryDossierCard[];
-      };
+      let parsed: { dossiers?: LibraryDossierCard[] };
+      try {
+        parsed = JSON.parse(text) as { dossiers?: LibraryDossierCard[] };
+      } catch (jsonErr) {
+        setErrorModalState({
+          isOpen: true,
+          title: "Malformed JSON File",
+          message: "The uploaded file is not valid JSON syntax.",
+          code: "ERR_INVALID_JSON_SYNTAX",
+          details: jsonErr instanceof Error ? jsonErr.message : String(jsonErr),
+        });
+        return;
+      }
 
       const res = await fetch("/api/library/import", {
         method: "POST",
@@ -101,18 +129,32 @@ export function LibraryClient({
         ok: boolean;
         importedCount?: number;
         skippedCount?: number;
+        error?: string;
       };
 
       if (res.ok && data.ok) {
-        setImportSuccess(`Successfully imported ${data.importedCount ?? 0} dossiers.`);
+        const count = typeof data.importedCount === "number" ? data.importedCount : 0;
+        setImportSuccess(`Successfully imported ${count} dossiers.`);
         if (parsed.dossiers && Array.isArray(parsed.dossiers)) {
           setDossiers((prev) => [...parsed.dossiers!, ...prev]);
         }
       } else {
-        setImportError("Import failed. Please verify the JSON schema format.");
+        setErrorModalState({
+          isOpen: true,
+          title: "Import Processing Failed",
+          message: data.error || "The server rejected the import file schema.",
+          code: "ERR_IMPORT_SCHEMA_REJECTED",
+          details: JSON.stringify(data, null, 2),
+        });
       }
-    } catch {
-      setImportError("Invalid JSON structure or import error.");
+    } catch (err) {
+      setErrorModalState({
+        isOpen: true,
+        title: "Network Import Error",
+        message: "Failed to upload and process the import file.",
+        code: "ERR_IMPORT_NETWORK_FAILURE",
+        details: err instanceof Error ? err.stack || err.message : String(err),
+      });
     } finally {
       setImportLoading(false);
     }
@@ -418,6 +460,17 @@ export function LibraryClient({
               </form>
             </div>
           </div>
+        )}
+
+        {errorModalState.isOpen && (
+          <ErrorModal
+            isOpen={errorModalState.isOpen}
+            onClose={() => setErrorModalState((prev) => ({ ...prev, isOpen: false }))}
+            title={errorModalState.title}
+            message={errorModalState.message}
+            code={errorModalState.code}
+            details={errorModalState.details}
+          />
         )}
       </main>
     </div>

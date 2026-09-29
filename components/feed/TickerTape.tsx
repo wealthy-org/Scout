@@ -164,7 +164,7 @@ export function TickerTape({
             }}
           >
             {loopedItems.map((item, idx) => {
-              const delta = item.deltaPct ?? 0;
+              const delta = typeof item.deltaPct === "number" ? item.deltaPct : 0;
               const isPos = delta > 0;
               const isNeg = delta < 0;
 

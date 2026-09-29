@@ -96,6 +96,17 @@ export async function getQuoteAssetPrices(): Promise<QuoteAssetPrices> {
   }
 }
 
+function parseMetricNumber(val: unknown, fallback = 0): number {
+  if (typeof val === "number" && !Number.isNaN(val)) {
+    return val;
+  }
+  if (typeof val === "string") {
+    const num = parseFloat(val);
+    if (!Number.isNaN(num)) return num;
+  }
+  return fallback;
+}
+
 export async function fetchDexScreenerTokenData(
   tokenAddress: string
 ): Promise<DexScreenerTokenData | null> {
@@ -141,11 +152,11 @@ export async function fetchDexScreenerTokenData(
     const data: DexScreenerTokenData = {
       chainId: primaryPair.chainId,
       pairAddress: primaryPair.pairAddress,
-      priceUsd: parseFloat(primaryPair.priceUsd || "0"),
-      fdv: primaryPair.fdv || 0,
-      liquidityUsd: primaryPair.liquidity?.usd || 0,
-      volume24hUsd: primaryPair.volume?.h24 || 0,
-      priceChange24hPct: primaryPair.priceChange?.h24 || 0,
+      priceUsd: parseMetricNumber(primaryPair.priceUsd, 0),
+      fdv: parseMetricNumber(primaryPair.fdv, 0),
+      liquidityUsd: parseMetricNumber(primaryPair.liquidity?.usd, 0),
+      volume24hUsd: parseMetricNumber(primaryPair.volume?.h24, 0),
+      priceChange24hPct: parseMetricNumber(primaryPair.priceChange?.h24, 0),
     };
 
     tokenDataCache.set(normalized, { data, cachedAt: now });

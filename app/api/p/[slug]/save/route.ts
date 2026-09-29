@@ -83,7 +83,21 @@ export async function handleSavePublicDossier(
       );
     }
 
-    const payload = (targetRecord.payloadJson as Record<string, unknown>) || {};
+    if (
+      !targetRecord.payloadJson ||
+      typeof targetRecord.payloadJson !== "object" ||
+      Array.isArray(targetRecord.payloadJson)
+    ) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Published snapshot payload is invalid or corrupted",
+        },
+        { status: 400 }
+      );
+    }
+
+    const payload = targetRecord.payloadJson as Record<string, unknown>;
     const contractAddress = String(payload.contractAddress || "").toLowerCase();
 
     if (!contractAddress) {

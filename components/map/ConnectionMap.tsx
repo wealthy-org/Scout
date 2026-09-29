@@ -48,10 +48,13 @@ export function computeMapLayout(
 
   return nodes.map((node, i) => {
     const custom = customPositions[node.contractAddress.toLowerCase()];
-    let cx = custom?.x ?? 0;
-    let cy = custom?.y ?? 0;
+    let cx = 0;
+    let cy = 0;
 
-    if (!custom) {
+    if (custom && typeof custom.x === "number" && typeof custom.y === "number") {
+      cx = custom.x;
+      cy = custom.y;
+    } else {
       if (nodes.length === 1) {
         cx = centerX;
         cy = centerY;

@@ -156,52 +156,137 @@ export function LandingClient({
             </div>
 
             <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0">
-              <div className="relative w-full max-w-[420px] aspect-square flex items-center justify-center">
-                <div className="absolute inset-2 sm:inset-4 rounded-full border border-[#99F6E4]/25 animate-spin-3d-slow pointer-events-none" />
-                <div className="absolute inset-8 sm:inset-12 rounded-full border border-dashed border-[#FFD166]/30 animate-spin-3d-reverse pointer-events-none" />
-                <div className="absolute inset-16 sm:inset-20 rounded-full border border-[#C084FC]/25 animate-spin-3d-slow pointer-events-none" />
+              <div className="relative w-[340px] sm:w-[440px] lg:w-[480px] h-[340px] sm:h-[440px] lg:h-[480px] flex items-center justify-center orbit-system">
+                {/* 3D Tilted Planetary Rings System */}
+                <div
+                  className="absolute top-1/2 left-1/2 w-[340px] sm:w-[430px] lg:w-[470px] h-[340px] sm:h-[430px] lg:h-[470px] rounded-full border-2 border-[rgba(153,246,228,0.45)] pointer-events-none animate-ring-3d shadow-[0_0_35px_rgba(20,184,166,0.35),inset_0_0_25px_rgba(153,246,228,0.2)]"
+                  style={{ transformOrigin: "center center" }}
+                />
+                <div
+                  className="absolute top-1/2 left-1/2 w-[270px] sm:w-[350px] lg:w-[380px] h-[270px] sm:h-[350px] lg:h-[380px] rounded-full border-[1.5px] border-dashed border-[#FFD166]/50 pointer-events-none animate-ring-reverse-3d shadow-[0_0_20px_rgba(255,209,102,0.25)]"
+                  style={{ transformOrigin: "center center" }}
+                />
+                <div
+                  className="absolute top-1/2 left-1/2 w-[210px] sm:w-[270px] lg:w-[300px] h-[210px] sm:h-[270px] lg:h-[300px] rounded-full border border-dotted border-[#C084FC]/40 pointer-events-none animate-ring-3d shadow-[0_0_15px_rgba(192,132,252,0.2)]"
+                  style={{ transformOrigin: "center center" }}
+                />
 
-                <div className="relative w-44 h-44 sm:w-52 sm:h-52 rounded-full bg-gradient-to-br from-[#064E4A] to-[#042F2E] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] flex items-center justify-center overflow-hidden z-10">
-                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(153,246,228,0.2),transparent_70%)]" />
+                {/* Central Star / Planetary Core (Stationary at exact center) */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-36 h-36 sm:w-44 sm:h-44 lg:w-48 lg:h-48 rounded-full bg-[radial-gradient(circle_at_35%_30%,#14B8A6_0%,#064E4A_60%,#042F2E_100%)] border-2 border-[#042F2E] shadow-[0_0_60px_rgba(20,184,166,0.45),inset_0_0_35px_rgba(153,246,228,0.3),6px_6px_0px_#042F2E] flex items-center justify-center overflow-hidden z-20 group transition-transform hover:scale-105 duration-300">
+                  <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(153,246,228,0.35),transparent_70%)]" />
                   <div className="absolute w-full h-1 bg-gradient-to-r from-transparent via-[#99F6E4] to-transparent animate-pulse" />
-                  <div className="text-center space-y-1 z-10 px-4">
-                    <div className="w-8 h-8 mx-auto rounded-lg bg-[#042F2E] border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4]">
+                  <div className="text-center space-y-1 z-10 px-3">
+                    <div className="w-8 h-8 mx-auto rounded-xl bg-[#042F2E] border border-[#99F6E4]/60 flex items-center justify-center text-[#99F6E4] shadow-[2px_2px_0px_#042F2E] group-hover:rotate-12 transition-transform">
                       <IconRadar size={18} />
                     </div>
-                    <div className="text-[11px] font-mono font-bold text-[#99F6E4] tracking-widest uppercase">
+                    <div className="text-[10px] sm:text-[11px] font-mono font-black text-[#99F6E4] tracking-widest uppercase">
                       ROBINHOOD CHAIN 4663
                     </div>
-                    <div className="text-[10px] text-[#A7F3D0] font-mono">
-                      AUTONOMOUS RADAR
+                    <div className="text-[9px] sm:text-[10px] text-[#FFFDF7] font-black font-mono tracking-wider">
+                      INTELLIGENCE CORE
+                    </div>
+                    <div className="flex items-center justify-center gap-1.5 pt-0.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-[#4ADE80] animate-ping" />
+                      <span className="text-[8px] sm:text-[9px] text-[#A7F3D0] uppercase tracking-wider font-semibold">
+                        LIVE SURVEILLANCE
+                      </span>
                     </div>
                   </div>
                 </div>
 
-                <div className="absolute -top-2 sm:-top-4 -left-2 sm:-left-6 z-20 px-3.5 py-2.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex items-center gap-2.5 animate-float-1">
-                  <div className="w-7 h-7 rounded-xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4]">
-                    <IconShield size={16} />
+                {/* Planetary Orbiting Card 1: Deployer Dossier */}
+                <div
+                  className="absolute top-1/2 left-1/2 animate-orbit-card w-[180px] sm:w-[205px] p-2.5 sm:p-3 rounded-2xl bg-[#064E4A]/95 backdrop-blur-xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:border-[#99F6E4] transition-all cursor-pointer select-none"
+                  style={{ animationDelay: "0s" }}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-xl bg-[#99F6E4]/20 border border-[#99F6E4]/40 flex items-center justify-center text-[#99F6E4] shrink-0">
+                      <IconShield size={16} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-bold text-[#99F6E4] truncate">
+                        DEPLOYER DOSSIER
+                      </div>
+                      <div className="text-xs font-black text-[#FFFDF7] truncate">
+                        84 Score (Trusted)
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-[10px] uppercase font-bold text-[#99F6E4]">DEPLOYER DOSSIER</div>
-                    <div className="text-xs font-black text-[#FFFDF7]">84 Score (Trusted)</div>
+                  <div className="mt-1.5 pt-1.5 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between text-[9px] text-[#A7F3D0] font-mono">
+                    <span>Laplace Bayesian</span>
+                    <span className="text-[#99F6E4] font-bold">PROVEN</span>
                   </div>
                 </div>
 
-                <div className="absolute -bottom-4 sm:-bottom-6 -right-2 sm:-right-4 z-20 px-4 py-3 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex items-center gap-3 animate-float-2">
-                  <div className="w-3 h-3 rounded-full bg-[#4ADE80] animate-ping" />
-                  <div>
-                    <div className="text-[10px] uppercase font-bold text-[#4ADE80]">GREEN BAND</div>
-                    <div className="text-xs font-black text-[#FFFDF7]">7/10 Graduated DEX</div>
+                {/* Planetary Orbiting Card 2: Green Band */}
+                <div
+                  className="absolute top-1/2 left-1/2 animate-orbit-card w-[180px] sm:w-[205px] p-2.5 sm:p-3 rounded-2xl bg-[#064E4A]/95 backdrop-blur-xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:border-[#4ADE80] transition-all cursor-pointer select-none"
+                  style={{ animationDelay: "-6s" }}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-xl bg-[#4ADE80]/20 border border-[#4ADE80]/40 flex items-center justify-center text-[#4ADE80] shrink-0">
+                      <IconRocket size={16} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-bold text-[#4ADE80] truncate">
+                        GREEN BAND
+                      </div>
+                      <div className="text-xs font-black text-[#FFFDF7] truncate">
+                        7/10 Graduated DEX
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-1.5 pt-1.5 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between text-[9px] text-[#A7F3D0] font-mono">
+                    <span>High DEX Velocity</span>
+                    <span className="text-[#4ADE80] font-bold">TOP 5%</span>
                   </div>
                 </div>
 
-                <div className="absolute top-1/2 -left-4 sm:-left-8 -translate-y-1/2 z-20 px-3.5 py-2.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex items-center gap-2.5 animate-float-3">
-                  <div className="w-7 h-7 rounded-xl bg-[#FFD166]/20 border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166]">
-                    <IconBolt size={16} />
+                {/* Planetary Orbiting Card 3: Bonding Velocity */}
+                <div
+                  className="absolute top-1/2 left-1/2 animate-orbit-card w-[180px] sm:w-[205px] p-2.5 sm:p-3 rounded-2xl bg-[#064E4A]/95 backdrop-blur-xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:border-[#FFD166] transition-all cursor-pointer select-none"
+                  style={{ animationDelay: "-12s" }}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-xl bg-[#FFD166]/20 border border-[#FFD166]/40 flex items-center justify-center text-[#FFD166] shrink-0">
+                      <IconBolt size={16} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-bold text-[#FFD166] truncate">
+                        Bonding Velocity
+                      </div>
+                      <div className="text-xs font-black text-[#FFFDF7] truncate">
+                        88.4% Graduated
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-[10px] uppercase font-bold text-[#FFD166]">Bonding Velocity</div>
-                    <div className="text-xs font-black text-[#FFFDF7]">88.4% Graduated</div>
+                  <div className="mt-1.5 pt-1.5 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between text-[9px] text-[#A7F3D0] font-mono">
+                    <span>Pons V2 Factory</span>
+                    <span className="text-[#FFD166] font-bold">SURGING</span>
+                  </div>
+                </div>
+
+                {/* Planetary Orbiting Card 4: Constellation Graph */}
+                <div
+                  className="absolute top-1/2 left-1/2 animate-orbit-card w-[180px] sm:w-[205px] p-2.5 sm:p-3 rounded-2xl bg-[#064E4A]/95 backdrop-blur-xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:border-[#C084FC] transition-all cursor-pointer select-none"
+                  style={{ animationDelay: "-18s" }}
+                >
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-xl bg-[#C084FC]/20 border border-[#C084FC]/40 flex items-center justify-center text-[#C084FC] shrink-0">
+                      <IconGraph size={16} />
+                    </div>
+                    <div className="min-w-0">
+                      <div className="text-[10px] uppercase font-bold text-[#C084FC] truncate">
+                        CONSTELLATION MAP
+                      </div>
+                      <div className="text-xs font-black text-[#FFFDF7] truncate">
+                        14 Linked Contracts
+                      </div>
+                    </div>
+                  </div>
+                  <div className="mt-1.5 pt-1.5 border-t border-[rgba(153,246,228,0.15)] flex items-center justify-between text-[9px] text-[#A7F3D0] font-mono">
+                    <span>Topology Radar</span>
+                    <span className="text-[#C084FC] font-bold">MAPPED</span>
                   </div>
                 </div>
               </div>

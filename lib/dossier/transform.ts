@@ -157,7 +157,9 @@ export function transformDossierPageData(
     };
   }
 
-  const mappedLaunches: DeployerLaunchItem[] = (raw.deployerLaunchesList || []).map((l) => ({
+  const mappedLaunches: DeployerLaunchItem[] = (
+    Array.isArray(raw.deployerLaunchesList) ? raw.deployerLaunchesList : []
+  ).map((l) => ({
     contractAddress: l.tokenAddress,
     symbol: l.tokenAddress.slice(2, 6).toUpperCase(),
     status: (l.phase as "curve" | "graduated" | "swept") || "curve",
@@ -182,7 +184,9 @@ export function transformDossierPageData(
     );
   }
 
-  const timelineLogs: TimelineLogItem[] = (raw.logs || []).map((l) => ({
+  const timelineLogs: TimelineLogItem[] = (
+    Array.isArray(raw.logs) ? raw.logs : []
+  ).map((l) => ({
     id: l.id,
     at: l.at,
     text: l.text,
@@ -204,7 +208,7 @@ export function transformDossierPageData(
     };
   }
 
-  const topWallets: TopWalletRow[] = snapCurve?.topWallets ?? [];
+  const topWallets: TopWalletRow[] = Array.isArray(snapCurve?.topWallets) ? snapCurve.topWallets : [];
 
   const walletBubbles: WalletBubbleItem[] = topWallets.map((w, idx) => {
     const totalCount = topWallets.length;
@@ -336,7 +340,7 @@ export function transformDossierPageData(
       reason: n.symbol === "DEPLOYER" ? "Genesis Creator Wallet" : n.symbol === "TREASURY" ? "Fee Collector" : n.symbol.includes("LP") ? "DEX Pool" : `Linked Launch (${n.contractAddress.slice(0, 6)}...)`,
     }));
 
-  const tradeCandles: TradeCandleData[] = snapCurve?.candles ?? [];
+  const tradeCandles: TradeCandleData[] = Array.isArray(snapCurve?.candles) ? snapCurve.candles : [];
   const graduationIdx = isGraduated ? tradeCandles.findIndex((c) => c.isGraduation) : null;
   const resolvedGraduationIdx = graduationIdx !== null && graduationIdx >= 0 ? graduationIdx : null;
 
@@ -357,14 +361,14 @@ export function transformDossierPageData(
         updatedAt: activeDossier.updatedAt,
         originAuthor: activeDossier.originAuthor,
         originAt: activeDossier.originAt,
-        items: (raw.items || []).map((it) => ({
+        items: (Array.isArray(raw.items) ? raw.items : []).map((it) => ({
           id: it.id,
           dossierId: it.dossierId,
           kind: it.kind,
           text: it.text,
           position: it.position,
         })),
-        questions: (raw.questions || []).map((q) => ({
+        questions: (Array.isArray(raw.questions) ? raw.questions : []).map((q) => ({
           id: q.id,
           dossierId: q.dossierId,
           text: q.text,

@@ -66,12 +66,26 @@ export async function handleGetPublicDossier(
       );
     }
 
+    if (
+      !targetRecord.payloadJson ||
+      typeof targetRecord.payloadJson !== "object" ||
+      Array.isArray(targetRecord.payloadJson)
+    ) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Published dossier contains invalid payload data",
+        },
+        { status: 500 }
+      );
+    }
+
     return NextResponse.json(
       {
         ok: true,
         slug: targetRecord.slug,
         authorHandle: targetRecord.authorHandle,
-        payload: (targetRecord.payloadJson as Record<string, unknown>) || {},
+        payload: targetRecord.payloadJson as Record<string, unknown>,
       },
       { status: 200 }
     );

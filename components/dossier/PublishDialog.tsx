@@ -30,7 +30,7 @@ export function PublishDialog({
   const [includeNotes, setIncludeNotes] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [activeUrl, setActiveUrl] = useState<string | null>(initialPublishedUrl || null);
+  const [activeUrl, setActiveUrl] = useState<string | null>(initialPublishedUrl ?? null);
   const [copied, setCopied] = useState(false);
 
   if (!isOpen) return null;
@@ -49,20 +49,29 @@ export function PublishDialog({
         }),
       });
 
-      const json = await res.json().catch(() => ({}));
+      const json = (await res.json().catch(() => ({}))) as {
+        ok?: boolean;
+        error?: string;
+        publicUrl?: string;
+        snapshotId?: string;
+      };
 
-      if (!res.ok) {
-        setError(json?.error || "Failed to publish dossier snapshot");
+      if (!res.ok || !json.ok) {
+        setError(json?.error || "Failed to publish dossier snapshot to registry");
         return;
       }
 
       const url = json?.publicUrl || `/p/${json?.snapshotId}`;
       setActiveUrl(url);
-      if (onPublished) {
-        onPublished({ publicUrl: url, snapshotId: json?.snapshotId });
+      if (onPublished && json?.snapshotId) {
+        onPublished({ publicUrl: url, snapshotId: json.snapshotId });
       }
-    } catch {
-      setError("Network error while publishing snapshot");
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Network communication error while publishing snapshot"
+      );
     } finally {
       setLoading(false);
     }

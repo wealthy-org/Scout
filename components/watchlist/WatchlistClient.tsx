@@ -27,6 +27,8 @@ export interface WatchlistClientProps {
   userAddress?: string;
 }
 
+import { ErrorModal } from "@/components/dialogs/ErrorModal";
+
 export function WatchlistClient({
   initialEntries,
   isAuthenticated,
@@ -38,6 +40,18 @@ export function WatchlistClient({
   const [adding, setAdding] = useState(false);
   const [addError, setAddError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [errorModalState, setErrorModalState] = useState<{
+    isOpen: boolean;
+    title: string;
+    message: string;
+    code?: string;
+    details?: string;
+    onRetry?: () => void;
+  }>({
+    isOpen: false,
+    title: "",
+    message: "",
+  });
 
   const handleAddDeployer = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,10 +87,28 @@ export function WatchlistClient({
           }
         }
       } else {
-        setAddError(data.error || "Failed to add deployer to watchlist");
+        const errorMsg = data.error || "Failed to add deployer to watchlist";
+        setAddError(errorMsg);
+        setErrorModalState({
+          isOpen: true,
+          title: "Watchlist Addition Error",
+          message: errorMsg,
+          code: "ERR_WATCHLIST_ADD_FAILED",
+          details: JSON.stringify(data, null, 2),
+          onRetry: () => handleAddDeployer(e),
+        });
       }
-    } catch {
-      setAddError("Network error adding deployer");
+    } catch (err) {
+      const errorMsg = "Network connection failure while updating watchlist.";
+      setAddError(errorMsg);
+      setErrorModalState({
+        isOpen: true,
+        title: "Network Connection Error",
+        message: errorMsg,
+        code: "ERR_WATCHLIST_NETWORK",
+        details: err instanceof Error ? err.stack || err.message : String(err),
+        onRetry: () => handleAddDeployer(e),
+      });
     } finally {
       setAdding(false);
     }
@@ -92,8 +124,24 @@ export function WatchlistClient({
         setEntries((prev) =>
           prev.filter((item) => item.deployerAddress.toLowerCase() !== address.toLowerCase())
         );
+      } else {
+        const errJson = await res.json().catch(() => ({}));
+        setErrorModalState({
+          isOpen: true,
+          title: "Deletion Error",
+          message: "Failed to remove deployer from tracked watchlist.",
+          code: "ERR_WATCHLIST_DELETE_FAILED",
+          details: JSON.stringify(errJson, null, 2),
+        });
       }
-    } catch {
+    } catch (err) {
+      setErrorModalState({
+        isOpen: true,
+        title: "Network Deletion Error",
+        message: "Failed to communicate with watchlist endpoint.",
+        code: "ERR_WATCHLIST_DELETE_NETWORK",
+        details: err instanceof Error ? err.stack || err.message : String(err),
+      });
     } finally {
       setDeletingId(null);
     }
@@ -171,12 +219,12 @@ export function WatchlistClient({
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {entries.map((item) => {
-              const score = item.score?.score ?? 0;
+              const score = typeof item.score?.score === "number" ? item.score.score : 0;
               const band = item.score?.band ?? "yellow";
               const label = item.score?.label ?? "fresh";
-              const totalLaunches = item.score?.totalLaunches ?? 0;
-              const graduatedCount = item.score?.graduatedCount ?? 0;
-              const newLaunches = item.newLaunchesCount ?? 0;
+              const totalLaunches = typeof item.score?.totalLaunches === "number" ? item.score.totalLaunches : 0;
+              const graduatedCount = typeof item.score?.graduatedCount === "number" ? item.score.graduatedCount : 0;
+              const newLaunches = typeof item.newLaunchesCount === "number" ? item.newLaunchesCount : 0;
 
               const bandBadge =
                 band === "green"
@@ -254,6 +302,18 @@ export function WatchlistClient({
               );
             })}
           </div>
+        )}
+
+        {errorModalState.isOpen && (
+          <ErrorModal
+            isOpen={errorModalState.isOpen}
+            onClose={() => setErrorModalState((prev) => ({ ...prev, isOpen: false }))}
+            title={errorModalState.title}
+            message={errorModalState.message}
+            code={errorModalState.code}
+            details={errorModalState.details}
+            onRetry={errorModalState.onRetry}
+          />
         )}
       </main>
     </div>

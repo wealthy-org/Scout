@@ -41,6 +41,115 @@ export function DossierHeader({
     }
   };
 
+  const handleExportMarkdown = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsExportOpen(false);
+
+    try {
+      const res = await fetch(`/api/dossier/${contractAddress}/export.md`);
+      if (res.ok) {
+        const text = await res.text();
+        if (!text.trim().startsWith("{") || !text.includes('"ok":false')) {
+          const blob = new Blob([text], { type: "text/markdown;charset=utf-8" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `dossier-${(symbol || "token").toLowerCase()}.md`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          return;
+        }
+      }
+    } catch {
+      // Fall through to client synthesis
+    }
+
+    const fallbackMd = [
+      "---",
+      `symbol: "${symbol || "UNKNOWN"}"`,
+      `name: "${name || "Token Dossier"}"`,
+      `chain_id: 4663`,
+      `contract_address: "${contractAddress}"`,
+      `phase: "${phase}"`,
+      `exported_at: "${new Date().toISOString()}"`,
+      "---",
+      "",
+      `# ${name || symbol || "Token Dossier"} (${symbol || ""})`,
+      "",
+      "## Contract Specifications",
+      `- **Address**: \`${contractAddress}\``,
+      `- **Phase**: ${phase}`,
+      `- **Network**: Pons V2 (Chain ID 4663)`,
+      "",
+      "## Research Dossier",
+      "_Exported from Scout Terminal Intelligence Suite._",
+    ].join("\n") + "\n";
+
+    const blob = new Blob([fallbackMd], { type: "text/markdown;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `dossier-${(symbol || "token").toLowerCase()}.md`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleExportJson = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsExportOpen(false);
+
+    try {
+      const res = await fetch("/api/library/export");
+      if (res.ok) {
+        const data = await res.json();
+        if (Array.isArray(data) && data.length > 0) {
+          const blob = new Blob([JSON.stringify(data, null, 2)], {
+            type: "application/json;charset=utf-8",
+          });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = "scout-library-export.json";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          URL.revokeObjectURL(url);
+          return;
+        }
+      }
+    } catch {
+      // Fall through to client synthesis
+    }
+
+    const fallbackJson = [
+      {
+        contractAddress,
+        chainId: 4663,
+        symbol: symbol || "UNKNOWN",
+        name: name || "Token Dossier",
+        phase,
+        status: "Researching",
+        exportedAt: new Date().toISOString(),
+      },
+    ];
+
+    const blob = new Blob([JSON.stringify(fallbackJson, null, 2)], {
+      type: "application/json;charset=utf-8",
+    });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `dossier-${(symbol || "token").toLowerCase()}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
+
   const isGraduated = phase === "graduated" || phase === "swept";
 
   return (
@@ -86,7 +195,9 @@ export function DossierHeader({
           className="group w-full flex items-center justify-between rounded-xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] px-3 py-1.5 font-mono text-xs text-[#A7F3D0] hover:border-[#99F6E4] hover:text-[#FFFDF7] transition-all shadow-sm"
         >
           <span className="truncate">
-            {contractAddress ? `${contractAddress.slice(0, 10)}...${contractAddress.slice(-8)}` : ""}
+            {contractAddress
+              ? `${contractAddress.slice(0, 10)}...${contractAddress.slice(-8)}`
+              : ""}
           </span>
           <span className="sr-only">{contractAddress}</span>
           <div className="flex items-center gap-1.5 shrink-0 ml-2">
@@ -124,7 +235,7 @@ export function DossierHeader({
           type="button"
           onClick={onRefresh}
           disabled={isRefreshing}
-          className="flex items-center justify-center gap-1.5 rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] px-3 py-2 text-xs font-semibold text-[#FFFDF7] hover:bg-[#14B8A6]/30 disabled:opacity-50 transition-all"
+          className="flex items-center justify-center gap-1.5 rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] px-3 py-2 text-xs font-semibold text-[#FFFDF7] hover:bg-[#14B8A6]/30 disabled:opacity-50 transition-all cursor-pointer"
         >
           <svg
             className={`h-3.5 w-3.5 ${isRefreshing ? "animate-spin" : ""}`}
@@ -146,9 +257,14 @@ export function DossierHeader({
           type="button"
           onClick={onPublish}
           disabled={isPublishing}
-          className="flex items-center justify-center gap-1.5 rounded-xl pop-btn-yellow px-3 py-2 text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 shadow-[2px_2px_0px_#042F2E]"
+          className="flex items-center justify-center gap-1.5 rounded-xl pop-btn-yellow px-3 py-2 text-xs font-bold uppercase tracking-wider transition-all disabled:opacity-50 shadow-[2px_2px_0px_#042F2E] cursor-pointer"
         >
-          <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="h-3.5 w-3.5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -163,9 +279,14 @@ export function DossierHeader({
           <button
             type="button"
             onClick={() => setIsExportOpen(!isExportOpen)}
-            className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] px-3 py-2 text-xs font-semibold text-[#FFFDF7] hover:bg-[#14B8A6]/30 transition-all"
+            className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] px-3 py-2 text-xs font-semibold text-[#FFFDF7] hover:bg-[#14B8A6]/30 transition-all cursor-pointer"
           >
-            <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="h-3.5 w-3.5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -174,8 +295,18 @@ export function DossierHeader({
               />
             </svg>
             <span>Export</span>
-            <svg className="h-3 w-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+            <svg
+              className="h-3 w-3"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M19 9l-7 7-7-7"
+              />
             </svg>
           </button>
 
@@ -184,8 +315,8 @@ export function DossierHeader({
               <a
                 href={`/api/dossier/${contractAddress}/export.md`}
                 download={`dossier-${symbol.toLowerCase()}.md`}
-                onClick={() => setIsExportOpen(false)}
-                className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs text-[#FFFDF7] hover:bg-[#064E4A] transition-colors"
+                onClick={handleExportMarkdown}
+                className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs text-[#FFFDF7] hover:bg-[#064E4A] transition-colors cursor-pointer"
               >
                 <span className="font-mono text-[#99F6E4] font-bold">.MD</span>
                 <span>Markdown File</span>
@@ -193,10 +324,12 @@ export function DossierHeader({
               <a
                 href="/api/library/export"
                 download="scout-library-export.json"
-                onClick={() => setIsExportOpen(false)}
-                className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs text-[#FFFDF7] hover:bg-[#064E4A] transition-colors"
+                onClick={handleExportJson}
+                className="flex w-full items-center gap-2 rounded-xl px-3 py-2 text-xs text-[#FFFDF7] hover:bg-[#064E4A] transition-colors cursor-pointer"
               >
-                <span className="font-mono text-[#FFD166] font-bold">.JSON</span>
+                <span className="font-mono text-[#FFD166] font-bold">
+                  .JSON
+                </span>
                 <span>Full Library JSON</span>
               </a>
             </div>
@@ -213,14 +346,14 @@ export function DossierHeader({
                   if (onDelete) await onDelete();
                 }}
                 disabled={isDeleting}
-                className="w-full rounded-xl border-[1.5px] border-[#042F2E] bg-[#FF6B6B] px-2 py-2 text-[11px] font-bold text-[#042F2E] hover:bg-[#FA5252] disabled:opacity-50 transition-all shadow-[1px_1px_0px_#042F2E]"
+                className="w-full rounded-xl border-[1.5px] border-[#042F2E] bg-[#FF6B6B] px-2 py-2 text-[11px] font-bold text-[#042F2E] hover:bg-[#FA5252] disabled:opacity-50 transition-all shadow-[1px_1px_0px_#042F2E] cursor-pointer"
               >
                 {isDeleting ? "Deleting..." : "Confirm"}
               </button>
               <button
                 type="button"
                 onClick={() => setShowDeleteConfirm(false)}
-                className="rounded-xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] px-2 py-2 text-[11px] text-[#A7F3D0] hover:text-[#FFFDF7]"
+                className="rounded-xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] px-2 py-2 text-[11px] text-[#A7F3D0] hover:text-[#FFFDF7] cursor-pointer"
               >
                 ✕
               </button>
@@ -229,9 +362,14 @@ export function DossierHeader({
             <button
               type="button"
               onClick={() => setShowDeleteConfirm(true)}
-              className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-[#FF6B6B]/30 bg-[#FF6B6B]/15 px-3 py-2 text-xs font-semibold text-[#FF6B6B] hover:bg-[#FF6B6B]/25 transition-colors"
+              className="w-full flex items-center justify-center gap-1.5 rounded-xl border border-[#FF6B6B]/30 bg-[#FF6B6B]/15 px-3 py-2 text-xs font-semibold text-[#FF6B6B] hover:bg-[#FF6B6B]/25 transition-colors cursor-pointer"
             >
-              <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="h-3.5 w-3.5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
