@@ -10,6 +10,12 @@ import {
   IconCheck,
   IconClipboard,
   IconGraph,
+  IconBolt,
+  IconShield,
+  IconCpu,
+  IconAlert,
+  IconCode,
+  IconDiamond,
 } from "@/components/icons/Vectors";
 
 interface HowClientProps {
@@ -182,8 +188,10 @@ const DELTA_METRICS = [
     category: "VOLATILITY",
     condition: "|FDV_t - FDV_0| / FDV_0 ≥ 20%",
     status: "ACTIVE TRIGGER",
-    statusColor: "bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
+    statusColor: "bg-[#99F6E4] text-[#042F2E]",
     rationale: "Triggers when market capitalization shifts by ±20% or more since previous inspection.",
+    accentColor: "#99F6E4",
+    threshold: "±20.0%",
   },
   {
     code: "DELTA-02",
@@ -191,8 +199,10 @@ const DELTA_METRICS = [
     category: "RESERVES",
     condition: "|Liq_t - Liq_0| / Liq_0 ≥ 20%",
     status: "ACTIVE TRIGGER",
-    statusColor: "bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
+    statusColor: "bg-[#99F6E4] text-[#042F2E]",
     rationale: "Monitors pool drainage or sudden liquidity injection on DEX pairs.",
+    accentColor: "#99F6E4",
+    threshold: "±20.0%",
   },
   {
     code: "DELTA-03",
@@ -200,8 +210,10 @@ const DELTA_METRICS = [
     category: "MILESTONE",
     condition: "Phase_t ≠ Phase_0 (Curve → Graduated)",
     status: "CRITICAL EVENT",
-    statusColor: "bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
+    statusColor: "bg-[#FFD166] text-[#042F2E]",
     rationale: "Triggers instantly upon graduation migration or protocol fee sweep events.",
+    accentColor: "#FFD166",
+    threshold: "STATE SHIFT",
   },
   {
     code: "DELTA-04",
@@ -209,8 +221,10 @@ const DELTA_METRICS = [
     category: "FORENSIC",
     condition: "Recipient_addr_t ≠ Recipient_addr_0",
     status: "SYBIL ALERT",
-    statusColor: "bg-[#FF6B6B] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
+    statusColor: "bg-[#FF6B6B] text-[#042F2E]",
     rationale: "Flags any modification in the recipient address receiving creator trading fees.",
+    accentColor: "#FF6B6B",
+    threshold: "REROUTE DETECTED",
   },
   {
     code: "DELTA-05",
@@ -218,8 +232,10 @@ const DELTA_METRICS = [
     category: "CODEBASE",
     condition: "Commit_SHA_t ≠ Commit_SHA_0",
     status: "REPO UPDATE",
-    statusColor: "bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
+    statusColor: "bg-[#C084FC] text-[#042F2E]",
     rationale: "Alerts researcher when fresh code is pushed to associated public repositories.",
+    accentColor: "#C084FC",
+    threshold: "FRESH COMMIT",
   },
   {
     code: "DELTA-06",
@@ -227,15 +243,17 @@ const DELTA_METRICS = [
     category: "CREATOR",
     condition: "Total_Deployments_t > Total_0",
     status: "NEW LAUNCH",
-    statusColor: "bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
+    statusColor: "bg-[#FF9F43] text-[#042F2E]",
     rationale: "Notifies when creator wallet deploys a subsequent token elsewhere in the factory.",
+    accentColor: "#FF9F43",
+    threshold: "ΔN ≥ +1",
   },
 ];
 
 export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>("all");
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("" );
   const [activeWorkflowTab, setActiveWorkflowTab] = useState<number>(0);
 
   const [simGraduated, setSimGraduated] = useState<number>(4);
@@ -259,19 +277,22 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
     if (calculatedScore >= 70)
       return {
         label: "RELIABLE (GREEN)",
-        color: "text-[#042F2E] bg-[#99F6E4] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
-        desc: "Low risk. Organic graduation track record.",
+        badgeBg: "bg-[#99F6E4] text-[#042F2E]",
+        color: "text-[#99F6E4]",
+        desc: "Low risk. Organic graduation track record with verifiable liquidity permanence.",
       };
     if (calculatedScore >= 40)
       return {
         label: "CAUTION (YELLOW)",
-        color: "text-[#042F2E] bg-[#FFD166] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
-        desc: "Moderate risk. Unproven liquidity survival.",
+        badgeBg: "bg-[#FFD166] text-[#042F2E]",
+        color: "text-[#FFD166]",
+        desc: "Moderate risk. Unproven graduation frequency or small statistical sample.",
       };
     return {
       label: "HOSTILE (RED)",
-      color: "text-[#042F2E] bg-[#FF6B6B] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]",
-      desc: "Severe risk. Serial abandonment detected.",
+      badgeBg: "bg-[#FF6B6B] text-[#042F2E]",
+      color: "text-[#FF6B6B]",
+      desc: "Severe risk. High DOA abandonment frequency or serial failure cap enforced.",
     };
   }, [calculatedScore]);
 
@@ -308,337 +329,524 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
   }, [selectedCategory, searchQuery]);
 
   return (
-    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-16 sm:pb-24 selection:bg-[#FFD166] selection:text-[#042F2E]">
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-20 selection:bg-[#FFD166] selection:text-[#042F2E] overflow-x-hidden">
       <div className="absolute top-0 right-1/4 w-[750px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <main className="max-w-6xl mx-auto px-3.5 sm:px-6 pt-5 sm:pt-10 space-y-10 sm:space-y-14 relative z-10">
-        <header className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] relative space-y-4">
-          <div className="flex flex-wrap items-center gap-2 mb-1">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-[11px] font-mono font-black tracking-wider uppercase bg-[#042F2E] border-2 border-[#042F2E] text-[#99F6E4] shadow-[2px_2px_0px_#042F2E]">
-              <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse" />
-              RESEARCH FIELD MANUAL // METHODOLOGY
-            </span>
-            <span className="px-3 py-1 rounded-xl text-[11px] font-mono font-black bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-              DOSSIER.OS v2.4
-            </span>
-          </div>
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 space-y-12 sm:space-y-16 relative z-10">
+        
+        {/* ========================================================================= */}
+        {/* 1. HERO: TACTICAL COMMAND BRIEFING HUD */}
+        {/* ========================================================================= */}
+        <header className="relative bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#042F2E] overflow-hidden">
+          {/* Subtle grid pattern background */}
+          <div className="absolute inset-0 bg-[radial-gradient(#99F6E4_1px,transparent_1px)] [background-size:24px_24px] opacity-10 pointer-events-none" />
 
-          <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black tracking-tight text-[#FFFDF7] leading-tight">
-            Methodology &amp; Risk Architecture
-          </h1>
-          <p className="text-xs sm:text-base text-[#A7F3D0] leading-relaxed max-w-3xl font-normal">
-            The mathematical foundation, Bayesian reputation models, on-chain delta triggers, and relational graph topology powering real-time token investigations.
-          </p>
+          <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+            <div className="space-y-4 max-w-2xl">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex items-center gap-2 px-3 py-1 rounded-xl text-xs font-mono font-black tracking-widest uppercase bg-[#042F2E] border-2 border-[#042F2E] text-[#99F6E4] shadow-[2px_2px_0px_#042F2E]">
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#14B8A6] animate-ping" />
+                  FIELD MANUAL // METHODOLOGY
+                </span>
+                <span className="px-3 py-1 rounded-xl text-xs font-mono font-black bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                  DOSSIER.OS v2.4
+                </span>
+              </div>
 
-          <div className="pt-4 border-t-2 border-[#042F2E] grid grid-cols-2 sm:grid-cols-4 gap-3 text-xs font-mono">
-            <div className="p-3 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E]">
-              <div className="text-[10px] text-[#A7F3D0] uppercase font-bold tracking-wider">Bayesian Core</div>
-              <div className="text-xs sm:text-sm font-black text-[#99F6E4] mt-1">Laplace (α=1, β=2)</div>
+              <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-[#FFFDF7] leading-[1.1]">
+                Methodology &amp; Risk Architecture
+              </h1>
+
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed font-normal">
+                Mathematical formulations, Bayesian reputation probabilities, real-time delta triggers, and relational graph topology powering algorithmic investigations on Robinhood Chain.
+              </p>
+
+              {/* Jump Nav Quick-Pills */}
+              <div className="flex flex-wrap gap-2 pt-2">
+                {[
+                  { label: "01 // 4 Stages", href: "#workflow" },
+                  { label: "02 // Math Lab", href: "#bayesian-math" },
+                  { label: "03 // Delta Radar", href: "#delta-engine" },
+                  { label: "04 // Sybil Graph", href: "#graph-topology" },
+                  { label: "05 // Lexicon", href: "#glossary-math" },
+                ].map((item) => (
+                  <a
+                    key={item.label}
+                    href={item.href}
+                    className="px-3 py-1.5 rounded-xl bg-[#042F2E] hover:bg-[#FFD166] text-[#A7F3D0] hover:text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] font-mono text-[11px] font-black transition-all active:translate-x-[1px] active:translate-y-[1px]"
+                  >
+                    {item.label}
+                  </a>
+                ))}
+              </div>
             </div>
-            <div className="p-3 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E]">
-              <div className="text-[10px] text-[#A7F3D0] uppercase font-bold tracking-wider">Surveillance</div>
-              <div className="text-xs sm:text-sm font-black text-[#FFD166] mt-1">6 Delta Triggers</div>
-            </div>
-            <div className="p-3 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E]">
-              <div className="text-[10px] text-[#A7F3D0] uppercase font-bold tracking-wider">Topology</div>
-              <div className="text-xs sm:text-sm font-black text-[#FF9F43] mt-1">3 Edge Weights</div>
-            </div>
-            <div className="p-3 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E]">
-              <div className="text-[10px] text-[#A7F3D0] uppercase font-bold tracking-wider">RPC Speed</div>
-              <div className="text-xs sm:text-sm font-black text-[#C084FC] mt-1">MultiCall3 &lt;85ms</div>
+
+            {/* Avionics Telemetry Block */}
+            <div className="lg:w-80 shrink-0 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl p-4 shadow-[6px_6px_0px_#042F2E] space-y-3">
+              <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 text-[11px] font-mono font-black text-[#99F6E4]">
+                <span className="flex items-center gap-1.5">
+                  <IconCpu size={14} className="text-[#99F6E4]" />
+                  ENGINE STATUS
+                </span>
+                <span className="text-[#FFD166]">LIVE HYDRATION</span>
+              </div>
+
+              <div className="grid grid-cols-2 gap-2.5 font-mono">
+                <div className="bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E] space-y-1">
+                  <div className="text-[9px] font-bold text-[#A7F3D0] uppercase">Bayesian Core</div>
+                  <div className="text-xs font-black text-[#99F6E4]">Laplace (α=1, β=2)</div>
+                  <div className="w-full bg-[#042F2E] h-1.5 rounded-full overflow-hidden mt-1">
+                    <div className="bg-[#99F6E4] h-full w-4/5 rounded-full" />
+                  </div>
+                </div>
+
+                <div className="bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E] space-y-1">
+                  <div className="text-[9px] font-bold text-[#A7F3D0] uppercase">Surveillance</div>
+                  <div className="text-xs font-black text-[#FFD166]">6 Active Triggers</div>
+                  <div className="w-full bg-[#042F2E] h-1.5 rounded-full overflow-hidden mt-1">
+                    <div className="bg-[#FFD166] h-full w-full rounded-full" />
+                  </div>
+                </div>
+
+                <div className="bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E] space-y-1">
+                  <div className="text-[9px] font-bold text-[#A7F3D0] uppercase">Graph Edges</div>
+                  <div className="text-xs font-black text-[#FF9F43]">3 Weighted Tiers</div>
+                  <div className="w-full bg-[#042F2E] h-1.5 rounded-full overflow-hidden mt-1">
+                    <div className="bg-[#FF9F43] h-full w-3/4 rounded-full" />
+                  </div>
+                </div>
+
+                <div className="bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E] space-y-1">
+                  <div className="text-[9px] font-bold text-[#A7F3D0] uppercase">RPC Execution</div>
+                  <div className="text-xs font-black text-[#C084FC]">Sub-85ms Batch</div>
+                  <div className="w-full bg-[#042F2E] h-1.5 rounded-full overflow-hidden mt-1">
+                    <div className="bg-[#C084FC] h-full w-5/6 rounded-full" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </header>
 
-        <section id="workflow" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+        {/* ========================================================================= */}
+        {/* 2. SECTION 1: THE 4-STEP INTELLIGENCE WORKFLOW (INTERACTIVE PIPELINE STATION) */}
+        {/* ========================================================================= */}
+        <section id="workflow" className="space-y-6 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
-                PROTOCOL PIPELINE // 4 STAGES
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-black">
+                SECTION 01 // PROTOCOL PIPELINE
               </span>
-              <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
                 The 4-Step Intelligence Workflow
               </h2>
             </div>
-            <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar bg-[#042F2E] p-1.5 rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
-              {["01. Investigate", "02. Score", "03. Track", "04. Publish"].map((label, idx) => (
-                <button
-                  key={label}
-                  onClick={() => setActiveWorkflowTab(idx)}
-                  className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all cursor-pointer ${
-                    activeWorkflowTab === idx
-                      ? "bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
-                      : "text-[#A7F3D0] hover:text-[#FFFDF7]"
-                  }`}
-                >
-                  {label}
-                </button>
-              ))}
+            <div className="text-xs font-mono font-bold text-[#FFD166] bg-[#042F2E] px-3 py-1 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+              STEP {activeWorkflowTab + 1} OF 4 ACTIVE
             </div>
           </div>
 
-          <div className="space-y-4">
-            <div className={`p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] transition-all ${activeWorkflowTab === 0 ? "ring-2 ring-[#99F6E4]" : "opacity-90"}`}>
-              <div className="flex items-start gap-4">
-                <span className="w-8 h-8 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] flex items-center justify-center text-xs font-mono font-black text-[#99F6E4] shadow-[2px_2px_0px_#042F2E] shrink-0">
-                  01
-                </span>
-                <div className="space-y-3 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-                      01. Investigate // Bytecode &amp; Liquidity Audit
-                    </h3>
-                    <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-                      MULTICALL3 BATCH
-                    </span>
+          {/* Stepper Navigation Track */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {[
+              { idx: 0, num: "01", name: "Investigate", desc: "Bytecode & MultiCall3", color: "bg-[#99F6E4]" },
+              { idx: 1, num: "02", name: "Score", desc: "Bayesian Probability", color: "bg-[#FFD166]" },
+              { idx: 2, num: "03", name: "Track", desc: "Since Last Check Diff", color: "bg-[#FF9F43]" },
+              { idx: 3, num: "04", name: "Publish", desc: "Immutable Forensic Dossier", color: "bg-[#C084FC]" },
+            ].map((step) => (
+              <button
+                key={step.num}
+                onClick={() => setActiveWorkflowTab(step.idx)}
+                className={`p-3.5 rounded-2xl border-2 border-[#042F2E] text-left transition-all cursor-pointer ${
+                  activeWorkflowTab === step.idx
+                    ? "bg-[#042F2E] shadow-[6px_6px_0px_#042F2E] -translate-x-[1px] -translate-y-[1px]"
+                    : "bg-[#064E4A] hover:bg-[#064E4A]/80 shadow-[3px_3px_0px_#042F2E]"
+                }`}
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <span
+                    className={`w-7 h-7 rounded-xl font-mono text-xs font-black flex items-center justify-center border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] text-[#042F2E] ${step.color}`}
+                  >
+                    {step.num}
+                  </span>
+                  {activeWorkflowTab === step.idx && (
+                    <span className="w-2 h-2 rounded-full bg-[#99F6E4] animate-pulse" />
+                  )}
+                </div>
+                <div className="text-sm font-black text-[#FFFDF7]">{step.name}</div>
+                <div className="text-[11px] font-mono text-[#A7F3D0] truncate mt-0.5">{step.desc}</div>
+              </button>
+            ))}
+          </div>
+
+          {/* Active Station Display View */}
+          <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 shadow-[8px_8px_0px_#042F2E]">
+            {activeWorkflowTab === 0 && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-xl text-xs font-mono font-black bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                        STAGE 01
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7]">
+                        01. Investigate // Bytecode &amp; Liquidity Audit
+                      </h3>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                      When a token contract is inspected, Scout concurrently batches factory state, token metadata, liquidity balances, and pricing pairs in a sub-100ms atomic call using MultiCall3.
+                    </p>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                    When a token contract is inspected, Scout concurrently batches factory state, token metadata, liquidity balances, and pricing pairs in a sub-100ms atomic call.
-                  </p>
-
-                  <div className="p-3.5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] font-mono text-xs grid grid-cols-1 sm:grid-cols-3 gap-3 text-[#A7F3D0]">
-                    <div>
-                      <span className="text-[10px] text-[#99F6E4] font-bold">Factory.getPool()</span>
-                      <div className="text-[#FFFDF7] font-black truncate text-sm mt-0.5">0x90a2...b41</div>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-[#FFD166] font-bold">totalSupply()</span>
-                      <div className="text-[#FFFDF7] font-black text-sm mt-0.5">1,000,000,000</div>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-[#99F6E4] font-bold">getReserves()</span>
-                      <div className="text-[#FFFDF7] font-black text-sm mt-0.5">42.5 ETH</div>
+                  <div className="space-y-2">
+                    <div className="text-xs font-mono font-black text-[#99F6E4] uppercase">KEY FORENSIC VECTORS:</div>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 font-mono text-xs">
+                      <div className="bg-[#042F2E] p-2.5 rounded-xl border-2 border-[#042F2E]">
+                        <span className="text-[10px] text-[#99F6E4] font-bold">Factory Pool</span>
+                        <div className="text-[#FFFDF7] font-black text-xs truncate mt-0.5">0x90a2...b41</div>
+                      </div>
+                      <div className="bg-[#042F2E] p-2.5 rounded-xl border-2 border-[#042F2E]">
+                        <span className="text-[10px] text-[#FFD166] font-bold">Total Supply</span>
+                        <div className="text-[#FFFDF7] font-black text-xs mt-0.5">1,000,000,000</div>
+                      </div>
+                      <div className="bg-[#042F2E] p-2.5 rounded-xl border-2 border-[#042F2E]">
+                        <span className="text-[10px] text-[#99F6E4] font-bold">Reserves (ETH)</span>
+                        <div className="text-[#FFFDF7] font-black text-xs mt-0.5">42.5 ETH</div>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className={`p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] transition-all ${activeWorkflowTab === 1 ? "ring-2 ring-[#FFD166]" : "opacity-90"}`}>
-              <div className="flex items-start gap-4">
-                <span className="w-8 h-8 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] flex items-center justify-center text-xs font-mono font-black text-[#FFD166] shadow-[2px_2px_0px_#042F2E] shrink-0">
-                  02
-                </span>
-                <div className="space-y-3 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-                      02. Score // Bayesian Probability Model
-                    </h3>
-                    <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-                      LAPLACE PRIOR
-                    </span>
+                {/* Terminal Window View */}
+                <div className="lg:col-span-6 bg-[#031E1D] border-2 border-[#042F2E] rounded-2xl p-4 font-mono text-xs text-[#99F6E4] shadow-[4px_4px_0px_#042F2E] space-y-3">
+                  <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 text-[10px]">
+                    <div className="flex items-center gap-1.5">
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#FF6B6B]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#FFD166]" />
+                      <span className="w-2.5 h-2.5 rounded-full bg-[#99F6E4]" />
+                      <span className="text-[#A7F3D0] ml-2 font-bold">MULTICALL3 DISASSEMBLER</span>
+                    </div>
+                    <span className="text-[#FFD166]">BLOCK #27195420</span>
+                  </div>
+                  <pre className="overflow-x-auto text-[11px] text-[#FFFDF7] leading-relaxed">
+{`>> MultiCall3.aggregate3([
+     { target: 0x4663...0001, callData: "getPool(0x3b89...)" },
+     { target: 0x3b89...7102, callData: "totalSupply()" },
+     { target: 0x4663...0001, callData: "getReserves(0x3b89...)" },
+     { target: 0x3b89...7102, callData: "owner()" }
+   ])
+<< 4 Call Returns Decoded in 68ms
+[OK] Factory: Pons V2 Verified (0x4663...0001)
+[OK] Curve Status: 100.0% Swept / Migrated
+[OK] Origin Deployer: 0x89e247413697b0d911b3327d78fa1b94541889b2`}
+                  </pre>
+                </div>
+              </div>
+            )}
+
+            {activeWorkflowTab === 1 && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-xl text-xs font-mono font-black bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                        STAGE 02
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7]">
+                        02. Score // Bayesian Probability Model
+                      </h3>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                      Deployer origin wallets are scored between 0–100 using Laplace-smoothed graduation rates, DOA penalties, burst rate dampeners, and hard serial penalty clamps.
+                    </p>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                    Deployer origin wallets are scored between 0–100 using Laplace-smoothed graduation rates, DOA penalties, burst rate dampeners, and hard serial penalty clamps.
-                  </p>
-
-                  <div className="p-3.5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] font-mono text-xs grid grid-cols-1 sm:grid-cols-3 gap-3 text-[#A7F3D0]">
-                    <div>
-                      <span className="text-[10px] text-[#FFD166] font-bold">Laplace Formula</span>
-                      <div className="text-[#FFFDF7] font-black truncate text-sm mt-0.5">((k+1)/(n+2))×100</div>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-[#FF6B6B] font-bold">DOA Penalty</span>
-                      <div className="text-[#FF6B6B] font-black text-sm mt-0.5">-8 pts/event</div>
-                    </div>
-                    <div>
-                      <span className="text-[10px] text-[#FF6B6B] font-bold">Serial Clamp</span>
-                      <div className="text-[#FFFDF7] font-black text-sm mt-0.5">Max 25 (n≥6, k=0)</div>
+                  <div className="p-3.5 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl space-y-2">
+                    <span className="text-[10px] font-mono font-black text-[#FFD166] uppercase">FORMULA POSTULATE:</span>
+                    <div className="font-mono text-xs font-black text-[#FFFDF7] bg-[#064E4A] p-2.5 rounded-xl">
+                      Score = clamp(Base_Laplace - DOA_Loss - Burst_Decay, 0, 100)
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className={`p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] transition-all ${activeWorkflowTab === 2 ? "ring-2 ring-[#FF9F43]" : "opacity-90"}`}>
-              <div className="flex items-start gap-4">
-                <span className="w-8 h-8 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] flex items-center justify-center text-xs font-mono font-black text-[#FF9F43] shadow-[2px_2px_0px_#042F2E] shrink-0">
-                  03
-                </span>
-                <div className="space-y-3 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-                      03. Track // State Delta Comparison
-                    </h3>
-                    <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-[#FF9F43] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-                      SINCE LAST CHECK
-                    </span>
+                <div className="lg:col-span-6 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl p-5 shadow-[4px_4px_0px_#042F2E] space-y-3">
+                  <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 font-mono text-xs font-black">
+                    <span className="text-[#FFD166]">REPUTATION BREAKDOWN</span>
+                    <span className="text-[#99F6E4]">SCORE: 84 / 100</span>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                    Every inspection records a snapshot. When revisited, Scout computes metric differences across FDV, liquidity, phase shifts, git commits, and fee recipients.
-                  </p>
-
-                  <div className="p-3.5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] font-mono text-xs grid grid-cols-1 sm:grid-cols-2 gap-3 text-[#A7F3D0]">
+                  <div className="space-y-2.5 font-mono text-xs">
                     <div className="flex items-center justify-between bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E]">
-                      <span className="text-[11px] font-bold">Market Cap Δ:</span>
-                      <span className="font-black text-[#99F6E4]">+28.4% Exceeded</span>
+                      <span className="text-[#A7F3D0]">Laplace Prior:</span>
+                      <span className="font-black text-[#99F6E4]">+78.5 PTS</span>
                     </div>
                     <div className="flex items-center justify-between bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E]">
-                      <span className="text-[11px] font-bold">Curve Phase:</span>
-                      <span className="font-black text-[#FFD166]">Graduated UniV3</span>
+                      <span className="text-[#A7F3D0]">DOA Deductions (1 token):</span>
+                      <span className="font-black text-[#FF6B6B]">-8.0 PTS</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E]">
+                      <span className="text-[#A7F3D0]">Burst Velocity Dampener:</span>
+                      <span className="font-black text-[#FF9F43]">-3.0 PTS</span>
+                    </div>
+                    <div className="flex items-center justify-between bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E]">
+                      <span className="text-[#A7F3D0]">Serial Penalty Cap Status:</span>
+                      <span className="font-black text-[#99F6E4]">CLEAR (0 Penalties)</span>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
 
-            <div className={`p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] transition-all ${activeWorkflowTab === 3 ? "ring-2 ring-[#C084FC]" : "opacity-90"}`}>
-              <div className="flex items-start gap-4">
-                <span className="w-8 h-8 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] flex items-center justify-center text-xs font-mono font-black text-[#C084FC] shadow-[2px_2px_0px_#042F2E] shrink-0">
-                  04
-                </span>
-                <div className="space-y-3 flex-1">
-                  <div className="flex flex-wrap items-center gap-2">
-                    <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-                      04. Publish // Immutable Forensic Dossier
-                    </h3>
-                    <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-[#C084FC] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
-                      EIP-191 SIGNATURE
-                    </span>
+            {activeWorkflowTab === 2 && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-xl text-xs font-mono font-black bg-[#FF9F43] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                        STAGE 03
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7]">
+                        03. Track // State Delta Comparison
+                      </h3>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                      Every inspection records a snapshot. When revisited, Scout computes metric differences across FDV, liquidity, phase shifts, git commits, and fee recipients via our 30-snapshot buffer.
+                    </p>
                   </div>
 
-                  <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
-                    Freeze research thesis and findings into permanent case files with cryptographic author attribution, fork capability, and instant revocation controls.
-                  </p>
+                  <div className="p-3.5 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl flex items-center justify-between text-xs font-mono">
+                    <span className="text-[#A7F3D0]">BUFFER RETENTION:</span>
+                    <span className="font-black text-[#FF9F43]">30 FIFO SNAPSHOTS</span>
+                  </div>
+                </div>
 
-                  <div className="p-3.5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] font-mono text-xs grid grid-cols-1 sm:grid-cols-3 gap-3 text-[#A7F3D0]">
-                    <div>
-                      <span className="text-[10px] text-[#C084FC] font-bold">Digest Hash</span>
-                      <div className="text-[#FFFDF7] font-black truncate text-sm mt-0.5">0x7f2a...c89e</div>
+                {/* Diff Console */}
+                <div className="lg:col-span-6 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl p-4 shadow-[4px_4px_0px_#042F2E] space-y-3">
+                  <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 font-mono text-xs font-black text-[#FF9F43]">
+                    <span>SINCE LAST CHECK COMPARISON</span>
+                    <span className="text-[#99F6E4]">Δ COMPUTED</span>
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-3 font-mono text-xs">
+                    <div className="bg-[#064E4A] p-3 rounded-xl border border-[#042F2E] space-y-1">
+                      <div className="text-[10px] text-[#A7F3D0]">SNAPSHOT @ GENESIS</div>
+                      <div className="text-xs font-bold text-[#FFFDF7]">$854,000 FDV</div>
+                      <div className="text-[10px] text-[#FFD166]">Curve Phase (45%)</div>
                     </div>
-                    <div>
-                      <span className="text-[10px] text-[#99F6E4] font-bold">Author Proof</span>
-                      <div className="text-[#FFFDF7] font-black text-sm mt-0.5">EIP-191 Sign</div>
+
+                    <div className="bg-[#064E4A] p-3 rounded-xl border border-[#042F2E] space-y-1">
+                      <div className="text-[10px] text-[#A7F3D0]">SNAPSHOT @ CURRENT</div>
+                      <div className="text-xs font-bold text-[#99F6E4]">$2,450,000 FDV</div>
+                      <div className="text-[10px] text-[#99F6E4]">Graduated (100%)</div>
                     </div>
-                    <div>
-                      <span className="text-[10px] text-[#FFD166] font-bold">State Access</span>
-                      <div className="text-[#FFFDF7] font-black text-sm mt-0.5">Immutable</div>
-                    </div>
+                  </div>
+
+                  <div className="bg-[#031E1D] p-2.5 rounded-xl text-[11px] font-mono flex items-center justify-between text-[#99F6E4]">
+                    <span>DELTA STATUS:</span>
+                    <span className="font-black text-[#99F6E4]">+186.8% SURGE // TRIGGER EXCEEDED</span>
                   </div>
                 </div>
               </div>
-            </div>
+            )}
+
+            {activeWorkflowTab === 3 && (
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                <div className="lg:col-span-6 space-y-4 flex flex-col justify-between">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <span className="px-3 py-1 rounded-xl text-xs font-mono font-black bg-[#C084FC] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                        STAGE 04
+                      </span>
+                      <h3 className="text-xl sm:text-2xl font-black text-[#FFFDF7]">
+                        04. Publish // Immutable Forensic Dossier
+                      </h3>
+                    </div>
+                    <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                      Freeze research thesis and findings into permanent case files with cryptographic author attribution, fork capability, and instant revocation controls via EIP-191 signatures.
+                    </p>
+                  </div>
+
+                  <div className="p-3.5 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl flex items-center justify-between text-xs font-mono">
+                    <span className="text-[#A7F3D0]">INTEGRITY PROOF:</span>
+                    <span className="font-black text-[#C084FC]">EIP-191 CRYPTOGRAPHIC DIGEST</span>
+                  </div>
+                </div>
+
+                {/* Dossier Certificate Stamp Card */}
+                <div className="lg:col-span-6 bg-[#042F2E] border-2 border-[#042F2E] rounded-2xl p-5 shadow-[4px_4px_0px_#042F2E] space-y-3 relative overflow-hidden">
+                  <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 font-mono text-xs font-black text-[#C084FC]">
+                    <span>IMMUTABLE DOSSIER RECORD</span>
+                    <span className="text-[#99F6E4]">SEALED</span>
+                  </div>
+
+                  <div className="space-y-2 font-mono text-xs">
+                    <div className="bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E]">
+                      <span className="text-[10px] text-[#A7F3D0]">Digest SHA-256:</span>
+                      <div className="text-xs font-black text-[#FFFDF7] truncate mt-0.5">
+                        0x7f2a8901bce471028391029384710293847102938471c89e
+                      </div>
+                    </div>
+                    <div className="bg-[#064E4A] p-2.5 rounded-xl border border-[#042F2E]">
+                      <span className="text-[10px] text-[#A7F3D0]">Author Signature:</span>
+                      <div className="text-xs font-black text-[#C084FC] truncate mt-0.5">
+                        EIP-191 Verified (0x12a9...4910)
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="bg-[#031E1D] p-2 rounded-xl text-[10px] font-mono text-[#A7F3D0] flex items-center justify-between">
+                    <span>STATE: IMMUTABLE PUBLIC CASE FILE</span>
+                    <span className="text-[#FFD166] font-bold">PERMALINK ENABLED</span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 
-        <section id="bayesian-math" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-5 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-6">
+
+        {/* ========================================================================= */}
+        {/* 3. SECTION 2: MATHEMATICAL WORKBENCH & INTERACTIVE LAB */}
+        {/* ========================================================================= */}
+        <section id="bayesian-math" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[8px_8px_0px_#042F2E] space-y-8 scroll-mt-24">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b-2 border-[#042F2E] pb-4">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFD166] font-bold">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#FFD166] font-black">
                 SECTION 02 // MATHEMATICAL WORKBENCH
               </span>
-              <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
                 Bayesian Mathematical Formulation &amp; Sandbox
               </h2>
             </div>
-            <div className="px-3 py-1 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono font-black text-[#FFD166] shadow-[2px_2px_0px_#042F2E] self-start sm:self-auto">
+            <div className="px-3.5 py-1.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono font-black text-[#FFD166] shadow-[2px_2px_0px_#042F2E] self-start sm:self-auto">
               SPEC v2.4
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
-            <div className="lg:col-span-7 bg-[#042F2E] rounded-2xl border-2 border-[#042F2E] p-4 sm:p-5 shadow-[4px_4px_0px_#042F2E] space-y-4 flex flex-col justify-between">
-              <div className="space-y-3">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+            {/* Left 4 Formulas */}
+            <div className="lg:col-span-7 bg-[#042F2E] rounded-3xl border-2 border-[#042F2E] p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] space-y-5 flex flex-col justify-between">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-[#064E4A] pb-2">
                   <span className="text-xs font-mono font-black text-[#99F6E4] uppercase tracking-wider">
                     MATHEMATICAL POSTULATES
                   </span>
-                  <span className="text-[10px] font-mono font-bold text-[#A7F3D0] bg-[#064E4A] px-2 py-0.5 rounded-md">4 FORMULATIONS</span>
+                  <span className="text-[10px] font-mono font-bold text-[#A7F3D0] bg-[#064E4A] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">
+                    4 FORMULATIONS
+                  </span>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-xs">
-                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-xl p-3 shadow-[3px_3px_0px_#042F2E] space-y-1.5">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 font-mono text-xs">
+                  {/* 1.1 Base Laplace */}
+                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-4 shadow-[4px_4px_0px_#042F2E] space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] text-[#FFD166] font-black uppercase">1.1 // BASE LAPLACE</span>
                       <button
                         onClick={() => handleCopy("S_base = ((k + 1) / (n + 2)) * 100", "p1")}
-                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-md flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-lg flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
                       >
                         {copiedKey === "p1" ? <IconCheck size={10} className="text-[#99F6E4]" /> : <IconClipboard size={10} />}
                         <span>Copy</span>
                       </button>
                     </div>
-                    <div className="text-xs sm:text-sm font-black text-[#FFD166]">((k + 1) / (n + 2)) × 100</div>
-                    <p className="font-sans text-[11px] text-[#A7F3D0]">k = Graduated, n = Total launches</p>
+                    <div className="text-sm font-black text-[#FFD166]">((k + 1) / (n + 2)) × 100</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-snug">
+                      Laplace smoothing prior preventing 100% false perfection on 1/1 creator sample sizes.
+                    </p>
                   </div>
 
-                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-xl p-3 shadow-[3px_3px_0px_#042F2E] space-y-1.5">
+                  {/* 1.2 DOA Deduction */}
+                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-4 shadow-[4px_4px_0px_#042F2E] space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] text-[#FF6B6B] font-black uppercase">1.2 // DOA DEDUCTION</span>
                       <button
                         onClick={() => handleCopy("P_doa = min(8 * d, 30)", "p2")}
-                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-md flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-lg flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
                       >
                         {copiedKey === "p2" ? <IconCheck size={10} className="text-[#99F6E4]" /> : <IconClipboard size={10} />}
                         <span>Copy</span>
                       </button>
                     </div>
-                    <div className="text-xs sm:text-sm font-black text-[#FF6B6B]">min(8 × d, 30)</div>
-                    <p className="font-sans text-[11px] text-[#A7F3D0]">-8 pts per abandoned token (&lt;10m)</p>
+                    <div className="text-sm font-black text-[#FF6B6B]">min(8 × d, 30)</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-snug">
+                      Dead on Arrival penalty docking 8 points per abandoned launch within 10m of genesis.
+                    </p>
                   </div>
 
-                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-xl p-3 shadow-[3px_3px_0px_#042F2E] space-y-1.5">
+                  {/* 1.3 Burst Dampener */}
+                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-4 shadow-[4px_4px_0px_#042F2E] space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] text-[#FF9F43] font-black uppercase">1.3 // BURST DAMPENER</span>
                       <button
                         onClick={() => handleCopy("P_burst = min((b / 100) * 15, 20)", "p3")}
-                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-md flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-lg flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
                       >
                         {copiedKey === "p3" ? <IconCheck size={10} className="text-[#99F6E4]" /> : <IconClipboard size={10} />}
                         <span>Copy</span>
                       </button>
                     </div>
-                    <div className="text-xs sm:text-sm font-black text-[#FF9F43]">min((b/100) × 15, 20)</div>
-                    <p className="font-sans text-[11px] text-[#A7F3D0]">Dampens &lt;30m automated launches</p>
+                    <div className="text-sm font-black text-[#FF9F43]">min((b/100) × 15, 20)</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-snug">
+                      Burst rate velocity clamp for rapid-fire automated deployments launched &lt;30m apart.
+                    </p>
                   </div>
 
-                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-xl p-3 shadow-[3px_3px_0px_#042F2E] space-y-1.5">
+                  {/* 1.4 Serial Clamp */}
+                  <div className="bg-[#064E4A] border-2 border-[#042F2E] rounded-2xl p-4 shadow-[4px_4px_0px_#042F2E] space-y-2">
                     <div className="flex items-center justify-between">
                       <span className="text-[10px] text-[#C084FC] font-black uppercase">1.4 // SERIAL CLAMP</span>
                       <button
                         onClick={() => handleCopy("If (n >= 6 && k == 0) -> S_final <= 25", "p4")}
-                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-md flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
+                        className="text-[10px] text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] border border-[#042F2E] px-2 py-0.5 rounded-lg flex items-center gap-1 cursor-pointer active:translate-x-[1px] active:translate-y-[1px]"
                       >
                         {copiedKey === "p4" ? <IconCheck size={10} className="text-[#99F6E4]" /> : <IconClipboard size={10} />}
                         <span>Copy</span>
                       </button>
                     </div>
-                    <div className="text-xs sm:text-sm font-black text-[#C084FC]">If n≥6 ∧ k=0 → ≤25</div>
-                    <p className="font-sans text-[11px] text-[#A7F3D0]">Hard Red Band quarantine ceiling</p>
+                    <div className="text-sm font-black text-[#C084FC]">If n≥6 ∧ k=0 → ≤25</div>
+                    <p className="font-sans text-xs text-[#A7F3D0] leading-snug">
+                      Serial penalty cap ceiling quarantining persistent zero-graduation creators into Hostile Red.
+                    </p>
                   </div>
                 </div>
               </div>
 
-              <div className="p-3 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] text-xs font-mono text-[#FFFDF7] flex flex-wrap items-center justify-between gap-1">
-                <span className="text-[#99F6E4] font-black">MASTER FORMULA:</span>
-                <span className="text-[#FFD166] font-black">S = clamp(S_base - P_doa - P_burst, 0, 100)</span>
+              {/* Master Equation Strip */}
+              <div className="p-3.5 rounded-2xl bg-[#031E1D] border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] text-xs font-mono text-[#FFFDF7] flex flex-wrap items-center justify-between gap-2">
+                <span className="text-[#99F6E4] font-black">MASTER REPUTATION FORMULA:</span>
+                <span className="text-[#FFD166] font-black text-sm">S = clamp(S_base - P_doa - P_burst, 0, 100)</span>
               </div>
             </div>
 
-            <div className="lg:col-span-5 bg-[#042F2E] rounded-2xl border-2 border-[#042F2E] p-4 sm:p-5 shadow-[4px_4px_0px_#042F2E] space-y-4 flex flex-col justify-between">
-              <div className="space-y-3">
+            {/* Right Simulator Console */}
+            <div className="lg:col-span-5 bg-[#042F2E] rounded-3xl border-2 border-[#042F2E] p-5 sm:p-6 shadow-[6px_6px_0px_#042F2E] space-y-5 flex flex-col justify-between">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between border-b border-[#064E4A] pb-2">
                   <span className="text-xs font-mono font-black text-[#FFD166] uppercase">SIMULATOR INSTRUMENT</span>
-                  <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-mono font-black ${scoreBand.color}`}>
+                  <span className={`px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black ${scoreBand.badgeBg}`}>
                     {scoreBand.label}
                   </span>
                 </div>
 
-                <div className="text-center py-3 sm:py-4 bg-[#064E4A] rounded-2xl border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E]">
-                  <div className="text-3xl sm:text-5xl font-black text-[#FFFDF7] tracking-tight">{calculatedScore}</div>
-                  <div className="text-[10px] font-mono text-[#A7F3D0] mt-0.5 font-bold">CALCULATED SCORE / 100</div>
+                {/* Big Score Meter */}
+                <div className="text-center py-4 sm:py-5 bg-[#064E4A] rounded-2xl border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
+                  <div className={`text-4xl sm:text-6xl font-black tracking-tight ${scoreBand.color}`}>
+                    {calculatedScore}
+                  </div>
+                  <div className="text-xs font-mono text-[#A7F3D0] mt-1 font-bold uppercase tracking-wider">
+                    CALCULATED REPUTATION SCORE / 100
+                  </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3 font-mono text-xs">
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1 text-[11px]">
+                {/* 4 Interactive Sliders */}
+                <div className="grid grid-cols-2 gap-3.5 font-mono text-xs">
+                  <div className="bg-[#064E4A] p-3 rounded-xl border border-[#042F2E]">
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1.5 text-xs font-bold">
                       <span>Launches (n):</span>
-                      <span className="font-black text-[#FFFDF7]">{simTotal}</span>
+                      <span className="font-black text-[#FFFDF7] text-sm">{simTotal}</span>
                     </div>
                     <input
                       type="range"
@@ -650,14 +858,14 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                         setSimTotal(val);
                         if (simGraduated > val) setSimGraduated(val);
                       }}
-                      className="w-full accent-[#FFD166] h-2 bg-[#064E4A] rounded-lg cursor-pointer border border-[#042F2E]"
+                      className="w-full accent-[#FFD166] h-2 bg-[#042F2E] rounded-lg cursor-pointer"
                     />
                   </div>
 
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1 text-[11px]">
+                  <div className="bg-[#064E4A] p-3 rounded-xl border border-[#042F2E]">
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1.5 text-xs font-bold">
                       <span>Grads (k):</span>
-                      <span className="font-black text-[#99F6E4]">{simGraduated}</span>
+                      <span className="font-black text-[#99F6E4] text-sm">{simGraduated}</span>
                     </div>
                     <input
                       type="range"
@@ -665,14 +873,14 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                       max={simTotal}
                       value={simGraduated}
                       onChange={(e) => setSimGraduated(Number(e.target.value))}
-                      className="w-full accent-[#99F6E4] h-2 bg-[#064E4A] rounded-lg cursor-pointer border border-[#042F2E]"
+                      className="w-full accent-[#99F6E4] h-2 bg-[#042F2E] rounded-lg cursor-pointer"
                     />
                   </div>
 
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1 text-[11px]">
+                  <div className="bg-[#064E4A] p-3 rounded-xl border border-[#042F2E]">
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1.5 text-xs font-bold">
                       <span>DOA (d):</span>
-                      <span className="font-black text-[#FF6B6B]">{simDoa}</span>
+                      <span className="font-black text-[#FF6B6B] text-sm">{simDoa}</span>
                     </div>
                     <input
                       type="range"
@@ -680,14 +888,14 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                       max="5"
                       value={simDoa}
                       onChange={(e) => setSimDoa(Number(e.target.value))}
-                      className="w-full accent-[#FF6B6B] h-2 bg-[#064E4A] rounded-lg cursor-pointer border border-[#042F2E]"
+                      className="w-full accent-[#FF6B6B] h-2 bg-[#042F2E] rounded-lg cursor-pointer"
                     />
                   </div>
 
-                  <div>
-                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1 text-[11px]">
+                  <div className="bg-[#064E4A] p-3 rounded-xl border border-[#042F2E]">
+                    <div className="flex items-center justify-between text-[#A7F3D0] mb-1.5 text-xs font-bold">
                       <span>Burst (b):</span>
-                      <span className="font-black text-[#FF9F43]">{simBurst}%</span>
+                      <span className="font-black text-[#FF9F43] text-sm">{simBurst}%</span>
                     </div>
                     <input
                       type="range"
@@ -696,13 +904,14 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                       step="10"
                       value={simBurst}
                       onChange={(e) => setSimBurst(Number(e.target.value))}
-                      className="w-full accent-[#FF9F43] h-2 bg-[#064E4A] rounded-lg cursor-pointer border border-[#042F2E]"
+                      className="w-full accent-[#FF9F43] h-2 bg-[#042F2E] rounded-lg cursor-pointer"
                     />
                   </div>
                 </div>
               </div>
 
-              <div className="pt-2.5 border-t border-[#064E4A] text-xs font-mono text-[#A7F3D0] flex items-center justify-between">
+              {/* Deduction Summary */}
+              <div className="pt-3 border-t border-[#064E4A] text-xs font-mono text-[#A7F3D0] flex items-center justify-between">
                 <span>Base: <strong className="text-[#FFD166]">{baseScoreVal}</strong></span>
                 <span>DOA: <strong className="text-[#FF6B6B]">-{doaDeductionVal}</strong></span>
                 <span>Burst: <strong className="text-[#FF9F43]">-{burstDeductionVal}</strong></span>
@@ -711,135 +920,179 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
           </div>
         </section>
 
-        <section id="delta-engine" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+        {/* ========================================================================= */}
+        {/* 4. SECTION 3: REAL-TIME SURVEILLANCE & DELTA SENSOR MATRIX */}
+        {/* ========================================================================= */}
+        <section id="delta-engine" className="space-y-6 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-black">
                 SECTION 03 // REAL-TIME SURVEILLANCE
               </span>
-              <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
                 Since Last Check Delta Methodology
               </h2>
             </div>
-            <div className="px-3 py-1 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono font-black text-[#99F6E4] shadow-[2px_2px_0px_#042F2E] self-start sm:self-auto">
-              30 SNAPSHOT BUFFER
+            <div className="px-3.5 py-1.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono font-black text-[#99F6E4] shadow-[2px_2px_0px_#042F2E] self-start sm:self-auto">
+              30-SNAPSHOT FIFO BUFFER
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3.5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {DELTA_METRICS.map((item) => (
               <div
                 key={item.code}
-                className="p-4 sm:p-5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all flex flex-col justify-between space-y-3"
+                className="p-5 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all flex flex-col justify-between space-y-4"
               >
-                <div className="space-y-2">
+                <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-lg bg-[#042F2E] text-[#FFD166] border border-[#042F2E]">
+                    <span className="text-xs font-mono font-black px-2.5 py-1 rounded-xl bg-[#042F2E] text-[#FFD166] border border-[#042F2E]">
                       {item.code}
                     </span>
-                    <span className={`text-[9px] font-mono font-black px-2 py-0.5 rounded-full ${item.statusColor}`}>
+                    <span className={`text-[10px] font-mono font-black px-2.5 py-0.5 rounded-full border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] ${item.statusColor}`}>
                       {item.status}
                     </span>
                   </div>
-                  <div className="text-sm sm:text-base font-black text-[#FFFDF7]">{item.name}</div>
-                  <p className="text-xs text-[#A7F3D0] leading-snug font-normal">{item.rationale}</p>
+
+                  <h3 className="text-lg font-black text-[#FFFDF7]">
+                    {item.name}
+                  </h3>
+
+                  <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
+                    {item.rationale}
+                  </p>
                 </div>
-                <div className="pt-2.5 border-t border-[#042F2E] text-xs font-mono text-[#99F6E4] truncate bg-[#042F2E] p-2 rounded-xl border border-[#042F2E]">
-                  {item.condition}
+
+                <div className="space-y-2 pt-3 border-t-2 border-[#042F2E]">
+                  <div className="flex items-center justify-between text-[11px] font-mono">
+                    <span className="text-[#A7F3D0]">Sensitivity Threshold:</span>
+                    <span className="font-black text-[#FFD166]">{item.threshold}</span>
+                  </div>
+                  <div className="p-2.5 rounded-xl bg-[#042F2E] border border-[#042F2E] text-xs font-mono text-[#99F6E4] truncate">
+                    {item.condition}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <section id="graph-topology" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+        {/* ========================================================================= */}
+        {/* 5. SECTION 4: CONSTELLATION GRAPH RELATIONAL TOPOLOGY (SYBIL BLUEPRINT) */}
+        {/* ========================================================================= */}
+        <section id="graph-topology" className="space-y-6 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-black">
                 SECTION 04 // SYBIL DETECTION ENGINE
               </span>
-              <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
                 Constellation Graph Relational Logic
               </h2>
             </div>
-            <div className="flex items-center gap-1.5 text-xs font-mono font-bold text-[#FFD166] self-start sm:self-auto bg-[#042F2E] px-3 py-1 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+            <div className="flex items-center gap-2 text-xs font-mono font-black text-[#FFD166] self-start sm:self-auto bg-[#042F2E] px-3.5 py-1.5 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
               <IconGraph size={14} />
-              <span>3-TIER SCHEMATIC</span>
+              <span>3-TIER BLUEPRINT</span>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-            <div className="p-5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] transition-all flex flex-col justify-between space-y-3">
-              <div className="space-y-2">
-                <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-lg bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] inline-block">
-                  TIER 1 // 1.00 WEIGHT
-                </span>
-                <div className="text-sm sm:text-base font-black text-[#FFFDF7]">01. Deployer Origin Link</div>
-                <p className="text-xs text-[#A7F3D0] leading-snug font-normal">
-                  Connects all tokens deployed by the exact same Ethereum origin wallet.
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
+            {/* Tier 1 */}
+            <div className="p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono font-black px-3 py-1 rounded-xl bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                    TIER 1 // 1.00 WEIGHT
+                  </span>
+                  <span className="text-xs font-mono font-black text-[#99F6E4]">100% CONFIDENCE</span>
+                </div>
+                <h3 className="text-lg font-black text-[#FFFDF7]">01. Deployer Origin Link</h3>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Direct deterministic cryptographic link connecting all token contracts deployed by the exact same Ethereum origin wallet.
                 </p>
               </div>
-              <div className="text-xs font-mono text-[#99F6E4] font-black pt-2 border-t border-[#042F2E] bg-[#042F2E] p-2 rounded-xl">
-                E_origin(T_i, T_j) = 1.00
+
+              <div className="pt-3 border-t-2 border-[#042F2E] bg-[#042F2E] p-3 rounded-2xl text-xs font-mono text-[#99F6E4] font-black flex items-center justify-between">
+                <span>FORMULA:</span>
+                <span>E_origin(T_i, T_j) = 1.00</span>
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] transition-all flex flex-col justify-between space-y-3">
-              <div className="space-y-2">
-                <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-lg bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] inline-block">
-                  TIER 2 // 0.85 WEIGHT
-                </span>
-                <div className="text-sm sm:text-base font-black text-[#FFFDF7]">02. Shared Fee Sink</div>
-                <p className="text-xs text-[#A7F3D0] leading-snug font-normal">
-                  Detects Sybil rings routing creator trading fees to a common destination sink.
+            {/* Tier 2 */}
+            <div className="p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono font-black px-3 py-1 rounded-xl bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                    TIER 2 // 0.85 WEIGHT
+                  </span>
+                  <span className="text-xs font-mono font-black text-[#FFD166]">85% CONFIDENCE</span>
+                </div>
+                <h3 className="text-lg font-black text-[#FFFDF7]">02. Shared Fee Sink</h3>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Detects Sybil clusters where seemingly separate deployer wallets funnel collected trading fees into a common recipient sink address.
                 </p>
               </div>
-              <div className="text-xs font-mono text-[#FFD166] font-black pt-2 border-t border-[#042F2E] bg-[#042F2E] p-2 rounded-xl">
-                E_fee(D_a, D_b) = 0.85
+
+              <div className="pt-3 border-t-2 border-[#042F2E] bg-[#042F2E] p-3 rounded-2xl text-xs font-mono text-[#FFD166] font-black flex items-center justify-between">
+                <span>FORMULA:</span>
+                <span>E_fee(D_a, D_b) = 0.85</span>
               </div>
             </div>
 
-            <div className="p-5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] transition-all flex flex-col justify-between space-y-3">
-              <div className="space-y-2">
-                <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-lg bg-[#C084FC] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] inline-block">
-                  TIER 3 // 0.70 WEIGHT
-                </span>
-                <div className="text-sm sm:text-base font-black text-[#FFFDF7]">03. Upstream Dev Funder</div>
-                <p className="text-xs text-[#A7F3D0] leading-snug font-normal">
-                  Traces burner deployers funded by common upstream CEX deposit addresses.
+            {/* Tier 3 */}
+            <div className="p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] transition-all flex flex-col justify-between space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <span className="text-xs font-mono font-black px-3 py-1 rounded-xl bg-[#C084FC] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+                    TIER 3 // 0.70 WEIGHT
+                  </span>
+                  <span className="text-xs font-mono font-black text-[#C084FC]">70% CONFIDENCE</span>
+                </div>
+                <h3 className="text-lg font-black text-[#FFFDF7]">03. Upstream Dev Funder</h3>
+                <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                  Traces burner deployers seeded with initial deployment gas from a common upstream deposit wallet or funding relay.
                 </p>
               </div>
-              <div className="text-xs font-mono text-[#C084FC] font-black pt-2 border-t border-[#042F2E] bg-[#042F2E] p-2 rounded-xl">
-                E_funder(W_1, W_2) = 0.70
+
+              <div className="pt-3 border-t-2 border-[#042F2E] bg-[#042F2E] p-3 rounded-2xl text-xs font-mono text-[#C084FC] font-black flex items-center justify-between">
+                <span>FORMULA:</span>
+                <span>E_funder(W_1, W_2) = 0.70</span>
               </div>
             </div>
           </div>
         </section>
 
-        <section id="glossary-math" className="space-y-6">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+
+        {/* ========================================================================= */}
+        {/* 6. SECTION 5: ON-CHAIN GLOSSARY & RESEARCH LEXICON */}
+        {/* ========================================================================= */}
+        <section id="glossary-math" className="space-y-6 scroll-mt-24">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b-2 border-[#042F2E] pb-3">
             <div>
-              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-bold">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-[#99F6E4] font-black">
                 SECTION 05 // RESEARCH LEXICON
               </span>
-              <h2 className="text-lg sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#FFFDF7] tracking-tight">
                 On-Chain Glossary &amp; Taxonomy
               </h2>
             </div>
-            <div className="text-xs font-mono font-black text-[#A7F3D0] bg-[#042F2E] px-3 py-1 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+            <div className="text-xs font-mono font-black text-[#A7F3D0] bg-[#042F2E] px-3.5 py-1.5 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
               {filteredGlossary.length} OF {GLOSSARY_DATA.length} TERMS
             </div>
           </div>
 
+          {/* Search & Filter Bar */}
           <div className="flex flex-col sm:flex-row gap-3 items-stretch">
             <div className="relative flex-1">
-              <IconSearch size={14} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#99F6E4]" />
+              <IconSearch size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-[#99F6E4]" />
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search terms, formulas, or keywords..."
-                className="w-full pl-9 pr-4 py-2.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] text-xs text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-none focus:shadow-[6px_6px_0px_#042F2E]"
+                placeholder="Search terms, mathematical formulas, or keywords..."
+                className="w-full pl-11 pr-4 py-3 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] text-xs font-mono text-[#FFFDF7] placeholder-[#A7F3D0]/60 focus:outline-none focus:shadow-[6px_6px_0px_#042F2E]"
               />
             </div>
 
@@ -854,7 +1107,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                 <button
                   key={cat.id}
                   onClick={() => setSelectedCategory(cat.id)}
-                  className={`px-3 py-2 rounded-xl text-xs font-bold font-mono whitespace-nowrap transition-all cursor-pointer border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] ${
+                  className={`px-3.5 py-2.5 rounded-xl text-xs font-bold font-mono whitespace-nowrap transition-all cursor-pointer border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] ${
                     selectedCategory === cat.id
                       ? "bg-[#FFD166] text-[#042F2E]"
                       : "bg-[#064E4A] text-[#A7F3D0] hover:text-[#FFFDF7]"
@@ -866,32 +1119,33 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
             {filteredGlossary.map((item) => (
               <div
                 key={item.term}
-                className="p-4 sm:p-5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all flex flex-col justify-between space-y-3"
+                className="p-5 sm:p-6 rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[6px_6px_0px_#042F2E] hover:shadow-[8px_8px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all flex flex-col justify-between space-y-4"
               >
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-lg bg-[#042F2E] text-[#99F6E4] border border-[#042F2E]">
+                    <span className="text-[10px] font-mono font-black px-2.5 py-0.5 rounded-lg bg-[#042F2E] text-[#99F6E4] border border-[#042F2E]">
                       {item.badge}
                     </span>
-                    <span className="text-[10px] font-mono font-bold text-[#A7F3D0] uppercase truncate">
+                    <span className="text-[10px] font-mono font-bold text-[#A7F3D0] uppercase tracking-wider truncate">
                       {item.categoryLabel}
                     </span>
                   </div>
 
-                  <h3 className="text-base sm:text-lg font-black text-[#FFFDF7] tracking-tight">
+                  <h3 className="text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
                     {item.term}
                   </h3>
 
                   {item.formula && (
-                    <div className="p-2 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-between text-xs font-mono text-[#FFD166]">
+                    <div className="p-2.5 rounded-xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] flex items-center justify-between text-xs font-mono text-[#FFD166]">
                       <span className="truncate">{item.formula}</span>
                       <button
                         onClick={() => handleCopy(item.formula!, item.id)}
-                        className="p-1 hover:text-[#FFFDF7] text-[#99F6E4] transition-colors cursor-pointer shrink-0 ml-1 bg-[#064E4A] rounded-md border border-[#042F2E]"
+                        className="p-1 hover:text-[#FFFDF7] text-[#99F6E4] transition-colors cursor-pointer shrink-0 ml-2 bg-[#064E4A] rounded-lg border border-[#042F2E]"
                         title="Copy formula"
                       >
                         {copiedKey === item.id ? <IconCheck size={12} /> : <IconClipboard size={12} />}
@@ -899,24 +1153,28 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
                     </div>
                   )}
 
-                  <p className="text-xs text-[#A7F3D0] leading-relaxed font-normal">
+                  <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
                     {item.definition}
                   </p>
                 </div>
 
-                <div className="text-xs text-[#99F6E4] font-mono flex items-center gap-1.5 pt-2 border-t border-[#042F2E]">
-                  <span className="font-black text-[#FFD166]">IMPLICATION:</span>
-                  <span className="text-[#A7F3D0] truncate">{item.implication}</span>
+                <div className="p-3 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] text-xs font-mono flex flex-col sm:flex-row sm:items-center gap-1.5">
+                  <span className="font-black text-[#FFD166] shrink-0">IMPLICATION:</span>
+                  <span className="text-[#A7F3D0] leading-snug">{item.implication}</span>
                 </div>
               </div>
             ))}
           </div>
         </section>
 
-        <footer className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+
+        {/* ========================================================================= */}
+        {/* 7. FOOTER NAVIGATION */}
+        {/* ========================================================================= */}
+        <footer className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
           <Link
             href="/docs"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-black px-5 py-3 rounded-2xl bg-[#064E4A] text-[#99F6E4] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-black px-6 py-3.5 rounded-2xl bg-[#064E4A] text-[#99F6E4] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] transition-all"
           >
             <IconArrowLeft size={16} />
             <span>Read Developer Documentation</span>
@@ -924,7 +1182,7 @@ export function HowClient({ isAuthenticated, userAddress }: HowClientProps) {
 
           <Link
             href="/census"
-            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-black px-5 py-3 rounded-2xl bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-black px-6 py-3.5 rounded-2xl bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] transition-all"
           >
             <span>Explore Ecosystem Census</span>
             <IconArrowRight size={16} />

@@ -508,12 +508,12 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
-        <div className="flex flex-col lg:flex-row gap-8 xl:gap-10 items-start">
+      <div className="max-w-7xl 2xl:max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pt-6 sm:pt-10">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-8 2xl:gap-10 items-start">
           
           <aside
             aria-label="Documentation Navigation"
-            className="w-full lg:w-64 shrink-0 lg:sticky lg:top-28 self-start max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-visible lg:overflow-y-auto pb-6"
+            className="w-full lg:w-56 xl:w-60 2xl:w-64 shrink-0 lg:sticky lg:top-28 self-start max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-visible lg:overflow-y-auto pb-6"
           >
             <div className="space-y-4">
               <div className="hidden lg:flex items-center justify-between p-3.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
@@ -595,7 +595,7 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
             </div>
           </aside>
 
-          <main className="flex-1 min-w-0 max-w-4xl space-y-10 pb-12">
+          <main className="flex-1 min-w-0 w-full space-y-10 pb-12">
             
             <header className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-4">
               <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-[#99F6E4] font-bold">
@@ -1212,7 +1212,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
 
           <aside
             aria-label="Table of Contents"
-            className="hidden xl:block w-48 shrink-0 sticky top-28 self-start space-y-3 p-4 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] text-xs"
+            className="hidden xl:block w-44 2xl:w-48 shrink-0 sticky top-28 self-start space-y-3 p-3.5 2xl:p-4 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] text-xs mr-1"
           >
             <div className="font-mono text-[11px] font-black uppercase tracking-wider text-[#99F6E4] pb-2 border-b border-[#042F2E]">
               On This Page

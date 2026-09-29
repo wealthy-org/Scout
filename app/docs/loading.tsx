@@ -7,9 +7,9 @@ export default function DocsLoading() {
       <div className="absolute top-0 right-1/4 w-[750px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
       <GlobalHeader isAuthenticated={false} />
 
-      <main className="max-w-5xl lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 relative z-10 animate-pulse">
-        <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 items-start">
-          <aside className="w-full lg:w-60 xl:w-64 shrink-0 space-y-6 pb-6 lg:border-r lg:border-[rgba(153,246,228,0.15)] lg:pr-4">
+      <main className="max-w-7xl 2xl:max-w-[1440px] w-full mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 pt-6 sm:pt-10 relative z-10 animate-pulse">
+        <div className="flex flex-col lg:flex-row gap-6 lg:gap-8 xl:gap-8 2xl:gap-10 items-start">
+          <aside className="w-full lg:w-56 xl:w-60 2xl:w-64 shrink-0 space-y-4 pb-6">
             <div className="h-5 w-32 bg-[#064E4A] rounded-md hidden lg:block" />
             <div className="space-y-4">
               {[1, 2, 3, 4, 5].map((g) => (
@@ -24,7 +24,7 @@ export default function DocsLoading() {
             </div>
           </aside>
 
-          <div className="flex-1 min-w-0 max-w-4xl space-y-12 w-full">
+          <div className="flex-1 min-w-0 w-full space-y-12">
             <div className="space-y-3 pb-6 border-b border-[rgba(153,246,228,0.2)]">
               <div className="h-4 w-40 bg-[#064E4A] rounded" />
               <div className="h-10 w-3/4 max-w-md bg-[#042F2E] rounded-xl" />
@@ -63,7 +63,7 @@ export default function DocsLoading() {
             </div>
           </div>
 
-          <aside className="hidden xl:block w-48 shrink-0 space-y-3 pl-4 border-l border-[rgba(153,246,228,0.15)]">
+          <aside className="hidden xl:block w-44 2xl:w-48 shrink-0 space-y-3 p-4 rounded-2xl bg-[#064E4A] mr-1">
             <div className="h-4 w-28 bg-[#042F2E] rounded" />
             <div className="space-y-2">
               {[1, 2, 3, 4, 5, 6].map((i) => (
