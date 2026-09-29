@@ -12,7 +12,7 @@ Dokumen ini menyajikan prosedur pengujian manual terstruktur dan daftar periksa 
 - [ ] **1.3 Verifikasi Tanda Tangan EIP-4361:** Tanda tangani pesan di MetaMask / Rabby / Phantom -> pastikan `POST /api/auth/verify` memvalidasi tanda tangan, menerbitkan cookie HTTP-only `scout_session`, dan menangani normalisasi checksum EIP-55.
 - [ ] **1.4 Status Header Terotentikasi:** Pastikan header berubah menampilkan alamat dompet terpotong (`0x...`), titik status aktif, dan tombol Logout.
 - [ ] **1.5 Dukungan Phantom & EVM Wallet Connect:** Uji otentikasi menggunakan Phantom (mode EVM) dan ekstensi Rabby untuk memverifikasi kompatibilitas multi-dompet.
-- [ ] **1.6 Kedaluwarsa Sesi & Aksi Logout:** Klik Logout -> pastikan `POST /api/auth/logout` menghapus cookie sesi dan mereset status klien kembali ke mode tamu seketika.
+- [ ] **1.6 Modal Konfirmasi & Aksi Logout:** Klik Logout -> pastikan modal konfirmasi "Konfirmasi Keluar" muncul dengan alamat dompet aktif, tombol "Batal", dan tombol "Ya, Keluar" (serta dapat ditutup via tombol Batal, ikon Close, klik di luar modal, atau tombol `Escape`). Klik "Ya, Keluar" -> pastikan `POST /api/auth/logout` menghapus cookie sesi dan mereset status klien kembali ke mode tamu seketika.
 
 ---
 

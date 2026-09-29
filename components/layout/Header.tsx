@@ -1,9 +1,11 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useWallet } from "@/components/wallet/WalletContext";
+import { IconAlert, IconClose } from "@/components/icons/Vectors";
 
 export interface HeaderProps {
   isAuthenticated?: boolean;
@@ -23,9 +25,26 @@ export function Header({
   const wallet = useWallet();
   const [searchQuery, setSearchQuery] = useState("");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [logoutModalOpen, setLogoutModalOpen] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const isAuthed = isAuthenticated !== undefined ? isAuthenticated : wallet.isAuthenticated;
   const activeAddress = walletAddress !== undefined ? walletAddress : wallet.userAddress;
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape" && logoutModalOpen && !isLoggingOut) {
+        setLogoutModalOpen(false);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [logoutModalOpen, isLoggingOut]);
 
   const handleConnect = () => {
     if (onConnectWallet) {
@@ -35,11 +54,17 @@ export function Header({
     }
   };
 
-  const handleDisconnect = () => {
-    if (onDisconnect) {
-      onDisconnect();
-    } else {
-      wallet.disconnect();
+  const handleConfirmLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      if (onDisconnect) {
+        await onDisconnect();
+      } else {
+        await wallet.disconnect();
+      }
+    } finally {
+      setIsLoggingOut(false);
+      setLogoutModalOpen(false);
     }
   };
 
@@ -144,7 +169,8 @@ export function Header({
                 </span>
                 <button
                   type="button"
-                  onClick={handleDisconnect}
+                  id="header-logout-button"
+                  onClick={() => setLogoutModalOpen(true)}
                   className="font-sans text-[11px] sm:text-xs px-3 py-1.5 bg-[#FFFDF7]/10 hover:bg-[#FFFDF7]/20 text-[#A7F3D0] hover:text-[#FFFDF7] rounded-full transition-colors border border-[rgba(153,246,228,0.2)] cursor-pointer"
                 >
                   Logout
@@ -233,6 +259,89 @@ export function Header({
           </nav>
         </div>
       )}
+
+      {logoutModalOpen && mounted && typeof document !== "undefined" && createPortal(
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="logout-modal-title"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-[#042F2E]/80 backdrop-blur-md animate-in fade-in duration-200"
+          onClick={(e) => {
+            if (e.target === e.currentTarget && !isLoggingOut) {
+              setLogoutModalOpen(false);
+            }
+          }}
+        >
+          <div className="relative w-full max-w-md rounded-3xl bg-[#064E4A] border-2 border-[#042F2E] p-6 sm:p-8 text-[#FFFDF7] shadow-[6px_6px_0px_#042F2E] space-y-6 overflow-hidden animate-in zoom-in-95 duration-200">
+            <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-4">
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-[#EF4444]/20 border border-[#EF4444]/40 flex items-center justify-center text-[#EF4444]">
+                  <IconAlert size={18} />
+                </div>
+                <div>
+                  <h3 id="logout-modal-title" className="text-base sm:text-lg font-black tracking-tight text-[#FFFDF7]">
+                    Konfirmasi Keluar
+                  </h3>
+                  <p className="text-[11px] text-[#A7F3D0]/80">
+                    Akhiri sesi autentikasi dompet Anda
+                  </p>
+                </div>
+              </div>
+              <button
+                type="button"
+                aria-label="Tutup dialog"
+                disabled={isLoggingOut}
+                onClick={() => setLogoutModalOpen(false)}
+                className="w-8 h-8 rounded-full bg-[#042F2E] hover:bg-[#14B8A6]/20 border border-[rgba(153,246,228,0.2)] flex items-center justify-center text-[#A7F3D0] hover:text-[#FFFDF7] transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                <IconClose size={14} />
+              </button>
+            </div>
+
+            <div className="p-4 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] space-y-2">
+              <div className="text-xs text-[#A7F3D0]">
+                Dompet aktif yang terhubung saat ini:
+              </div>
+              <div className="font-mono text-xs text-[#FFD166] break-all bg-[#064E4A]/80 p-2.5 rounded-xl border border-[rgba(153,246,228,0.15)] font-semibold">
+                {activeAddress || "Alamat Dompet Tidak Dikenal"}
+              </div>
+              <p className="text-[11px] text-[#A7F3D0]/70 leading-relaxed pt-1">
+                Sesi SIWE Anda akan dihapus dan akses ke fitur khusus otentikasi (Watchlist, Case File Editing) akan dinonaktifkan hingga Anda masuk kembali.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                type="button"
+                id="cancel-logout-button"
+                disabled={isLoggingOut}
+                onClick={() => setLogoutModalOpen(false)}
+                className="px-4 py-2 rounded-full text-xs font-bold text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#042F2E] hover:bg-[#042F2E]/80 border border-[rgba(153,246,228,0.25)] transition-colors disabled:opacity-50 cursor-pointer"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                id="confirm-logout-button"
+                disabled={isLoggingOut}
+                onClick={handleConfirmLogout}
+                className="px-5 py-2 rounded-full text-xs font-black bg-[#EF4444] hover:bg-[#DC2626] text-[#FFFDF7] border border-[#042F2E] shadow-[3px_3px_0px_#042F2E] hover:translate-x-[-1px] hover:translate-y-[-1px] active:translate-x-[1px] active:translate-y-[1px] transition-all duration-200 disabled:opacity-50 cursor-pointer flex items-center gap-2"
+              >
+                {isLoggingOut ? (
+                  <>
+                    <span className="w-3 h-3 border-2 border-[#FFFDF7] border-t-transparent rounded-full animate-spin" />
+                    <span>Mengeluarkan...</span>
+                  </>
+                ) : (
+                  <span>Ya, Keluar</span>
+                )}
+              </button>
+            </div>
+          </div>
+        </div>,
+        document.body
+      )}
     </header>
   );
 }
+

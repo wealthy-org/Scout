@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Header } from "@/components/layout/Header";
+import { useWallet } from "@/components/wallet/WalletContext";
 import {
   IconSearch,
   IconRadar,
@@ -69,9 +70,11 @@ export function LandingClient({
   userAddress,
   walletAddress,
 }: LandingClientProps) {
+  const wallet = useWallet();
   const [searchInput, setSearchInput] = useState("");
 
-  const activeWallet = userAddress || walletAddress;
+  const isAuthed = isAuthenticated || wallet.isAuthenticated;
+  const activeWallet = userAddress || walletAddress || wallet.userAddress;
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -88,7 +91,7 @@ export function LandingClient({
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[500px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
 
-      <Header isAuthenticated={isAuthenticated} walletAddress={activeWallet} />
+      <Header isAuthenticated={isAuthed} walletAddress={activeWallet} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-20 space-y-16 sm:space-y-24 relative z-10">
         <section className="pt-6 sm:pt-10 pb-4">
