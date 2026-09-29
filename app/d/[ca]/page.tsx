@@ -56,19 +56,19 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
   const tokenPhase = data.phase || (data.curveProgressPct && data.curveProgressPct >= 100 ? "graduated" : "curve");
 
   return (
-    <main className="min-h-screen bg-[#0D746E] text-[#FFFDF7] p-4 sm:p-6 lg:p-8 font-sans relative overflow-hidden pb-16">
+    <main className="min-h-screen bg-[#0D746E] text-[#FFFDF7] p-3 sm:p-5 lg:p-6 font-sans relative overflow-hidden pb-16">
       <div className="absolute top-0 left-1/4 w-[800px] h-[500px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
 
-      <div className="max-w-7xl mx-auto space-y-6 sm:space-y-8 relative z-10">
-        <DossierHeader
-          symbol={data.symbol || "UNKNOWN"}
-          name={data.name || "Unknown Token"}
-          phase={tokenPhase}
-          contractAddress={data.contractAddress}
-        />
+      <div className="max-w-[1520px] mx-auto relative z-10">
+        <div className="flex flex-col lg:flex-row gap-5 items-start">
+          <aside className="w-full lg:w-[360px] xl:w-[390px] shrink-0 space-y-4">
+            <DossierHeader
+              symbol={data.symbol || "UNKNOWN"}
+              name={data.name || "Unknown Token"}
+              phase={tokenPhase}
+              contractAddress={data.contractAddress}
+            />
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          <div className="lg:col-span-2 space-y-6">
             <MarketFlowBlock
               marketCapUsd={data.marketCapUsd}
               athUsd={data.athUsd}
@@ -76,72 +76,6 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
               volume24hUsd={data.volume24hUsd}
               tradeCount={data.tradeCount}
               uniqueWallets={data.uniqueWallets}
-            />
-
-            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-              <h2 className="text-xs font-bold text-[#FFFDF7] uppercase tracking-wider mb-4">
-                Trade Flow Analytics
-              </h2>
-              <div className="space-y-4">
-                <TradeFlowChart
-                  candles={data.tradeCandles}
-                  graduationIndex={data.graduationIndex}
-                  tokenSymbol={data.symbol}
-                />
-                <TradeFlowPanel data={data.tradeFlow} />
-              </div>
-            </div>
-
-            <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl space-y-4">
-              <h2 className="text-xs font-bold text-[#FFFDF7] uppercase tracking-wider">
-                Holder Distribution &amp; Wallet Map
-              </h2>
-              <WalletMap
-                wallets={data.walletBubbles}
-                deployerAddress={data.deployer?.address}
-              />
-              <TopWalletsTable
-                wallets={data.topWallets}
-                deployerAddress={data.deployer?.address}
-                feeRecipientAddress={data.feeRecipient}
-              />
-            </div>
-
-            <div className="space-y-6">
-              <DeployerHistory
-                deployerAddress={data.deployer?.address || ""}
-                totalLaunches={data.deployer?.totalLaunches}
-                launches={data.launches}
-                currentContractAddress={data.contractAddress}
-              />
-
-              <div className="bg-[#064E4A] border border-[rgba(153,246,228,0.25)] rounded-3xl p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-                <h2 className="text-xs font-bold text-[#FFFDF7] uppercase tracking-wider mb-4">
-                  Constellation Relationship Graph
-                </h2>
-                <ConstellationGraph
-                  nodes={data.constellationNodes}
-                  edges={data.constellationEdges}
-                  currentContractAddress={data.contractAddress}
-                />
-              </div>
-
-              <ScoutRemembers
-                deployerAddress={data.deployer?.address}
-                dossiers={data.connectedDossiers}
-              />
-
-              <ConnectionsTimeline
-                connections={data.connections}
-                timelineLogs={data.timelineLogs}
-              />
-            </div>
-          </div>
-
-          <div className="space-y-6">
-            <SinceLastCheck
-              diffs={data.diffs}
-              lastCheckedAt={data.lastSnapshotAt}
             />
 
             <ResearchPanel
@@ -153,7 +87,103 @@ export function DossierPageView({ data }: { data: DossierPagePropsData }) {
               initialNotes={data.dossier?.notes}
               initialDecisionReason={data.dossier?.decisionReason}
             />
-          </div>
+          </aside>
+
+          <section className="flex-1 min-w-0 w-full space-y-5">
+            <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#064E4A]/80 backdrop-blur-xl overflow-hidden shadow-lg">
+              <div className="bg-[#042F2E] px-4 py-2.5 border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#14B8A6]" />
+                  <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
+                    Trade Flow Analytics
+                  </h2>
+                </div>
+                <span className="font-mono text-[10px] text-[#A7F3D0]/70">
+                  REAL-TIME CANDLESTICKS &amp; ORDER FLOW
+                </span>
+              </div>
+              <div className="p-4 sm:p-5 space-y-4">
+                <TradeFlowChart
+                  candles={data.tradeCandles}
+                  graduationIndex={data.graduationIndex}
+                  tokenSymbol={data.symbol}
+                />
+                <TradeFlowPanel data={data.tradeFlow} />
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#064E4A]/80 backdrop-blur-xl overflow-hidden shadow-lg">
+              <div className="bg-[#042F2E] px-4 py-2.5 border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#FFD166]" />
+                  <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
+                    Holder Distribution &amp; Wallet Map
+                  </h2>
+                </div>
+                <span className="font-mono text-[10px] text-[#A7F3D0]/70">
+                  ON-CHAIN CONCENTRATION &amp; NET FLOW
+                </span>
+              </div>
+              <div className="p-4 sm:p-5 space-y-4">
+                <WalletMap
+                  wallets={data.walletBubbles}
+                  deployerAddress={data.deployer?.address}
+                />
+                <TopWalletsTable
+                  wallets={data.topWallets}
+                  deployerAddress={data.deployer?.address}
+                  feeRecipientAddress={data.feeRecipient}
+                />
+              </div>
+            </div>
+
+            <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#064E4A]/80 backdrop-blur-xl overflow-hidden shadow-lg">
+              <div className="bg-[#042F2E] px-4 py-2.5 border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="h-2 w-2 rounded-full bg-[#99F6E4]" />
+                  <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
+                    Constellation Relationship Graph
+                  </h2>
+                </div>
+                <span className="font-mono text-[10px] text-[#A7F3D0]/70">
+                  INTER-CONTRACT TOPOLOGY
+                </span>
+              </div>
+              <div className="p-4 sm:p-5">
+                <ConstellationGraph
+                  nodes={data.constellationNodes}
+                  edges={data.constellationEdges}
+                  currentContractAddress={data.contractAddress}
+                />
+              </div>
+            </div>
+
+            <DeployerHistory
+              deployerAddress={data.deployer?.address || ""}
+              totalLaunches={data.deployer?.totalLaunches}
+              launches={data.launches}
+              currentContractAddress={data.contractAddress}
+            />
+
+            <div className="grid grid-cols-1 xl:grid-cols-2 gap-5">
+              <SinceLastCheck
+                diffs={data.diffs}
+                lastCheckedAt={data.lastSnapshotAt}
+              />
+
+              <div className="space-y-5">
+                <ScoutRemembers
+                  deployerAddress={data.deployer?.address}
+                  dossiers={data.connectedDossiers}
+                />
+
+                <ConnectionsTimeline
+                  connections={data.connections}
+                  timelineLogs={data.timelineLogs}
+                />
+              </div>
+            </div>
+          </section>
         </div>
       </div>
     </main>
