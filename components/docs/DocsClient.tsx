@@ -509,31 +509,31 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
-        <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 items-start">
+        <div className="flex flex-col lg:flex-row gap-8 xl:gap-10 items-start">
           
           <aside
             aria-label="Documentation Navigation"
-            className="w-full lg:w-60 xl:w-64 shrink-0 lg:sticky lg:top-28 self-start max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-visible lg:overflow-y-auto pb-6 lg:border-r lg:border-[rgba(153,246,228,0.15)] lg:pr-4"
+            className="w-full lg:w-64 shrink-0 lg:sticky lg:top-28 self-start max-h-none lg:max-h-[calc(100vh-8rem)] overflow-y-visible lg:overflow-y-auto pb-6"
           >
-            <div className="space-y-6">
-              <div className="hidden lg:flex items-center justify-between pb-3 border-b border-[rgba(153,246,228,0.2)]">
-                <span className="text-[11px] font-mono uppercase tracking-wider font-black text-[#99F6E4]">
+            <div className="space-y-4">
+              <div className="hidden lg:flex items-center justify-between p-3.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
+                <span className="text-xs font-mono uppercase tracking-wider font-black text-[#99F6E4]">
                   DOCUMENTATION
                 </span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
+                <span className="text-[10px] font-mono font-black px-2 py-0.5 rounded-lg bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E]">
                   v2.4
                 </span>
               </div>
 
-              <div className="flex lg:hidden overflow-x-auto gap-2 pb-2 no-scrollbar border-b border-[rgba(153,246,228,0.2)]">
+              <div className="flex lg:hidden overflow-x-auto gap-2 pb-2 no-scrollbar">
                 {TOC_ITEMS.map((item) => (
                   <a
                     key={item.id}
                     href={`#${item.id}`}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold whitespace-nowrap transition-colors ${
+                    className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold whitespace-nowrap transition-all border-2 border-[#042F2E] ${
                       activeSection === item.id
-                        ? "bg-[#FFD166] text-[#042F2E] font-bold"
-                        : "bg-[#042F2E]/80 text-[#A7F3D0] hover:text-[#FFFDF7]"
+                        ? "bg-[#FFD166] text-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
+                        : "bg-[#064E4A] text-[#A7F3D0] hover:text-[#FFFDF7] shadow-[2px_2px_0px_#042F2E]"
                     }`}
                   >
                     {item.label}
@@ -541,13 +541,13 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                 ))}
               </div>
 
-              <div className="hidden lg:block space-y-6">
+              <div className="hidden lg:block space-y-4">
                 {NAV_GROUPS.map((group) => (
-                  <div key={group.title} className="space-y-2">
-                    <h5 className="text-[11px] font-mono uppercase tracking-wider font-bold text-[#FFD166]/90 px-2">
+                  <div key={group.title} className="p-3.5 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] space-y-2">
+                    <h5 className="text-[10px] font-mono uppercase tracking-wider font-black text-[#FFD166] px-1">
                       {group.title}
                     </h5>
-                    <ul className="space-y-0.5 text-xs font-medium">
+                    <ul className="space-y-1 text-xs font-medium">
                       {group.items.map((item) => {
                         const isNavActive =
                           activeSection === item.id ||
@@ -563,9 +563,9 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                                   setSelectedEndpointId(item.id.replace("endpoint-", ""));
                                 }
                               }}
-                              className={`block px-2.5 py-1.5 rounded-md transition-all ${
+                              className={`block px-2.5 py-1.5 rounded-xl transition-all font-mono text-[11px] ${
                                 isNavActive
-                                  ? "bg-[#042F2E] text-[#FFFDF7] font-bold border-l-2 border-[#14B8A6]"
+                                  ? "bg-[#042F2E] text-[#FFD166] font-black border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]"
                                   : "text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/40"
                               }`}
                             >
@@ -579,15 +579,15 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                 ))}
               </div>
 
-              <div className="hidden lg:block pt-4 border-t border-[rgba(153,246,228,0.15)] px-2 font-mono text-[10px] text-[#A7F3D0] space-y-1">
+              <div className="hidden lg:block p-3.5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] font-mono text-[10px] text-[#A7F3D0] space-y-1.5">
                 <div className="flex items-center justify-between">
                   <span>CHAIN ID:</span>
-                  <span className="text-[#99F6E4] font-bold">4663 (ROBINHOOD)</span>
+                  <span className="text-[#99F6E4] font-black">4663 (ROBINHOOD)</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span>RPC STATUS:</span>
-                  <span className="text-[#14B8A6] font-bold flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#14B8A6] animate-pulse" />
+                  <span className="text-[#99F6E4] font-black flex items-center gap-1">
+                    <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse" />
                     CONNECTED
                   </span>
                 </div>
@@ -595,10 +595,10 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
             </div>
           </aside>
 
-          <main className="flex-1 min-w-0 max-w-4xl space-y-12 pb-12">
+          <main className="flex-1 min-w-0 max-w-4xl space-y-10 pb-12">
             
-            <header className="space-y-3 pb-6 border-b border-[rgba(153,246,228,0.2)]">
-              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-[#99F6E4]">
+            <header className="bg-[#064E4A] border-2 border-[#042F2E] rounded-3xl p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-4">
+              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-[#99F6E4] font-bold">
                 <Link href="/" className="hover:underline">Home</Link>
                 <span>/</span>
                 <span className="text-[#A7F3D0]">Docs</span>
@@ -610,39 +610,39 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                 Technical Documentation &amp; API Reference
               </h1>
 
-              <p className="text-base sm:text-lg text-[#A7F3D0] leading-relaxed max-w-3xl font-normal">
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed max-w-3xl font-normal">
                 Comprehensive technical specifications, Bayesian deployer scoring mathematics, public REST endpoints, rate quotas, and verified on-chain smart contract registries on Robinhood Chain.
               </p>
 
-              <div className="flex flex-wrap items-center gap-2 pt-2">
-                <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[#042F2E] border border-[rgba(153,246,228,0.3)] text-[#99F6E4]">
+              <div className="flex flex-wrap items-center gap-2 pt-1">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl text-xs font-mono font-black bg-[#042F2E] border-2 border-[#042F2E] text-[#99F6E4] shadow-[2px_2px_0px_#042F2E]">
                   <span className="w-2 h-2 rounded-full bg-[#14B8A6] animate-pulse" />
                   REST API v2.4
                 </span>
-                <span className="px-2.5 py-1 rounded-full text-[11px] font-mono font-bold bg-[#042F2E] text-[#FFD166] border border-[#FFD166]/30">
+                <span className="px-3 py-1 rounded-xl text-xs font-mono font-black bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
                   CHAIN 4663
                 </span>
-                <span className="px-2.5 py-1 rounded-full text-[11px] font-mono text-[#A7F3D0] bg-[#042F2E]/60 border border-[rgba(153,246,228,0.2)]">
+                <span className="px-3 py-1 rounded-xl text-xs font-mono font-bold text-[#A7F3D0] bg-[#042F2E] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
                   MULTICALL3 BATCHING
                 </span>
               </div>
             </header>
 
-            <section id="introduction" className="space-y-4 scroll-mt-28">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+            <section id="introduction" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-5 scroll-mt-28">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
                 <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                   Introduction
                 </h2>
-                <span className="text-xs font-mono text-[#99F6E4]">OVERVIEW</span>
+                <span className="text-xs font-mono font-black text-[#99F6E4] bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">OVERVIEW</span>
               </div>
 
-              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
+              <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed font-normal">
                 Scout Dossier.OS operates an on-chain surveillance and creator intelligence engine that indexes every transaction and smart contract deployment across Robinhood Chain. Our public and authenticated endpoints provide sub-second access to mathematical creator reputation profiles, macro ecosystem density census, real-time MultiCall3 aggregations, and immutable research case files.
               </p>
 
-              <div className="border-l-4 border-l-[#14B8A6] bg-[#042F2E]/80 rounded-r-xl p-4 sm:p-5 space-y-1.5 shadow-sm">
-                <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#99F6E4] uppercase tracking-wider">
-                  <IconShield size={16} className="text-[#14B8A6]" />
+              <div className="border-l-4 border-l-[#99F6E4] bg-[#042F2E] rounded-r-2xl border-2 border-[#042F2E] p-5 space-y-2 shadow-[4px_4px_0px_#042F2E]">
+                <div className="flex items-center gap-2 font-mono text-xs font-black text-[#99F6E4] uppercase tracking-wider">
+                  <IconShield size={16} className="text-[#99F6E4]" />
                   <span>Public &amp; Authenticated Integration</span>
                 </div>
                 <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
@@ -651,12 +651,12 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
               </div>
             </section>
 
-            <section id="architecture" className="space-y-4 scroll-mt-28">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+            <section id="architecture" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-5 scroll-mt-28">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
                 <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                   Architecture &amp; On-Chain Indexing
                 </h2>
-                <span className="text-xs font-mono text-[#FFD166]">INFRASTRUCTURE</span>
+                <span className="text-xs font-mono font-black text-[#FFD166] bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">INFRASTRUCTURE</span>
               </div>
 
               <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
@@ -664,54 +664,58 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <div className="p-4 rounded-xl bg-[#042F2E]/70 border border-[rgba(153,246,228,0.2)] space-y-2">
-                  <div className="text-xs font-mono font-bold text-[#99F6E4] flex items-center gap-1.5">
-                    <IconDatabase size={14} className="text-[#14B8A6]" />
-                    <span>01 // MultiCall3</span>
+                <div className="p-4 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="text-xs font-mono font-black text-[#99F6E4] flex items-center gap-1.5">
+                      <IconDatabase size={14} className="text-[#99F6E4]" />
+                      <span>01 // MultiCall3</span>
+                    </div>
+                    <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                      Combines 10+ smart contract queries into a single atomic JSON-RPC request to Robinhood Chain Node.
+                    </p>
                   </div>
-                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                    Combines 10+ smart contract queries into a single atomic JSON-RPC request to Robinhood Chain Node.
-                  </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#042F2E]/70 border border-[rgba(153,246,228,0.2)] space-y-2">
-                  <div className="text-xs font-mono font-bold text-[#FFD166] flex items-center gap-1.5">
-                    <IconCpu size={14} className="text-[#FFD166]" />
-                    <span>02 // Bayesian Pipeline</span>
+                <div className="p-4 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="text-xs font-mono font-black text-[#FFD166] flex items-center gap-1.5">
+                      <IconCpu size={14} className="text-[#FFD166]" />
+                      <span>02 // Bayesian Pipeline</span>
+                    </div>
+                    <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                      Computes Laplace smoothed success distributions, DOA decay curves, and serial deployer clamps.
+                    </p>
                   </div>
-                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                    Computes Laplace smoothed success distributions, DOA decay curves, and serial deployer clamps.
-                  </p>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#042F2E]/70 border border-[rgba(153,246,228,0.2)] space-y-2">
-                  <div className="text-xs font-mono font-bold text-[#99F6E4] flex items-center gap-1.5">
-                    <IconCode size={14} className="text-[#14B8A6]" />
-                    <span>03 // Edge Serving</span>
+                <div className="p-4 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] hover:-translate-x-[1px] hover:-translate-y-[1px] transition-all space-y-2 flex flex-col justify-between">
+                  <div className="space-y-1.5">
+                    <div className="text-xs font-mono font-black text-[#C084FC] flex items-center gap-1.5">
+                      <IconCode size={14} className="text-[#C084FC]" />
+                      <span>03 // Edge Serving</span>
+                    </div>
+                    <p className="text-xs text-[#A7F3D0] leading-relaxed">
+                      Zero-latency responses cached with strict TTL headers for high-frequency algorithmic consumers.
+                    </p>
                   </div>
-                  <p className="text-xs text-[#A7F3D0] leading-relaxed">
-                    Zero-latency responses cached with strict TTL headers for high-frequency algorithmic consumers.
-                  </p>
                 </div>
               </div>
             </section>
 
-            <section id="formula" className="space-y-4 scroll-mt-28">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                    Deployer Score Formula
-                  </h2>
-                </div>
-                <span className="text-xs font-mono text-[#FFD166] font-bold">MATHEMATICAL SPEC</span>
+            <section id="formula" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-5 scroll-mt-28">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  Deployer Score Formula
+                </h2>
+                <span className="text-xs font-mono text-[#FFD166] font-black bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">MATHEMATICAL SPEC</span>
               </div>
 
               <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
                 Creator wallets are evaluated using deterministic Bayesian Laplace smoothing combined with non-linear penalties for dead-on-arrival (DOA) tokens, burst genesis velocity, and serial failure caps:
               </p>
 
-              <div className="rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] p-4 sm:p-5 font-mono text-xs sm:text-sm text-[#99F6E4] space-y-3">
-                <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-2">
+              <div className="rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] p-4 sm:p-5 font-mono text-xs sm:text-sm text-[#99F6E4] shadow-[4px_4px_0px_#042F2E] space-y-3">
+                <div className="flex items-center justify-between border-b border-[#064E4A] pb-2">
                   <span className="font-bold text-[#FFFDF7] font-sans text-xs">Algorithmic Formulation:</span>
                   <button
                     onClick={() =>
@@ -720,13 +724,13 @@ export function DocsClient({ isAuthenticated, userAddress }: DocsClientProps) {
                         "formula-math"
                       )
                     }
-                    className="flex items-center gap-1.5 text-xs text-[#A7F3D0] hover:text-[#FFFDF7] cursor-pointer"
+                    className="flex items-center gap-1.5 text-xs text-[#A7F3D0] hover:text-[#FFFDF7] bg-[#064E4A] border border-[#042F2E] px-2.5 py-1 rounded-xl shadow-[1.5px_1.5px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] cursor-pointer"
                   >
                     {copiedKey === "formula-math" ? <IconCheck size={14} className="text-[#99F6E4]" /> : <IconClipboard size={14} />}
                     <span>{copiedKey === "formula-math" ? "Copied" : "Copy Math"}</span>
                   </button>
                 </div>
-                <div className="overflow-x-auto whitespace-pre leading-relaxed text-[#FFFDF7]">
+                <div className="overflow-x-auto whitespace-pre leading-relaxed text-[#FFFDF7] font-mono">
 {`Base Score:  B = ((graduated + 1) / (total + 2)) * 100
 Penalties:   P_doa = doa_rate * 25, P_burst = burst_rate * 15
 Raw Score:   S_raw = clamp(B - P_doa - P_burst, 0, 100)
@@ -734,8 +738,8 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 </div>
               </div>
 
-              <div className="space-y-2 pt-2">
-                <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#99F6E4]">
+              <div className="space-y-2 pt-1">
+                <h4 className="text-xs font-mono font-black uppercase tracking-wider text-[#99F6E4]">
                   Variables &amp; Operational Definitions:
                 </h4>
                 <ul className="space-y-1.5 text-xs sm:text-sm text-[#A7F3D0] list-disc list-inside">
@@ -747,92 +751,90 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="scoring-bands" className="space-y-4 scroll-mt-28">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+            <section id="scoring-bands" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-5 scroll-mt-28">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
                 <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                   Scoring Bands &amp; Severity Matrix
                 </h2>
-                <span className="text-xs font-mono text-[#99F6E4]">THRESHOLDS</span>
+                <span className="text-xs font-mono font-black text-[#99F6E4] bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">THRESHOLDS</span>
               </div>
 
               <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
                 Calculated scores are segmented into 3 standardized risk bands indicating creator credibility and historical migration success:
               </p>
 
-              <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+              <div className="overflow-x-auto border-2 border-[#042F2E] rounded-2xl shadow-[4px_4px_0px_#042F2E]">
                 <table className="w-full text-xs sm:text-sm font-sans border-collapse">
                   <thead>
-                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase text-[11px]">
-                      <th className="p-3">Score Range</th>
-                      <th className="p-3">Risk Band</th>
-                      <th className="p-3">Classification</th>
-                      <th className="p-3">System Behavior &amp; Interpretation</th>
+                    <tr className="border-b-2 border-[#042F2E] bg-[#042F2E] text-left text-[#A7F3D0] font-black uppercase text-[11px] font-mono">
+                      <th className="p-3.5">Score Range</th>
+                      <th className="p-3.5">Risk Band</th>
+                      <th className="p-3.5">Classification</th>
+                      <th className="p-3.5">System Behavior &amp; Interpretation</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40">
-                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
-                      <td className="p-3 font-mono font-bold text-[#FFFDF7]">65 – 100</td>
-                      <td className="p-3">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#14B8A6]/20 text-[#99F6E4] border border-[#14B8A6]/40">
+                  <tbody className="divide-y divide-[#042F2E] bg-[#064E4A]/80">
+                    <tr className="hover:bg-[#042F2E]/60 transition-colors">
+                      <td className="p-3.5 font-mono font-black text-[#99F6E4]">65 – 100</td>
+                      <td className="p-3.5">
+                        <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E]">
                           GREEN
                         </span>
                       </td>
-                      <td className="p-3 text-[#FFFDF7] font-medium">Reliable / Proven</td>
-                      <td className="p-3 text-[#A7F3D0]">High graduation velocity; minimal DOA penalties; low burst frequency.</td>
+                      <td className="p-3.5 text-[#FFFDF7] font-bold">Reliable / Proven</td>
+                      <td className="p-3.5 text-[#A7F3D0]">High graduation velocity; minimal DOA penalties; low burst frequency.</td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
-                      <td className="p-3 font-mono font-bold text-[#FFFDF7]">35 – 64</td>
-                      <td className="p-3">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#FFD166]/20 text-[#FFD166] border border-[#FFD166]/40">
+                    <tr className="hover:bg-[#042F2E]/60 transition-colors">
+                      <td className="p-3.5 font-mono font-black text-[#FFD166]">35 – 64</td>
+                      <td className="p-3.5">
+                        <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E]">
                           YELLOW
                         </span>
                       </td>
-                      <td className="p-3 text-[#FFFDF7] font-medium">Moderate / Unproven</td>
-                      <td className="p-3 text-[#A7F3D0]">Average launch track record, fresh deployer wallet, or intermediate success rate.</td>
+                      <td className="p-3.5 text-[#FFFDF7] font-bold">Moderate / Unproven</td>
+                      <td className="p-3.5 text-[#A7F3D0]">Average launch track record, fresh deployer wallet, or intermediate success rate.</td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
-                      <td className="p-3 font-mono font-bold text-[#FF6B6B]">0 – 34</td>
-                      <td className="p-3">
-                        <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#FF6B6B]/20 text-[#FF6B6B] border border-[#FF6B6B]/40">
+                    <tr className="hover:bg-[#042F2E]/60 transition-colors">
+                      <td className="p-3.5 font-mono font-black text-[#FF6B6B]">0 – 34</td>
+                      <td className="p-3.5">
+                        <span className="px-2.5 py-0.5 rounded-lg text-[10px] font-mono font-black bg-[#FF6B6B] text-[#042F2E] border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E]">
                           RED
                         </span>
                       </td>
-                      <td className="p-3 text-[#FF6B6B] font-medium">High Risk / Serial</td>
-                      <td className="p-3 text-[#A7F3D0]">Serial launcher penalty applied, high DOA abandonment, or persistent zero graduation.</td>
+                      <td className="p-3.5 text-[#FF6B6B] font-bold">High Risk / Serial</td>
+                      <td className="p-3.5 text-[#A7F3D0]">Serial launcher penalty applied, high DOA abandonment, or persistent zero graduation.</td>
                     </tr>
                   </tbody>
                 </table>
               </div>
             </section>
 
-            <section id="endpoints" className="space-y-6 scroll-mt-28">
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[rgba(153,246,228,0.2)] pb-2">
-                <div>
-                  <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
-                    REST API Reference
-                  </h2>
-                </div>
-                <span className="text-xs font-mono text-[#99F6E4] font-bold">6 PUBLIC &amp; AUTH ENDPOINTS</span>
+            <section id="endpoints" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-6 scroll-mt-28">
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b-2 border-[#042F2E] pb-3">
+                <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
+                  REST API Reference
+                </h2>
+                <span className="text-xs font-mono text-[#99F6E4] font-black bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">6 PUBLIC &amp; AUTH ENDPOINTS</span>
               </div>
 
-              <div className="flex flex-wrap gap-2 pb-2">
+              <div className="flex flex-wrap gap-2.5">
                 {ENDPOINTS.map((ep) => (
                   <button
                     key={ep.id}
                     onClick={() => setSelectedEndpointId(ep.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-all cursor-pointer flex items-center gap-1.5 ${
+                    className={`px-3.5 py-2 rounded-xl text-xs font-mono font-bold transition-all cursor-pointer flex items-center gap-2 border-2 border-[#042F2E] active:translate-x-[1px] active:translate-y-[1px] ${
                       selectedEndpointId === ep.id
-                        ? "bg-[#FFD166] text-[#042F2E] font-bold shadow"
-                        : "bg-[#042F2E] text-[#A7F3D0] hover:text-[#FFFDF7] hover:bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]"
+                        ? "bg-[#FFD166] text-[#042F2E] shadow-[3px_3px_0px_#042F2E]"
+                        : "bg-[#042F2E] text-[#A7F3D0] hover:text-[#FFFDF7] shadow-[2px_2px_0px_#042F2E]"
                     }`}
                   >
                     <span
-                      className={`text-[9px] font-black px-1 rounded ${
+                      className={`text-[9px] font-black px-1.5 py-0.5 rounded border border-[#042F2E] ${
                         ep.method === "GET"
-                          ? "bg-[#14B8A6]/30 text-[#99F6E4]"
+                          ? "bg-[#99F6E4] text-[#042F2E]"
                           : ep.method === "POST"
-                          ? "bg-[#FF9F43]/30 text-[#FFD166]"
-                          : "bg-[#FF6B6B]/30 text-[#FF6B6B]"
+                          ? "bg-[#FFD166] text-[#042F2E]"
+                          : "bg-[#FF6B6B] text-[#042F2E]"
                       }`}
                     >
                       {ep.method}
@@ -842,32 +844,32 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                 ))}
               </div>
 
-              <div className="space-y-6 pt-2">
-                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div className="space-y-6 pt-2 bg-[#042F2E] rounded-2xl border-2 border-[#042F2E] p-5 shadow-[4px_4px_0px_#042F2E]">
+                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#064E4A] pb-3">
                   <div className="space-y-1">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 bg-[#99F6E4] text-[#042F2E] font-black font-mono text-xs rounded">
+                      <span className="px-2.5 py-0.5 bg-[#99F6E4] text-[#042F2E] font-black font-mono text-xs rounded-lg border border-[#042F2E]">
                         {activeEndpoint.method}
                       </span>
                       <h3 className="text-lg sm:text-xl font-mono font-black text-[#FFFDF7]">
                         {activeEndpoint.path}
                       </h3>
                     </div>
-                    <p className="text-xs sm:text-sm font-bold text-[#FFD166]">
+                    <p className="text-xs sm:text-sm font-black text-[#FFD166]">
                       {activeEndpoint.title}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-2 text-xs font-mono">
-                    <span className="px-2.5 py-1 rounded-md bg-[#042F2E] border border-[rgba(153,246,228,0.2)] text-[#99F6E4]">
+                    <span className="px-2.5 py-1 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] text-[#99F6E4] font-bold shadow-[2px_2px_0px_#042F2E]">
                       {activeEndpoint.rateLimit}
                     </span>
                     {activeEndpoint.authRequired ? (
-                      <span className="px-2.5 py-1 rounded-md bg-[#FF6B6B]/20 text-[#FF6B6B] border border-[#FF6B6B]/40 font-bold">
+                      <span className="px-2.5 py-1 rounded-xl bg-[#FF6B6B] text-[#042F2E] border-2 border-[#042F2E] font-black shadow-[2px_2px_0px_#042F2E]">
                         SIWE AUTH
                       </span>
                     ) : (
-                      <span className="px-2.5 py-1 rounded-md bg-[#14B8A6]/20 text-[#99F6E4] border border-[#14B8A6]/30">
+                      <span className="px-2.5 py-1 rounded-xl bg-[#99F6E4] text-[#042F2E] border-2 border-[#042F2E] font-black shadow-[2px_2px_0px_#042F2E]">
                         PUBLIC
                       </span>
                     )}
@@ -880,27 +882,27 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
 
                 {activeEndpoint.params.length > 0 && (
                   <div className="space-y-2">
-                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#99F6E4]">
+                    <h4 className="text-xs font-mono font-black uppercase tracking-wider text-[#99F6E4]">
                       URL &amp; Query Parameters:
                     </h4>
-                    <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+                    <div className="overflow-x-auto border-2 border-[#042F2E] rounded-xl shadow-[3px_3px_0px_#042F2E]">
                       <table className="w-full text-xs font-mono border-collapse">
                         <thead>
-                          <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0]">
+                          <tr className="border-b-2 border-[#042F2E] bg-[#064E4A] text-left text-[#A7F3D0]">
                             <th className="p-2.5">Parameter</th>
                             <th className="p-2.5">Type</th>
                             <th className="p-2.5">Required</th>
                             <th className="p-2.5 font-sans">Description</th>
                           </tr>
                         </thead>
-                        <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40 text-[#FFFDF7]">
+                        <tbody className="divide-y divide-[#042F2E] bg-[#042F2E] text-[#FFFDF7]">
                           {activeEndpoint.params.map((p) => (
-                            <tr key={p.name} className="hover:bg-[#042F2E]/80">
-                              <td className="p-2.5 text-[#FFD166] font-bold">{p.name}</td>
+                            <tr key={p.name} className="hover:bg-[#064E4A]/50">
+                              <td className="p-2.5 text-[#FFD166] font-black">{p.name}</td>
                               <td className="p-2.5 text-[#99F6E4]">{p.type}</td>
                               <td className="p-2.5">
                                 {p.required ? (
-                                  <span className="text-[#FF6B6B] font-bold">YES</span>
+                                  <span className="text-[#FF6B6B] font-black">YES</span>
                                 ) : (
                                   <span className="text-[#A7F3D0]">NO</span>
                                 )}
@@ -916,17 +918,17 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#99F6E4]">
+                    <h4 className="text-xs font-mono font-black uppercase tracking-wider text-[#99F6E4]">
                       Code Request Example:
                     </h4>
-                    <div className="flex items-center gap-1 bg-[#042F2E] p-1 rounded-lg text-xs font-mono border border-[rgba(153,246,228,0.2)]">
+                    <div className="flex items-center gap-1 bg-[#064E4A] p-1 rounded-xl text-xs font-mono border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
                       {(["curl", "typescript", "python"] as const).map((lang) => (
                         <button
                           key={lang}
                           onClick={() => setActiveCodeLang(lang)}
-                          className={`px-2 py-0.5 rounded font-bold transition-all cursor-pointer ${
+                          className={`px-2.5 py-0.5 rounded-lg font-black transition-all cursor-pointer ${
                             activeCodeLang === lang
-                              ? "bg-[#FFD166] text-[#042F2E]"
+                              ? "bg-[#FFD166] text-[#042F2E] shadow-sm"
                               : "text-[#A7F3D0] hover:text-[#FFFDF7]"
                           }`}
                         >
@@ -936,10 +938,10 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                     </div>
                   </div>
 
-                  <div className="rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] p-4 font-mono text-xs text-[#99F6E4] relative group">
+                  <div className="rounded-2xl bg-[#031E1D] border-2 border-[#042F2E] p-4 font-mono text-xs text-[#99F6E4] relative group shadow-[4px_4px_0px_#042F2E]">
                     <button
                       onClick={() => handleCopy(activeEndpoint.exampleRequest[activeCodeLang], `code-${activeEndpoint.id}`)}
-                      className="absolute right-3 top-3 px-2.5 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1.5 text-xs cursor-pointer border border-[rgba(153,246,228,0.2)]"
+                      className="absolute right-3 top-3 px-3 py-1 rounded-xl bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1.5 text-xs font-mono font-bold cursor-pointer border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px]"
                     >
                       {copiedKey === `code-${activeEndpoint.id}` ? (
                         <IconCheck size={14} className="text-[#99F6E4]" />
@@ -956,12 +958,12 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h4 className="text-xs font-mono font-bold uppercase tracking-wider text-[#FFD166]">
+                    <h4 className="text-xs font-mono font-black uppercase tracking-wider text-[#FFD166]">
                       Sample JSON Response:
                     </h4>
                     <button
                       onClick={() => handleCopy(activeEndpoint.sampleResponse, `resp-${activeEndpoint.id}`)}
-                      className="text-xs font-mono text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1.5 cursor-pointer"
+                      className="text-xs font-mono font-bold text-[#A7F3D0] hover:text-[#FFFDF7] flex items-center gap-1.5 cursor-pointer bg-[#064E4A] px-2.5 py-1 rounded-xl border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px]"
                     >
                       {copiedKey === `resp-${activeEndpoint.id}` ? (
                         <IconCheck size={14} className="text-[#99F6E4]" />
@@ -971,7 +973,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                       <span>{copiedKey === `resp-${activeEndpoint.id}` ? "Copied" : "Copy JSON"}</span>
                     </button>
                   </div>
-                  <div className="rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] p-4 font-mono text-xs text-[#99F6E4] max-h-72 overflow-y-auto">
+                  <div className="rounded-2xl bg-[#031E1D] border-2 border-[#042F2E] p-4 font-mono text-xs text-[#99F6E4] max-h-72 overflow-y-auto shadow-[4px_4px_0px_#042F2E]">
                     <pre className="overflow-x-auto whitespace-pre text-[#FFFDF7] leading-relaxed">
                       {activeEndpoint.sampleResponse}
                     </pre>
@@ -980,12 +982,12 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="sandbox" className="space-y-4 scroll-mt-28">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+            <section id="sandbox" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-5 scroll-mt-28">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
                 <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                   Interactive API Playground
                 </h2>
-                <span className="text-xs font-mono text-[#FFD166]">LIVE CONSOLE</span>
+                <span className="text-xs font-mono font-black text-[#FFD166] bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">LIVE CONSOLE</span>
               </div>
 
               <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
@@ -993,9 +995,9 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </p>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
-                <div className="space-y-3.5 p-4 rounded-xl bg-[#042F2E]/80 border border-[rgba(153,246,228,0.2)]">
-                  <div className="space-y-1">
-                    <label className="text-xs font-mono uppercase font-bold text-[#99F6E4]">Target Endpoint:</label>
+                <div className="space-y-4 p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E]">
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-mono uppercase font-black text-[#99F6E4]">Target Endpoint:</label>
                     <select
                       value={selectedEndpointId}
                       onChange={(e) => {
@@ -1003,7 +1005,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                         setSandboxResponse(null);
                       }}
                       aria-label="Select Target Endpoint"
-                      className="w-full px-3 py-2 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
+                      className="w-full px-3.5 py-2.5 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] text-xs font-mono text-[#FFFDF7] focus:outline-none"
                     >
                       {ENDPOINTS.map((ep) => (
                         <option key={ep.id} value={ep.id}>
@@ -1014,8 +1016,8 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   </div>
 
                   {activeEndpoint.params.length > 0 && (
-                    <div className="space-y-1">
-                      <label className="text-xs font-mono uppercase font-bold text-[#FFD166]">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-mono uppercase font-black text-[#FFD166]">
                         Param: {activeEndpoint.params[0].name}
                       </label>
                       <input
@@ -1023,7 +1025,7 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                         value={sandboxAddress}
                         onChange={(e) => setSandboxAddress(e.target.value)}
                         placeholder="Enter parameter input..."
-                        className="w-full px-3 py-2 rounded-lg bg-[#064E4A] border border-[rgba(153,246,228,0.25)] text-xs font-mono text-[#FFFDF7] focus:outline-none"
+                        className="w-full px-3.5 py-2.5 rounded-xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[2px_2px_0px_#042F2E] text-xs font-mono text-[#FFFDF7] focus:outline-none"
                       />
                     </div>
                   )}
@@ -1031,27 +1033,27 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
                   <button
                     onClick={handleRunSandbox}
                     disabled={isSimulating}
-                    className="w-full py-2.5 rounded-lg bg-[#FFD166] hover:bg-[#FFD166]/90 text-[#042F2E] font-black text-xs font-mono uppercase transition-all disabled:opacity-50 cursor-pointer shadow"
+                    className="w-full py-3 rounded-xl bg-[#FFD166] hover:bg-[#FFD166]/90 text-[#042F2E] font-black text-xs font-mono uppercase transition-all disabled:opacity-50 cursor-pointer border-2 border-[#042F2E] shadow-[3px_3px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px]"
                   >
                     {isSimulating ? "Simulating Execution..." : "Execute Query Simulation"}
                   </button>
                 </div>
 
-                <div className="p-4 rounded-xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)] flex flex-col justify-between space-y-2 font-mono text-xs min-h-[180px]">
-                  <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.15)] pb-2 text-[11px]">
-                    <span className="text-[#99F6E4] font-bold">RESPONSE INSPECTOR</span>
-                    <span className="text-[#A7F3D0]">{sandboxResponse ? "HTTP 200 OK" : "Awaiting Execution"}</span>
+                <div className="p-5 rounded-2xl bg-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] flex flex-col justify-between space-y-3 font-mono text-xs min-h-[220px]">
+                  <div className="flex items-center justify-between border-b border-[#064E4A] pb-2 text-[11px]">
+                    <span className="text-[#99F6E4] font-black">RESPONSE INSPECTOR</span>
+                    <span className="text-[#A7F3D0] font-bold">{sandboxResponse ? "HTTP 200 OK" : "Awaiting Execution"}</span>
                   </div>
 
                   <div className="flex-1 max-h-52 overflow-y-auto">
                     {sandboxResponse ? (
-                      <pre className="text-xs text-[#FFFDF7] leading-relaxed whitespace-pre">
+                      <pre className="text-xs text-[#FFFDF7] leading-relaxed whitespace-pre font-mono">
                         {sandboxResponse}
                       </pre>
                     ) : (
                       <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#A7F3D0]/60 space-y-2">
-                        <IconCpu size={24} className="text-[#99F6E4]/40" />
-                        <span className="text-xs">Click &quot;Execute Query Simulation&quot; to inspect response schema.</span>
+                        <IconCpu size={28} className="text-[#99F6E4]/40" />
+                        <span className="text-xs font-bold">Click &quot;Execute Query Simulation&quot; to inspect response schema.</span>
                       </div>
                     )}
                   </div>
@@ -1059,65 +1061,65 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="contracts" className="space-y-4 scroll-mt-28">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+            <section id="contracts" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-5 scroll-mt-28">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
                 <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                   Verified Smart Contracts Registry
                 </h2>
-                <span className="text-xs font-mono text-[#FFD166] font-bold">CHAIN 4663</span>
+                <span className="text-xs font-mono text-[#FFD166] font-black bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">CHAIN 4663</span>
               </div>
 
               <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
                 Core protocol deployments on Robinhood Chain (4663). All contracts are byte-verified and accessible via public RPC:
               </p>
 
-              <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+              <div className="overflow-x-auto border-2 border-[#042F2E] rounded-2xl shadow-[4px_4px_0px_#042F2E]">
                 <table className="w-full text-xs sm:text-sm font-sans border-collapse">
                   <thead>
-                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase text-[11px]">
-                      <th className="p-3">Protocol Contract</th>
-                      <th className="p-3">Contract Address</th>
-                      <th className="p-3">Purpose &amp; Interface</th>
-                      <th className="p-3 text-right">Action</th>
+                    <tr className="border-b-2 border-[#042F2E] bg-[#042F2E] text-left text-[#A7F3D0] font-black uppercase text-[11px] font-mono">
+                      <th className="p-3.5">Protocol Contract</th>
+                      <th className="p-3.5">Contract Address</th>
+                      <th className="p-3.5">Purpose &amp; Interface</th>
+                      <th className="p-3.5 text-right">Action</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40 font-mono">
-                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
-                      <td className="p-3 font-bold text-[#99F6E4]">MultiCall3</td>
-                      <td className="p-3 text-[#FFFDF7] break-all">0xcA11bde05977b3631167028862bE2a173976CA11</td>
-                      <td className="p-3 font-sans text-xs text-[#A7F3D0]">Batch aggregator for atomic multi-contract reads.</td>
-                      <td className="p-3 text-right">
+                  <tbody className="divide-y divide-[#042F2E] bg-[#064E4A]/80 font-mono">
+                    <tr className="hover:bg-[#042F2E]/60 transition-colors">
+                      <td className="p-3.5 font-black text-[#99F6E4]">MultiCall3</td>
+                      <td className="p-3.5 text-[#FFFDF7] break-all">0xcA11bde05977b3631167028862bE2a173976CA11</td>
+                      <td className="p-3.5 font-sans text-xs text-[#A7F3D0]">Batch aggregator for atomic multi-contract reads.</td>
+                      <td className="p-3.5 text-right">
                         <button
                           onClick={() => handleCopy("0xcA11bde05977b3631167028862bE2a173976CA11", "contract-multicall")}
-                          className="px-2 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs cursor-pointer inline-flex items-center gap-1"
+                          className="px-2.5 py-1 rounded-xl bg-[#042F2E] hover:bg-[#042F2E]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs font-bold cursor-pointer inline-flex items-center gap-1 border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px]"
                         >
                           {copiedKey === "contract-multicall" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
                           <span>{copiedKey === "contract-multicall" ? "Copied" : "Copy"}</span>
                         </button>
                       </td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
-                      <td className="p-3 font-bold text-[#FFD166]">Pons V2 Factory</td>
-                      <td className="p-3 text-[#FFFDF7] break-all">0x4663000000000000000000000000000000000001</td>
-                      <td className="p-3 font-sans text-xs text-[#A7F3D0]">Orchestrates token genesis and curve lifecycle events.</td>
-                      <td className="p-3 text-right">
+                    <tr className="hover:bg-[#042F2E]/60 transition-colors">
+                      <td className="p-3.5 font-black text-[#FFD166]">Pons V2 Factory</td>
+                      <td className="p-3.5 text-[#FFFDF7] break-all">0x4663000000000000000000000000000000000001</td>
+                      <td className="p-3.5 font-sans text-xs text-[#A7F3D0]">Orchestrates token genesis and curve lifecycle events.</td>
+                      <td className="p-3.5 text-right">
                         <button
                           onClick={() => handleCopy("0x4663000000000000000000000000000000000001", "contract-pons")}
-                          className="px-2 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs cursor-pointer inline-flex items-center gap-1"
+                          className="px-2.5 py-1 rounded-xl bg-[#042F2E] hover:bg-[#042F2E]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs font-bold cursor-pointer inline-flex items-center gap-1 border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px]"
                         >
                           {copiedKey === "contract-pons" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
                           <span>{copiedKey === "contract-pons" ? "Copied" : "Copy"}</span>
                         </button>
                       </td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/80 transition-colors">
-                      <td className="p-3 font-bold text-[#C084FC]">Uniswap V3 Migrator</td>
-                      <td className="p-3 text-[#FFFDF7] break-all">0x4663000000000000000000000000000000000002</td>
-                      <td className="p-3 font-sans text-xs text-[#A7F3D0]">Executes automated DEX pool seed migration for graduated tokens.</td>
-                      <td className="p-3 text-right">
+                    <tr className="hover:bg-[#042F2E]/60 transition-colors">
+                      <td className="p-3.5 font-black text-[#C084FC]">Uniswap V3 Migrator</td>
+                      <td className="p-3.5 text-[#FFFDF7] break-all">0x4663000000000000000000000000000000000002</td>
+                      <td className="p-3.5 font-sans text-xs text-[#A7F3D0]">Executes automated DEX pool seed migration for graduated tokens.</td>
+                      <td className="p-3.5 text-right">
                         <button
                           onClick={() => handleCopy("0x4663000000000000000000000000000000000002", "contract-migrator")}
-                          className="px-2 py-1 rounded bg-[#064E4A] hover:bg-[#064E4A]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs cursor-pointer inline-flex items-center gap-1"
+                          className="px-2.5 py-1 rounded-xl bg-[#042F2E] hover:bg-[#042F2E]/80 text-[#A7F3D0] hover:text-[#FFFDF7] text-xs font-bold cursor-pointer inline-flex items-center gap-1 border-2 border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px]"
                         >
                           {copiedKey === "contract-migrator" ? <IconCheck size={12} className="text-[#99F6E4]" /> : <IconClipboard size={12} />}
                           <span>{copiedKey === "contract-migrator" ? "Copied" : "Copy"}</span>
@@ -1129,47 +1131,47 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
               </div>
             </section>
 
-            <section id="limits" className="space-y-4 scroll-mt-28">
-              <div className="flex items-center justify-between border-b border-[rgba(153,246,228,0.2)] pb-2">
+            <section id="limits" className="rounded-3xl border-2 border-[#042F2E] bg-[#064E4A] p-6 sm:p-8 shadow-[6px_6px_0px_#042F2E] space-y-5 scroll-mt-28">
+              <div className="flex items-center justify-between border-b-2 border-[#042F2E] pb-3">
                 <h2 className="text-xl sm:text-2xl font-black text-[#FFFDF7] tracking-tight">
                   Rate Limits &amp; System Constraints
                 </h2>
-                <span className="text-xs font-mono text-[#99F6E4]">POLICIES</span>
+                <span className="text-xs font-mono font-black text-[#99F6E4] bg-[#042F2E] px-2.5 py-0.5 rounded-lg border border-[#042F2E]">POLICIES</span>
               </div>
 
               <p className="text-sm sm:text-base text-[#A7F3D0] leading-relaxed">
                 To guarantee high availability and protect RPC indexers from denial-of-service degradation, the following limits are enforced across endpoints:
               </p>
 
-              <div className="overflow-x-auto border border-[rgba(153,246,228,0.2)] rounded-xl">
+              <div className="overflow-x-auto border-2 border-[#042F2E] rounded-2xl shadow-[4px_4px_0px_#042F2E]">
                 <table className="w-full text-xs sm:text-sm font-sans border-collapse">
                   <thead>
-                    <tr className="border-b border-[rgba(153,246,228,0.2)] bg-[#042F2E] text-left text-[#A7F3D0] font-semibold uppercase text-[11px]">
-                      <th className="p-3">Resource / Scope</th>
-                      <th className="p-3">Policy Constraint</th>
-                      <th className="p-3">HTTP Enforcement Response</th>
+                    <tr className="border-b-2 border-[#042F2E] bg-[#042F2E] text-left text-[#A7F3D0] font-black uppercase text-[11px] font-mono">
+                      <th className="p-3.5">Resource / Scope</th>
+                      <th className="p-3.5">Policy Constraint</th>
+                      <th className="p-3.5">HTTP Enforcement Response</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-[rgba(153,246,228,0.15)] bg-[#042F2E]/40">
-                    <tr className="hover:bg-[#042F2E]/80">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Public API Endpoints</td>
-                      <td className="p-3 text-[#A7F3D0] font-mono">30 req / min / IP</td>
-                      <td className="p-3 text-[#FF6B6B] font-mono">HTTP 429 (Too Many Requests)</td>
+                  <tbody className="divide-y divide-[#042F2E] bg-[#064E4A]/80">
+                    <tr className="hover:bg-[#042F2E]/60">
+                      <td className="p-3.5 font-bold text-[#FFFDF7]">Public API Endpoints</td>
+                      <td className="p-3.5 text-[#A7F3D0] font-mono font-bold">30 req / min / IP</td>
+                      <td className="p-3.5 text-[#FF6B6B] font-mono font-black">HTTP 429 (Too Many Requests)</td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/80">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Watchlist Quota</td>
-                      <td className="p-3 text-[#A7F3D0] font-mono">30 creator addresses max</td>
-                      <td className="p-3 text-[#FF6B6B] font-mono">HTTP 422 (Unprocessable Content)</td>
+                    <tr className="hover:bg-[#042F2E]/60">
+                      <td className="p-3.5 font-bold text-[#FFFDF7]">Watchlist Quota</td>
+                      <td className="p-3.5 text-[#A7F3D0] font-mono font-bold">30 creator addresses max</td>
+                      <td className="p-3.5 text-[#FF6B6B] font-mono font-black">HTTP 422 (Unprocessable Content)</td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/80">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Case File Thesis Length</td>
-                      <td className="p-3 text-[#A7F3D0] font-mono">4,000 characters max</td>
-                      <td className="p-3 text-[#FF6B6B] font-mono">HTTP 400 (Zod Validation Error)</td>
+                    <tr className="hover:bg-[#042F2E]/60">
+                      <td className="p-3.5 font-bold text-[#FFFDF7]">Case File Thesis Length</td>
+                      <td className="p-3.5 text-[#A7F3D0] font-mono font-bold">4,000 characters max</td>
+                      <td className="p-3.5 text-[#FF6B6B] font-mono font-black">HTTP 400 (Zod Validation Error)</td>
                     </tr>
-                    <tr className="hover:bg-[#042F2E]/80">
-                      <td className="p-3 font-bold text-[#FFFDF7]">Dossier Snapshots Retention</td>
-                      <td className="p-3 text-[#A7F3D0] font-mono">30 historical records</td>
-                      <td className="p-3 text-[#99F6E4] font-mono">Automated FIFO rotation</td>
+                    <tr className="hover:bg-[#042F2E]/60">
+                      <td className="p-3.5 font-bold text-[#FFFDF7]">Dossier Snapshots Retention</td>
+                      <td className="p-3.5 text-[#A7F3D0] font-mono font-bold">30 historical records</td>
+                      <td className="p-3.5 text-[#99F6E4] font-mono font-black">Automated FIFO rotation</td>
                     </tr>
                   </tbody>
                 </table>
@@ -1177,30 +1179,30 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
             </section>
 
             <section id="disclaimer" className="space-y-3 scroll-mt-28">
-              <div className="border-l-4 border-l-[#FF6B6B] bg-[#042F2E]/90 rounded-r-xl p-5 space-y-2 border border-[rgba(255,107,107,0.3)] shadow-md">
-                <div className="flex items-center gap-2 font-mono text-xs font-bold text-[#FF6B6B] uppercase tracking-wider">
+              <div className="border-l-4 border-l-[#FF6B6B] bg-[#042F2E] rounded-r-2xl border-2 border-[#042F2E] p-6 space-y-2.5 shadow-[6px_6px_0px_#042F2E]">
+                <div className="flex items-center gap-2 font-mono text-xs font-black text-[#FF6B6B] uppercase tracking-wider">
                   <IconAlert size={18} className="text-[#FF6B6B]" />
-                  <h2 className="text-sm sm:text-base font-bold uppercase text-[#FF6B6B] tracking-tight">
+                  <h2 className="text-sm sm:text-base font-black uppercase text-[#FF6B6B] tracking-tight">
                     On-Chain Risk Disclaimer
                   </h2>
                 </div>
-                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed">
+                <p className="text-xs sm:text-sm text-[#A7F3D0] leading-relaxed font-normal">
                   Scout Dossier.OS is an open-source decentralized intelligence surveillance framework. Reputation scores, metrics, and case files are computed strictly algorithmically from public blockchain bytecode, transaction histories, and event logs. Nothing on this website or in our API documentation constitutes financial, investment, or legal advice. On-chain trading, bonding curves, and early-stage token deployments carry inherent risks of total capital loss.
                 </p>
               </div>
             </section>
 
-            <footer className="border-t border-[rgba(153,246,228,0.2)] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
+            <footer className="pt-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono">
               <Link
                 href="/how"
-                className="inline-flex items-center gap-2 font-bold text-[#99F6E4] hover:text-[#FFFDF7] transition-colors"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-black px-5 py-3 rounded-2xl bg-[#064E4A] text-[#99F6E4] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] transition-all"
               >
                 <IconArrowLeft size={16} />
                 <span>Previous: Research Field Manual</span>
               </Link>
               <Link
                 href="/census"
-                className="inline-flex items-center gap-2 font-bold text-[#FFD166] hover:text-[#FFFDF7] transition-colors"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 font-black px-5 py-3 rounded-2xl bg-[#FFD166] text-[#042F2E] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] hover:shadow-[6px_6px_0px_#042F2E] active:translate-x-[1px] active:translate-y-[1px] transition-all"
               >
                 <span>Next: Ecosystem Census</span>
                 <IconArrowRight size={16} />
@@ -1210,19 +1212,19 @@ Serial Cap:  If (total >= 6 AND graduated == 0) -> S = min(S_raw, 25)`}
 
           <aside
             aria-label="Table of Contents"
-            className="hidden xl:block w-48 shrink-0 sticky top-28 self-start space-y-3 pl-4 border-l border-[rgba(153,246,228,0.15)] text-xs"
+            className="hidden xl:block w-48 shrink-0 sticky top-28 self-start space-y-3 p-4 rounded-2xl bg-[#064E4A] border-2 border-[#042F2E] shadow-[4px_4px_0px_#042F2E] text-xs"
           >
-            <div className="font-mono text-[11px] font-black uppercase tracking-wider text-[#99F6E4]">
+            <div className="font-mono text-[11px] font-black uppercase tracking-wider text-[#99F6E4] pb-2 border-b border-[#042F2E]">
               On This Page
             </div>
-            <ul className="space-y-2 font-medium">
+            <ul className="space-y-2 font-medium font-mono text-[11px]">
               {TOC_ITEMS.map((item) => (
                 <li key={item.id}>
                   <a
                     href={`#${item.id}`}
                     className={`block transition-colors ${
                       activeSection === item.id
-                        ? "text-[#FFD166] font-bold"
+                        ? "text-[#FFD166] font-black"
                         : "text-[#A7F3D0] hover:text-[#FFFDF7]"
                     }`}
                   >
