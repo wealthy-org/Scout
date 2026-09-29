@@ -44,21 +44,25 @@ export function DossierHeader({
   const isGraduated = phase === "graduated" || phase === "swept";
 
   return (
-    <header className="rounded-3xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-5 sm:p-6 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl font-sans">
-      <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4">
-          <div className="flex items-center gap-3">
-            <span className="text-2xl sm:text-3xl font-extrabold tracking-tight text-[#FFFDF7]">
-              ${symbol || "UNKNOWN"}
-            </span>
+    <header className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 sm:p-5 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-2xl font-sans">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div className="flex items-center gap-3 sm:gap-4 min-w-0">
+          <div className="flex h-11 w-11 sm:h-12 sm:w-12 shrink-0 items-center justify-center rounded-2xl border-2 border-[#042F2E] bg-gradient-to-br from-[#99F6E4] to-[#14B8A6] text-xs sm:text-sm font-black text-[#042F2E] shadow-[2px_2px_0px_#042F2E]">
+            {(symbol || "TK").slice(0, 3).toUpperCase()}
+          </div>
 
-            <div className="flex flex-col items-start gap-1">
-              <span className="text-xs sm:text-sm font-semibold text-[#A7F3D0]">
+          <div className="flex flex-col justify-center gap-1 min-w-0">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-xl sm:text-2xl font-black tracking-tight text-[#FFFDF7]">
+                ${symbol || "UNKNOWN"}
+              </span>
+
+              <span className="text-xs sm:text-sm font-semibold text-[#A7F3D0] truncate max-w-[140px] sm:max-w-[240px]">
                 {name || "Unnamed Token"}
               </span>
 
               <span
-                className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] sm:text-xs font-bold uppercase tracking-wider border-[1.5px] border-[#042F2E] shadow-[1.5px_1.5px_0px_#042F2E] ${
+                className={`inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider border border-[#042F2E] shadow-[1px_1px_0px_#042F2E] ${
                   isGraduated
                     ? "bg-[#99F6E4] text-[#042F2E]"
                     : "bg-[#FFD166] text-[#042F2E]"
@@ -72,39 +76,51 @@ export function DossierHeader({
                 {isGraduated ? "Graduated" : "Bonding Curve"}
               </span>
             </div>
-          </div>
 
-          <button
-            type="button"
-            onClick={handleCopy}
-            title="Click to copy contract address"
-            className="group flex items-center gap-2 rounded-xl border border-[rgba(153,246,228,0.2)] bg-[#042F2E] px-3 py-1.5 font-mono text-xs text-[#A7F3D0] hover:border-[#99F6E4] hover:text-[#FFFDF7] transition-all duration-200"
-          >
-            <span className="truncate max-w-[200px] sm:max-w-none">{contractAddress}</span>
-            <svg
-              className="h-3.5 w-3.5 shrink-0 transition-transform group-hover:scale-110"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              {copied ? (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M5 13l4 4L19 7"
-                />
-              ) : (
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
-                />
-              )}
-            </svg>
-            {copied && <span className="text-[#99F6E4] font-bold">Copied</span>}
-          </button>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={handleCopy}
+                title={`Click to copy contract address: ${contractAddress}`}
+                className="group inline-flex items-center gap-1.5 rounded-lg border border-[rgba(153,246,228,0.2)] bg-[#042F2E] px-2.5 py-0.5 font-mono text-[11px] text-[#A7F3D0] hover:border-[#99F6E4] hover:text-[#FFFDF7] transition-all shadow-sm"
+              >
+                <span className="hidden sm:inline">
+                  {contractAddress ? `${contractAddress.slice(0, 10)}...${contractAddress.slice(-8)}` : ""}
+                </span>
+                <span className="sm:hidden">
+                  {contractAddress ? `${contractAddress.slice(0, 6)}...${contractAddress.slice(-4)}` : ""}
+                </span>
+                <span className="sr-only">{contractAddress}</span>
+                <svg
+                  className="h-3 w-3 shrink-0 text-[#99F6E4] transition-transform group-hover:scale-110"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  {copied ? (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2.5"
+                      d="M5 13l4 4L19 7"
+                    />
+                  ) : (
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"
+                    />
+                  )}
+                </svg>
+                {copied ? (
+                  <span className="text-[10px] font-bold text-[#99F6E4]">Copied!</span>
+                ) : (
+                  <span className="text-[10px] text-[#A7F3D0]/60 group-hover:text-[#A7F3D0]">Copy</span>
+                )}
+              </button>
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
