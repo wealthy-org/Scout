@@ -35,51 +35,44 @@ export function MarketFlowBlock({
   const isCompleted = (curveProgressPct ?? 0) >= 100;
 
   return (
-    <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#064E4A] p-2.5 sm:p-3 shadow-[0_8px_24px_-6px_rgba(4,47,46,0.5)] backdrop-blur-xl font-sans select-none">
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5">
-        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all min-w-0">
-          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80 min-w-0">
-            <span className="truncate">Market Cap</span>
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#99F6E4] opacity-60 group-hover:opacity-100" />
-          </div>
-          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7] truncate">
+    <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] shadow-[0_8px_24px_-6px_rgba(4,47,46,0.5)] backdrop-blur-xl font-sans select-none overflow-hidden">
+      <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-6 divide-y md:divide-y-0 md:divide-x divide-[rgba(153,246,228,0.15)]">
+        <div className="flex flex-col justify-center px-4 py-3 sm:px-5 sm:py-3.5 hover:bg-[#042F2E]/40 transition-colors">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
+            Market Cap
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-black tracking-tight text-[#FFFDF7]">
             {formatCurrency(marketCapUsd)}
-          </div>
+          </span>
         </div>
 
-        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all min-w-0">
-          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80 min-w-0">
-            <span className="truncate">All-Time High (ATH)</span>
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#C084FC] opacity-60 group-hover:opacity-100" />
-          </div>
-          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7] truncate">
+        <div className="flex flex-col justify-center px-4 py-3 sm:px-5 sm:py-3.5 hover:bg-[#042F2E]/40 transition-colors">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
+            All-Time High (ATH)
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-black tracking-tight text-[#FFFDF7]">
             {formatCurrency(athUsd)}
-          </div>
+          </span>
         </div>
 
-        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all min-w-0">
-          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80 min-w-0">
-            <span className="truncate">Curve Progress</span>
-            <span
-              className={`h-1.5 w-1.5 shrink-0 rounded-full ${
-                isCompleted ? "bg-[#99F6E4] animate-pulse" : "bg-[#FFD166]"
-              }`}
-            />
+        <div className="flex flex-col justify-center px-4 py-3 sm:px-5 sm:py-3.5 hover:bg-[#042F2E]/40 transition-colors">
+          <div className="flex items-center justify-between gap-2">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
+              Curve Progress
+            </span>
+            {isCompleted && (
+              <span className="rounded-full bg-[#99F6E4]/20 border border-[#99F6E4]/40 px-2 py-0.5 text-[9px] font-bold uppercase text-[#99F6E4]">
+                Graduated
+              </span>
+            )}
           </div>
-          <div className="mt-1 flex flex-col gap-1.5 min-w-0">
-            <div className="flex items-baseline justify-between gap-1">
-              <div className="text-base sm:text-lg font-black tracking-tight text-[#99F6E4] truncate">
-                {curveProgressPct !== null && curveProgressPct !== undefined
-                  ? `${curveProgressPct.toFixed(1)}%`
-                  : "N/A"}
-              </div>
-              {isCompleted && (
-                <span className="text-[9px] font-bold uppercase tracking-wider text-[#99F6E4]/80 shrink-0">
-                  Graduated
-                </span>
-              )}
-            </div>
-            <div className="h-1.5 w-full rounded-full bg-[#064E4A] overflow-hidden border border-[rgba(153,246,228,0.15)]">
+          <div className="mt-1 flex items-center gap-3">
+            <span className="text-lg sm:text-xl font-black tracking-tight text-[#99F6E4]">
+              {curveProgressPct !== null && curveProgressPct !== undefined
+                ? `${curveProgressPct.toFixed(1)}%`
+                : "N/A"}
+            </span>
+            <div className="h-2 flex-1 rounded-full bg-[#042F2E] overflow-hidden border border-[rgba(153,246,228,0.2)]">
               <div
                 className={`h-full rounded-full transition-all duration-500 ${
                   isCompleted
@@ -92,34 +85,31 @@ export function MarketFlowBlock({
           </div>
         </div>
 
-        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all min-w-0">
-          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80 min-w-0">
-            <span className="truncate">24h Volume</span>
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#FFD166] opacity-60 group-hover:opacity-100" />
-          </div>
-          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7] truncate">
+        <div className="flex flex-col justify-center px-4 py-3 sm:px-5 sm:py-3.5 hover:bg-[#042F2E]/40 transition-colors">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
+            24h Volume
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-black tracking-tight text-[#FFFDF7]">
             {formatCurrency(volume24hUsd)}
-          </div>
+          </span>
         </div>
 
-        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all min-w-0">
-          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80 min-w-0">
-            <span className="truncate">Total Trades</span>
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#99F6E4] opacity-60 group-hover:opacity-100" />
-          </div>
-          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7] truncate">
+        <div className="flex flex-col justify-center px-4 py-3 sm:px-5 sm:py-3.5 hover:bg-[#042F2E]/40 transition-colors">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
+            Total Trades
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-black tracking-tight text-[#FFFDF7]">
             {formatNumber(tradeCount)}
-          </div>
+          </span>
         </div>
 
-        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all min-w-0">
-          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80 min-w-0">
-            <span className="truncate">Unique Wallets</span>
-            <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#A7F3D0] opacity-60 group-hover:opacity-100" />
-          </div>
-          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7] truncate">
+        <div className="flex flex-col justify-center px-4 py-3 sm:px-5 sm:py-3.5 hover:bg-[#042F2E]/40 transition-colors">
+          <span className="text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/75">
+            Unique Wallets
+          </span>
+          <span className="mt-1 text-lg sm:text-xl font-black tracking-tight text-[#FFFDF7]">
             {formatNumber(uniqueWallets)}
-          </div>
+          </span>
         </div>
       </div>
     </div>
