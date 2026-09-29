@@ -1,11 +1,11 @@
 import React from "react";
-import { Header } from "@/components/layout/Header";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
 
 export default function DocsLoading() {
   return (
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative pb-20 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 right-1/4 w-[750px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/10 to-transparent blur-[140px] pointer-events-none -z-10" />
-      <Header isAuthenticated={false} />
+      <GlobalHeader isAuthenticated={false} />
 
       <main className="max-w-5xl lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 relative z-10 animate-pulse">
         <div className="flex flex-col lg:flex-row gap-8 xl:gap-12 items-start">

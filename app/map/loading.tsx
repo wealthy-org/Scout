@@ -1,11 +1,11 @@
 import React from "react";
-import { Header } from "@/components/layout/Header";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
 
 export default function MapLoading() {
   return (
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] flex flex-col font-sans relative overflow-hidden pb-16 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 right-1/4 w-[700px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
-      <Header isAuthenticated={false} />
+      <GlobalHeader isAuthenticated={false} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col space-y-6 relative z-10 animate-pulse">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.2)] pb-6">

@@ -1,13 +1,13 @@
 import React from "react";
-import { Header } from "@/components/layout/Header";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
 
 export default function WatchlistLoading() {
   return (
-    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 selection:bg-[#FFD166] selection:text-[#042F2E]">
-      <div className="absolute top-0 right-1/4 w-[700px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[130px] pointer-events-none -z-10" />
-      <Header isAuthenticated={false} />
+    <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 sm:pb-24 selection:bg-[#FFD166] selection:text-[#042F2E]">
+      <div className="absolute top-0 right-1/3 w-[600px] h-[400px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[130px] pointer-events-none -z-10" />
+      <GlobalHeader isAuthenticated={false} />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-8 space-y-6 sm:space-y-8 animate-pulse relative z-10">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-6 sm:space-y-8 animate-pulse relative z-10">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.25)] pb-6">
           <div>
             <div className="flex items-center gap-3">

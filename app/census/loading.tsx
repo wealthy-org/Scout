@@ -1,16 +1,23 @@
 import React from "react";
-import { Header } from "@/components/layout/Header";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
 
 export default function CensusLoading() {
   return (
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 left-1/4 w-[700px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
-      <Header isAuthenticated={false} />
+      <GlobalHeader isAuthenticated={false} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 space-y-8 relative z-10 animate-pulse">
-        <div className="border-b border-[rgba(153,246,228,0.2)] pb-6 space-y-2">
-          <div className="h-9 w-96 max-w-full bg-[#064E4A] rounded-full" />
-          <div className="h-4 w-3/4 max-w-2xl bg-[#064E4A]/80 rounded-full" />
+        <div className="border-b border-[rgba(153,246,228,0.2)] pb-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="h-9 w-80 max-w-full bg-[#064E4A] rounded-full" />
+              <div className="h-6 w-32 bg-[#064E4A] rounded-full" />
+            </div>
+            <div className="h-4 w-3/4 max-w-2xl bg-[#064E4A]/80 rounded-full" />
+          </div>
+
+          <div className="h-8 w-36 bg-[#064E4A] rounded-full shrink-0" />
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5">

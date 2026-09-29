@@ -1,11 +1,12 @@
 import React from "react";
-import { Header } from "@/components/layout/Header";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
 
 export default function LibraryLoading() {
   return (
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] font-sans relative overflow-hidden pb-16 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 right-1/4 w-[700px] h-[450px] bg-gradient-to-b from-[#14B8A6]/20 via-[#99F6E4]/15 to-transparent blur-[130px] pointer-events-none -z-10" />
-      <Header isAuthenticated={false} />
+      <div className="absolute bottom-10 left-10 w-[500px] h-[500px] bg-gradient-to-tr from-[#FFD166]/15 via-[#C084FC]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
+      <GlobalHeader isAuthenticated={false} />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 relative z-10 space-y-6 sm:space-y-8 animate-pulse">
         <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[rgba(153,246,228,0.25)] pb-6">
@@ -25,7 +26,7 @@ export default function LibraryLoading() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3.5 sm:gap-5">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] space-y-2 h-24 shadow-sm">
+            <div key={i} className="rounded-2xl p-4 sm:p-5 bg-[#064E4A] border border-[rgba(153,246,228,0.25)] space-y-2 h-24 shadow-sm flex flex-col justify-between">
               <div className="h-3 w-20 bg-[#042F2E] rounded-full" />
               <div className="h-7 w-12 bg-[#042F2E] rounded-lg" />
             </div>

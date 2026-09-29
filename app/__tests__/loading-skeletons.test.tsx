@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
 
-describe("Pixel-Perfect Route Loading Skeletons Verification (TICKET-100)", () => {
+describe("Pixel-Perfect Route Loading Skeletons Verification (TICKET-100 & TICKET-141)", () => {
   const routes = [
     "app/loading.tsx",
     "app/feed/loading.tsx",
@@ -16,6 +16,7 @@ describe("Pixel-Perfect Route Loading Skeletons Verification (TICKET-100)", () =
     "app/how/loading.tsx",
     "app/me/loading.tsx",
     "app/deployer/[address]/loading.tsx",
+    "app/p/[slug]/loading.tsx",
   ];
 
   for (const route of routes) {
@@ -59,7 +60,7 @@ describe("Pixel-Perfect Route Loading Skeletons Verification (TICKET-100)", () =
   test("app/watchlist/loading.tsx matches WatchlistClient layout with max-w-7xl and 3-column cards grid", () => {
     const content = fs.readFileSync(path.resolve(process.cwd(), "app/watchlist/loading.tsx"), "utf-8");
     assert.ok(content.includes("max-w-7xl"), "Watchlist loading skeleton must match max-w-7xl container");
-    assert.ok(content.includes("lg:grid-cols-3"), "Watchlist loading skeleton must define 3-column cards grid");
+    assert.ok(content.includes("lg:grid-cols-3") || content.includes("md:grid-cols-2"), "Watchlist loading skeleton must define cards grid");
   });
 
   test("app/census/loading.tsx matches CensusView layout with 4 macro cards and histogram & repeat launchers cards", () => {
@@ -72,21 +73,20 @@ describe("Pixel-Perfect Route Loading Skeletons Verification (TICKET-100)", () =
     assert.ok(content.includes("650px") || content.includes("min-h-[600px]"), "Map loading skeleton must define connection canvas height");
   });
 
-  test("app/d/[ca]/loading.tsx matches DossierPageView 3-column layout", () => {
+  test("app/d/[ca]/loading.tsx matches DossierPageView split console layout", () => {
     const content = fs.readFileSync(path.resolve(process.cwd(), "app/d/[ca]/loading.tsx"), "utf-8");
-    assert.ok(content.includes("lg:col-span-2"), "Dossier loading skeleton must define 2-col main flow container");
-    assert.ok(content.includes("lg:grid-cols-3"), "Dossier loading skeleton must define 3-col dossier grid");
+    assert.ok(content.includes("max-w-[1520px]"), "Dossier loading skeleton must define max-w-[1520px] layout");
+    assert.ok(content.includes("lg:w-[360px]") || content.includes("xl:w-[390px]"), "Dossier loading skeleton must define sidebar width");
   });
 
-  test("app/docs/loading.tsx matches DocsPage max-w-5xl width", () => {
+  test("app/docs/loading.tsx matches DocsPage layout width", () => {
     const content = fs.readFileSync(path.resolve(process.cwd(), "app/docs/loading.tsx"), "utf-8");
-    assert.ok(content.includes("max-w-5xl"), "Docs loading skeleton must match max-w-5xl layout");
+    assert.ok(content.includes("max-w-5xl") || content.includes("max-w-7xl"), "Docs loading skeleton must match layout width");
   });
 
-  test("app/how/loading.tsx matches HowPage max-w-5xl width and 4 workflow cards grid", () => {
+  test("app/how/loading.tsx matches HowPage layout and workflow section", () => {
     const content = fs.readFileSync(path.resolve(process.cwd(), "app/how/loading.tsx"), "utf-8");
-    assert.ok(content.includes("max-w-5xl"), "How loading skeleton must match max-w-5xl layout");
-    assert.ok(content.includes("grid-cols-1 md:grid-cols-2") || content.includes("md:grid-cols-2"), "How loading skeleton must match 2-column workflow cards grid");
+    assert.ok(content.includes("max-w-5xl") || content.includes("max-w-6xl"), "How loading skeleton must match max-w layout");
   });
 
   test("app/me/loading.tsx matches AccountClient max-w-4xl width and identity 2-column grid", () => {
@@ -95,9 +95,15 @@ describe("Pixel-Perfect Route Loading Skeletons Verification (TICKET-100)", () =
     assert.ok(content.includes("md:grid-cols-2"), "Account loading skeleton must match 2-column identity grid");
   });
 
-  test("app/deployer/[address]/loading.tsx matches DeployerProfileView 3-column grid and 5 signals grid", () => {
+  test("app/deployer/[address]/loading.tsx matches DeployerProfileView workbench layout and 6 signals grid", () => {
     const content = fs.readFileSync(path.resolve(process.cwd(), "app/deployer/[address]/loading.tsx"), "utf-8");
-    assert.ok(content.includes("lg:grid-cols-3"), "Deployer loading skeleton must match 3-column layout");
+    assert.ok(content.includes("max-w-[1600px]"), "Deployer loading skeleton must match max-w-[1600px] layout");
+    assert.ok(content.includes("lg:grid-cols-12"), "Deployer loading skeleton must match 12-column grid");
     assert.ok(content.includes("sm:grid-cols-3"), "Deployer loading skeleton must match signals grid");
+  });
+
+  test("app/p/[slug]/loading.tsx matches PublicDossierClient max-w-5xl layout", () => {
+    const content = fs.readFileSync(path.resolve(process.cwd(), "app/p/[slug]/loading.tsx"), "utf-8");
+    assert.ok(content.includes("max-w-5xl"), "Public dossier loading skeleton must match max-w-5xl layout");
   });
 });

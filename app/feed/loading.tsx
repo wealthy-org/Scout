@@ -1,13 +1,13 @@
 import React from "react";
-import { Header } from "@/components/layout/Header";
+import { GlobalHeader } from "@/components/layout/GlobalHeader";
 
 export default function FeedLoading() {
   return (
     <div className="min-h-screen bg-[#0D746E] text-[#FFFDF7] flex flex-col font-sans relative overflow-hidden pb-16 selection:bg-[#FFD166] selection:text-[#042F2E]">
       <div className="absolute top-0 right-10 w-[700px] h-[400px] bg-gradient-to-b from-[#14B8A6]/25 via-[#99F6E4]/15 to-transparent blur-[140px] pointer-events-none -z-10" />
-      <Header isAuthenticated={false} />
+      <GlobalHeader isAuthenticated={false} />
 
-      <div className="w-full h-9 bg-[#064E4A]/90 border-b border-[rgba(153,246,228,0.2)] animate-pulse" />
+      <div className="w-full h-9 bg-[#042F2E] border-b border-[rgba(153,246,228,0.2)] animate-pulse" />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8 space-y-6 sm:space-y-8 relative z-10 animate-pulse">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
