@@ -92,9 +92,9 @@ export function DeployerProfileView({
 
       <GlobalHeader isAuthenticated={isAuthenticated} walletAddress={userAddress} />
 
-      <main className="flex-1 min-h-0 w-full max-w-[1600px] mx-auto px-3 sm:px-6 lg:px-8 py-2.5 sm:py-3.5 flex flex-col overflow-hidden relative z-10">
+      <main className="flex-1 min-h-0 w-full max-w-[1600px] mx-auto p-3 sm:p-6 lg:p-8 flex flex-col overflow-hidden relative z-10">
         <div className="w-full flex-1 min-h-0 flex flex-col rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#042F2E] overflow-hidden shadow-[0_15px_35px_rgba(4,47,46,0.65)] backdrop-blur-2xl">
-          <div className="px-4 sm:px-6 lg:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#064E4A] via-[#042F2E] to-[#042F2E] border-b border-[rgba(153,246,228,0.2)]">
+          <div className="p-4 sm:p-6 lg:p-8 bg-gradient-to-r from-[#064E4A] via-[#042F2E] to-[#042F2E] border-b border-[rgba(153,246,228,0.2)]">
             <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 lg:gap-8">
               <div className="space-y-2 min-w-0 flex-1">
                 <div className="flex items-center gap-2 flex-wrap">
@@ -189,7 +189,7 @@ export function DeployerProfileView({
             </div>
           </div>
 
-          <div className="px-4 sm:px-6 lg:px-8 py-2 bg-[#032221] border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between shrink-0">
+          <div className="p-3 sm:p-4 lg:p-5 bg-[#032221] border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between shrink-0">
             <div className="flex items-center gap-2">
               <span className="h-2 w-2 rounded-full bg-[#14B8A6] shadow-[0_0_6px_#14B8A6]" />
               <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
@@ -202,7 +202,7 @@ export function DeployerProfileView({
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 divide-y sm:divide-y-0 sm:divide-x divide-[rgba(153,246,228,0.15)] bg-[#042F2E] border-b border-[rgba(153,246,228,0.2)] shrink-0">
-            <div className="p-2.5 sm:p-3 lg:p-3.5 flex flex-col justify-between min-w-0">
+            <div className="p-3 sm:p-4 lg:p-5 flex flex-col justify-between min-w-0">
               <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#A7F3D0]/80">
                 Graduation Rate
               </span>
@@ -212,7 +212,7 @@ export function DeployerProfileView({
               <span className="text-[9px] sm:text-[10px] text-[#A7F3D0]/60 mt-0.5">Laplace smoothed</span>
             </div>
 
-            <div className="p-2.5 sm:p-3 lg:p-3.5 flex flex-col justify-between min-w-0">
+            <div className="p-3 sm:p-4 lg:p-5 flex flex-col justify-between min-w-0">
               <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#FF6B6B]/90">
                 DOA Rate
               </span>
@@ -222,7 +222,7 @@ export function DeployerProfileView({
               <span className="text-[9px] sm:text-[10px] text-[#A7F3D0]/60 mt-0.5">&lt;10m activity</span>
             </div>
 
-            <div className="p-2.5 sm:p-3 lg:p-3.5 flex flex-col justify-between min-w-0">
+            <div className="p-3 sm:p-4 lg:p-5 flex flex-col justify-between min-w-0">
               <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#FFD166]/90">
                 Burst Rate
               </span>
@@ -232,7 +232,7 @@ export function DeployerProfileView({
               <span className="text-[9px] sm:text-[10px] text-[#A7F3D0]/60 mt-0.5">&lt;30m cluster</span>
             </div>
 
-            <div className="p-2.5 sm:p-3 lg:p-3.5 flex flex-col justify-between min-w-0">
+            <div className="p-3 sm:p-4 lg:p-5 flex flex-col justify-between min-w-0">
               <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#A7F3D0]/80">
                 Total Launches
               </span>
@@ -242,7 +242,7 @@ export function DeployerProfileView({
               <span className="text-[9px] sm:text-[10px] text-[#A7F3D0]/60 mt-0.5">Genesis tokens</span>
             </div>
 
-            <div className="p-2.5 sm:p-3 lg:p-3.5 flex flex-col justify-between min-w-0">
+            <div className="p-3 sm:p-4 lg:p-5 flex flex-col justify-between min-w-0">
               <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#99F6E4]/90">
                 Graduated Count
               </span>
@@ -252,7 +252,7 @@ export function DeployerProfileView({
               <span className="text-[9px] sm:text-[10px] text-[#A7F3D0]/60 mt-0.5">Bonding completed</span>
             </div>
 
-            <div className="p-2.5 sm:p-3 lg:p-3.5 flex flex-col justify-between min-w-0">
+            <div className="p-3 sm:p-4 lg:p-5 flex flex-col justify-between min-w-0">
               <span className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wider text-[#A7F3D0]/80">
                 Penalty Multiplier
               </span>
@@ -265,7 +265,7 @@ export function DeployerProfileView({
             </div>
           </div>
 
-          <div className="px-4 sm:px-6 lg:px-8 py-1.5 bg-[#032221]/80 border-b border-[rgba(153,246,228,0.15)] shrink-0">
+          <div className="p-3 sm:p-4 lg:p-5 bg-[#032221]/80 border-b border-[rgba(153,246,228,0.15)] shrink-0">
             <button
               type="button"
               onClick={() => setWhyOpen(!whyOpen)}
@@ -292,7 +292,7 @@ export function DeployerProfileView({
           </div>
 
           <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
-            <div className="px-4 sm:px-6 lg:px-8 py-2 bg-[#032221] border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between shrink-0">
+            <div className="p-3 sm:p-4 lg:p-5 bg-[#032221] border-b border-[rgba(153,246,228,0.15)] flex items-center justify-between shrink-0">
               <div className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-[#FFD166] shadow-[0_0_6px_#FFD166]" />
                 <h2 className="font-mono text-xs font-bold uppercase tracking-wider text-[#FFFDF7]">
@@ -313,11 +313,11 @@ export function DeployerProfileView({
                 <table className="w-full text-xs sm:text-[13px] font-mono border-collapse">
                   <thead className="sticky top-0 bg-[#032221] z-10 shadow-xs">
                     <tr className="border-b border-[rgba(153,246,228,0.15)] text-left text-[#A7F3D0] font-bold uppercase text-[10px] sm:text-[11px]">
-                      <th className="py-2.5 px-4 sm:px-6 lg:px-8">#</th>
-                      <th className="py-2.5 px-4 sm:px-6 lg:px-8">Token Contract</th>
-                      <th className="py-2.5 px-4 sm:px-6 lg:px-8">Block</th>
-                      <th className="py-2.5 px-4 sm:px-6 lg:px-8">Phase Status</th>
-                      <th className="py-2.5 px-4 sm:px-6 lg:px-8 text-right">Action</th>
+                      <th className="p-3 sm:p-4 lg:p-5">#</th>
+                      <th className="p-3 sm:p-4 lg:p-5">Token Contract</th>
+                      <th className="p-3 sm:p-4 lg:p-5">Block</th>
+                      <th className="p-3 sm:p-4 lg:p-5">Phase Status</th>
+                      <th className="p-3 sm:p-4 lg:p-5 text-right">Action</th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-[rgba(153,246,228,0.08)]">
@@ -326,8 +326,8 @@ export function DeployerProfileView({
                         key={l.tokenAddress}
                         className="hover:bg-[#064E4A]/40 transition-colors even:bg-[#032221]/20"
                       >
-                        <td className="py-2.5 px-4 sm:px-6 lg:px-8 text-[#A7F3D0]/60">{idx + 1}</td>
-                        <td className="py-2.5 px-4 sm:px-6 lg:px-8 font-bold">
+                        <td className="p-3 sm:p-4 lg:p-5 text-[#A7F3D0]/60">{idx + 1}</td>
+                        <td className="p-3 sm:p-4 lg:p-5 font-bold">
                           <Link
                             href={`/d/${l.tokenAddress}`}
                             className="text-[#99F6E4] hover:text-[#FFFDF7] hover:underline"
@@ -335,8 +335,8 @@ export function DeployerProfileView({
                             {l.tokenAddress}
                           </Link>
                         </td>
-                        <td className="py-2.5 px-4 sm:px-6 lg:px-8 text-[#A7F3D0]">{`#${l.block.toLocaleString()}`}</td>
-                        <td className="py-2.5 px-4 sm:px-6 lg:px-8">
+                        <td className="p-3 sm:p-4 lg:p-5 text-[#A7F3D0]">{`#${l.block.toLocaleString()}`}</td>
+                        <td className="p-3 sm:p-4 lg:p-5">
                           <span
                             className={`text-[10px] sm:text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full ${
                               l.phase === "graduated"
@@ -349,7 +349,7 @@ export function DeployerProfileView({
                             {l.phase}
                           </span>
                         </td>
-                        <td className="py-2.5 px-4 sm:px-6 lg:px-8 text-right">
+                        <td className="p-3 sm:p-4 lg:p-5 text-right">
                           <Link
                             href={`/d/${l.tokenAddress}`}
                             className="inline-flex items-center gap-1.5 text-xs sm:text-[13px] font-bold text-[#99F6E4] hover:text-[#FFFDF7] transition-colors"
