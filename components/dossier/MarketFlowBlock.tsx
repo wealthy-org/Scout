@@ -35,72 +35,82 @@ export function MarketFlowBlock({
   const isCompleted = (curveProgressPct ?? 0) >= 100;
 
   return (
-    <div className="grid grid-cols-2 gap-3.5 sm:grid-cols-3 lg:grid-cols-6 font-sans select-none">
-      <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-[#99F6E4]">
-          Market Cap
-        </span>
-        <div className="mt-1 text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-          {formatCurrency(marketCapUsd)}
+    <div className="rounded-2xl border border-[rgba(153,246,228,0.2)] bg-[#064E4A] p-2.5 sm:p-3 shadow-[0_8px_24px_-6px_rgba(4,47,46,0.5)] backdrop-blur-xl font-sans select-none">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-2.5">
+        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all">
+          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80">
+            <span>Market Cap</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#99F6E4] opacity-60 group-hover:opacity-100" />
+          </div>
+          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7]">
+            {formatCurrency(marketCapUsd)}
+          </div>
         </div>
-      </div>
 
-      <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-[#C084FC]">
-          All-Time High (ATH)
-        </span>
-        <div className="mt-1 text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-          {formatCurrency(athUsd)}
+        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all">
+          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80">
+            <span>All-Time High (ATH)</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#C084FC] opacity-60 group-hover:opacity-100" />
+          </div>
+          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7]">
+            {formatCurrency(athUsd)}
+          </div>
         </div>
-      </div>
 
-      <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-        <div className="flex items-center justify-between">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-[#99F6E4]">
-            Curve Progress
-          </span>
-          <span className="text-xs font-black text-[#99F6E4]">
-            {curveProgressPct !== null && curveProgressPct !== undefined
-              ? `${curveProgressPct.toFixed(1)}%`
-              : "N/A"}
-          </span>
+        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all">
+          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80">
+            <span>Curve Progress</span>
+            <span className="text-[10px] font-extrabold text-[#99F6E4]">
+              {isCompleted ? "Graduated" : `${progress.toFixed(0)}%`}
+            </span>
+          </div>
+          <div className="mt-1 flex flex-col gap-1.5">
+            <div className="text-base sm:text-lg font-black tracking-tight text-[#99F6E4]">
+              {curveProgressPct !== null && curveProgressPct !== undefined
+                ? `${curveProgressPct.toFixed(1)}%`
+                : "N/A"}
+            </div>
+            <div className="h-1.5 w-full rounded-full bg-[#064E4A] overflow-hidden border border-[rgba(153,246,228,0.15)]">
+              <div
+                className={`h-full rounded-full transition-all duration-500 ${
+                  isCompleted
+                    ? "bg-[#99F6E4] shadow-[0_0_8px_rgba(153,246,228,0.7)]"
+                    : "bg-gradient-to-r from-[#FFD166] to-[#99F6E4]"
+                }`}
+                style={{ width: `${progress}%` }}
+              />
+            </div>
+          </div>
         </div>
-        <div className="mt-2.5 h-2 w-full rounded-full bg-[#042F2E] overflow-hidden">
-          <div
-            className={`h-full rounded-full transition-all duration-300 ${
-              isCompleted
-                ? "bg-[#99F6E4] shadow-[0_0_8px_rgba(153,246,228,0.6)]"
-                : "bg-gradient-to-r from-[#FFD166] to-[#FF9F43]"
-            }`}
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-      </div>
 
-      <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-[#FFD166]">
-          24h Volume
-        </span>
-        <div className="mt-1 text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-          {formatCurrency(volume24hUsd)}
+        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all">
+          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80">
+            <span>24h Volume</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#FFD166] opacity-60 group-hover:opacity-100" />
+          </div>
+          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7]">
+            {formatCurrency(volume24hUsd)}
+          </div>
         </div>
-      </div>
 
-      <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-[#A7F3D0]">
-          Total Trades
-        </span>
-        <div className="mt-1 text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-          {formatNumber(tradeCount)}
+        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all">
+          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80">
+            <span>Total Trades</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#99F6E4] opacity-60 group-hover:opacity-100" />
+          </div>
+          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7]">
+            {formatNumber(tradeCount)}
+          </div>
         </div>
-      </div>
 
-      <div className="rounded-2xl border border-[rgba(153,246,228,0.25)] bg-[#064E4A] p-4 shadow-[0_10px_25px_-5px_rgba(4,47,46,0.5)] backdrop-blur-xl">
-        <span className="text-[11px] font-semibold uppercase tracking-wider text-[#A7F3D0]">
-          Unique Wallets
-        </span>
-        <div className="mt-1 text-lg sm:text-xl font-black text-[#FFFDF7] tracking-tight">
-          {formatNumber(uniqueWallets)}
+        <div className="group flex flex-col justify-between rounded-xl border border-[rgba(153,246,228,0.12)] bg-[#042F2E]/60 p-2.5 sm:p-3 hover:border-[rgba(153,246,228,0.3)] hover:bg-[#042F2E]/90 transition-all">
+          <div className="flex items-center justify-between gap-1 text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#A7F3D0]/80">
+            <span>Unique Wallets</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-[#A7F3D0] opacity-60 group-hover:opacity-100" />
+          </div>
+          <div className="mt-1 text-base sm:text-lg font-black tracking-tight text-[#FFFDF7]">
+            {formatNumber(uniqueWallets)}
+          </div>
         </div>
       </div>
     </div>
