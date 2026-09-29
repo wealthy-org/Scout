@@ -193,6 +193,7 @@ export function WalletMap({
             const isBuyer = b.netFlow >= 0;
             const fill = isBuyer ? "#99F6E4" : "#FF6B6B";
             const shortAddr = `${b.address.slice(0, 4)}..${b.address.slice(-2)}`;
+            const isHovered = hovered?.address.toLowerCase() === b.address.toLowerCase();
 
             return (
               <g
@@ -203,6 +204,13 @@ export function WalletMap({
                 onClick={() => handleCopy(b.address)}
                 className="cursor-grab active:cursor-grabbing"
               >
+                <circle
+                  cx={b.cx}
+                  cy={b.cy}
+                  r={b.r + 6}
+                  fill="transparent"
+                />
+
                 {b.isDeployer && (
                   <circle
                     cx={b.cx}
@@ -212,18 +220,18 @@ export function WalletMap({
                     stroke="#FFD166"
                     strokeWidth="2.5"
                     strokeDasharray="4 3"
-                    className="animate-spin-slow"
+                    className="animate-spin-slow pointer-events-none"
                   />
                 )}
 
                 <circle
                   cx={b.cx}
                   cy={b.cy}
-                  r={b.r}
+                  r={isHovered ? b.r + 3 : b.r}
                   fill={fill}
-                  stroke="#042F2E"
-                  strokeWidth="2"
-                  className="transition-transform duration-75 hover:scale-110"
+                  stroke={isHovered ? "#FFFDF7" : "#042F2E"}
+                  strokeWidth={isHovered ? 2.5 : 2}
+                  className="pointer-events-none transition-all duration-150"
                 />
 
                 {b.r >= 18 && (
@@ -232,7 +240,7 @@ export function WalletMap({
                     y={b.cy + 3.5}
                     textAnchor="middle"
                     fill="#042F2E"
-                    className="pointer-events-none font-mono text-[9px] font-bold"
+                    className="pointer-events-none font-mono text-[9px] font-bold select-none"
                   >
                     {shortAddr}
                   </text>

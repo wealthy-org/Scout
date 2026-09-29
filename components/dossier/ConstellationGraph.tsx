@@ -231,6 +231,7 @@ export function ConstellationGraph({
             if (!src || !tgt) return null;
 
             const isConfirmed = edge.type === "confirmed";
+            const isHovered = hoveredEdge === edge;
 
             return (
               <g
@@ -244,66 +245,87 @@ export function ConstellationGraph({
                   y1={src.cy}
                   x2={tgt.cx}
                   y2={tgt.cy}
-                  stroke={isConfirmed ? "#99F6E4" : "#C084FC"}
-                  strokeWidth={isConfirmed ? 2 : 1.5}
+                  stroke="transparent"
+                  strokeWidth={14}
+                />
+                <line
+                  x1={src.cx}
+                  y1={src.cy}
+                  x2={tgt.cx}
+                  y2={tgt.cy}
+                  stroke={isHovered ? "#FFFDF7" : isConfirmed ? "#99F6E4" : "#C084FC"}
+                  strokeWidth={isHovered ? 3 : isConfirmed ? 2 : 1.5}
                   strokeDasharray={isConfirmed ? undefined : "4 4"}
-                  className="transition-colors hover:stroke-white"
-                  opacity={0.7}
+                  className="pointer-events-none transition-colors duration-150"
+                  opacity={isHovered ? 1 : 0.7}
                 />
               </g>
             );
           })}
 
-          {layoutNodes.map((n) => (
-            <g
-              key={n.contractAddress}
-              onPointerDown={(e) => handlePointerDown(n.contractAddress, n, e)}
-              onMouseEnter={() => setHoveredNode(n)}
-              onMouseLeave={() => setHoveredNode(null)}
-              className="cursor-grab active:cursor-grabbing"
-            >
-              {n.isCurrent && (
+          {layoutNodes.map((n) => {
+            const isHovered =
+              hoveredNode?.contractAddress.toLowerCase() ===
+              n.contractAddress.toLowerCase();
+
+            return (
+              <g
+                key={n.contractAddress}
+                onPointerDown={(e) => handlePointerDown(n.contractAddress, n, e)}
+                onMouseEnter={() => setHoveredNode(n)}
+                onMouseLeave={() => setHoveredNode(null)}
+                className="cursor-grab active:cursor-grabbing"
+              >
                 <circle
                   cx={n.cx}
                   cy={n.cy}
-                  r={n.r + 5}
-                  fill="none"
-                  stroke="#FFFDF7"
-                  strokeWidth="2.5"
-                  className="animate-pulse"
+                  r={n.r + 6}
+                  fill="transparent"
                 />
-              )}
 
-              <circle
-                cx={n.cx}
-                cy={n.cy}
-                r={n.r}
-                fill={n.color}
-                stroke="#042F2E"
-                strokeWidth="2"
-                className="transition-transform duration-75 hover:scale-110"
-              />
+                {n.isCurrent && (
+                  <circle
+                    cx={n.cx}
+                    cy={n.cy}
+                    r={n.r + 5}
+                    fill="none"
+                    stroke="#FFFDF7"
+                    strokeWidth="2.5"
+                    className="animate-pulse pointer-events-none"
+                  />
+                )}
 
-              <text
-                x={n.cx}
-                y={n.cy + 3.5}
-                textAnchor="middle"
-                fill="#042F2E"
-                className="pointer-events-none font-mono text-[10px] font-bold"
-              >
-                ${n.symbol.slice(0, 5)}
-              </text>
+                <circle
+                  cx={n.cx}
+                  cy={n.cy}
+                  r={isHovered ? n.r + 3 : n.r}
+                  fill={n.color}
+                  stroke={isHovered ? "#FFFDF7" : "#042F2E"}
+                  strokeWidth={isHovered ? 2.5 : 2}
+                  className="pointer-events-none transition-all duration-150"
+                />
 
-              <text
-                x={n.cx}
-                y={n.cy + n.r + 12}
-                textAnchor="middle"
-                className="pointer-events-none fill-[#FFFDF7] font-sans text-[10px] font-semibold"
-              >
-                ${n.symbol}
-              </text>
-            </g>
-          ))}
+                <text
+                  x={n.cx}
+                  y={n.cy + 3.5}
+                  textAnchor="middle"
+                  fill="#042F2E"
+                  className="pointer-events-none font-mono text-[10px] font-bold select-none"
+                >
+                  ${n.symbol.slice(0, 5)}
+                </text>
+
+                <text
+                  x={n.cx}
+                  y={n.cy + n.r + 12}
+                  textAnchor="middle"
+                  className="pointer-events-none fill-[#FFFDF7] font-sans text-[10px] font-semibold select-none"
+                >
+                  ${n.symbol}
+                </text>
+              </g>
+            );
+          })}
         </svg>
 
         {hoveredNode && (
