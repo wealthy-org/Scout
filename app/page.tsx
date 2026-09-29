@@ -40,7 +40,10 @@ export default async function HomePage() {
         .limit(1);
 
       if (records && records.length > 0 && records[0].payloadJson) {
-        stats = records[0].payloadJson as unknown as CensusPayload;
+        const raw = records[0].payloadJson as Record<string, unknown>;
+        if (typeof raw?.total_launches === "number" && typeof raw?.unique_deployers === "number") {
+          stats = raw as unknown as CensusPayload;
+        }
       }
 
       const latestDossiers = await db

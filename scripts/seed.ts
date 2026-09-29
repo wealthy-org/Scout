@@ -316,10 +316,34 @@ export const mockData = {
     headBlock: 27030000,
     totalLaunches: 150,
     uniqueDeployers: 42,
-    repeatShare: '0.28',
+    repeatShare: '28.00',
     payloadJson: {
-      activeTokens: 12,
-      graduatedTokens: 8
+      total_launches: 150,
+      unique_deployers: 42,
+      repeat_share: 28.0,
+      head_block: 27030000,
+      repeat_launchers: [
+        {
+          deployerAddress: '0xd111111111111111111111111111111111111111',
+          totalLaunches: 5,
+          graduatedCount: 4,
+          score: 85,
+          band: 'green',
+          label: 'repeat',
+        },
+        {
+          deployerAddress: '0xd333333333333333333333333333333333333333',
+          totalLaunches: 10,
+          graduatedCount: 0,
+          score: 12,
+          band: 'red',
+          label: 'serial',
+        },
+      ],
+      launches_by_block: [
+        { blockRange: '27.0M - 27.1M', count: 150 },
+      ],
+      computed_at: new Date().toISOString(),
     }
   }
 };
