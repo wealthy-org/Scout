@@ -47,4 +47,34 @@ describe("Responsive Compact 2-Column Grid Layouts (TICKET-88)", () => {
       "Library dossier cards must render in 2-column compact grid on tablet/mobile viewports"
     );
   });
+
+  test("LandingClient hero planet animation must use adaptive multi-breakpoint classes for mobile, tablet, and desktop", () => {
+    const mockStats = {
+      total_launches: 100,
+      unique_deployers: 50,
+      repeat_share: 25.0,
+      head_block: 27000000,
+      repeat_launchers: [],
+      launches_by_block: [],
+      computed_at: new Date().toISOString(),
+    };
+
+    const html = renderToString(<LandingClient stats={mockStats} />);
+    assert.ok(
+      html.includes("orbit-system") &&
+      html.includes("w-[300px] sm:w-[410px] lg:w-[480px]") &&
+      html.includes("h-[300px] sm:h-[410px] lg:h-[480px]"),
+      "Hero orbit system container must scale across mobile (300px), tablet (410px), and desktop (480px)"
+    );
+
+    assert.ok(
+      html.includes("w-28 h-28 sm:w-36 sm:h-36 lg:w-48 lg:h-48"),
+      "Hero central planetary core must use proportional responsive dimensions"
+    );
+
+    assert.ok(
+      html.includes("w-[136px] sm:w-[175px] lg:w-[205px]"),
+      "Hero orbiting cards must use compact width to prevent horizontal clipping on mobile"
+    );
+  });
 });

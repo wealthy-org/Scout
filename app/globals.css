@@ -301,57 +301,57 @@ textarea:focus-visible {
 
 @keyframes orbit-3d-planet {
   0% {
-    transform: translate(calc(-50% + 0px), calc(-50% - var(--orbit-ry, 90px))) scale(0.78);
+    transform: translate(calc(-50% + 0px), calc(-50% - var(--orbit-ry, 90px))) scale(0.74);
     z-index: 5;
-    opacity: 0.72;
+    opacity: 0.70;
     filter: drop-shadow(0 4px 10px rgba(4, 47, 46, 0.4));
   }
   12.5% {
-    transform: translate(calc(-50% + calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% - calc(var(--orbit-ry, 90px) * 0.707))) scale(0.86);
+    transform: translate(calc(-50% + calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% - calc(var(--orbit-ry, 90px) * 0.707))) scale(0.84);
     z-index: 10;
-    opacity: 0.84;
+    opacity: 0.82;
     filter: drop-shadow(0 6px 14px rgba(4, 47, 46, 0.5));
   }
   25% {
-    transform: translate(calc(-50% + var(--orbit-rx, 200px)), calc(-50% + 0px)) scale(0.96);
+    transform: translate(calc(-50% + var(--orbit-rx, 200px)), calc(-50% + 0px)) scale(0.95);
     z-index: 25;
     opacity: 0.94;
     filter: drop-shadow(0 10px 20px rgba(4, 47, 46, 0.6));
   }
   37.5% {
-    transform: translate(calc(-50% + calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% + calc(var(--orbit-ry, 90px) * 0.707))) scale(1.05);
+    transform: translate(calc(-50% + calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% + calc(var(--orbit-ry, 90px) * 0.707))) scale(1.04);
     z-index: 38;
     opacity: 1;
     filter: drop-shadow(0 14px 25px rgba(4, 47, 46, 0.7));
   }
   50% {
-    transform: translate(calc(-50% + 0px), calc(-50% + var(--orbit-ry, 90px))) scale(1.1);
+    transform: translate(calc(-50% + 0px), calc(-50% + var(--orbit-ry, 90px))) scale(1.08);
     z-index: 45;
     opacity: 1;
     filter: drop-shadow(0 18px 30px rgba(4, 47, 46, 0.8));
   }
   62.5% {
-    transform: translate(calc(-50% - calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% + calc(var(--orbit-ry, 90px) * 0.707))) scale(1.05);
+    transform: translate(calc(-50% - calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% + calc(var(--orbit-ry, 90px) * 0.707))) scale(1.04);
     z-index: 38;
     opacity: 1;
     filter: drop-shadow(0 14px 25px rgba(4, 47, 46, 0.7));
   }
   75% {
-    transform: translate(calc(-50% - var(--orbit-rx, 200px)), calc(-50% + 0px)) scale(0.96);
+    transform: translate(calc(-50% - var(--orbit-rx, 200px)), calc(-50% + 0px)) scale(0.95);
     z-index: 25;
     opacity: 0.94;
     filter: drop-shadow(0 10px 20px rgba(4, 47, 46, 0.6));
   }
   87.5% {
-    transform: translate(calc(-50% - calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% - calc(var(--orbit-ry, 90px) * 0.707))) scale(0.86);
+    transform: translate(calc(-50% - calc(var(--orbit-rx, 200px) * 0.707)), calc(-50% - calc(var(--orbit-ry, 90px) * 0.707))) scale(0.84);
     z-index: 10;
-    opacity: 0.84;
+    opacity: 0.82;
     filter: drop-shadow(0 6px 14px rgba(4, 47, 46, 0.5));
   }
   100% {
-    transform: translate(calc(-50% + 0px), calc(-50% - var(--orbit-ry, 90px))) scale(0.78);
+    transform: translate(calc(-50% + 0px), calc(-50% - var(--orbit-ry, 90px))) scale(0.74);
     z-index: 5;
-    opacity: 0.72;
+    opacity: 0.70;
     filter: drop-shadow(0 4px 10px rgba(4, 47, 46, 0.4));
   }
 }
@@ -375,23 +375,23 @@ textarea:focus-visible {
 }
 
 .orbit-system {
-  --orbit-rx: 150px;
-  --orbit-ry: 68px;
+  --orbit-rx: 96px;
+  --orbit-ry: 74px;
   perspective: 1200px;
   transform-style: preserve-3d;
 }
 
 @media (min-width: 640px) {
   .orbit-system {
-    --orbit-rx: 190px;
-    --orbit-ry: 82px;
+    --orbit-rx: 165px;
+    --orbit-ry: 98px;
   }
 }
 
 @media (min-width: 1024px) {
   .orbit-system {
     --orbit-rx: 215px;
-    --orbit-ry: 92px;
+    --orbit-ry: 110px;
   }
 }
 

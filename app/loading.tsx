@@ -29,11 +29,11 @@ export default function RootLoading() {
             </div>
 
             <div className="lg:col-span-5 relative flex items-center justify-center pt-8 lg:pt-0">
-              <div className="w-full max-w-[420px] aspect-square rounded-full bg-[#064E4A]/80 border-2 border-[#042F2E] relative flex items-center justify-center shadow-[6px_6px_0px_#042F2E]">
-                <div className="w-44 h-44 rounded-full bg-[#042F2E]" />
-                <div className="absolute -top-2 -left-2 h-9 w-44 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)]" />
-                <div className="absolute top-1/2 -right-4 h-9 w-40 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)]" />
-                <div className="absolute -bottom-4 -left-2 h-9 w-36 rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)]" />
+              <div className="w-[300px] sm:w-[410px] lg:w-[480px] h-[300px] sm:h-[410px] lg:h-[480px] rounded-full bg-[#064E4A]/80 border-2 border-[#042F2E] relative flex items-center justify-center shadow-[6px_6px_0px_#042F2E]">
+                <div className="w-28 h-28 sm:w-36 sm:h-36 lg:w-48 lg:h-48 rounded-full bg-[#042F2E]" />
+                <div className="absolute -top-2 -left-2 h-7 sm:h-8 lg:h-9 w-28 sm:w-36 lg:w-44 rounded-xl sm:rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)]" />
+                <div className="absolute top-1/2 -right-3 h-7 sm:h-8 lg:h-9 w-28 sm:w-36 lg:w-40 rounded-xl sm:rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)]" />
+                <div className="absolute -bottom-3 -left-2 h-7 sm:h-8 lg:h-9 w-28 sm:w-32 lg:w-36 rounded-xl sm:rounded-2xl bg-[#042F2E] border border-[rgba(153,246,228,0.25)]" />
               </div>
             </div>
           </div>
